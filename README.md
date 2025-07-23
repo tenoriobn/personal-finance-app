@@ -1,75 +1,58 @@
-# Nuxt Minimal Starter
+# Personal Finance App
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Aplicação web para gestão de finanças pessoais, construída com Nuxt 3, Tailwind CSS e SSG.
 
-## Setup
+## Funcionalidades
 
-Make sure to install dependencies:
+- Visão geral rápida dos dados financeiros pessoais  
+- Página de transações com paginação (10 por página)  
+- Pesquisa, ordenação e filtragem de transações  
+- CRUD de orçamentos e cofres de poupança  
+- Visualização das últimas transações por categoria  
+- Monitoramento do progresso dos cofres  
+- Adição e retirada de valores nos cofres  
+- Gerenciamento e visualização de contas recorrentes  
+- Navegação completa por teclado para acessibilidade  
+- Layout responsivo para dispositivos móveis, tablets e desktop  
+
+## Tecnologias e Ferramentas
+
+- **Nuxt 3** com **SSG** para melhor performance e SEO  
+- **Tailwind CSS** para estilização rápida e responsiva  
+- **TypeScript** para tipagem segura  
+- **Pinia** — Gerenciador de estado moderno e oficial do Vue  
+- **VueUse** — Coleção de composables úteis para lógica reativa e hooks  
+- **Motion One** — Biblioteca para animações performáticas  
+- **Nuxt Auth** ou implementação manual com middleware e JWT para autenticação  
+- **ESLint** com plugin stylistic para qualidade de código  
+
+## Como rodar o projeto
 
 ```bash
-# npm
+# Instalar dependências
 npm install
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
+# Rodar em modo desenvolvimento
 npm run dev
 
-# pnpm
-pnpm dev
+# Build para produção (SSG)
+npm run generate
 
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
+# Preview do build estático
 npm run preview
 
-# pnpm
-pnpm preview
+# Verificar qualidade do código
+npm run lint
 
-# yarn
-yarn preview
-
-# bun
-bun run preview
+# Corrigir problemas de lint automaticamente
+npm run lint:fix
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Links úteis
+
+- [Site em produção](https://eduardo-marketing-digital.vercel.app/)
+
+
+## Preview
+
+![Design para desktop](./public/images/design/desktop-preview.jpg)
