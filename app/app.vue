@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtRouteAnnouncer />
-    <p>Olá mundo</p>
+    <p class="text-9xl text-slate-600">Olá mundo</p>
   </div>
 </template>
 
