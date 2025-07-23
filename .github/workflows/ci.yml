@@ -1,0 +1,56 @@
+name: 'CI + Preview Deploy (Nuxt)'
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions: 
+  pull-requests: write
+  contents: read
+
+jobs:
+  validate:
+    name: Validar Código e Deploy Preview
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Rodar Linter
+        run: npm run lint
+      
+      - name: Build Nuxt
+        run: npm run build
+
+      - name: Iniciar Preview (verifica se o projeto sobe corretamente)
+        run: |
+          nohup npm run preview &  # preview = nuxi preview
+          npx wait-on http://localhost:3000 --timeout 60000
+        
+      - name: Deploy Preview com Comentário no PR
+        id: vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+          working-directory: .
+      
+      - name: Comentar Preview no Pull Request
+        if: success()
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: |
+            🚀 **Preview Deployment**:
+            ✅ [Acesse a preview da aplicação aqui](${{ steps.vercel.outputs.preview-url }})
