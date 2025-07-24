@@ -4,10 +4,13 @@ export default {
   theme: {
     extend: {
       screens: {
-        sm: '375px',
-        md: '768px',
-        lg: '992px',
-        xl: '1440px',
+        'sm': '375px',
+        'md': '768px',
+        'lg': '992px',
+        'xl': '1440px',
+        'max-md': { max: '767px' },
+        'max-lg': { max: '991px' },
+        'max-xl': { max: '1439px' },
       },
       colors: {
         'beige': {
@@ -41,7 +44,7 @@ export default {
         'white': 'hsl(0, 0%, 100%)',
       },
       fontFamily: {
-        primary: ['"Public Sans"', 'sans-serif'],
+        publicSans: ['"Public Sans"', 'sans-serif'],
       },
       fontSize: {
         'text-32xl': '2rem',
