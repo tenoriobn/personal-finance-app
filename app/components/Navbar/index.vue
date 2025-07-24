@@ -7,30 +7,26 @@
     </div>
 
     <ul class="max-lg:flex">
-      <li
+      <NuxtLink
         v-for="{ to, label, icon } in navLinks"
         :key="to"
-        class="w-full flex max-lg:place-content-center max-lg:rounded-t-lg lg:rounded-r-2xl max-lg:border-b-4 lg:border-l-4 p-3 lg:pl-8"
+        :to="to"
+        class="group flex items-center max-lg:justify-center md:max-lg:flex-col md:max-lg:gap-2 lg:gap-6 max-lg:rounded-t-lg lg:rounded-r-2xl max-lg:border-b-4 lg:border-l-4 p-3 lg:pl-8 w-full"
         :class="route.path === to ? 'border-green bg-beige-100' : 'border-grey-900'"
       >
-        <NuxtLink
-          :to="to"
-          class="group flex items-center md:max-lg:flex-col md:max-lg:gap-2 lg:gap-6"
-        >
-          <component
-            :is="icon"
-            class="duration-500"
-            :class="route.path === to ? 'fill-green' : 'fill-grey-300 group-hover:fill-grey-100'"
-          />
+        <component
+          :is="icon"
+          class="duration-500"
+          :class="route.path === to ? 'fill-green' : 'fill-grey-300 group-hover:fill-grey-100'"
+        />
 
-          <span
-            class="hidden max-lg:text-xs md:block font-bold duration-500"
-            :class="route.path === to ? 'text-grey-900' : 'text-grey-300 group-hover:text-grey-100'"
-          >
-            {{ label }}
-          </span>
-        </NuxtLink>
-      </li>
+        <span
+          class="hidden max-lg:text-xs md:block font-bold duration-500"
+          :class="route.path === to ? 'text-grey-900' : 'text-grey-300 group-hover:text-grey-100'"
+        >
+          {{ label }}
+        </span>
+      </NuxtLink>
     </ul>
 
     <button class="group hidden lg:flex items-center gap-5 font-bold  hover:text-grey-100 lg:mx-[2.25rem] transition-colors">
