@@ -27,6 +27,7 @@ export default {
           900: 'hsl(252, 7%, 13%)',
         },
         'green': 'hsl(177, 52%, 32%)',
+        'green-transparent': 'hsla(175, 51%, 45%, 1)',
         'yellow': 'hsl(28, 73%, 81%)',
         'cyan': 'hsl(190, 52%, 68%)',
         'navy': 'hsl(248, 8%, 41%)',
