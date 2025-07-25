@@ -1,38 +1,67 @@
 <template>
   <nav
-    class="bg-grey-900 max-lg:fixed max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:rounded-t-lg max-lg:pt-2 max-md:px-4 md:max-lg:px-10 lg:rounded-r-2xl lg:py-10 lg:pr-6 lg:grid lg:grid-rows-[auto_1fr_auto] gap-16"
+    class="duration-500 ease-in-out"
+    :class="isCollapsed ? 'lg:w-[100px]' : 'lg:w-[252px] xl:w-[300px]'"
   >
-    <div class="max-lg:hidden lg:px-[2.25rem]">
-      <Logo />
-    </div>
-
-    <ul class="max-lg:flex">
-      <NuxtLink
-        v-for="{ to, label, icon } in navLinks"
-        :key="to"
-        :to="to"
-        class="group flex items-center max-lg:justify-center md:max-lg:flex-col md:max-lg:gap-2 lg:gap-6 max-lg:rounded-t-lg lg:rounded-r-2xl max-lg:border-b-4 lg:border-l-4 p-3 lg:pl-8 w-full"
-        :class="route.path === to ? 'border-green bg-beige-100' : 'border-grey-900'"
+    <div
+      class="bg-grey-900 fixed max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:rounded-t-lg max-lg:pt-2 max-md:px-4 md:max-lg:px-10 lg:rounded-r-2xl lg:py-10 lg:flex lg:flex-col gap-16 lg:h-dvh duration-500 ease-in-out overflow-x-hidden"
+      :class="isCollapsed ? 'lg:w-[100px] lg:pr-2' : 'lg:w-[252px] xl:w-[300px] lg:pr-6'"
+    >
+      <div
+        tag="div"
+        class="max-lg:hidden lg:pl-[2.25rem] overflow-hidden lg:shrink-0 duration-500 ease-in-out"
+        :class="isCollapsed ? 'lg:max-w-[50px]' : 'lg:max-w-full'"
       >
-        <component
-          :is="icon"
-          class="duration-500"
-          :class="route.path === to ? 'fill-green' : 'fill-grey-300 group-hover:fill-grey-100'"
-        />
+        <Logo />
+      </div>
+
+      <ul class="max-lg:flex max-lg:justify-between lg:grow">
+        <NuxtLink
+          v-for="{ to, label, icon } in navLinks"
+          :key="to"
+          :to="to"
+          class="group relative flex max-lg:flex-col items-center max-lg:justify-center md:max-lg:flex-col md:max-lg:gap-2 lg:gap-6 max-lg:rounded-t-lg lg:rounded-r-2xl max-lg:border-b-4 lg:border-l-4 max-lg:p-3 lg:p-4 lg:pl-8 w-full max-lg:max-w-28 overflow-hidden lg:min-h-14"
+          :class="route.path === to ? 'border-green bg-beige-100 glow-effect' : 'border-transparent'"
+        >
+          <component
+            :is="icon"
+            class="duration-500 ease-in-out h-5 lg:shrink-0"
+            :class="route.path === to ? 'fill-green' : 'fill-grey-300 group-hover:fill-grey-100'"
+          />
+
+          <span
+            class="max-md:hidden md:block max-lg:text-xs font-bold text-nowrap overflow-hidden lg:grow duration-500 ease-in-out"
+            :class="[
+              route.path === to ? 'text-grey-900' : 'text-grey-300 group-hover:text-grey-100',
+              isCollapsed ? 'lg:max-w-0' : 'lg:max-w-full',
+            ]"
+          >
+            {{ label }}
+          </span>
+        </NuxtLink>
+      </ul>
+
+      <button
+        class="group hidden font-bold lg:flex items-center gap-5 hover:text-grey-100 lg:mx-[2.25rem] transition-colors lg:shrink-0"
+        :class="isCollapsed && 'lg:min-h-6'"
+        @click="isCollapsed = !isCollapsed"
+      >
+        <div
+          class="lg:flex items-center gap-5 lg:shrink-0 duration-500 ease-in-out"
+          :class="isCollapsed ? 'rotate-180' : 'rotate-0'"
+        >
+          <MinimizeMenuIcon class="fill-grey-300 group-hover:fill-grey-100 duration-500 ease-in-out transition-colors " />
+        </div>
 
         <span
-          class="hidden max-lg:text-xs md:block font-bold duration-500"
-          :class="route.path === to ? 'text-grey-900' : 'text-grey-300 group-hover:text-grey-100'"
+          tag="span"
+          class="max-md:hidden md:block max-lg:text-xs font-bold text-left text-nowrap overflow-hidden lg:grow text-grey-300 group-hover:text-grey-100 duration-500 ease-in-out"
+          :class="isCollapsed ? 'lg:max-w-0' : 'lg:max-w-full'"
         >
-          {{ label }}
+          Minimize Menu
         </span>
-      </NuxtLink>
-    </ul>
-
-    <button class="group hidden lg:flex items-center gap-5 font-bold  hover:text-grey-100 lg:mx-[2.25rem] transition-colors">
-      <MinimizeMenuIcon class="fill-grey-300 group-hover:fill-grey-100 duration-500 transition-colors " />
-      <span class="text-grey-300 group-hover:text-grey-100 duration-500 transition-colors">Minimize Menu</span>
-    </button>
+      </button>
+    </div>
   </nav>
 </template>
 
@@ -42,4 +71,43 @@ import MinimizeMenuIcon from '@/assets/icons/icon-minimize-menu.svg';
 import { navLinks } from './navLinks';
 
 const route = useRoute();
+const isCollapsed = ref(false);
 </script>
+
+<style>
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: .6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.glow-effect::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  animation: glow-pulse 3.5s infinite ease-in-out;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 991px) {
+  .glow-effect::before {
+    bottom: 0;
+    height: 24px;
+    width: 100%;
+    background: linear-gradient(to top, theme('colors.green-transparent') 0%, transparent 50%);
+  }
+}
+
+@media (min-width: 992px) {
+  .glow-effect::before {
+    top: 0;
+    height: 100%;
+    width: 32px;
+    background: linear-gradient(to right, theme('colors.green-transparent') 0%, transparent 60%);
+  }
+}
+</style>
