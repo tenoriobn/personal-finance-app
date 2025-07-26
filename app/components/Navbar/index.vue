@@ -1,66 +1,71 @@
 <template>
   <nav
-    class="duration-500 ease-in-out"
+    class="duration-500 ease-in-out max-lg:rounded-t-lg lg:rounded-r-2xl"
     :class="isCollapsed ? 'lg:w-[100px]' : 'lg:w-[252px] xl:w-[300px]'"
   >
     <div
-      class="bg-grey-900 fixed max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:rounded-t-lg max-lg:pt-2 max-md:px-4 md:max-lg:px-10 lg:rounded-r-2xl lg:py-10 lg:flex lg:flex-col gap-16 lg:h-dvh duration-500 ease-in-out overflow-x-hidden"
-      :class="isCollapsed ? 'lg:w-[100px] lg:pr-2' : 'lg:w-[252px] xl:w-[300px] lg:pr-6'"
+      class="bg-grey-900 fixed max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:rounded-t-lg lg:rounded-r-2xl lg:h-dvh duration-500 ease-in-out overflow-hidden"
+      :class="isCollapsed ? 'lg:w-[100px]' : 'lg:w-[252px] xl:w-[300px]'"
     >
       <div
-        tag="div"
-        class="max-lg:hidden lg:pl-[2.25rem] overflow-hidden lg:shrink-0 duration-500 ease-in-out"
-        :class="isCollapsed ? 'lg:max-w-[50px]' : 'lg:max-w-full'"
-      >
-        <Logo />
-      </div>
-
-      <ul class="max-lg:flex max-lg:justify-between lg:grow">
-        <NuxtLink
-          v-for="{ to, label, icon } in navLinks"
-          :key="to"
-          :to="to"
-          class="group relative flex max-lg:flex-col items-center max-lg:justify-center md:max-lg:flex-col md:max-lg:gap-2 lg:gap-6 max-lg:rounded-t-lg lg:rounded-r-2xl max-lg:border-b-4 lg:border-l-4 max-lg:p-3 lg:p-4 lg:pl-8 w-full max-lg:max-w-28 overflow-hidden lg:min-h-14"
-          :class="route.path === to ? 'border-green bg-beige-100 glow-effect' : 'border-transparent'"
-        >
-          <component
-            :is="icon"
-            class="duration-500 ease-in-out h-5 lg:shrink-0"
-            :class="route.path === to ? 'fill-green' : 'fill-grey-300 group-hover:fill-grey-100'"
-          />
-
-          <span
-            class="max-md:hidden md:block max-lg:text-xs font-bold text-nowrap overflow-hidden lg:grow duration-500 ease-in-out"
-            :class="[
-              route.path === to ? 'text-grey-900' : 'text-grey-300 group-hover:text-grey-100',
-              isCollapsed ? 'lg:max-w-0' : 'lg:max-w-full',
-            ]"
-          >
-            {{ label }}
-          </span>
-        </NuxtLink>
-      </ul>
-
-      <button
-        class="group hidden font-bold lg:flex items-center gap-5 hover:text-grey-100 lg:mx-[2.25rem] transition-colors lg:shrink-0"
-        :class="isCollapsed && 'lg:min-h-6'"
-        @click="isCollapsed = !isCollapsed"
+        class="max-lg:pt-2 max-md:px-4 md:max-lg:px-10 lg:py-10 lg:flex lg:flex-col gap-16 h-full overflow-auto navbar__scroll-container"
+        :class="isCollapsed ? 'lg:pr-2' : 'lg:pr-6'"
       >
         <div
-          class="lg:flex items-center gap-5 lg:shrink-0 duration-500 ease-in-out"
-          :class="isCollapsed ? 'rotate-180' : 'rotate-0'"
+          tag="div"
+          class="max-lg:hidden lg:pl-[2.25rem] overflow-hidden lg:shrink-0 duration-500 ease-in-out"
+          :class="isCollapsed ? 'lg:max-w-[50px]' : 'lg:max-w-full'"
         >
-          <MinimizeMenuIcon class="fill-grey-300 group-hover:fill-grey-100 duration-500 ease-in-out transition-colors " />
+          <Logo />
         </div>
 
-        <span
-          tag="span"
-          class="max-md:hidden md:block max-lg:text-xs font-bold text-left text-nowrap overflow-hidden lg:grow text-grey-300 group-hover:text-grey-100 duration-500 ease-in-out"
-          :class="isCollapsed ? 'lg:max-w-0' : 'lg:max-w-full'"
+        <ul class="max-lg:flex max-lg:justify-between lg:grow">
+          <NuxtLink
+            v-for="{ to, label, icon } in navLinks"
+            :key="to"
+            :to="to"
+            class="group relative flex max-lg:flex-col items-center max-lg:justify-center md:max-lg:flex-col md:max-lg:gap-2 lg:gap-6 max-lg:rounded-t-lg lg:rounded-r-2xl max-lg:border-b-4 lg:border-l-4 max-lg:p-3 lg:p-4 lg:pl-8 w-full max-lg:max-w-28 overflow-hidden lg:min-h-14"
+            :class="route.path === to ? 'border-green bg-beige-100 glow-effect' : 'border-transparent'"
+          >
+            <component
+              :is="icon"
+              class="duration-500 ease-in-out h-5 lg:shrink-0"
+              :class="route.path === to ? 'fill-green' : 'fill-grey-300 group-hover:fill-grey-100'"
+            />
+
+            <span
+              class="max-md:hidden md:block max-lg:text-xs font-bold text-nowrap overflow-hidden lg:grow duration-500 ease-in-out"
+              :class="[
+                route.path === to ? 'text-grey-900' : 'text-grey-300 group-hover:text-grey-100',
+                isCollapsed ? 'lg:max-w-0' : 'lg:max-w-full',
+              ]"
+            >
+              {{ label }}
+            </span>
+          </NuxtLink>
+        </ul>
+
+        <button
+          class="group hidden font-bold lg:flex items-center gap-5 hover:text-grey-100 lg:mx-[2.25rem] transition-colors lg:shrink-0"
+          :class="isCollapsed && 'lg:min-h-6'"
+          @click="isCollapsed = !isCollapsed"
         >
-          Minimize Menu
-        </span>
-      </button>
+          <div
+            class="lg:flex items-center gap-5 lg:shrink-0 duration-500 ease-in-out"
+            :class="isCollapsed ? 'rotate-180' : 'rotate-0'"
+          >
+            <MinimizeMenuIcon class="fill-grey-300 group-hover:fill-grey-100 duration-500 ease-in-out transition-colors " />
+          </div>
+
+          <span
+            tag="span"
+            class="max-md:hidden md:block max-lg:text-xs font-bold text-left text-nowrap overflow-hidden lg:grow text-grey-300 group-hover:text-grey-100 duration-500 ease-in-out"
+            :class="isCollapsed ? 'lg:max-w-0' : 'lg:max-w-full'"
+          >
+            Minimize Menu
+          </span>
+        </button>
+      </div>
     </div>
   </nav>
 </template>
@@ -74,7 +79,7 @@ const route = useRoute();
 const isCollapsed = ref(false);
 </script>
 
-<style>
+<style scoped>
 @keyframes glow-pulse {
   0%, 100% {
     opacity: .6;
@@ -82,6 +87,11 @@ const isCollapsed = ref(false);
   50% {
     opacity: 1;
   }
+}
+
+.navbar__scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: theme('colors.navy-grey') transparent;
 }
 
 .glow-effect::before {
