@@ -38,10 +38,16 @@ describe('Navbar', () => {
       });
     });
 
-    it('deve ocultar textos da navbar ao clicar no botão de Minimize Menu', () => {
-      cy.findByRole('button', { name: /Minimize Menu/i }).click();
+    it('deve alternar a visibilidade dos textos da navbar ao clicar no botão de Minimize Menu', () => {
+      const toggleButton = () => cy.findByRole('button', { name: /Minimize Menu/i });
 
-      cy.get('button').contains('span', 'Minimize Menu').should('not.be.visible');
+      toggleButton().click();
+      toggleButton().find('span').should('not.be.visible');
+      cy.get('a span').should('not.be.visible');
+
+      toggleButton().click();
+      toggleButton().find('span').should('be.visible');
+      cy.get('a span').should('be.visible');
     });
   });
 });

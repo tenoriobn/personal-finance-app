@@ -15,7 +15,7 @@
           tag="div"
           data-test="logo-wrapper"
           class="max-lg:hidden lg:pl-[2.25rem] overflow-hidden lg:shrink-0 duration-500 ease-in-out"
-          :class="isCollapsed ? 'lg:max-w-[50px]' : 'lg:max-w-full'"
+          :class="isCollapsed ? 'lg:max-w-[49px]' : 'lg:max-w-full'"
         >
           <Logo />
         </div>
@@ -35,10 +35,10 @@
             />
 
             <span
-              class="max-md:hidden max-lg:text-xs font-bold text-nowrap overflow-hidden lg:grow duration-500 ease-in-out"
+              class="max-md:hidden md:block max-lg:text-xs font-bold text-nowrap overflow-hidden lg:grow duration-500 ease-in-out"
               :class="[
                 route.path === to ? 'text-grey-900' : 'text-grey-300 group-hover:text-grey-100',
-                isCollapsed ? 'lg:max-w-0 hidden' : 'lg:max-w-full md:block',
+                isCollapsed ? 'lg:max-w-0' : 'lg:max-w-full',
               ]"
             >
               {{ label }}

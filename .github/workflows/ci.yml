@@ -37,7 +37,7 @@ jobs:
           npx wait-on http://localhost:3000 --timeout 60000
 
       - name: Testes Cypress
-        run: npm run test:e2e
+        run: npm run cy:run
         
       - name: Deploy Preview com Comentário no PR
         id: vercel
