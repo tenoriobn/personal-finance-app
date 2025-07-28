@@ -13,6 +13,7 @@
       >
         <div
           tag="div"
+          data-test="logo-wrapper"
           class="max-lg:hidden lg:pl-[2.25rem] overflow-hidden lg:shrink-0 duration-500 ease-in-out"
           :class="isCollapsed ? 'lg:max-w-[50px]' : 'lg:max-w-full'"
         >
@@ -34,10 +35,10 @@
             />
 
             <span
-              class="max-md:hidden md:block max-lg:text-xs font-bold text-nowrap overflow-hidden lg:grow duration-500 ease-in-out"
+              class="max-md:hidden max-lg:text-xs font-bold text-nowrap overflow-hidden lg:grow duration-500 ease-in-out"
               :class="[
                 route.path === to ? 'text-grey-900' : 'text-grey-300 group-hover:text-grey-100',
-                isCollapsed ? 'lg:max-w-0' : 'lg:max-w-full',
+                isCollapsed ? 'lg:max-w-0 hidden' : 'lg:max-w-full md:block',
               ]"
             >
               {{ label }}
@@ -48,13 +49,16 @@
         <button
           class="group hidden font-bold lg:flex items-center gap-5 hover:text-grey-100 lg:mx-[2.25rem] transition-colors lg:shrink-0"
           :class="isCollapsed && 'lg:min-h-6'"
+          data-test="colapse-navbar"
           @click="isCollapsed = !isCollapsed"
         >
           <div
             class="lg:flex items-center gap-5 lg:shrink-0 duration-500 ease-in-out"
             :class="isCollapsed ? 'rotate-180' : 'rotate-0'"
           >
-            <MinimizeMenuIcon class="fill-grey-300 group-hover:fill-grey-100 duration-500 ease-in-out transition-colors " />
+            <MinimizeMenuIcon
+              class="fill-grey-300 group-hover:fill-grey-100 duration-500 ease-in-out transition-colors "
+            />
           </div>
 
           <span
