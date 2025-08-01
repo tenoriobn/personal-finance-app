@@ -75,8 +75,8 @@
 </template>
 
 <script lang="ts" setup>
-import Logo from '@/assets/icons/logo-large.svg';
-import MinimizeMenuIcon from '@/assets/icons/icon-minimize-menu.svg';
+import Logo from '~/assets/icons/logo-large.svg';
+import MinimizeMenuIcon from '~/assets/icons/icon-minimize-menu.svg';
 import { navLinks } from './navLinks';
 
 const route = useRoute();

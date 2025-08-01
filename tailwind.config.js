@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [],
+  content: ['./app/**/*.{vue,js,ts}'],
   theme: {
     extend: {
       screens: {
@@ -8,6 +8,7 @@ export default {
         'md': '768px',
         'lg': '992px',
         'xl': '1440px',
+        'max-sm': { max: '374px' },
         'max-md': { max: '767px' },
         'max-lg': { max: '991px' },
         'max-xl': { max: '1439px' },
