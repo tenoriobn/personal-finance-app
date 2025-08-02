@@ -1,9 +1,7 @@
 <template>
   <label
     :for="name"
-    class="relative z-0 w-full grid grid-cols-[1fr_auto] items-center gap-2 rounded-xl border p-4 duration-500 ease-in-out
-      focus-within:border-grey-900
-      has-[input:not(:placeholder-shown)]:border-grey-900"
+    class="relative z-0 w-full grid grid-cols-[1fr_auto] items-center gap-2 rounded-xl border p-4 duration-150 ease-in-out cursor-text focus-within:border-grey-900 has-[input:not(:placeholder-shown)]:border-grey-900"
     :class="customClasses"
   >
     <input
@@ -18,11 +16,11 @@
 
     <component
       :is="icon"
-      class="fill-grey-300 duration-500 ease-in-out peer-focus:fill-grey-900 peer-[:not(:placeholder-shown)]:fill-grey-900"
+      class="fill-grey-300 duration-150 ease-in-out peer-focus:fill-grey-900 peer-[:not(:placeholder-shown)]:fill-grey-900"
     />
 
     <span
-      class="pointer-events-none absolute left-3 top-1/2 z-10 origin-[0] -translate-y-1/2 transform bg-white px-1 text-sm text-grey-300 transition-all duration-500 ease-in-out
+      class="pointer-events-none absolute left-3 top-1/2 z-10 origin-[0] -translate-y-1/2 transform bg-white px-1 text-sm text-grey-300 transition-all duration-150 ease-in-out
         peer-placeholder-shown:scale-100
         peer-focus:top-0 peer-focus:scale-90
         peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:scale-90

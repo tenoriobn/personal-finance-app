@@ -8,11 +8,11 @@
     @keydown.esc="closeDropdown"
   >
     <div
-      class="group relative flex justify-between items-center gap-4 rounded-xl border p-4 text-sm duration-500 ease-in-out cursor-pointer h-full"
+      class="group relative flex justify-between items-center gap-4 rounded-xl border p-4 text-sm duration-150 ease-in-out cursor-pointer h-full"
       :class="[isOpen || modelValue ? 'border-grey-900' : 'border-grey-300']"
     >
       <span
-        class="pointer-events-none absolute left-3 z-10 origin-[0] -translate-y-1/2  bg-white px-1 text-sm transition-all duration-500 ease-in-out"
+        class="pointer-events-none absolute left-3 z-10 origin-[0] -translate-y-1/2  bg-white px-1 text-sm transition-all duration-150 ease-in-out"
         :class="[(isOpen || modelValue) ? 'text-grey-900 scale-90 top-0' : 'text-grey-300 scale-100 top-1/2']"
       >
         {{ label }}
@@ -21,32 +21,37 @@
       <p class="text-sm text-grey-900 truncate">{{ modelValue }}</p>
 
       <CaretDownIcon
-        class="duration-500 ease-in-out"
+        class="duration-150 ease-in-out"
         :class="[isOpen ? '-rotate-180' : '', modelValue ? 'fill-grey-900' : 'fill-grey-300']"
       />
     </div>
 
-    <ul
-      v-if="isOpen"
-      class="absolute mt-2 w-full z-10 rounded-xl border border-grey-900 bg-white shadow-md overflow-hidden"
-    >
-      <li
-        v-for="option in options"
-        :key="option"
-        class="text-sm p-4 cursor-pointer"
-        :class="option === modelValue ? 'bg-grey-900 text-white' : 'hover:bg-grey-100'"
-        @click.stop="selectOption(option)"
+    <AnimatePresence>
+      <motion.ul
+        v-if="isOpen"
+        v-bind="fadeSlideY"
+        class="absolute mt-3 w-full z-10 rounded-xl border border-grey-200 bg-white shadow-md overflow-hidden"
       >
-        {{ option }}
-      </li>
-    </ul>
+        <li
+          v-for="option in options"
+          :key="option"
+          class="text-sm p-4 cursor-pointer duration-150 ease-in-out border-b border-grey-100 last:border-b-0"
+          :class="option === modelValue ? 'bg-grey-900 text-white' : 'hover:bg-grey-100'"
+          @click.stop="selectOption(option)"
+        >
+          {{ option }}
+        </li>
+      </motion.ul>
+    </AnimatePresence>
   </div>
 </template>
 
 <script setup lang="ts">
+import { motion, AnimatePresence } from 'motion-v';
 import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import { useClickOutside } from '~/composables/useClickOutside';
 import type { DropdownProps } from './dropdown.type';
+import { fadeSlideY } from '~/motion/transitions';
 
 const { label, options, modelValue, customClasses } = defineProps<DropdownProps>();
 
