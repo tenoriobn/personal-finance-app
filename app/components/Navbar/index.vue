@@ -1,10 +1,10 @@
 <template>
   <nav
-    class="duration-500 ease-in-out max-lg:rounded-t-lg lg:rounded-r-2xl"
+    class="duration-150 ease-in-out max-lg:rounded-t-lg lg:rounded-r-2xl"
     :class="isCollapsed ? 'lg:w-[100px]' : 'lg:w-[252px] xl:w-[300px]'"
   >
     <div
-      class="bg-grey-900 fixed max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:rounded-t-lg lg:rounded-r-2xl lg:h-dvh duration-500 ease-in-out overflow-hidden"
+      class="bg-grey-900 fixed max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:rounded-t-lg lg:rounded-r-2xl lg:h-dvh duration-150 ease-in-out overflow-hidden"
       :class="isCollapsed ? 'lg:w-[100px]' : 'lg:w-[252px] xl:w-[300px]'"
     >
       <div
@@ -14,7 +14,7 @@
         <div
           tag="div"
           data-test="logo-wrapper"
-          class="max-lg:hidden lg:pl-[2.25rem] overflow-hidden lg:shrink-0 duration-500 ease-in-out"
+          class="max-lg:hidden lg:pl-[2.25rem] overflow-hidden lg:shrink-0 duration-150 ease-in-out"
           :class="isCollapsed ? 'lg:max-w-[49px]' : 'lg:max-w-full'"
         >
           <Logo />
@@ -30,12 +30,12 @@
           >
             <component
               :is="icon"
-              class="duration-500 ease-in-out h-5 lg:shrink-0"
+              class="duration-150 ease-in-out h-5 lg:shrink-0"
               :class="route.path === to ? 'fill-green' : 'fill-grey-300 group-hover:fill-grey-100'"
             />
 
             <span
-              class="max-md:hidden md:block max-lg:text-xs font-bold text-nowrap overflow-hidden lg:grow duration-500 ease-in-out"
+              class="max-md:hidden md:block max-lg:text-xs font-bold text-nowrap overflow-hidden lg:grow duration-150 ease-in-out"
               :class="[
                 route.path === to ? 'text-grey-900' : 'text-grey-300 group-hover:text-grey-100',
                 isCollapsed ? 'lg:max-w-0' : 'lg:max-w-full',
@@ -53,17 +53,17 @@
           @click="isCollapsed = !isCollapsed"
         >
           <div
-            class="lg:flex items-center gap-5 lg:shrink-0 duration-500 ease-in-out"
+            class="lg:flex items-center gap-5 lg:shrink-0 duration-150 ease-in-out"
             :class="isCollapsed ? 'rotate-180' : 'rotate-0'"
           >
             <MinimizeMenuIcon
-              class="fill-grey-300 group-hover:fill-grey-100 duration-500 ease-in-out transition-colors "
+              class="fill-grey-300 group-hover:fill-grey-100 duration-150 ease-in-out transition-colors "
             />
           </div>
 
           <span
             tag="span"
-            class="max-md:hidden md:block max-lg:text-xs font-bold text-left text-nowrap overflow-hidden lg:grow text-grey-300 group-hover:text-grey-100 duration-500 ease-in-out"
+            class="max-md:hidden md:block max-lg:text-xs font-bold text-left text-nowrap overflow-hidden lg:grow text-grey-300 group-hover:text-grey-100 duration-150 ease-in-out"
             :class="isCollapsed ? 'lg:max-w-0' : 'lg:max-w-full'"
           >
             Minimize Menu

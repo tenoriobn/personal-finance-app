@@ -2,11 +2,12 @@
   <div class="w-full rounded-xl overflow-x-auto">
     <table class="w-full divide-y divide-grey-100">
       <thead class="text-grey-500 text-nowrap">
-        <tr>
+        <tr class="grid grid-cols-[minmax(300px,1fr)_140px_140px_minmax(100px,1fr)] gap-6 w-full">
           <th
             v-for="{ id, title, align } in tableHeaders || []"
             :key="id"
-            class="text-sm font-normal pb-6"
+            scope="col"
+            class="truncate text-sm font-normal pb-4"
             :class="align || 'text-left'"
           >
             {{ title }}
@@ -17,19 +18,36 @@
         <tr
           v-for="{ avatar, name, category, date, amount } in transactions || []"
           :key="date"
+          class="grid grid-cols-[minmax(300px,1fr)_140px_140px_minmax(100px,1fr)] items-center gap-6"
         >
-          <td class="flex items-center gap-4 text-grey-900 font-semibold pr-6 py-6">
+          <td
+            scope="row"
+            class="flex items-center gap-4 text-grey-900 font-semibold py-4"
+          >
             <img
               :src="`../${avatar}`"
               :alt="`Avatar da {{avatar}}`"
               class="w-10 h-10 rounded-full"
             >
-            {{ name }}
+            <span class="truncate max-w-full">
+              {{ name }}
+            </span>
           </td>
-          <td class="font-normal pr-6 py-6">{{ category }}</td>
-          <td class="font-normal pr-6 py-6">{{ formatDate(date) }}</td>
           <td
-            class="text-right font-semibold py-6"
+            scope="row"
+            class="font-normal py-4 truncate max-w-full"
+          >
+            {{ category }}
+          </td>
+          <td
+            scope="row"
+            class="font-normal py-4 truncate max-w-full"
+          >
+            {{ formatDate(date) }}
+          </td>
+          <td
+            scope="row"
+            class="text-right font-semibold py-4 truncate max-w-full"
             :class="amount > 0 ? 'text-green' : 'text-grey-900'"
           >
             {{ formatCurrency(amount) }}
