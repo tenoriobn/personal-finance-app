@@ -1,5 +1,5 @@
 <template>
-  <div class="flex max-md:flex-col md:justify-between mb-10 gap-6">
+  <div class="flex max-md:flex-col md:justify-between gap-6">
     <Input
       v-model="search"
       :label="'Search transaction'"

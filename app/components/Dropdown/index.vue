@@ -12,7 +12,7 @@
       :class="[isOpen || modelValue ? 'border-grey-900' : 'border-grey-300']"
     >
       <span
-        class="pointer-events-none absolute left-3 z-10 origin-[0] -translate-y-1/2  bg-white px-1 text-sm transition-all duration-150 ease-in-out"
+        class="pointer-events-none absolute left-3 origin-[0] -translate-y-1/2  bg-white px-1 text-sm transition-all duration-150 ease-in-out"
         :class="[(isOpen || modelValue) ? 'text-grey-900 scale-90 top-0' : 'text-grey-300 scale-100 top-1/2']"
       >
         {{ label }}
