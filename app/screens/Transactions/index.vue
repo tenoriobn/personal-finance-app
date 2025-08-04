@@ -1,17 +1,42 @@
 <template>
-  <div class="grid max-md:gap-8 md:gap-10">
+  <div class="grid grid-rows-[auto_1fr] max-md:gap-8 md:gap-10 h-full">
     <h2 class="text-grey-900 text-[2rem] font-bold leading-none">Transactions</h2>
 
-    <div class="grid gap-10 bg-white rounded-xl h-full max-md:p-4 md:p-10 w-full overflow-hidden">
-      <Filter />
-      <Table />
-      <Pagination />
+    <div class="grid grid-rows-[auto_1fr] max-md:gap-8 md:gap-10 bg-white rounded-xl h-full max-md:p-4 md:p-10 w-full overflow-hidden">
+      <Filter
+        v-model:search="search"
+        v-model:selected-category="selectedCategory"
+        v-model:selected-sort="selectedSort"
+      />
+
+      <div
+        v-if="paginatedTransactions.length === 0"
+        class="text-center text-grey-500 text-sm"
+      >
+        No transactions found.
+      </div>
+      <Table
+        v-else
+        :transactions="paginatedTransactions"
+      />
+
+      <Pagination
+        v-if="totalPages > 1"
+        :current-page="currentPage"
+        :total-pages="totalPages"
+        @page-change="goToPage"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import Table from './Table.vue';
-import Filter from './Filters.vue';
-import Pagination from './Pagination.vue';
+import Table from './Table/index.vue';
+import Filter from './Filters/index.vue';
+import Pagination from './Pagination/index.vue';
+import { useTransactions } from './useTransactions';
+
+const {
+  currentPage, totalPages, paginatedTransactions, goToPage, search, selectedCategory, selectedSort,
+} = useTransactions();
 </script>
