@@ -61,9 +61,9 @@
 <script lang="ts" setup>
 import { formatDate } from '~/utils/formatDate';
 import { formatCurrency } from '~/utils/formatCurrency';
-import data from '~/data/data.json';
+import type { TableProps } from './table.type';
 
-const { transactions } = data;
+const { transactions } = defineProps<TableProps>();
 
 const tableHeaders = [
   { id: 1, title: 'Recipient/Sender' },
