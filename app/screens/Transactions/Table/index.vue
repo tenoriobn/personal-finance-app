@@ -14,6 +14,7 @@
           </th>
         </tr>
       </thead>
+
       <tbody class="divide-y divide-grey-100 text-grey-500 text-sm text-nowrap">
         <tr
           v-for="{ avatar, name, category, date, amount } in transactions || []"
@@ -25,7 +26,7 @@
             class="flex items-center gap-4 text-grey-900 font-semibold py-4"
           >
             <img
-              :src="`../${avatar}`"
+              :src="`${avatar}`"
               :alt="`Avatar da {{avatar}}`"
               class="w-10 h-10 rounded-full"
             >
