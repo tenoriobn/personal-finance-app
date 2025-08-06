@@ -7,8 +7,14 @@
     @click="toggleDropdown"
     @keydown.esc="closeDropdown"
   >
+    <component
+      :is="iconMobile"
+      v-if="iconMobile"
+      class="md:hidden fill-grey-900"
+    />
+
     <div
-      class="group relative flex justify-between items-center gap-4 rounded-xl border p-4 text-sm duration-150 ease-in-out cursor-pointer h-full"
+      class="max-md:hidden group relative flex justify-between items-center gap-4 rounded-xl border p-4 text-sm duration-150 ease-in-out cursor-pointer h-full"
       :class="[isOpen || modelValue ? 'border-grey-900' : 'border-grey-300']"
     >
       <span
@@ -30,7 +36,7 @@
       <motion.ul
         v-if="isOpen"
         v-bind="fadeSlideY"
-        class="absolute mt-3 w-full z-10 rounded-xl border border-grey-200 bg-white shadow-md overflow-hidden"
+        class="absolute bg-white border border-grey-200 max-md:right-0 max-md:mt-6 md:mt-3 max-md:w-max md:w-full z-10 rounded-xl shadow-md overflow-hidden"
       >
         <li
           v-for="option in options"
@@ -53,7 +59,7 @@ import { useClickOutside } from '~/composables/useClickOutside';
 import type { DropdownProps } from './dropdown.type';
 import { fadeSlideY } from '~/motion/transitions';
 
-const { label, options, modelValue, customClasses } = defineProps<DropdownProps>();
+const { label, options, modelValue, customClasses, iconMobile } = defineProps<DropdownProps>();
 
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();
 

@@ -1,7 +1,7 @@
 <template>
   <label
     :for="name"
-    class="relative z-0 w-full grid grid-cols-[1fr_auto] items-center gap-2 rounded-xl border p-4 duration-150 ease-in-out cursor-text focus-within:border-grey-900 has-[input:not(:placeholder-shown)]:border-grey-900"
+    class="relative z-0 w-full grid grid-cols-[1fr_auto] items-center gap-2 rounded-xl border max-md:py-3 max-md:px-4 md:p-4 duration-150 ease-in-out cursor-text focus-within:border-grey-900 has-[input:not(:placeholder-shown)]:border-grey-900"
     :class="customClasses"
   >
     <input
