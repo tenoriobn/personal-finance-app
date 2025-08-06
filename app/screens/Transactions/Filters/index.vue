@@ -1,5 +1,5 @@
 <template>
-  <div class="flex max-md:flex-col md:justify-between gap-6 h-max">
+  <div class="flex justify-between max-md:gap-4 md:gap-6 h-max">
     <Input
       v-model="searchLocal"
       :label="'Search transaction'"
@@ -8,19 +8,21 @@
       custom-classes="w-full md:max-w-[432px]"
     />
 
-    <div class="flex max-sm:flex-col md:justify-end w-full gap-6">
+    <div class="flex max-md:justify-center max-md:items-center md:justify-end max-md:gap-3 md:gap-6 md:w-full">
       <Dropdown
         v-model="selectedSortLocal"
         :label="'Sort By'"
         :options="options"
-        custom-classes="w-full sm:max-w-[164px]"
+        :icon-mobile="SortIconMobile"
+        custom-classes="md:w-[112px] xl:w-[164px]"
       />
 
       <Dropdown
         v-model="selectedCategoryLocal"
         :label="'Category'"
         :options="categories"
-        custom-classes="w-full sm:max-w-[224px]"
+        :icon-mobile="FilterIconMobile"
+        custom-classes="md:w-[164px] xl:w-[224px]"
       />
     </div>
   </div>
@@ -30,6 +32,8 @@
 import { ref } from 'vue';
 import SearchIcon from '~/assets/icons/icon-search.svg';
 import type { FiltersProps } from './filters.type';
+import SortIconMobile from '~/assets/icons/icon-sort-mobile.svg';
+import FilterIconMobile from '~/assets/icons/icon-filter-mobile.svg';
 
 const props = defineProps<FiltersProps>();
 
