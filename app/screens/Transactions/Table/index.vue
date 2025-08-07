@@ -1,62 +1,72 @@
 <template>
-  <div class="w-full rounded-xl overflow-x-auto">
-    <table class="w-full divide-y divide-grey-100">
-      <thead class="text-grey-500 text-nowrap">
-        <tr class="grid grid-cols-[minmax(300px,1fr)_140px_140px_minmax(100px,1fr)] gap-6 w-full">
-          <th
-            v-for="{ id, title, align } in tableHeaders || []"
-            :key="id"
-            scope="col"
-            class="truncate text-sm font-normal pb-4"
-            :class="align || 'text-left'"
-          >
-            {{ title }}
-          </th>
-        </tr>
-      </thead>
-
-      <tbody class="divide-y divide-grey-100 text-grey-500 text-sm text-nowrap">
-        <tr
-          v-for="{ avatar, name, category, date, amount } in transactions || []"
-          :key="date"
-          class="grid grid-cols-[minmax(300px,1fr)_140px_140px_minmax(100px,1fr)] items-center gap-6"
+  <table class="w-full">
+    <thead class="max-xl:hidden text-grey-500 text-nowrap">
+      <tr class="grid grid-cols-[minmax(300px,1fr)_140px_140px_minmax(100px,1fr)] gap-6 w-full">
+        <th
+          v-for="{ id, title, align } in tableHeaders || []"
+          :key="id"
+          scope="col"
+          class="truncate text-sm font-normal pb-4"
+          :class="align || 'text-left'"
         >
-          <td
-            scope="row"
-            class="flex items-center gap-4 text-grey-900 font-semibold py-4"
+          {{ title }}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody class="divide-y divide-grey-100 text-grey-500 text-sm text-wrap">
+      <tr
+        v-for="{ avatar, name, category, date, amount } in transactions || []"
+        :key="date"
+        class="grid max-xl:grid-cols-[auto_1fr_auto] xl:grid-cols-[minmax(300px,1fr)_140px_140px_minmax(100px,1fr)] max-xl:grid-rows-2 items-center max-xl:gap-x-4 max-xl:py-5 xl:gap-6 py-4 last:pb-0"
+      >
+        <td
+          class="max-xl:row-span-2 flex items-center gap-4 text-grey-900 font-bold"
+        >
+          <img
+            :src="`${avatar}`"
+            :alt="`Avatar da {{avatar}}`"
+            class="w-10 h-10 rounded-full"
           >
-            <img
-              :src="`${avatar}`"
-              :alt="`Avatar da {{avatar}}`"
-              class="w-10 h-10 rounded-full"
-            >
-            <span class="truncate max-w-full">
-              {{ name }}
-            </span>
-          </td>
-          <td
-            scope="row"
-            class="font-normal py-4 truncate max-w-full"
+          <span
+            class="max-xl:hidden truncate"
+            :title="name"
           >
-            {{ category }}
-          </td>
-          <td
-            scope="row"
-            class="font-normal py-4 truncate max-w-full"
+            {{ name }}
+          </span>
+        </td>
+
+        <td
+          class="max-xl:col-start-2 max-xl:row-start-1 xl:hidden flex items-center gap-4 text-grey-900 font-bold min-w-0"
+        >
+          <span
+            class="truncate max-w-full block"
+            :title="name"
           >
-            {{ formatDate(date) }}
-          </td>
-          <td
-            scope="row"
-            class="text-right font-semibold py-4 truncate max-w-full"
-            :class="amount > 0 ? 'text-green' : 'text-grey-900'"
-          >
-            {{ formatCurrency(amount) }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+            {{ name }}
+          </span>
+        </td>
+
+        <td
+          class="max-xl:col-start-2 max-xl:row-start-2 font-normal truncate"
+          :title="category"
+        >
+          {{ category }}
+        </td>
+        <td
+          class="max-xl:col-start-3 max-xl:row-start-2 font-normal truncate"
+        >
+          {{ formatDate(date) }}
+        </td>
+        <td
+          class="max-xl:col-start-3 max-xl:row-start-1 text-right font-bold truncate"
+          :class="amount > 0 ? 'text-green' : 'text-grey-900'"
+        >
+          {{ formatCurrency(amount) }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script lang="ts" setup>

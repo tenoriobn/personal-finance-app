@@ -7,11 +7,13 @@ export default {
         'sm': '375px',
         'md': '768px',
         'lg': '992px',
-        'xl': '1440px',
+        'xl': '1200px',
+        '2xl': '1440px',
         'max-sm': { max: '374px' },
         'max-md': { max: '767px' },
         'max-lg': { max: '991px' },
-        'max-xl': { max: '1439px' },
+        'max-xl': { max: '1199px' },
+        'max-2xl': { max: '1439px' },
       },
       colors: {
         'beige': {

@@ -14,7 +14,7 @@
         :label="'Sort By'"
         :options="options"
         :icon-mobile="SortIconMobile"
-        custom-classes="md:w-[112px] xl:w-[164px]"
+        custom-classes="md:w-[112px] 2xl:w-[164px]"
       />
 
       <Dropdown
@@ -22,7 +22,7 @@
         :label="'Category'"
         :options="categories"
         :icon-mobile="FilterIconMobile"
-        custom-classes="md:w-[164px] xl:w-[224px]"
+        custom-classes="md:w-[164px] 2xl:w-[224px]"
       />
     </div>
   </div>
