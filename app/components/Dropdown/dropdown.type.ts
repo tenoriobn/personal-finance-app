@@ -4,4 +4,5 @@ export interface DropdownProps {
   modelValue: string | undefined
   customClasses?: string
   iconMobile?: Component | string
+  dataTestid?: string
 }

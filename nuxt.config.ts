@@ -3,7 +3,7 @@ import { resolve } from 'pathe';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', 'motion-v/nuxt'],
+  modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', 'motion-v/nuxt', '@nuxt/test-utils/module'],
   devtools: { enabled: true },
   alias: {
     '@': resolve(__dirname),

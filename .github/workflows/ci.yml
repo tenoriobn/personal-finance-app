@@ -27,6 +27,9 @@ jobs:
 
       - name: Rodar Linter
         run: npm run lint
+
+      - name: Rodar Testes Unitários
+        run: npm run test:unit
       
       - name: Build Nuxt
         run: npm run build
