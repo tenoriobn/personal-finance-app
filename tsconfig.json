@@ -4,7 +4,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-    }
+    },
+    "types": [
+      "vitest/globals"
+    ]
   },
   "files": [],
   "references": [

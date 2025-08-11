@@ -3,6 +3,7 @@
     ref="dropdownWrapper"
     class="relative"
     :class="customClasses"
+    :data-testid="dataTestid"
     tabindex="0"
     @click="toggleDropdown"
     @keydown.esc="closeDropdown"
@@ -59,7 +60,7 @@ import { useClickOutside } from '~/composables/useClickOutside';
 import type { DropdownProps } from './dropdown.type';
 import { fadeSlideY } from '~/motion/transitions';
 
-const { label, options, modelValue, customClasses, iconMobile } = defineProps<DropdownProps>();
+const { dataTestid, label, options, modelValue, customClasses, iconMobile } = defineProps<DropdownProps>();
 
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();
 
