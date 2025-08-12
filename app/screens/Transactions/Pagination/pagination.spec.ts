@@ -42,11 +42,11 @@ describe('Pagination', () => {
 
     const buttons = paginationComponent.findAll('button');
 
-    const twoButton = buttons.find(btn => btn.text() === '3');
+    const twoButton = buttons.find(btn => btn.text() === '2');
     expect(twoButton).toBeTruthy();
     await twoButton!.trigger('click');
 
     expect(paginationComponent.emitted('page-change')).toBeTruthy();
-    expect(paginationComponent.emitted('page-change')![0]).toEqual([3]);
+    expect(paginationComponent.emitted('page-change')![0]).toEqual([2]);
   });
 });
