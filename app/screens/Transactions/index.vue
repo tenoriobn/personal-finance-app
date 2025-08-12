@@ -9,15 +9,7 @@
         v-model:selected-sort="selectedSort"
       />
 
-      <div
-        v-if="paginatedTransactions.length === 0"
-        class="text-center text-grey-500 text-sm"
-      >
-        No transactions found.
-      </div>
-
       <Table
-        v-else
         :transactions="paginatedTransactions"
       />
 
