@@ -15,8 +15,16 @@
     </thead>
 
     <tbody class="divide-y divide-grey-100 text-grey-500 text-sm text-wrap">
+      <p
+        v-if="transactions.length === 0"
+        class="text-center text-grey-500 text-sm xl:pt-10"
+      >
+        No transactions found.
+      </p>
+
       <tr
         v-for="{ avatar, name, category, date, amount } in transactions || []"
+        v-else
         :key="date"
         class="grid max-xl:grid-cols-[auto_1fr_auto] xl:grid-cols-[minmax(300px,1fr)_140px_140px_minmax(100px,1fr)] max-xl:grid-rows-2 items-center max-xl:gap-x-4 max-xl:py-5 xl:gap-6 py-4 last:pb-0"
       >
@@ -70,8 +78,7 @@
 </template>
 
 <script lang="ts" setup>
-import { formatDate } from '~/utils/formatDate';
-import { formatCurrency } from '~/utils/formatCurrency';
+import { formatDate, formatCurrency } from '~/utils';
 import type { TableProps } from './table.type';
 
 const { transactions } = defineProps<TableProps>();
