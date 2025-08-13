@@ -16,17 +16,17 @@ describe('Filter', () => {
     });
   });
 
-  function findDropdown(wrapper: VueWrapper, testid: string) {
-    return wrapper.find(`[data-testid="${testid}"]`);
+  function findDropdown(component: VueWrapper, testid: string) {
+    return component.find(`[data-testid="${testid}"]`);
   }
 
-  async function selectDropdownOption(wrapper: VueWrapper, testid: string, optionText: string) {
-    const dropdown = findDropdown(wrapper, testid);
+  async function selectDropdownOption(component: VueWrapper, testid: string, optionText: string) {
+    const dropdown = findDropdown(component, testid);
     expect(dropdown.exists()).toBe(true);
     await dropdown.trigger('click');
-    await wrapper.vm.$nextTick();
+    await component.vm.$nextTick();
 
-    const options = wrapper.findAll('li');
+    const options = component.findAll('li');
     const option = options.find(opt => opt.text() === optionText);
     expect(option).toBeTruthy();
     await option!.trigger('click');

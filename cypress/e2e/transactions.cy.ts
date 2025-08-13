@@ -8,9 +8,11 @@ describe('Transactions', () => {
 
   beforeEach(() => {
     cy.viewport(1280, 900);
+    cy.intercept('GET', '/api/transactions', { fixture: 'data.test.json' }).as('getData');
     cy.visit('/');
     cy.waitForNuxtHydration();
     cy.contains('a span', 'Transactions').click();
+    cy.wait('@getData');
   });
 
   it('navigates to the Transactions page', () => {
