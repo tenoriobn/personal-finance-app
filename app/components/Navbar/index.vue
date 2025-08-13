@@ -13,7 +13,7 @@
       >
         <div
           tag="div"
-          data-test="logo-wrapper"
+          data-testid="logo-wrapper"
           class="max-lg:hidden lg:pl-[2.25rem] overflow-hidden lg:shrink-0 duration-150 ease-in-out"
           :class="isCollapsed ? 'lg:max-w-[49px]' : 'lg:max-w-full'"
         >
@@ -49,7 +49,7 @@
         <button
           class="group hidden font-bold lg:flex items-center gap-5 hover:text-grey-100 lg:mx-[2.25rem] transition-colors lg:shrink-0"
           :class="isCollapsed && 'lg:min-h-6'"
-          data-test="colapse-navbar"
+          data-testid="colapse-navbar"
           @click="isCollapsed = !isCollapsed"
         >
           <div
