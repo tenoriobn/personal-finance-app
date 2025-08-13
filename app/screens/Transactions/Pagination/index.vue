@@ -4,6 +4,7 @@
     class="flex items-center justify-center max-sm:gap-2 sm:gap-4"
   >
     <button
+      data-testid="prev-pagination"
       :disabled="currentPage === 1"
       class="flex items-center justify-center enabled:hover:bg-grey-100 enabled:active:bg-grey-200 border py-2 px-2 max-md:w-9 max-md:h-9 md:w-11 md:h-11 rounded-xl duration-150 ease-in-out opacity-60 "
       @click="emit('page-change', currentPage - 1)"
@@ -34,6 +35,7 @@
     </template>
 
     <button
+      data-testid="next-pagination"
       :disabled="currentPage === totalPages"
       class="flex items-center justify-center enabled:hover:bg-grey-100 enabled:active:bg-grey-200 border py-2 px-2 max-md:w-9 max-md:h-9 md:w-11 md:h-11 rounded-xl duration-150 ease-in-out opacity-60 -rotate-180"
       @click="emit('page-change', currentPage + 1)"
