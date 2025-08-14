@@ -66,7 +66,7 @@
             class="max-md:hidden md:block max-lg:text-xs font-bold text-left text-nowrap overflow-hidden lg:grow text-grey-300 group-hover:text-grey-100 duration-150 ease-in-out"
             :class="isCollapsed ? 'lg:max-w-0' : 'lg:max-w-full'"
           >
-            Minimize Menu
+            Ocultar Menu
           </span>
         </button>
       </div>

@@ -9,7 +9,7 @@ describe('Navbar', () => {
       cy.viewport(767, 800);
     });
 
-    it('deve ocultar texto do Link da navbar', () => {
+    it('should hide navbar link text on small screens', () => {
       cy.get('a span').should('not.be.visible');
     });
   });
@@ -19,9 +19,9 @@ describe('Navbar', () => {
       cy.viewport(991, 800);
     });
 
-    it('deve ocultar logo e botão de colapsar navbar', () => {
+    it('should hide logo and navbar collapse button on medium screens', () => {
       cy.getByData('logo-wrapper').should('not.be.visible');
-      cy.get('button').contains('span', 'Minimize Menu').should('not.be.visible');
+      cy.get('button').contains('span', 'Ocultar Menu').should('not.be.visible');
     });
   });
 
@@ -30,16 +30,16 @@ describe('Navbar', () => {
       cy.viewport(992, 800);
     });
 
-    it('deve exibir todos os links do menu', () => {
-      const expectedLabels = ['Overview', 'Transactions', 'Budgets', 'Pots', 'Recurring Bills'];
+    it('should display all navbar menu links on large screens', () => {
+      const expectedLabels = ['Visão Geral', 'Transações', 'Orçamentos', 'Fundos', 'Recorrentes'];
 
       cy.get('a span').should('have.length', expectedLabels.length).each((element, index) => {
         cy.wrap(element).should('have.text', expectedLabels[index]);
       });
     });
 
-    it('deve alternar a visibilidade dos textos da navbar ao clicar no botão de Minimize Menu', () => {
-      const toggleButton = () => cy.findByRole('button', { name: /Minimize Menu/i });
+    it('should toggle the visibility of navbar links when clicking the "Ocultar Menu" button', () => {
+      const toggleButton = () => cy.findByRole('button', { name: /Ocultar Menu/i });
 
       toggleButton().click();
       toggleButton().find('span').should('not.be.visible');

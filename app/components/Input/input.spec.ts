@@ -8,7 +8,7 @@ describe('Input', () => {
       props: {
         icon: '',
         modelValue: '',
-        label: 'Search transaction',
+        label: 'Pesquisar transações',
         name: 'search',
       },
     });

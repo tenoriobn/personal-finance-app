@@ -8,7 +8,7 @@ describe('<Table />', () => {
       {
         avatar: '/images/avatars/emma-richardson.jpg',
         name: 'Emma Richardson',
-        category: 'General',
+        category: 'Em geral',
         date: '2024-08-19T14:23:11Z',
         amount: 75.5,
         recurring: false,
@@ -22,9 +22,9 @@ describe('<Table />', () => {
     const cells = tableComponent.findAll('td').map(td => td.text());
 
     expect(cells).toContain('Emma Richardson');
-    expect(cells).toContain('General');
-    expect(cells).toContain('19 Aug 2024');
-    expect(cells).toContain('+$75.50');
+    expect(cells).toContain('Em geral');
+    expect(cells).toContain('19/08/2024');
+    expect(cells).toContain('+R$\u00A075,50');
   });
 
   it('should render a message when the transactions array is empty', () => {

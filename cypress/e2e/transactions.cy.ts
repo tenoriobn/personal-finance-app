@@ -11,15 +11,15 @@ describe('Transactions', () => {
     cy.intercept('GET', '/api/transactions', { fixture: 'data.test.json' }).as('getData');
     cy.visit('/');
     cy.waitForNuxtHydration();
-    cy.contains('a span', 'Transactions').click();
+    cy.contains('a span', 'Transações').click();
     cy.wait('@getData');
   });
 
-  it('navigates to the Transactions page', () => {
-    cy.get('h2').should('have.text', 'Transactions');
+  it('should navigate to the Transações page and display the title', () => {
+    cy.get('h2').should('have.text', 'Transações');
   });
 
-  it('filters by name and updates the table', () => {
+  it('should filter transactions by name and update the table with matching entries', () => {
     cy.get('input[name="search"]').type('Savory Bites Bistro');
     firstRowNameCell().should('contain', 'Savory Bites Bistro');
 
@@ -28,28 +28,28 @@ describe('Transactions', () => {
     firstRowNameCell().should('not.contain', 'Savory Bites Bistro');
   });
 
-  it('sorts by "A to Z" and updates the first row', () => {
+  it('should sort transactions by "A to Z" and update the first row accordingly', () => {
     cy.get('input[name="search"]').clear();
 
-    selectDropdown('dropdown-sort-by', 'A to Z');
+    selectDropdown('dropdown-sort-by', 'A a Z');
 
     firstRowNameCell().should('contain', 'Aqua Flow Utilities');
     firstRowNameCell().should('not.contain', 'Spark Electric Solutions');
   });
 
-  it('filters by category "Bills" and shows only Bills', () => {
+  it('should filter transactions by category "Fundos" and show only relevant transactions', () => {
     cy.get('input[name="search"]').clear();
-    selectDropdown('dropdown-category', 'Bills');
+    selectDropdown('dropdown-category', 'Fundos');
 
     cy.get('tbody tr').each(($tr) => {
-      cy.wrap($tr).find('td').eq(2).should('contain', 'Bills');
+      cy.wrap($tr).find('td').eq(2).should('contain', 'Fundos');
     });
   });
 
-  it('goes to page 2 and shows different rows', () => {
+  it('should go to the second page and display different rows of transactions', () => {
     cy.get('input[name="search"]').clear();
-    selectDropdown('dropdown-sort-by', 'A to Z');
-    selectDropdown('dropdown-category', 'All Transactions');
+    selectDropdown('dropdown-sort-by', 'A a Z');
+    selectDropdown('dropdown-category', 'Todos');
 
     firstRowNameCell().should('contain', 'Aqua Flow Utilities');
 

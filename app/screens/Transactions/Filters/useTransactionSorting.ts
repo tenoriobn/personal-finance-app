@@ -3,22 +3,22 @@ import type { Ref } from 'vue';
 import type { Transactions } from '../transactions.type';
 
 export function useTransactionSorting(transactions: Ref<Transactions[]>) {
-  const selectedSort = ref('Oldest');
+  const selectedSort = ref('Mais recente');
 
   const sortedTransactions = computed(() => {
     const transactionsCopy = [...transactions.value];
     switch (selectedSort.value) {
-      case 'Latest':
+      case 'Mais recente':
         return transactionsCopy.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-      case 'Oldest':
+      case 'Mais antigo':
         return transactionsCopy.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-      case 'A to Z':
+      case 'A a Z':
         return transactionsCopy.sort((a, b) => a.name.localeCompare(b.name));
-      case 'Z to A':
+      case 'Z a A':
         return transactionsCopy.sort((a, b) => b.name.localeCompare(a.name));
-      case 'Highest':
+      case 'Mais alto':
         return transactionsCopy.sort((a, b) => b.amount - a.amount);
-      case 'Lowest':
+      case 'Mais baixo':
         return transactionsCopy.sort((a, b) => a.amount - b.amount);
       default:
         return transactionsCopy;

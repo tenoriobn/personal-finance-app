@@ -10,8 +10,8 @@ describe('Filter', () => {
     filtersComponent = mount(Filters, {
       props: {
         search: '',
-        selectedCategory: 'All Transactions',
-        selectedSort: 'Oldest',
+        selectedCategory: 'Todas',
+        selectedSort: 'Mais antigo',
       },
     });
   });
@@ -40,15 +40,15 @@ describe('Filter', () => {
     expect(filtersComponent.emitted('update:search')![0]).toEqual(['Netflix']);
   });
 
-  it('should emit "update:selectedSort" when selecting "Latest"', async () => {
-    await selectDropdownOption(filtersComponent, 'dropdown-sort-by', 'Latest');
+  it('should emit "update:selectedSort" when selecting "Mais recente"', async () => {
+    await selectDropdownOption(filtersComponent, 'dropdown-sort-by', 'Mais recente');
     expect(filtersComponent.emitted('update:selectedSort')).toBeTruthy();
-    expect(filtersComponent.emitted('update:selectedSort')![0]).toEqual(['Latest']);
+    expect(filtersComponent.emitted('update:selectedSort')![0]).toEqual(['Mais recente']);
   });
 
-  it('should emit "update:selectedCategory" when selecting "Bills" option in Category dropdown', async () => {
-    await selectDropdownOption(filtersComponent, 'dropdown-category', 'Bills');
+  it('should emit "update:selectedCategory" when selecting "Fundos" option in Category dropdown', async () => {
+    await selectDropdownOption(filtersComponent, 'dropdown-category', 'Fundos');
     expect(filtersComponent.emitted('update:selectedCategory')).toBeTruthy();
-    expect(filtersComponent.emitted('update:selectedCategory')![0]).toEqual(['Bills']);
+    expect(filtersComponent.emitted('update:selectedCategory')![0]).toEqual(['Fundos']);
   });
 });
