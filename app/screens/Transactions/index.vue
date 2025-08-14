@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-rows-[auto_1fr] max-md:gap-8 md:gap-10">
-    <h2 class="text-grey-900 text-[2rem] font-bold leading-none">Transactions</h2>
+    <h2 class="text-grey-900 text-[2rem] font-bold leading-none">Transações</h2>
 
     <div class="grid max-md:gap-6 md:gap-10 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
       <Filter

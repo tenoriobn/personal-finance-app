@@ -84,9 +84,9 @@ import type { TableProps } from './table.type';
 const { transactions } = defineProps<TableProps>();
 
 const tableHeaders = [
-  { id: 1, title: 'Recipient/Sender' },
-  { id: 2, title: 'Category' },
-  { id: 3, title: 'Transaction Date' },
-  { id: 4, title: 'Amount', align: 'text-right' },
+  { id: 1, title: 'Destinatário/Remetente' },
+  { id: 2, title: 'Categoria' },
+  { id: 3, title: 'Data da transação' },
+  { id: 4, title: 'Valor', align: 'text-right' },
 ];
 </script>

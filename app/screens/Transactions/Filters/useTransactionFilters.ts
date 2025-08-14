@@ -4,7 +4,7 @@ export function useTransactionFilters() {
   const { data } = useFetch('/api/transactions');
 
   const search = ref('');
-  const selectedCategory = ref('All Transactions');
+  const selectedCategory = ref('Todos');
 
   const filteredTransactions = computed(() => {
     const response = data.value?.transactions || [];
@@ -15,7 +15,7 @@ export function useTransactionFilters() {
         .includes(search.value.toLowerCase());
 
       const matchesCategory
-        = selectedCategory.value === 'All Transactions'
+        = selectedCategory.value === 'Todos'
           || transaction.category === selectedCategory.value;
 
       return matchesSearch && matchesCategory;

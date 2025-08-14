@@ -2,7 +2,7 @@
   <div class="flex justify-between max-md:gap-4 md:gap-6 h-max">
     <Input
       v-model="searchLocal"
-      :label="'Search transaction'"
+      :label="'Pesquisar transações'"
       :icon="SearchIcon"
       name="search"
       custom-classes="w-full md:max-w-[432px]"
@@ -11,20 +11,20 @@
     <div class="flex max-md:justify-center max-md:items-center md:justify-end max-md:gap-3 md:gap-6 md:w-full">
       <Dropdown
         v-model="selectedSortLocal"
-        :label="'Sort By'"
+        :label="'Ordenar por'"
         :options="options"
         :icon-mobile="SortIconMobile"
         data-testid="dropdown-sort-by"
-        custom-classes="md:w-[112px] 2xl:w-[164px]"
+        custom-classes="md:w-[144px] 2xl:w-[164px]"
       />
 
       <Dropdown
         v-model="selectedCategoryLocal"
-        :label="'Category'"
+        :label="'Categoria'"
         :options="categories"
         :icon-mobile="FilterIconMobile"
         data-testid="dropdown-category"
-        custom-classes="md:w-[164px] 2xl:w-[224px]"
+        custom-classes="md:w-[160px] 2xl:w-[224px]"
       />
     </div>
   </div>
@@ -51,6 +51,6 @@ watch(searchLocal, val => emit('update:search', val));
 watch(selectedCategoryLocal, val => emit('update:selectedCategory', val));
 watch(selectedSortLocal, val => emit('update:selectedSort', val));
 
-const options = ['Oldest', 'Latest', 'A to Z', 'Z to A', 'Highest', 'Lowest'];
-const categories = ['All Transactions', 'Entertainment', 'Bills', 'Groceries', 'Dining Out', 'Transportation'];
+const options = ['Mais recente', 'Mais antigo', 'A a Z', 'Z a A', 'Mais alto', 'Mais baixo'];
+const categories = ['Todos', 'Entretenimento', 'Fundos', 'Alimentos', 'Jantar fora', 'Transporte'];
 </script>

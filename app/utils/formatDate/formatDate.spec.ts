@@ -6,7 +6,7 @@ describe('formatDate', () => {
     expect(formatDate('abc')).toBe('Invalid Date');
   });
 
-  it('should format a valid date to "DD MMM YYYY" in en-GB locale', () => {
-    expect(formatDate('2024-08-19T14:23:11Z')).toBe('19 Aug 2024');
+  it('should format a valid date to "DD/MM/YYYY" in pt-br locale', () => {
+    expect(formatDate('2024-08-19T14:23:11Z')).toBe('19/08/2024');
   });
 });

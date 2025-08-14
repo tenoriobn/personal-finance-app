@@ -7,27 +7,27 @@ import RecurringBillsIcon from '~/assets/icons/icon-nav-recurring-bills.svg';
 export const navLinks = [
   {
     to: '/',
-    label: 'Overview',
+    label: 'Visão Geral',
     icon: OverviewIcon,
   },
   {
-    to: '/transactions',
-    label: 'Transactions',
+    to: '/transacoes',
+    label: 'Transações',
     icon: TransactionsIcon,
   },
   {
-    to: '/budgets',
-    label: 'Budgets',
+    to: '/orcamentos',
+    label: 'Orçamentos',
     icon: BudgetsIcon,
   },
   {
-    to: '/pots',
-    label: 'Pots',
+    to: '/fundos',
+    label: 'Fundos',
     icon: PotsIcon,
   },
   {
-    to: '/recurring-bills',
-    label: 'Recurring Bills',
+    to: '/contas-recorrentes',
+    label: 'Recorrentes',
     icon: RecurringBillsIcon,
   },
 ];

@@ -1,7 +1,7 @@
 export function formatCurrency(value: number): string {
-  const formatter = new Intl.NumberFormat('en-US', {
+  const formatter = new Intl.NumberFormat('pt-br', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'BRL',
     signDisplay: 'always',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
