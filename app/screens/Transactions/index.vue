@@ -10,7 +10,7 @@
       />
 
       <Table
-        :transactions="paginatedTransactions"
+        :transactions="transactions"
       />
 
       <Pagination
@@ -30,6 +30,12 @@ import Pagination from './Pagination/index.vue';
 import { useTransactions } from './useTransactions';
 
 const {
-  currentPage, totalPages, paginatedTransactions, goToPage, search, selectedCategory, selectedSort,
+  transactions,
+  search,
+  selectedCategory,
+  selectedSort,
+  totalPages,
+  currentPage,
+  goToPage,
 } = useTransactions();
 </script>

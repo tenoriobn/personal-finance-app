@@ -52,10 +52,11 @@ import { motion, AnimatePresence } from 'motion-v';
 import { growIn } from '~/motion/transitions';
 import CaretDownIcon from '~/assets/icons/icon-caret-left.svg';
 import type { PaginationProps } from './pagination.type';
-import { getPagesToShow } from './getPagesToShow';
+import { usePagination } from './usePagination';
 
 const { currentPage, totalPages } = defineProps<PaginationProps>();
+
 const emit = defineEmits<{ (e: 'page-change', page: number): void }>();
 
-const pages = computed(() => getPagesToShow(currentPage, totalPages));
+const pages = computed(() => usePagination(currentPage, totalPages));
 </script>
