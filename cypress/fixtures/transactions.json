@@ -1,0 +1,28 @@
+{
+  "transactions": [
+    {
+      "avatar": "/images/avatars/aqua-flow-utilities.jpg",
+      "name": "Aqua Flow Utilities aqui mesmo",
+      "category": "Fundos",
+      "date": "2024-08-01T10:00:00Z",
+      "amount": -120,
+      "recurring": false
+    },
+    {
+      "avatar": "/images/avatars/savory-bites-bistro.jpg",
+      "name": "Savory Bites Bistro",
+      "category": "Jantar fora",
+      "date": "2024-08-19T20:23:11Z",
+      "amount": -55.5,
+      "recurring": false
+    },
+    {
+      "avatar": "/images/avatars/emma-richardson.jpg",
+      "name": "Emma Richardson",
+      "category": "Fundos",
+      "date": "2024-07-22T15:45:00Z",
+      "amount": 500,
+      "recurring": false
+    }
+  ]
+}

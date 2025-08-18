@@ -6,7 +6,6 @@ describe('Input', () => {
   it('should render and change the input value', async () => {
     const inputComponent = mount(Input, {
       props: {
-        icon: '',
         modelValue: '',
         label: 'Pesquisar transações',
         name: 'search',

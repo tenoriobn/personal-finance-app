@@ -1,4 +1,4 @@
-export function getPagesToShow(currentPage: number, totalPages: number, maxButtons = 4): number[] {
+export function usePagination(currentPage: number, totalPages: number, maxButtons = 4): number[] {
   const pages: number[] = [];
 
   if (totalPages <= maxButtons) {
