@@ -4,8 +4,14 @@ import Navbar from './index.vue';
 import { unref } from 'vue';
 
 describe('Navbar', () => {
-  it('alternar isCollapsed ao clicar no botão', async () => {
-    const navbarComponent = mount(Navbar);
+  it('should toggle boolean isCollapsed when clicking the button', async () => {
+    const navbarComponent = mount(Navbar, {
+      global: {
+        stubs: {
+          NuxtLink: true,
+        },
+      },
+    });
 
     const button = navbarComponent.find('[data-testid="colapse-navbar"]');
     expect(button.exists()).toBe(true);
