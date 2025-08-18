@@ -21,12 +21,13 @@
       <AnimatePresence>
         <motion.button
           v-if="page > 0"
-          class="flex items-center justify-center border py-2 px-2 max-md:w-9 max-md:h-9 md:w-11 md:h-11 rounded-xl duration-150 ease-in-out"
+          class="flex items-center justify-center border py-2 px-2 max-md:w-9 max-md:h-9 md:w-11 md:h-11 rounded-xl transition-colors duration-150 ease-in-out"
           v-bind="growIn"
           :class="[page === currentPage
             ? 'bg-grey-900 border-grey-900 text-white'
             : 'enabled:hover:bg-grey-100 enabled:active:bg-grey-200 text-grey-900',
           ]"
+          :initial="{ opacity: 1 }"
           @click="emit('page-change', page)"
         >
           {{ page }}
