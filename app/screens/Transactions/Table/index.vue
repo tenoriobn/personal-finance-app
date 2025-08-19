@@ -15,8 +15,12 @@
     </thead>
 
     <tbody class="divide-y divide-grey-100 text-grey-500 text-sm text-wrap">
+      <TableSkeleton
+        v-if="pending"
+      />
+
       <p
-        v-if="transactions.length === 0"
+        v-else-if="transactions.length === 0"
         class="text-center text-grey-500 text-sm xl:pt-10"
       >
         No transactions found.
@@ -78,10 +82,11 @@
 </template>
 
 <script lang="ts" setup>
+import TableSkeleton from './TableSkeleton.vue';
 import { formatDate, formatCurrency } from '~/utils';
 import type { TableProps } from './table.type';
 
-const { transactions } = defineProps<TableProps>();
+const { transactions, pending } = defineProps<TableProps>();
 
 const tableHeaders = [
   { id: 1, title: 'Destinatário/Remetente' },
