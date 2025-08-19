@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-rows-[auto_1fr] max-md:gap-8 md:gap-10">
-    <h2 class="text-grey-900 text-[2rem] font-bold leading-none">Transações</h2>
+    <TitleSection title="Transações" />
 
     <div class="grid max-md:gap-6 md:gap-10 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
       <Filter
@@ -11,6 +11,7 @@
 
       <Table
         :transactions="transactions"
+        :pending="pending"
       />
 
       <Pagination
@@ -30,12 +31,6 @@ import Pagination from './Pagination/index.vue';
 import { useTransactions } from './useTransactions';
 
 const {
-  transactions,
-  search,
-  selectedCategory,
-  selectedSort,
-  totalPages,
-  currentPage,
-  goToPage,
+  transactions, search, selectedCategory, selectedSort, totalPages, currentPage, goToPage, pending,
 } = useTransactions();
 </script>

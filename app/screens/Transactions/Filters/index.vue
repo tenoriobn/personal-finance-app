@@ -31,6 +31,7 @@
 </template>
 
 <script lang="ts" setup>
+import { Input, Dropdown } from '#components';
 import { ref } from 'vue';
 import SearchIcon from '~/assets/icons/icon-search.svg';
 import type { FiltersProps } from './filters.type';
