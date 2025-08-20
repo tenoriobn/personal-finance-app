@@ -1,5 +1,5 @@
 <template>
-  <h2 class="text-grey-900 text-[2rem] font-bold leading-none">{{ title }}</h2>
+  <h2 class="text-grey-900 max-md:text-2xl md:text-[2rem] font-bold leading-none">{{ title }}</h2>
 </template>
 
 <script setup lang="ts">
