@@ -78,11 +78,10 @@
 import Logo from '~/assets/icons/logo-large.svg';
 import MinimizeMenuIcon from '~/assets/icons/icon-minimize-menu.svg';
 import { navLinks } from './navLinks';
+import { useSidebar } from '~/composables/useSidebar';
 
 const route = useRoute();
-const isCollapsed = ref(false);
-
-defineExpose({ isCollapsed });
+const { isCollapsed } = useSidebar();
 </script>
 
 <style scoped>
