@@ -7,11 +7,9 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <SpendingChart :budgets="budgets" />
-      <div class="bg-white rounded-xl h-[350px] mb-4" />
-      <div class="bg-white rounded-xl h-[320px] mb-4" />
-      <div class="bg-white rounded-xl h-[350px] mb-4" />
-      <div class="bg-white rounded-xl h-[380px] mb-4" />
-      <div class="bg-white rounded-xl h-[350px] mb-4" />
+      <BudgetCard />
+      <BudgetCard />
+      <BudgetCard />
     </div>
   </div>
 </template>
@@ -19,6 +17,7 @@
 <script setup lang="ts">
 import { Button, TitleSection } from '#components';
 import SpendingChart from './SpendingChart/index.vue';
+import BudgetCard from './BudgetCard/index.vue';
 import { useBudgets } from './useBudgets';
 
 const { budgets } = useBudgets();
