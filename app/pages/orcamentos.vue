@@ -1,7 +1,7 @@
 <template>
-  <Orcamentos />
+  <Budgets />
 </template>
 
 <script lang="ts" setup>
-import Orcamentos from '~/screens/Orcamentos/index.vue';
+import Budgets from '~/screens/Budgets/index.vue';
 </script>

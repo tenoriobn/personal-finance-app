@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center xl:h-[540px] mb-4 bg-white rounded-xl max-md:p-4 md:p-10">
+  <div class="flex items-center justify-center xl:h-[540px] mb-4 bg-white rounded-xl max-md:p-4 md:p-[2rem]">
     <Doughnut
       :data="chartData"
       :options="chartOptions"
