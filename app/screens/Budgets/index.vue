@@ -5,11 +5,14 @@
       <Button label="+Novo Orçamento" />
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 gap-4 xl:max-2xl:grid-cols-[minmax(0,400px)_1fr] 2xl:grid-cols-[minmax(0,480px)_1fr]">
       <SpendingChart :budgets="budgets" />
-      <BudgetCard />
-      <BudgetCard />
-      <BudgetCard />
+
+      <div class="grid gap-4">
+        <BudgetCard />
+        <BudgetCard />
+        <BudgetCard />
+      </div>
     </div>
   </div>
 </template>
