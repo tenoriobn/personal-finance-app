@@ -16,6 +16,7 @@
         :icon-mobile="SortIconMobile"
         data-testid="dropdown-sort-by"
         custom-classes="md:w-[144px] 2xl:w-[164px]"
+        :show-icon-on-mobile="true"
       />
 
       <Dropdown
@@ -25,6 +26,7 @@
         :icon-mobile="FilterIconMobile"
         data-testid="dropdown-category"
         custom-classes="md:w-[160px] 2xl:w-[224px]"
+        :show-icon-on-mobile="true"
       />
     </div>
   </div>
