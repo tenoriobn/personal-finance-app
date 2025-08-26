@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <div class="xl:sticky xl:top-10 flex flex-col h-max mb-4 bg-white rounded-xl max-md:p-4 md:p-[2rem]">
+    <div class="xl:sticky xl:top-10 flex flex-col h-max  bg-white rounded-xl max-md:p-4 md:p-[2rem]">
       <div>
         <Doughnut
           :data="chartData"
