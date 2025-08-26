@@ -15,8 +15,11 @@
     />
 
     <div
-      class="max-md:hidden group relative flex justify-between items-center gap-4 rounded-xl border p-4 text-sm duration-150 ease-in-out cursor-pointer h-full"
-      :class="[isOpen || modelValue ? 'border-grey-900' : 'border-grey-300']"
+      class="group relative flex justify-between items-center gap-4 rounded-xl border p-4 text-sm duration-150 ease-in-out cursor-pointer h-full"
+      :class="[
+        isOpen || modelValue ? 'border-grey-900' : 'border-grey-300',
+        showIconOnMobile && 'max-md:hidden',
+      ]"
     >
       <span
         class="pointer-events-none absolute left-3 origin-[0] -translate-y-1/2  bg-white px-1 text-sm transition-all duration-150 ease-in-out"
@@ -60,7 +63,7 @@ import { useClickOutside } from '~/composables/useClickOutside';
 import type { DropdownProps } from './dropdown.type';
 import { fadeSlideY } from '~/motion/transitions';
 
-const { dataTestid, label, options, modelValue, customClasses, iconMobile } = defineProps<DropdownProps>();
+const { dataTestid, label, options, modelValue, customClasses, iconMobile, showIconOnMobile } = defineProps<DropdownProps>();
 
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();
 
