@@ -8,21 +8,20 @@
     @click="toggleDropdown"
     @keydown.esc="closeDropdown"
   >
+    <!-- ícone mobile -->
     <component
       :is="iconMobile"
       v-if="iconMobile"
       class="md:hidden fill-grey-900"
     />
 
+    <!-- trigger -->
     <div
       class="group relative flex justify-between items-center gap-4 rounded-xl border p-4 text-sm duration-150 ease-in-out cursor-pointer h-full"
-      :class="[
-        isOpen || modelValue ? 'border-grey-900' : 'border-grey-300',
-        showIconOnMobile && 'max-md:hidden',
-      ]"
+      :class="[isOpen || modelValue ? 'border-grey-900' : 'border-grey-300', compactOnMobile && 'max-md:hidden']"
     >
       <span
-        class="pointer-events-none absolute left-3 origin-[0] -translate-y-1/2  bg-white px-1 text-sm transition-all duration-150 ease-in-out"
+        class="pointer-events-none absolute left-3 origin-[0] -translate-y-1/2 bg-white px-1 text-sm transition-all duration-150 ease-in-out"
         :class="[(isOpen || modelValue) ? 'text-grey-900 scale-90 top-0' : 'text-grey-300 scale-100 top-1/2']"
       >
         {{ label }}
@@ -36,22 +35,44 @@
       />
     </div>
 
+    <!-- dropdown lista -->
     <AnimatePresence>
-      <motion.ul
+      <motion.div
         v-if="isOpen"
         v-bind="fadeSlideY"
-        class="absolute bg-white border border-grey-200 max-md:right-0 max-md:mt-6 md:mt-3 max-md:w-max md:w-full z-10 rounded-xl shadow-md overflow-hidden"
+        class="absolute bg-white border border-grey-200 max-md:right-0 md:mt-3 z-10 rounded-xl shadow-md overflow-hidden"
+        :class="compactOnMobile ? 'max-md:w-max md:w-full max-md:mt-6' : 'w-full max-md:mt-3'"
       >
-        <li
-          v-for="option in options"
-          :key="option"
-          class="text-sm p-4 cursor-pointer duration-150 ease-in-out border-b border-grey-100 last:border-b-0"
-          :class="option === modelValue ? 'bg-grey-900 text-white' : 'hover:bg-grey-100'"
-          @click.stop="selectOption(option)"
+        <ul
+          ref="dropdownList"
+          class="max-h-[212px] overflow-y-auto scroll-hide relative"
+          @scroll="handleScroll"
         >
-          {{ option }}
-        </li>
-      </motion.ul>
+          <li
+            v-for="option in options"
+            :key="option"
+            class="text-sm p-4 cursor-pointer duration-150 ease-in-out border-b border-grey-100 last:border-b-0"
+            :class="option === modelValue ? 'bg-grey-900 text-white' : 'hover:bg-grey-100'"
+            @click.stop="selectOption(option)"
+          >
+            {{ option }}
+          </li>
+        </ul>
+
+        <!-- indicador de rolagem -->
+        <div
+          v-if="canScroll"
+          class="absolute inset-x-0 p-2 flex justify-center items-center backdrop-blur-[.0625rem] pointer-events-none "
+          :class="atBottom ? 'top-0 pt-3 bg-gradient-to-b from-grey-500 to-transparent' : 'bottom-0 bg-gradient-to-t from-grey-500 to-transparent'"
+        >
+          <div class="w-6 h-6 flex items-center justify-center rounded-full shadow-md bg-grey-500 animate-bounce">
+            <CaretDownIcon
+              :class="atBottom && 'rotate-180'"
+              class="text-grey-400 fill-white"
+            />
+          </div>
+        </div>
+      </motion.div>
     </AnimatePresence>
   </div>
 </template>
@@ -62,21 +83,24 @@ import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import { useClickOutside } from '~/composables/useClickOutside';
 import type { DropdownProps } from './dropdown.type';
 import { fadeSlideY } from '~/motion/transitions';
+import { ref } from 'vue';
+import { useDropdownScroll } from './useDropdownScroll';
 
-const { dataTestid, label, options, modelValue, customClasses, iconMobile, showIconOnMobile } = defineProps<DropdownProps>();
-
+const { dataTestid, label, options, modelValue, customClasses, iconMobile, compactOnMobile } = defineProps<DropdownProps>();
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();
 
+const dropdownWrapper = ref<HTMLElement | null>(null);
+const dropdownList = ref<HTMLElement | null>(null);
 const isOpen = ref(false);
-const dropdownWrapper = ref(null);
 
 const toggleDropdown = () => (isOpen.value = !isOpen.value);
 const closeDropdown = () => (isOpen.value = false);
-
 const selectOption = (option: string) => {
   emit('update:modelValue', option);
   closeDropdown();
 };
+
+const { canScroll, atBottom, handleScroll } = useDropdownScroll(dropdownList, isOpen, ref(options));
 
 useClickOutside(dropdownWrapper, closeDropdown);
 </script>

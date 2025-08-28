@@ -5,5 +5,5 @@ export interface DropdownProps {
   customClasses?: string
   iconMobile?: Component | string
   dataTestid?: string
-  showIconOnMobile?: boolean
+  compactOnMobile?: boolean
 }
