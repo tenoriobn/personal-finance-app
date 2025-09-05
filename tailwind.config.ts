@@ -66,5 +66,17 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.scroll-hide': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+        },
+        '.scroll-hide::-webkit-scrollbar': {
+          display: 'none',
+        },
+      });
+    },
+  ],
 };

@@ -82,6 +82,7 @@ import { navLinks } from './navLinks';
 const route = useRoute();
 
 const isCollapsed = ref(false);
+defineExpose({ isCollapsed });
 </script>
 
 <style scoped>

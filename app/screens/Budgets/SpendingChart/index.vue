@@ -47,9 +47,9 @@ const centerTextPlugin: Plugin<'doughnut'> = {
     ctx.save();
 
     const firstLine = 'R$2.400';
-    const secondLine = 'of $5.000 limit';
+    const secondLine = 'de R$5.000';
 
-    const firstFontSize = 24;
+    const firstFontSize = 20;
     const secondFontSize = 14;
     const lineGap = 4;
     const fontFamily = '"Public Sans", sans-serif';

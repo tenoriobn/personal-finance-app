@@ -6,9 +6,11 @@
         <h3 class="text-xl font-bold text-grey-900">Entretenimento</h3>
       </div>
 
-      <button class="opacity-50 hover:opacity-100 duration-150 ease-in-out">
-        <DotsIcon />
-      </button>
+      <BudgetActionsDropdown
+        v-model:open="isOpenBudgetActions"
+        @edit="handleEdit"
+        @delete="handleDelete"
+      />
     </div>
 
     <p class="text-sm text-grey-500 mt-6">Máximo de R$3.000,00</p>
@@ -20,8 +22,21 @@
 </template>
 
 <script setup lang="ts">
-import DotsIcon from '~/assets/icons/icon-dots.svg';
 import LatestSpendingTable from './LatestSpendingTable/index.vue';
 import Progressbar from './Progressbar/index.vue';
 import BalanceOverview from './BalanceOverview/index.vue';
+import BudgetActionsDropdown from './BudgetActionsDropdown/index.vue';
+import { ref } from 'vue';
+
+const isOpenBudgetActions = ref(false);
+
+const handleEdit = () => {
+  // eslint-disable-next-line no-console
+  console.log('Editar orçamento');
+};
+
+const handleDelete = () => {
+  // eslint-disable-next-line no-console
+  console.log('Deletar orçamento');
+};
 </script>
