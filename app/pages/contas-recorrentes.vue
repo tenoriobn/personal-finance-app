@@ -1,6 +1,7 @@
 <template>
-  <div class="h-full">
-    <h1 class="text-amber-600">Welcome to the Contas recorrentes</h1>
-    <h2>deu certo</h2>
-  </div>
+  <RecurringBills />
 </template>
+
+<script lang="ts" setup>
+import RecurringBills from '~/screens/RecurringBills/index.vue';
+</script>
