@@ -1,6 +1,12 @@
 <template>
   <div class="grid grid-rows-[auto_1fr] max-md:gap-8 md:gap-10">
-    <TitleSection title="Transações" />
+    <header class="flex justify-between items-center gap-2 flex-wrap">
+      <TitleSection title="Transações" />
+      <Button
+        label="+Nova Transação"
+        @click="showCreateTransactionModal = true"
+      />
+    </header>
 
     <div class="grid max-md:gap-6 md:gap-10 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
       <Filter
@@ -25,6 +31,7 @@
 </template>
 
 <script lang="ts" setup>
+import { Button, TitleSection } from '#components';
 import Table from './Table/index.vue';
 import Filter from './Filters/index.vue';
 import Pagination from './Pagination/index.vue';
@@ -33,4 +40,6 @@ import { useTransactions } from './useTransactions';
 const {
   transactions, search, selectedCategory, selectedSort, totalPages, currentPage, goToPage, pending,
 } = useTransactions();
+
+const showCreateTransactionModal = ref(false);
 </script>
