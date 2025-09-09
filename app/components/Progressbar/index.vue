@@ -1,11 +1,12 @@
 <template>
-  <div class="rounded bg-beige-100 p-1 mt-4">
+  <div class="rounded bg-beige-100 mt-4">
     <div
       aria-valuemax="100"
       aria-valuemin="0"
       role="progressbar"
       data-max="100"
-      class="relative w-full overflow-hidden h-6 rounded bg-transparent"
+      class="relative w-full overflow-hidden rounded bg-transparent"
+      :class="customClasses"
     >
       <div
         data-max="100"
@@ -15,3 +16,9 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { ProgressBarProps } from './progressBar.type';
+
+const { customClasses } = defineProps<ProgressBarProps>();
+</script>

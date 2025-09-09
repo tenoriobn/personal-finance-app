@@ -1,6 +1,6 @@
 <template>
   <div
-    ref="dropdownWrapper"
+    ref="actionsDropdownWrapper"
     class="relative grid"
   >
     <button
@@ -23,14 +23,14 @@
             class="text-grey-900 hover:text-grey-500 active:text-grey-300 text-sm font-medium p-4 cursor-pointer duration-150 ease-in-out border-b border-grey-100 last:border-b-0 w-full"
             @click="editBudget"
           >
-            Editar orçamento
+            {{ editLabel }}
           </button>
 
           <button
             class="text-red hover:text-red/85 active:text-red/55 text-sm font-medium p-4 cursor-pointer duration-150 ease-in-out border-b border-grey-100 last:border-b-0 w-full"
             @click="deleteBudget"
           >
-            Deletar orçamento
+            {{ deleteLabel }}
           </button>
         </ul>
       </motion.div>
@@ -44,10 +44,13 @@ import { motion, AnimatePresence } from 'motion-v';
 import { fadeSlideY } from '~/motion/transitions';
 import { useClickOutside } from '~/composables/useClickOutside';
 import { ref } from 'vue';
+import type { ActionsDropdownProps } from './actionsDropdown.type';
+
+const { editLabel, deleteLabel } = defineProps<ActionsDropdownProps>();
 
 const emit = defineEmits<{ (e: 'edit' | 'delete'): void }>();
 
-const dropdownWrapper = ref<HTMLElement | null>(null);
+const actionsDropdownWrapper = ref<HTMLElement | null>(null);
 const isOpen = defineModel<boolean>('open', { required: true });
 
 const toggleBudgetActions = () => (isOpen.value = !isOpen.value);
@@ -62,5 +65,5 @@ const deleteBudget = () => {
   closeDropdown();
 };
 
-useClickOutside(dropdownWrapper, closeDropdown);
+useClickOutside(actionsDropdownWrapper, closeDropdown);
 </script>
