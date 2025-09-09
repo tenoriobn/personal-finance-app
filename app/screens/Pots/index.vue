@@ -7,11 +7,23 @@
         @click="showCreatePotModal = true"
       />
     </header>
+
+    <div class="grid md:max-xl:grid-cols-2 xl:grid-cols-[repeat(auto-fit,minmax(380px,1fr))] gap-4">
+      <PotCard />
+      <PotCard />
+      <PotCard />
+      <PotCard />
+      <PotCard />
+    </div>
+
+    <CreatePotModal v-model="showCreatePotModal" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { Button, TitleSection } from '#components';
+import PotCard from './PotCard/index.vue';
+import CreatePotModal from './CreatePotModal/index.vue';
 
 const showCreatePotModal = ref(false);
 </script>

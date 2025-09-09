@@ -6,8 +6,10 @@
         <h3 class="text-xl font-bold text-grey-900">Entretenimento</h3>
       </div>
 
-      <BudgetActionsDropdown
+      <ActionsDropdown
         v-model:open="isOpenBudgetActions"
+        delete-label="Deletar Orçamento"
+        edit-label="Editar Orçamento"
         @edit="handleEdit"
         @delete="handleDelete"
       />
@@ -15,7 +17,10 @@
 
     <p class="text-sm text-grey-500 mt-6">Máximo de R$3.000,00</p>
 
-    <Progressbar />
+    <Progressbar
+      class="p-1"
+      custom-classes="h-6"
+    />
     <BalanceOverview />
     <LatestSpendingTable />
   </div>
@@ -23,9 +28,8 @@
 
 <script setup lang="ts">
 import LatestSpendingTable from './LatestSpendingTable/index.vue';
-import Progressbar from './Progressbar/index.vue';
+import { Progressbar, ActionsDropdown } from '#components';
 import BalanceOverview from './BalanceOverview/index.vue';
-import BudgetActionsDropdown from './BudgetActionsDropdown/index.vue';
 import { ref } from 'vue';
 
 const isOpenBudgetActions = ref(false);
