@@ -1,7 +1,7 @@
 <template>
-  <table class="w-full">
-    <thead class="max-xl:hidden text-grey-500 text-nowrap">
-      <tr class="grid grid-cols-[minmax(300px,1fr)_140px_140px_minmax(100px,1fr)] gap-6 w-full">
+  <table class="">
+    <thead class="max-md:hidden text-grey-500 text-nowrap">
+      <tr class="grid md:grid-cols-[minmax(180px,1fr)_140px_minmax(90px,1fr)] gap-6">
         <th
           v-for="{ id, title, align } in tableHeaders || []"
           :key="id"
@@ -27,13 +27,13 @@
       </p>
 
       <tr
-        v-for="{ avatar, name, category, date, amount } in transactions || []"
+        v-for="{ avatar, name, date, amount } in transactions || []"
         v-else
         :key="date"
-        class="grid max-xl:grid-cols-[auto_1fr_auto] xl:grid-cols-[minmax(300px,1fr)_140px_140px_minmax(100px,1fr)] max-xl:grid-rows-2 items-center max-xl:gap-x-4 xl:gap-6 py-4 last:pb-0"
+        class="grid items-center max-md:grid-cols-[auto_1fr_auto] max-md:grid-rows-2 max-md:gap-x-4 md:grid-cols-[minmax(180px,1fr)_140px_minmax(90px,1fr)] md:gap-6 py-4 last:pb-0"
       >
         <td
-          class="max-xl:row-span-2 flex items-center gap-4 text-grey-900 font-bold"
+          class="max-md:col-start-1 max-md:col-end-3 max-md:row-span-2 flex items-center gap-4 text-grey-900 font-bold"
         >
           <img
             :src="`${avatar}`"
@@ -41,7 +41,7 @@
             class="w-10 h-10 rounded-full"
           >
           <span
-            class="max-xl:hidden truncate"
+            class="truncate"
             :title="name"
           >
             {{ name }}
@@ -49,30 +49,20 @@
         </td>
 
         <td
-          class="max-xl:col-start-2 max-xl:row-start-1 xl:hidden flex items-center gap-4 text-grey-900 font-bold min-w-0"
+          class="max-md:col-start-3 max-md:row-start-2 flex items-center gap-1 font-normal truncate"
+          :class="amount > 0 ? 'text-green' : 'text-red'"
         >
-          <span
-            class="truncate max-w-full block"
-            :title="name"
-          >
-            {{ name }}
-          </span>
+          <p class="max-md:order-2">{{ formatDate(date) }}</p>
+
+          <div class="max-md:order-1">
+            <BillPaidIcon v-if="amount > 0" />
+            <BillDueIcon v-else />
+          </div>
         </td>
 
         <td
-          class="max-xl:col-start-2 max-xl:row-start-2 font-normal truncate"
-          :title="category"
-        >
-          {{ category }}
-        </td>
-        <td
-          class="max-xl:col-start-3 max-xl:row-start-2 font-normal truncate"
-        >
-          {{ formatDate(date) }}
-        </td>
-        <td
-          class="max-xl:col-start-3 max-xl:row-start-1 text-right font-bold truncate"
-          :class="amount > 0 ? 'text-green' : 'text-grey-900'"
+          class="max-md:col-start-3 max-md:row-start-1 text-right font-bold truncate"
+          :class="amount > 0 ? 'text-grey-900' : 'text-red'"
         >
           {{ formatCurrency(amount) }}
         </td>
@@ -85,13 +75,14 @@
 import TableSkeleton from './TableSkeleton.vue';
 import { formatDate, formatCurrency } from '~/utils';
 import type { TableProps } from './table.type';
+import BillPaidIcon from '~/assets/icons/icon-bill-paid.svg';
+import BillDueIcon from '~/assets/icons/icon-bill-due.svg';
 
 const { transactions, pending } = defineProps<TableProps>();
 
 const tableHeaders = [
   { id: 1, title: 'Destinatário/Remetente' },
-  { id: 2, title: 'Categoria' },
-  { id: 3, title: 'Data da transação' },
+  { id: 3, title: 'Data de vencimento' },
   { id: 4, title: 'Valor', align: 'text-right' },
 ];
 </script>
