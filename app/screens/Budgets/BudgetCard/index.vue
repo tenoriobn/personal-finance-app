@@ -6,7 +6,7 @@
         <h3 class="text-xl font-bold text-grey-900">Entretenimento</h3>
       </div>
 
-      <ActionsDropdown
+      <CardActionsMenu
         v-model:open="isOpenBudgetActions"
         delete-label="Deletar Orçamento"
         edit-label="Editar Orçamento"
@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import LatestSpendingTable from './LatestSpendingTable/index.vue';
-import { Progressbar, ActionsDropdown } from '#components';
+import { Progressbar, CardActionsMenu } from '#components';
 import BalanceOverview from './BalanceOverview/index.vue';
 import { ref } from 'vue';
 

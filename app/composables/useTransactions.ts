@@ -1,13 +1,19 @@
 import { ref } from 'vue';
+import type { TransactionsData } from '~/screens/Transactions/transactions.type';
 
-export function useTransactions() {
+type TransactionsReponse = {
+  data: TransactionsData[]
+  totalPages: number
+};
+
+export function useTransactions(endpoint: string) {
   const search = ref('');
   const selectedCategory = ref('Todos');
   const selectedSort = ref('Mais recente');
   const currentPage = ref(1);
   const limit = ref(10);
 
-  const { data, pending } = useFetch('/api/transactions', {
+  const { data, pending } = useFetch<TransactionsReponse>(endpoint, {
     query: {
       search,
       category: selectedCategory,

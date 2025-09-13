@@ -44,9 +44,9 @@ import { motion, AnimatePresence } from 'motion-v';
 import { fadeSlideY } from '~/motion/transitions';
 import { useClickOutside } from '~/composables/useClickOutside';
 import { ref } from 'vue';
-import type { ActionsDropdownProps } from './actionsDropdown.type';
+import type { CardActionsMenuProps } from './cardActionsMenu.type';
 
-const { editLabel, deleteLabel } = defineProps<ActionsDropdownProps>();
+const { editLabel, deleteLabel } = defineProps<CardActionsMenuProps>();
 
 const emit = defineEmits<{ (e: 'edit' | 'delete'): void }>();
 

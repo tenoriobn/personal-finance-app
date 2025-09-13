@@ -9,14 +9,8 @@
     />
 
     <div class="flex max-md:justify-center max-md:items-center md:justify-end max-md:gap-3 md:gap-6 md:w-full">
-      <Dropdown
+      <SortByDropdown
         v-model="selectedSortLocal"
-        :label="'Ordenar por'"
-        :options="options"
-        :icon-mobile="SortIconMobile"
-        data-testid="dropdown-sort-by"
-        custom-classes="md:w-[144px] 2xl:w-[164px]"
-        :compact-on-mobile="true"
       />
 
       <Dropdown
@@ -34,10 +28,10 @@
 
 <script lang="ts" setup>
 import { Input, Dropdown } from '#components';
+import SortByDropdown from '~/components/Dropdown/SortByDropdown/index.vue';
 import { ref } from 'vue';
 import SearchIcon from '~/assets/icons/icon-search.svg';
 import type { FiltersProps } from './filters.type';
-import SortIconMobile from '~/assets/icons/icon-sort-mobile.svg';
 import FilterIconMobile from '~/assets/icons/icon-filter-mobile.svg';
 
 const props = defineProps<FiltersProps>();
@@ -47,13 +41,13 @@ const emit = defineEmits<{
 }>();
 
 const searchLocal = ref(props.search);
-const selectedCategoryLocal = ref(props.selectedCategory);
-const selectedSortLocal = ref(props.selectedSort);
-
 watch(searchLocal, val => emit('update:search', val));
+
+const selectedCategoryLocal = ref(props.selectedCategory);
 watch(selectedCategoryLocal, val => emit('update:selectedCategory', val));
+
+const selectedSortLocal = ref(props.selectedSort);
 watch(selectedSortLocal, val => emit('update:selectedSort', val));
 
-const options = ['Mais recente', 'Mais antigo', 'A a Z', 'Z a A', 'Mais alto', 'Mais baixo'];
 const categories = ['Todos', 'Entretenimento', 'Fundos', 'Alimentos', 'Jantar fora', 'Transporte'];
 </script>
