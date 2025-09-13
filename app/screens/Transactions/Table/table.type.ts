@@ -1,6 +1,6 @@
-import type { Transactions } from '../transactions.type';
+import type { TransactionsData } from '../transactions.type';
 
 export interface TableProps {
-  transactions: Transactions[]
+  transactions: TransactionsData[]
   pending: boolean
 }

@@ -1,7 +1,7 @@
 <template>
-  <table class="">
+  <table>
     <thead class="max-md:hidden text-grey-500 text-nowrap">
-      <tr class="grid md:grid-cols-[minmax(180px,1fr)_140px_minmax(90px,1fr)] gap-6">
+      <tr class="grid md:grid-cols-[minmax(172px,1fr)_140px_minmax(90px,1fr)] gap-6">
         <th
           v-for="{ id, title, align } in tableHeaders || []"
           :key="id"
@@ -20,7 +20,7 @@
       />
 
       <p
-        v-else-if="transactions.length === 0"
+        v-else-if="transactions.length === 0 && !pending"
         class="text-center text-grey-500 text-sm xl:pt-10"
       >
         No transactions found.
@@ -30,7 +30,7 @@
         v-for="{ avatar, name, date, amount } in transactions || []"
         v-else
         :key="date"
-        class="grid items-center max-md:grid-cols-[auto_1fr_auto] max-md:grid-rows-2 max-md:gap-x-4 md:grid-cols-[minmax(180px,1fr)_140px_minmax(90px,1fr)] md:gap-6 py-4 last:pb-0"
+        class="grid items-center max-md:grid-cols-[auto_1fr_auto] max-md:grid-rows-2 max-md:gap-x-4 md:grid-cols-[minmax(172px,1fr)_140px_minmax(90px,1fr)] md:gap-6 py-4 last:pb-0"
       >
         <td
           class="max-md:col-start-1 max-md:col-end-3 max-md:row-span-2 flex items-center gap-4 text-grey-900 font-bold"

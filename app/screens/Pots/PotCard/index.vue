@@ -6,7 +6,7 @@
         <h3 class="text-xl font-bold text-grey-900">Dia do churrasco</h3>
       </div>
 
-      <ActionsDropdown
+      <CardActionsMenu
         v-model:open="isOpenBudgetActions"
         delete-label="Deletar Fundo"
         edit-label="Editar Fundo"
@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { Button, Progressbar, ActionsDropdown } from '#components';
+import { Button, Progressbar, CardActionsMenu } from '#components';
 import { ref } from 'vue';
 
 const isOpenBudgetActions = ref(false);

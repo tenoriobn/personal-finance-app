@@ -1,4 +1,4 @@
-export interface ActionsDropdownProps {
+export interface CardActionsMenuProps {
   editLabel: string
   deleteLabel: string
 }

@@ -1,4 +1,4 @@
-export interface Transactions {
+export interface TransactionsData {
   avatar: string
   name: string
   category: string
