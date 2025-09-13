@@ -12,6 +12,9 @@ jobs:
   validate:
     name: Validar Código e Deploy Preview
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: front
 
     steps:
       - name: Checkout código
@@ -51,7 +54,7 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           scope: ${{ secrets.VERCEL_ORG_ID }}
-          working-directory: .
+          working-directory: front
       
       - name: Comentar Preview no Pull Request
         if: success()
