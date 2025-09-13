@@ -50,9 +50,9 @@ npm run lint:fix
 
 ## Links úteis
 
-- [Site em produção](https://eduardo-marketing-digital.vercel.app/)
+- [Site em produção](https://personal-finance-app-rosy.vercel.app/)
 
 
 ## Preview
 
-![Design para desktop](./public/images/design/desktop-preview.jpg)
+![Design para desktop](./front/public/images/design/desktop-preview.jpg)
