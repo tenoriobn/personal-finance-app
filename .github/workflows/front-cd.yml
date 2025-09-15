@@ -3,6 +3,8 @@ name: 'CD + Deploy Produção (Nuxt)'
 on:
   push:
     branches: [main]
+    paths:
+      - 'front/**'
 
 permissions:
   contents: read
