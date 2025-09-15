@@ -3,6 +3,8 @@ name: 'CI + Preview Deploy (Nuxt)'
 on:
   pull_request:
     branches: [main]
+    paths:
+      - 'front/**'
 
 permissions: 
   pull-requests: write
