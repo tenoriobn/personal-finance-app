@@ -1,0 +1,34 @@
+name: 'CI + Preview Deploy (Nuxt)'
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'back/**'
+
+permissions: 
+  pull-requests: write
+  contents: read
+
+jobs:
+  validate:
+    name: Validar Código Back
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: back
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 23.6.0
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Rodar Linter
+        run: npm run lint

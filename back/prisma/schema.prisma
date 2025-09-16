@@ -8,9 +8,75 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Budget {
+model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
-  limit     Float
+  email     String   @unique
+  password  String
   createdAt DateTime @default(now())
+
+  pots          Pot[]
+  budgets       Budget[]
+  transactions  Transaction[]
+}
+
+model Category {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  name      String      @unique
+  createdAt DateTime    @default(now())
+
+  budgets       Budget[]
+}
+
+model Theme {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  colorName  String     @map("color_name")
+  colorHex   String     @map("color_hex")
+  createdAt  DateTime   @default(now())
+
+  pots       Pot[]
+  budgets    Budget[]
+}
+
+model Pot {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  targetAmount    Float     @map("target_amount")
+  createdAt       DateTime  @default(now())
+
+  userId          String    @db.ObjectId @map("user_id")
+  user            User      @relation(fields: [userId], references: [id])
+
+  themeId         String    @db.ObjectId @map("theme_id")
+  theme           Theme     @relation(fields: [themeId], references: [id])
+}
+
+model Budget {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  maximumSpend    Float
+
+  userId          String    @db.ObjectId @map("user_id")
+  user            User      @relation(fields: [userId], references: [id])
+
+  themeId         String    @db.ObjectId @map("theme_id")
+  theme           Theme     @relation(fields: [themeId], references: [id])
+
+  categoryId      String    @db.ObjectId @map("category_id")
+  category        Category  @relation(fields: [categoryId], references: [id])
+
+  transactions    Transaction[]
+}
+
+model Transaction {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  date       DateTime
+  amount     Float
+  recurring  Boolean
+
+  userId     String   @db.ObjectId @map("user_id")
+  user       User     @relation(fields: [userId], references: [id])
+
+  budgetId   String   @db.ObjectId @map("budget_id")
+  budget     Budget   @relation(fields: [budgetId], references: [id])
 }

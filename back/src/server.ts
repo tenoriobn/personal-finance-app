@@ -1,12 +1,12 @@
 import { Hono } from "hono";
-import { budgetsRoute } from "./routes/budgets";
+import { usersRoute } from "./routes/users";
 
 const app = new Hono();
 
 // rota teste
 app.get("/", (c) => c.json({ message: "API rodando com Hono + Prisma + MongoDB Atlas 🚀" }));
 
-// monta as rotas de budgets em /budgets
-app.route("/budgets", budgetsRoute);
+// monta as rotas de users em /users
+app.route("/users", usersRoute);
 
 export default app;
