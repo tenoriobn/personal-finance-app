@@ -1,12 +1,17 @@
+/* eslint-disable no-console */
 import { Hono } from "hono";
-import { usersRoute } from "./routes/users";
+import { userRoutes } from "./modules/user/user.route";
+import { errorHandler } from "./middleware/errorHandler";
 
 const app = new Hono();
 
-// rota teste
-app.get("/", (c) => c.json({ message: "API rodando com Hono + Prisma + MongoDB Atlas 🚀" }));
+app.use("*", async (context, next) => {
+  console.log(`[${context.req.method}] ${context.req.url}`);
+  await next();
+});
 
-// monta as rotas de users em /users
-app.route("/users", usersRoute);
+app.onError(errorHandler);
+
+app.route("/users", userRoutes);
 
 export default app;

@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 import { serve } from "@hono/node-server";
 import app from "./server";
 
-const port = 4000;
-// eslint-disable-next-line no-console
+const port = Number(process.env.PORT) || 4000;
+
 console.log(`🚀 Server running at http://localhost:${port}`);
 
 serve({
