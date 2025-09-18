@@ -13,6 +13,19 @@ class UserService {
     return user;
   }
 
+  private async ensureUniqueEmail(email: string, excludeId?: string) {
+    const user = await prisma.user.findFirst({
+      where: {
+        email,
+        NOT: excludeId ? { id: excludeId } : undefined,
+      },
+    });
+
+    if (user) {
+      throw new AppError("E-mail já cadastrada!", 409);
+    }
+  }
+
   async getAll() {
     return prisma.user.findMany();
   }
@@ -22,19 +35,17 @@ class UserService {
   }
 
   async create(data: CreateUserDTO) {
-    const existingUser = await prisma.user.findUnique({
-      where: { email: data.email }
-    });
-
-    if (existingUser) {
-      throw new AppError("Usuário já cadastrado!", 409);
-    }
-
+    await this.ensureUniqueEmail(data.email);
     return prisma.user.create({ data });
   }
 
   async update(id: string, data: Partial<CreateUserDTO>) {
     await this.getUserOrFail(id);
+
+    if (data.email) {
+      await this.ensureUniqueEmail(data.email, id);
+    }
+
     return prisma.user.update({ where: { id }, data });
   }
 
