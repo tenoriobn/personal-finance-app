@@ -3,7 +3,7 @@ import { z } from "zod";
 export const createUserSchema = z.object({
   email: z
     .string({ required_error: "O campo 'email' é obrigatório!" })
-    .min(1, "O campo 'email' não pode ser vazio!")
+    .min(4, "O e-mail deve ter pelo menos 4 caracteres")
     .email("Digite um email válido, ex: 'email@email.com'"),
   name: z
     .string({ required_error: "O campo 'name' é obrigatório!" })
