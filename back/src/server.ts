@@ -3,6 +3,7 @@ import { Hono } from "hono";
 import { errorHandler } from "./middleware/errorHandler";
 import { userRoutes } from "./modules/user/user.route";
 import { categoryRoutes } from "./modules/category/category.route";
+import { themeRoutes } from "./modules/theme/theme.route";
 
 const app = new Hono();
 
@@ -15,5 +16,6 @@ app.onError(errorHandler);
 
 app.route("/users", userRoutes);
 app.route("/categories", categoryRoutes);
+app.route("/themes", themeRoutes);
 
 export default app;

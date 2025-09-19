@@ -30,8 +30,8 @@ model Category {
 
 model Theme {
   id         String     @id @default(auto()) @map("_id") @db.ObjectId
-  colorName  String     @map("color_name")
-  colorHex   String     @map("color_hex")
+  colorName  String     @unique @map("color_name")
+  colorHex   String     @unique @map("color_hex")
   createdAt  DateTime   @default(now())
 
   pots       Pot[]
