@@ -5,6 +5,10 @@ import { isValidObjectId } from "@/src/utils/objectId";
 
 class PotService {
   private async getPotOrFail(id: string) {
+    if (!isValidObjectId(id)) {
+      throw new AppError("ID do tema inválido!", 400);
+    }
+    
     const pot = await prisma.pot.findUnique({ where: { id } });
 
     if (!pot) {
@@ -50,9 +54,8 @@ class PotService {
   }
 
   async create(data: CreatePotDTO) {
+    await this.getPotOrFail(data.userId);
     await this.ensureUniqueName(data.name, data.themeId);
-
-    isValidObjectId(data.userId);
 
     return prisma.pot.create({ data });
   }
