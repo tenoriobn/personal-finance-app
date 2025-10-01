@@ -5,8 +5,8 @@ import { createBudgetSchema } from "./budget.schema";
 
 class BudgetController {
   async getAll(context: Context) {
-    const categories = await budgetService.getAll();
-    return context.json(categories, 200);
+    const budgets = await budgetService.getAll();
+    return context.json(budgets, 200);
   }
 
   async getById(context: Context) {
