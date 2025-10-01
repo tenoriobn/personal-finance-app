@@ -2,6 +2,7 @@ import { prisma } from "@/src/config/prisma";
 import { CreateBudgetDTO } from "./budget.type";
 import { isValidObjectId } from "@/src/utils/objectId";
 import AppError from "@/src/utils/appError";
+import { budgetSelect } from "./budget.select";
 
 class BudgetService {
   private async getBudgetOrFail(id: string) {
@@ -9,7 +10,10 @@ class BudgetService {
       throw new AppError("Formato de ID inválido!", 400);
     }
         
-    const budget = await prisma.budget.findUnique({ where: { id } });
+    const budget = await prisma.budget.findUnique({ 
+      where: { id },
+      select: budgetSelect,
+    });
 
     if (!budget) {
       throw new AppError("Budget não encontrado!", 404);
@@ -66,7 +70,9 @@ class BudgetService {
   }
 
   async getAll() {
-    return prisma.budget.findMany();
+    return prisma.budget.findMany({
+      select: budgetSelect,
+    });
   }
 
   async getById(id: string) {

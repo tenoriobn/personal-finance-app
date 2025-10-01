@@ -6,6 +6,7 @@ import { categoryRoutes } from "./modules/category/category.route";
 import { themeRoutes } from "./modules/theme/theme.route";
 import { potRoutes } from "./modules/pot/pot.route";
 import { budgetRoutes } from "./modules/budgets/budget.route";
+import { transactionRoutes } from "./modules/transaction/transaction.route";
 
 const app = new Hono();
 
@@ -21,5 +22,6 @@ app.route("/categories", categoryRoutes);
 app.route("/themes", themeRoutes);
 app.route("/pots", potRoutes);
 app.route("/budgets", budgetRoutes);
+app.route("/transactions", transactionRoutes);
 
 export default app;

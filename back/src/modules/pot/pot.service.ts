@@ -2,6 +2,7 @@ import { prisma } from "@/src/config/prisma";
 import AppError from "@/src/utils/appError";
 import { CreatePotDTO } from "./pot.type";
 import { isValidObjectId } from "@/src/utils/objectId";
+import { potSelect } from "./pot.select";
 
 class PotService {
   private async getPotOrFail(id: string) {
@@ -9,7 +10,10 @@ class PotService {
       throw new AppError("ID do tema inválido!", 400);
     }
     
-    const pot = await prisma.pot.findUnique({ where: { id } });
+    const pot = await prisma.pot.findUnique({ 
+      where: { id },
+      select: potSelect
+    });
 
     if (!pot) {
       throw new AppError("POT não encontrado!", 404);
@@ -45,12 +49,14 @@ class PotService {
     }
   }
 
-  async getById(id: string) {
-    return this.getPotOrFail(id);
+  async getAll() {
+    return prisma.pot.findMany({
+      select: potSelect
+    });
   }
 
-  async getAll() {
-    return prisma.pot.findMany();
+  async getById(id: string) {
+    return this.getPotOrFail(id);
   }
 
   async create(data: CreatePotDTO) {
