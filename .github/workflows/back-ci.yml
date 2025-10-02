@@ -1,4 +1,4 @@
-name: 'CI + Preview Deploy (Nuxt)'
+name: 'CI (Node)'
 
 on:
   pull_request:
