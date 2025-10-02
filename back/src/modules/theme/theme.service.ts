@@ -1,60 +1,45 @@
 import { prisma } from "@/src/config/prisma";
-import AppError from "@/src/utils/appError";
 import { CreateThemeDTO } from "./theme.type";
+import { ensureUniqueOrFail, getEntityOrFail } from "@/src/utils/dbHelpers";
 
 class ThemeService {
-  private async getThemeOrFail(id: string) {
-    const theme = await prisma.theme.findUnique({ where: { id } });
-
-    if (!theme) {
-      throw new AppError("Tema não encontrado!", 404);
-    }
-
-    return theme;
-  }
-
-  private async ensureUniqueColor(colorName: string, colorHex: string, excludeId?: string) {
-    const theme = await prisma.theme.findFirst({
-      where: {
-        OR: [
-          { colorName },
-          { colorHex }
-        ],
-        NOT: excludeId ? { id: excludeId } : undefined,
-      }
-    });
-
-    if (theme) {
-      const errorMsg = theme.colorName === colorName ? "Nome já existente!" : "Cor já existente!";
-      throw new AppError(errorMsg, 409);
-    }
-  }
-
   async getAll() {
     return prisma.theme.findMany();
   }
 
   async getById(id: string) {
-    return this.getThemeOrFail(id);
+    return await getEntityOrFail(prisma.theme, { id }, "Tema não encontrado!");
   }
 
   async create(data: CreateThemeDTO) {
-    await this.ensureUniqueColor(data.colorName, data.colorHex);
+    if (data.colorName) {
+      await ensureUniqueOrFail(prisma.theme, { colorName: data.colorName }, "O nome do tema já está em uso.");
+    }
+
+    if (data.colorHex) {
+      await ensureUniqueOrFail(prisma.theme, { colorHex: data.colorHex }, "A cor do tema já está em uso.");
+    }
+
     return prisma.theme.create({ data });
   }
 
   async update(id: string, data: Partial<CreateThemeDTO>) {
-    await this.getThemeOrFail(id);
+    await getEntityOrFail(prisma.theme, { id }, "Tema não encontrado!");
 
-    if (data.colorName && data.colorHex) {
-      await this.ensureUniqueColor(data.colorName, data.colorHex, id);
+    if (data.colorName) {
+      await ensureUniqueOrFail(prisma.theme, { colorName: data.colorName }, "O nome do tema já está em uso.", id);
+    }
+
+    if (data.colorHex) {
+      await ensureUniqueOrFail(prisma.theme, { colorHex: data.colorHex }, "A cor do tema já está em uso.", id);
     }
 
     return prisma.theme.update({ where: { id }, data });
   }
 
   async delete(id: string) {
-    await this.getThemeOrFail(id);
+    await getEntityOrFail(prisma.theme, { id }, "Tema não encontrado!");
+    
     return prisma.theme.delete({ where: { id } });
   }
 }
