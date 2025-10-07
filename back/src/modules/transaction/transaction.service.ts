@@ -15,7 +15,7 @@ class TransactionService {
   }
 
   async create(data: CreateTransactionDTO) {
-    await getEntityOrFail(prisma.user, data.userId, "Usuário não encontrado!");
+    await getEntityOrFail(prisma.user, { id: data.userId}, "Usuário não encontrado!");
     
     if (data.budgetId) {
       await getEntityOrFail(prisma.budget, { id: data.budgetId }, "Budget não encontrado!");

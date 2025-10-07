@@ -42,6 +42,7 @@ model Pot {
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
   name            String
   targetAmount    Float     @map("target_amount")
+  totalAmount     Float     @map("total_amount")
   createdAt       DateTime  @default(now())
 
   userId          String    @db.ObjectId @map("user_id")
@@ -49,6 +50,8 @@ model Pot {
 
   themeId         String    @db.ObjectId @map("theme_id")
   theme           Theme     @relation(fields: [themeId], references: [id])
+
+  @@unique([name, userId])
 }
 
 model Budget {
@@ -65,6 +68,8 @@ model Budget {
   category        Category  @relation(fields: [categoryId], references: [id])
 
   transactions    Transaction[]
+
+   @@unique([categoryId, userId])
 }
 
 model Transaction {
