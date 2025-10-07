@@ -16,12 +16,12 @@ class BudgetService {
 
   async create(data: CreateBudgetDTO) {
     const checks: BudgetEntityCheck[] = [
-      [data.userId, prisma.user, "Usuário não encontrado!"],
-      [data.themeId, prisma.theme, "Tema não encontrado!"],
-      [data.categoryId, prisma.category, "Categoria não encontrada!"],
+      [prisma.user, data.userId, "Usuário não encontrado!"],
+      [prisma.theme, data.themeId, "Tema não encontrado!"],
+      [prisma.category, data.categoryId, "Categoria não encontrada!"],
     ];
 
-    for (const [id, model, message] of checks) {
+    for (const [model, id, message] of checks) {
       if (id) {
         await getEntityOrFail(model, { id }, message);
       }
@@ -42,12 +42,12 @@ class BudgetService {
     await getEntityOrFail(prisma.budget, { id }, "Budget não encontrado!", { select: budgetSelect });
 
     const checks: BudgetEntityCheck[] = [
-      [data.userId, prisma.user, "Usuário não encontrado!"],
-      [data.themeId, prisma.theme, "Tema não encontrado!"],
-      [data.categoryId, prisma.category, "Categoria não encontrada!"],
+      [prisma.user, data.userId, "Usuário não encontrado!"],
+      [prisma.theme, data.themeId, "Tema não encontrado!"],
+      [prisma.category, data.categoryId, "Categoria não encontrada!"],
     ];
 
-    for (const [id, model, message] of checks) {
+    for (const [model, id, message] of checks) {
       if (id) {
         await getEntityOrFail(model, { id }, message);
       }

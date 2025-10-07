@@ -13,4 +13,4 @@ type PrismaDelegateBudget =
   | PrismaClient["category"]
   | PrismaClient["budget"];
 
-export type BudgetEntityCheck = [string | undefined, PrismaDelegateBudget, string];
+export type BudgetEntityCheck = [PrismaDelegateBudget, string | undefined, string];

@@ -1,18 +1,16 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import AppError from "./appError";
 import { isValidObjectId } from "./objectId";
 
 export async function getEntityOrFail<T>(
-  model: { 
-    findUnique: (args: any) => Promise<T | null> 
-  }, 
-  where: any, 
+  model: { findUnique(args: object): Promise<T | null> }, 
+  where: object, 
   notFoundMessage: string,
-  options: { select?: any; include?: any } = {}
+  options: { select?: object; include?: object } = {}
 ): Promise<T> {
-  if (where.id) { 
-    isValidObjectId(where.id);
+  if ("id" in where) { 
+    const id = (where as { id: string }).id;
+    isValidObjectId(id);
   }
 
   const entity = await model.findUnique({ where, ...options });
@@ -25,13 +23,13 @@ export async function getEntityOrFail<T>(
 }
 
 export async function ensureUniqueOrFail<T>(
-  model: { findFirst: (args: any) => Promise<T | null> },
-  where: any,
+  model: { findFirst(args: object): Promise<T | null> },
+  where: object,
   conflictMessage: string,
   excludeId?: string
 ): Promise<void> {
-  if (where.id) { 
-    isValidObjectId(where.id);
+  if ("id" in where) { 
+    isValidObjectId((where as { id: string }).id);
   }
 
   const query = {

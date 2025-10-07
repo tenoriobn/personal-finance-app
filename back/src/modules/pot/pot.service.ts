@@ -15,7 +15,7 @@ class PotService {
   }
 
   async create(data: CreatePotDTO) {
-    await getEntityOrFail(prisma.pot, { id: data.userId }, "Usuário não encontrado!");
+    await getEntityOrFail(prisma.user, { id: data.userId }, "Usuário não encontrado!");
 
     if (data.themeId) {
       await getEntityOrFail(prisma.theme, { id: data.themeId }, "Tema não encontrado!");
