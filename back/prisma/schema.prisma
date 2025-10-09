@@ -13,11 +13,17 @@ model User {
   name      String
   email     String   @unique
   password  String
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
 
   pots          Pot[]
   budgets       Budget[]
   transactions  Transaction[]
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model Category {

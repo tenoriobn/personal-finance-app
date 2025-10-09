@@ -4,43 +4,54 @@ import { transactionSelect } from "./transaction.select";
 import { getEntityOrFail } from "@/src/utils/dbHelpers";
 
 class TransactionService {
-  async getAll() {
+  async getAll(userId: string) {
     return prisma.transaction.findMany({
+      where: { userId },
       select: transactionSelect
     });
   }
 
-  async getById(id: string) {
-    return await getEntityOrFail(prisma.transaction, { id }, "Transaction não encontrado!", { select: transactionSelect });
+  async getById(id: string, userId: string) {
+    return await getEntityOrFail(
+      prisma.transaction, 
+      { id, userId }, 
+      "Transaction não encontrado!", 
+      { select: transactionSelect }
+    );
   }
 
-  async create(data: CreateTransactionDTO) {
-    await getEntityOrFail(prisma.user, { id: data.userId}, "Usuário não encontrado!");
-    
+  async create(data: CreateTransactionDTO, userId: string) {
+    await getEntityOrFail(prisma.user, { id: userId }, "Usuário não encontrado!");
+
     if (data.budgetId) {
-      await getEntityOrFail(prisma.budget, { id: data.budgetId }, "Budget não encontrado!");
+      await getEntityOrFail(prisma.budget, { id: data.budgetId, userId: data.userId }, "Budget não encontrado!");
     }
 
     return prisma.transaction.create({ data });
   }
 
-  async update(id: string, data: Partial<CreateTransactionDTO>) {
-    await getEntityOrFail(prisma.transaction, { id }, "Transaction não encontrado!", { select: transactionSelect });
+  async update(id: string, data: Partial<CreateTransactionDTO>, userId: string) {
+    await getEntityOrFail(
+      prisma.transaction, 
+      { id, userId }, 
+      "Transaction não encontrado!", 
+      { select: transactionSelect }
+    );
 
     if (data.userId) {
-      await getEntityOrFail(prisma.user, { id: data.userId }, "Usuário não encontrado!");
+      await getEntityOrFail(prisma.user, { id: userId }, "Usuário não encontrado!");
     }
 
     if (data.budgetId) {
-      await getEntityOrFail(prisma.budget, { id: data.budgetId }, "Budget não encontrado!");
+      await getEntityOrFail(prisma.budget, { id: data.budgetId, userId }, "Budget não encontrado!");
     }
 
     return prisma.transaction.update({ where: { id }, data });
   }
 
-  async delete(id: string) {
-    await getEntityOrFail(prisma.transaction, { id }, "Transaction não encontrado!");
-    
+  async delete(id: string, userId: string) {
+    await getEntityOrFail(prisma.transaction, { id, userId }, "Transaction não encontrado!");
+
     return prisma.transaction.delete({ where: { id } });
   }
 }

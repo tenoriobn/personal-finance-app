@@ -5,13 +5,15 @@ import { formatZodErrors } from "src/utils/formatZodErrors";
 
 class UserController {
   async getAll(context: Context) {
-    const users = await userService.getAll();
+    const { id: userId } = context.get("user");
+    const users = await userService.getAll(userId);
     return context.json(users, 200);
   }
 
   async getById(context: Context) {
     const id = context.req.param("id");
-    const user = await userService.getById(id);
+    const { id: userId } = context.get("user");
+    const user = await userService.getById(id, userId);
     return context.json(user, 200);
   }
 
@@ -29,6 +31,7 @@ class UserController {
 
   async update(context: Context) {
     const id = context.req.param("id");
+    const { id: userId } = context.get("user");
     const body = await context.req.json();
 
     const parsed = createUserSchema.partial().safeParse(body);
@@ -36,13 +39,14 @@ class UserController {
       return context.json({ error: formatZodErrors(parsed.error) }, 400);
     }
 
-    const user = await userService.update(id, parsed.data);
+    const user = await userService.update(id, parsed.data, userId);
     return context.json(user, 200);
   }
 
   async delete(context: Context) {
     const id = context.req.param("id");
-    await userService.delete(id);
+    const { id: userId } = context.get("user");
+    await userService.delete(id, userId);
     return context.json({ message: "Usuário removido com sucesso!" }, 200);
   }
 }
