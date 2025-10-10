@@ -9,8 +9,8 @@ class UserService {
     return users.map(user => ({ ...user, password: undefined }));
   }
 
-  async getById(id: string, userId: string) {
-    const user = await getEntityOrFail(prisma.user, { id, userId }, "Usuário não encontrado!");
+  async getById(id: string) {
+    const user = await getEntityOrFail(prisma.user, { id }, "Usuário não encontrado!");
     return { ...user, password: undefined };
   }
 
@@ -19,8 +19,11 @@ class UserService {
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
+    const userRole = await prisma.role.findUnique({ where: { name: "USER" } });
+
     const user = await prisma.user.create({
-      data: { ...data, password: hashedPassword },
+      data: { ...data, password: hashedPassword, roleId: userRole!.id },
+      include: { role: true },
     });
 
     return { ...user, password: undefined };
@@ -47,6 +50,17 @@ class UserService {
   async delete(id: string, userId: string) {
     await getEntityOrFail(prisma.user, { id, userId }, "Usuário não encontrado!");
     return prisma.user.delete({ where: { id } });
+  }
+
+  async updateRole(userId: string, roleId: string) {
+    await getEntityOrFail(prisma.user, { id: userId }, "Usuário não encontrado!");
+    await getEntityOrFail(prisma.role, { id: roleId }, "Role não encontrada!");
+
+    return prisma.user.update({
+      where: { id: userId },
+      data: { roleId },
+      include: { role: true },
+    });
   }
 }
 

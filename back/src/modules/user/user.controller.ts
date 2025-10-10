@@ -12,8 +12,7 @@ class UserController {
 
   async getById(context: Context) {
     const id = context.req.param("id");
-    const { id: userId } = context.get("user");
-    const user = await userService.getById(id, userId);
+    const user = await userService.getById(id);
     return context.json(user, 200);
   }
 
@@ -48,6 +47,14 @@ class UserController {
     const { id: userId } = context.get("user");
     await userService.delete(id, userId);
     return context.json({ message: "Usuário removido com sucesso!" }, 200);
+  }
+
+  async updateRole(context: Context) {
+    const id = context.req.param("id");
+    const body = await context.req.json();
+    
+    const updated = await userService.updateRole(id, body.roleId);
+    return context.json(updated);
   }
 }
 

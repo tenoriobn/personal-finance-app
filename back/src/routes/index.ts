@@ -7,6 +7,7 @@ import { userRoutes } from "src/modules/user/user.route";
 import { authRoutes } from "../modules/auth/auth.routes";
 import { authentication } from "../middleware/authentication";
 import { Hono } from "hono";
+import { roleRoutes } from "../modules/roles/role.routes";
 
 export const routes = [
   { path: "/login", handler: authRoutes },
@@ -16,6 +17,7 @@ export const routes = [
   { path: "/pots", handler: potRoutes, protected: true },
   { path: "/budgets", handler: budgetRoutes, protected: true },
   { path: "/transactions", handler: transactionRoutes, protected: true },
+  { path: "/roles", handler: roleRoutes, protected: true },
 ];
 
 export function registerRoutes(app: Hono) {
