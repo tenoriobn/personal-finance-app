@@ -6,10 +6,6 @@ import { resolveAccessFilter } from "@/src/utils/accessControl";
 import { CurrentUserDTO } from "@/src/types/user.type";
 
 class UserService {
-  private async hashPassword(password: string) {
-    return bcrypt.hash(password, 10);
-  }
-
   async getAll(currentUser: CurrentUserDTO) {
     const where = resolveAccessFilter({ currentUser });
     const users = await prisma.user.findMany({ where });
@@ -24,21 +20,6 @@ class UserService {
     return { ...user, password: undefined };
   }
 
-  async create(data: CreateUserDTO) {
-    await ensureUniqueOrFail(prisma.user, { email: data.email }, "E-mail já está em uso!");
-
-    const hashedPassword = await this.hashPassword(data.password);
-
-    const userRole = await prisma.role.findUnique({ where: { name: "USER" } });
-
-    const user = await prisma.user.create({
-      data: { ...data, password: hashedPassword, roleId: userRole!.id },
-      include: { role: true },
-    });
-
-    return { ...user, password: undefined };
-  }
-
   async update(id: string, data: Partial<CreateUserDTO>, currentUser: CurrentUserDTO) {
     resolveAccessFilter({ currentUser, resourceOwnerId: id });
 
@@ -49,7 +30,7 @@ class UserService {
     }
 
     if (data.password) {
-      data.password = await this.hashPassword(data.password);
+      data.password = await bcrypt.hash(data.password, 10);
     }
 
     const user = await prisma.user.update({ where: { id }, data });

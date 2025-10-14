@@ -10,7 +10,7 @@ import { Hono } from "hono";
 import { roleRoutes } from "../modules/roles/role.routes";
 
 export const routes = [
-  { path: "/login", handler: authRoutes },
+  { path: "/auth", handler: authRoutes },
   { path: "/users", handler: userRoutes, protected: true },
   { path: "/categories", handler: categoryRoutes, protected: true },
   { path: "/themes", handler: themeRoutes, protected: true },
