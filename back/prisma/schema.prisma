@@ -13,17 +13,22 @@ model User {
   name      String
   email     String   @unique
   password  String
-  role      Role     @default(USER)
   createdAt DateTime @default(now())
+
+  roleId      String   @db.ObjectId @map("role_id")
+  role        Role     @relation(fields: [roleId], references: [id])
 
   pots          Pot[]
   budgets       Budget[]
   transactions  Transaction[]
 }
 
-enum Role {
-  USER
-  ADMIN
+model Role {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  createdAt DateTime @default(now())
+  
+  users     User[]
 }
 
 model Category {

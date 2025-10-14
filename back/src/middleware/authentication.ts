@@ -13,6 +13,7 @@ export async function authentication(context: Context, next: Next) {
   
   try {
     const user = verifyToken(token);
+
     context.set("user", user);
     await next();
   } catch {
