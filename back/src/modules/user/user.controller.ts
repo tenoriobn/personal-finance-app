@@ -18,18 +18,6 @@ class UserController {
     return context.json(user, 200);
   }
 
-  async create(context: Context) {
-    const body = await context.req.json();
-
-    const parsed = createUserSchema.safeParse(body);
-    if (!parsed.success) {
-      return context.json({ error: formatZodErrors(parsed.error) }, 400);
-    }
-
-    const user = await userService.create(parsed.data);
-    return context.json(user, 201);
-  }
-
   async update(context: Context) {
     const id = context.req.param("id");
     const currentUser = context.get("user");
