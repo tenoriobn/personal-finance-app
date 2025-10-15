@@ -1,6 +1,6 @@
 import { prisma } from "@/src/config/prisma";
 import { CreateThemeDTO } from "./theme.type";
-import { ensureUniqueOrFail, getEntityOrFail } from "@/src/utils/dbHelpers";
+import { ensureUniqueOrFail, findEntityOrFail } from "@/src/utils/dbHelpers";
 
 class ThemeService {
   async getAll() {
@@ -8,7 +8,11 @@ class ThemeService {
   }
 
   async getById(id: string) {
-    return await getEntityOrFail(prisma.theme, { id }, "Tema não encontrado!");
+    return await findEntityOrFail(
+      prisma.theme,
+      { id },
+      "Tema não encontrado!"
+    );
   }
 
   async create(data: CreateThemeDTO) {
@@ -24,7 +28,7 @@ class ThemeService {
   }
 
   async update(id: string, data: Partial<CreateThemeDTO>) {
-    await getEntityOrFail(prisma.theme, { id }, "Tema não encontrado!");
+    await findEntityOrFail(prisma.theme, { id }, "Tema não encontrado!");
 
     if (data.colorName) {
       await ensureUniqueOrFail(prisma.theme, { colorName: data.colorName }, "O nome do tema já está em uso.", id);
@@ -38,7 +42,7 @@ class ThemeService {
   }
 
   async delete(id: string) {
-    await getEntityOrFail(prisma.theme, { id }, "Tema não encontrado!");
+    await findEntityOrFail(prisma.theme, { id }, "Tema não encontrado!");
     
     return prisma.theme.delete({ where: { id } });
   }

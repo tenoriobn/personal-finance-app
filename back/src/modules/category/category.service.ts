@@ -1,6 +1,6 @@
 import { prisma } from "@/src/config/prisma";
 import { CreateCategoryDTO } from "./category.type";
-import { ensureUniqueOrFail, getEntityOrFail } from "@/src/utils/dbHelpers";
+import { ensureUniqueOrFail, findEntityOrFail } from "@/src/utils/dbHelpers";
 
 class CategoryService {
   async getAll() {
@@ -8,7 +8,11 @@ class CategoryService {
   }
 
   async getById(id: string) {
-    return await getEntityOrFail(prisma.category, { id }, "Categoria não encontrada!");
+    return await findEntityOrFail(
+      prisma.category,
+      { id },
+      "Categoria não encontrada!"
+    );
   }
 
   async create(data: CreateCategoryDTO) {
@@ -17,7 +21,7 @@ class CategoryService {
   }
 
   async update(id: string, data: Partial<CreateCategoryDTO>) {
-    await getEntityOrFail(prisma.category, { id }, "Categoria não encontrada!");
+    await findEntityOrFail(prisma.category, { id }, "Categoria não encontrada!");
 
     if (data.name) {
       await ensureUniqueOrFail(prisma.category, { name: data.name }, "Categoria já está em uso.", id);
@@ -27,7 +31,7 @@ class CategoryService {
   }
 
   async delete(id: string) {
-    await getEntityOrFail(prisma.category, { id }, "Categoria não encontrada!");
+    await findEntityOrFail(prisma.category, { id }, "Categoria não encontrada!");
     return prisma.category.delete({ where: { id } });
   }
 }

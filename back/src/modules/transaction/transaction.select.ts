@@ -4,6 +4,7 @@ export const transactionSelect = {
   date: true,
   amount: true,
   recurring: true,
+  userId: true,
   budget: {
     select: {
       category: {

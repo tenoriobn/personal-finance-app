@@ -1,6 +1,7 @@
 export const budgetSelect = {
   id: true,
   maximumSpend: true,
+  userId: true,
   category: {
     select: {
       id: true,
