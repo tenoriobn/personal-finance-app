@@ -1,13 +1,12 @@
 import { prisma } from "@/src/config/prisma";
 import { CreatePotDTO } from "./pot.type";
 import { potSelect } from "./pot.select";
-import { ensureUniqueOrFail, getEntityOrFail } from "@/src/utils/dbHelpers";
+import { ensureUniqueOrFail, findOrFail } from "@/src/utils/dbHelpers";
 import { CurrentUserDTO } from "@/src/types/user.type";
-import { resolveAccessFilter } from "@/src/utils/accessControl";
 
 class PotService {
   async getAll(currentUser: CurrentUserDTO) {
-    const where = resolveAccessFilter({ currentUser });
+    const where = currentUser.role === "ADMIN" ? {} : { userId: currentUser.id };
 
     return prisma.pot.findMany({
       where,
@@ -16,54 +15,106 @@ class PotService {
   }
 
   async getById(id: string, currentUser: CurrentUserDTO) {
-    const where = resolveAccessFilter({ currentUser, resourceOwnerId: id });
-    return await getEntityOrFail(prisma.pot, { id, userId: where }, "POT não encontrado!", { select: potSelect });
+    return findOrFail(
+      prisma.pot, 
+      { id }, 
+      currentUser, 
+      { select: potSelect, checkOwnership: true, notFoundMessage: "Usuário não encontrado!" }
+    );
   }
 
   async create(data: CreatePotDTO, currentUser: CurrentUserDTO) {
-    resolveAccessFilter({ currentUser, resourceOwnerId: data.userId });
-
-    await getEntityOrFail(prisma.user, { id: currentUser.id }, "Usuário não encontrado!");
+    await findOrFail(
+      prisma.user,
+      { id: currentUser.id },
+      currentUser,
+      { notFoundMessage: "Usuário não encontrado!" }
+    ); 
 
     if (data.themeId) {
-      await getEntityOrFail(prisma.theme, { id: data.themeId }, "Tema não encontrado!");
+      await findOrFail(
+        prisma.theme,
+        { id: data.themeId },
+        currentUser,
+        { notFoundMessage: "Tema não encontrado!" }
+      );
     }
 
     if (data.name) {
-      await ensureUniqueOrFail(prisma.pot, { name: data.name, userId: data.userId }, "Nome já está em uso.");
+      await ensureUniqueOrFail(
+        prisma.pot,
+        { name: data.name, userId: currentUser.id },
+        "Este nome já está em uso."
+      );
     }
 
     if (data.themeId) {
-      await ensureUniqueOrFail(prisma.pot, { themeId: data.themeId, userId: data.userId }, "O tema selecionado já está em uso.");
+      await ensureUniqueOrFail(
+        prisma.pot,
+        { themeId: data.themeId, userId: currentUser.id },
+        "O tema selecionado já está em uso."
+      );
     }
 
-    return prisma.pot.create({ data });
+    const payload = { ...data, userId: currentUser.id };
+
+    return prisma.pot.create({ data: payload });
   }
 
   async update(id: string, data: Partial<CreatePotDTO>, currentUser: CurrentUserDTO) {
-    resolveAccessFilter({ currentUser, resourceOwnerId: data.userId });
+    await findOrFail(
+      prisma.user,
+      { id: currentUser.id },
+      currentUser,
+      { notFoundMessage: "Usuário não encontrado!" }
+    ); 
 
-    await getEntityOrFail(prisma.user, { id: currentUser.id }, "Usuário não encontrado!");
+    await findOrFail(
+      prisma.pot,
+      { id },
+      currentUser,
+      { checkOwnership: true, notFoundMessage: "Pot não encontrado!" }
+    ); 
 
     if (data.themeId) {
-      await getEntityOrFail(prisma.theme, { id: data.themeId }, "Tema não encontrado!");
+      await findOrFail(
+        prisma.theme,
+        { id: data.themeId },
+        currentUser,
+        { notFoundMessage: "Tema não encontrado!" }
+      );  
     }
 
     if (data.name) {
-      await ensureUniqueOrFail(prisma.pot, { name: data.name, userId: currentUser.id }, "Nome já está em uso.", id);
+      await ensureUniqueOrFail(
+        prisma.pot, 
+        { name: data.name, userId: currentUser.id }, 
+        "Nome já está em uso.", 
+        id
+      );
     }
 
     if (data.themeId) {
-      await ensureUniqueOrFail(prisma.pot, { themeId: data.themeId, userId: currentUser.id }, "O tema selecionado já está em uso.", id);
+      await ensureUniqueOrFail(
+        prisma.pot, 
+        { themeId: data.themeId, userId: currentUser.id }, 
+        "O tema selecionado já está em uso.", 
+        id
+      );
     }
 
-    return prisma.pot.update({ where: { id }, data });
+    const payload = { ...data, userId: currentUser.id };
+
+    return prisma.pot.update({ where: { id }, data: payload });
   }
   
   async delete(id: string, currentUser: CurrentUserDTO) {
-    resolveAccessFilter({ currentUser, resourceOwnerId: id });
-
-    await getEntityOrFail(prisma.pot, { id }, "POT não encontrado!");
+    await findOrFail(
+      prisma.pot,
+      { id },
+      currentUser,
+      { checkOwnership: true, notFoundMessage: "Pot não encontrado!" }
+    ); 
 
     return prisma.pot.delete({ where: { id } });
   }
