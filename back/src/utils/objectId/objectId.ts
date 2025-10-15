@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import AppError from "./appError";
+import { AppError } from "../errors";
 
 /**
  * Verifica se uma string é um ObjectId válido, de acordo com o MongoDB.

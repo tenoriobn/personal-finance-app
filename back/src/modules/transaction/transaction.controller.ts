@@ -1,6 +1,6 @@
 import type { Context } from "hono";
 import { transactionService } from "./transaction.service";
-import { formatZodErrors } from "src/utils/formatZodErrors";
+import { formatZodErrors } from "@/src/utils/format/formatZodErrors";
 import { createTransactionSchema } from "./transaction.schema";
 
 class TransactionController {

@@ -1,6 +1,6 @@
 import { Context, Next } from "hono";
-import { verifyToken } from "../utils/jwt";
-import AppError from "../utils/appError";
+import { AppError } from "../utils";
+import { verifyToken } from "../utils";
 
 export async function authentication(context: Context, next: Next) {
   const authHeader = context.req.header("Authorization");
@@ -10,10 +10,10 @@ export async function authentication(context: Context, next: Next) {
   }
 
   const token = authHeader.replace("Bearer ", "");
+
   
   try {
     const user = verifyToken(token);
-
     context.set("user", user);
     await next();
   } catch {

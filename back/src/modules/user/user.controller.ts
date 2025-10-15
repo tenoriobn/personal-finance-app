@@ -1,7 +1,7 @@
 import type { Context } from "hono";
 import { userService } from "./user.service";
 import { createUserSchema } from "./user.schema";
-import { formatZodErrors } from "src/utils/formatZodErrors";
+import { formatZodErrors } from "@/src/utils/format/formatZodErrors";
 
 class UserController {
   async getAll(context: Context) {

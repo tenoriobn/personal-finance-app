@@ -1,7 +1,7 @@
 import { prisma } from "@/src/config/prisma";
 import { BudgetEntityCheck, CreateBudgetDTO } from "./budget.type";
 import { budgetSelect } from "./budget.select";
-import { ensureUniqueOrFail, findOrFail } from "@/src/utils/dbHelpers";
+import { ensureUniqueOrFail, findOrFail } from "@/src/core";
 import { CurrentUserDTO } from "@/src/types/user.type";
 
 class BudgetService {  

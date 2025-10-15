@@ -1,7 +1,7 @@
 import { Context } from "hono";
 import { authService } from "./auth.service";
 import { createAuthSchema } from "./auth.schema";
-import { formatZodErrors } from "@/src/utils/formatZodErrors";
+import { formatZodErrors } from "@/src/utils/format/formatZodErrors";
 import { createUserSchema } from "../user/user.schema";
 
 class AuthController {
