@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import type { Context } from "hono";
-import AppError from "../utils/appError";
+import { AppError } from "../utils";
 
 export const errorHandler = (error: Error, context: Context) => {
   if (error instanceof AppError) {

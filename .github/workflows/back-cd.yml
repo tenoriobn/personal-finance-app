@@ -1,4 +1,4 @@
-name: 'CD + Deploy Produção (Node)'
+name: 'CD + Deploy Produção (Node.js + Prisma)'
 
 on:
   push:

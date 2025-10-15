@@ -1,5 +1,5 @@
 import { Context, Next } from "hono";
-import AppError from "src/utils/appError";
+import { AppError } from "../utils";
 
 export function authorize(roles: ("USER" | "ADMIN")[]) {
   return async (context: Context, next: Next) => {

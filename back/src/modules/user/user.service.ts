@@ -1,6 +1,6 @@
 import { prisma } from "src/config/prisma";
 import type { CreateUserDTO } from "./user.types";
-import { ensureUniqueOrFail, findOrFail, } from "@/src/utils/dbHelpers";
+import { ensureUniqueOrFail, findOrFail, } from "@/src/core";
 import bcrypt from "bcryptjs";
 import { CurrentUserDTO } from "@/src/types/user.type";
 import { userSelect } from "./user.select";

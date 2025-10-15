@@ -1,6 +1,6 @@
 import { Context } from "hono";
 import { potService } from "./pot.service";
-import { formatZodErrors } from "@/src/utils/formatZodErrors";
+import { formatZodErrors } from "@/src/utils/format/formatZodErrors";
 import { createPotSchema } from "./pot.schema";
 
 class PotController {

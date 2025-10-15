@@ -1,6 +1,6 @@
 import { prisma } from "@/src/config/prisma";
 import { CreateCategoryDTO } from "./category.type";
-import { ensureUniqueOrFail, findEntityOrFail } from "@/src/utils/dbHelpers";
+import { ensureUniqueOrFail, findEntityOrFail } from "@/src/core";
 
 class CategoryService {
   async getAll() {

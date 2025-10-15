@@ -1,7 +1,7 @@
 import { prisma } from "@/src/config/prisma";
 import { CreatePotDTO } from "./pot.type";
 import { potSelect } from "./pot.select";
-import { ensureUniqueOrFail, findOrFail } from "@/src/utils/dbHelpers";
+import { ensureUniqueOrFail, findOrFail } from "@/src/core";
 import { CurrentUserDTO } from "@/src/types/user.type";
 
 class PotService {
