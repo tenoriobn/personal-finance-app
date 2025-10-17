@@ -10,8 +10,6 @@ class AuthService {
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
-    // const userRole = await prisma.role.findUnique({ where: { name: "USER" } });
-
     const userRole = await findEntityOrFail(
       prisma.role,
       { name: "USER" },
