@@ -1,0 +1,51 @@
+name: 'Orquestrador CI (Front + Back)'
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  detect-changes:
+    name: Detectar mudanças
+    runs-on: ubuntu-latest
+    outputs:
+      run_front: ${{ steps.filter.outputs.front }}
+      run_back: ${{ steps.filter.outputs.back }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verificar alterações no repositório
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            front:
+              - 'front/**'
+            back:
+              - 'back/**'
+
+  front-ci:
+    name: CI Front-end (Nuxt)
+    needs: detect-changes
+    if: needs.detect-changes.outputs.run_front == 'true'
+    uses: ./.github/workflows/front-ci.yml
+    secrets: inherit
+
+  back-ci:
+    name: CI Back-end (Node.js + Prisma)
+    needs: detect-changes
+    if: needs.detect-changes.outputs.run_back == 'true'
+    uses: ./.github/workflows/back-ci.yml
+    secrets: inherit
+
+  nothing-to-run:
+    name: Nenhuma mudança relevante
+    needs: detect-changes
+    if: needs.detect-changes.outputs.run_front != 'true' && needs.detect-changes.outputs.run_back != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Nenhuma alteração em 'front/' ou 'back/'. Nada a executar."
