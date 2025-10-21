@@ -15,9 +15,20 @@ model User {
   password  String
   createdAt DateTime @default(now())
 
+  roleId      String   @db.ObjectId @map("role_id")
+  role        Role     @relation(fields: [roleId], references: [id])
+
   pots          Pot[]
   budgets       Budget[]
   transactions  Transaction[]
+}
+
+model Role {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  createdAt DateTime @default(now())
+  
+  users     User[]
 }
 
 model Category {
@@ -30,8 +41,8 @@ model Category {
 
 model Theme {
   id         String     @id @default(auto()) @map("_id") @db.ObjectId
-  colorName  String     @map("color_name")
-  colorHex   String     @map("color_hex")
+  colorName  String     @unique @map("color_name")
+  colorHex   String     @unique @map("color_hex")
   createdAt  DateTime   @default(now())
 
   pots       Pot[]
@@ -42,6 +53,7 @@ model Pot {
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
   name            String
   targetAmount    Float     @map("target_amount")
+  totalAmount     Float     @map("total_amount")
   createdAt       DateTime  @default(now())
 
   userId          String    @db.ObjectId @map("user_id")
@@ -49,6 +61,8 @@ model Pot {
 
   themeId         String    @db.ObjectId @map("theme_id")
   theme           Theme     @relation(fields: [themeId], references: [id])
+
+  @@unique([name, userId])
 }
 
 model Budget {
@@ -65,6 +79,8 @@ model Budget {
   category        Category  @relation(fields: [categoryId], references: [id])
 
   transactions    Transaction[]
+
+   @@unique([categoryId, userId])
 }
 
 model Transaction {

@@ -1,17 +1,16 @@
-/* eslint-disable no-console */
 import { Hono } from "hono";
-import { userRoutes } from "./modules/user/user.route";
 import { errorHandler } from "./middleware/errorHandler";
+import { registerRoutes } from "./routes";
+import { logger } from "./middleware/logger";
+import { corsMiddleware } from "./middleware/cors";
 
 const app = new Hono();
 
-app.use("*", async (context, next) => {
-  console.log(`[${context.req.method}] ${context.req.url}`);
-  await next();
-});
+app.use("*", logger);
+app.use("*", corsMiddleware);
 
 app.onError(errorHandler);
 
-app.route("/users", userRoutes);
+registerRoutes(app);
 
 export default app;

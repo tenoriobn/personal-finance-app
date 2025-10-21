@@ -1,46 +1,74 @@
 import { prisma } from "src/config/prisma";
 import type { CreateUserDTO } from "./user.types";
-import AppError from "src/utils/appError";
+import { ensureUniqueOrFail, findOrFail, } from "@/src/core";
+import bcrypt from "bcryptjs";
+import { CurrentUserDTO } from "@/src/types/user.type";
+import { userSelect } from "./user.select";
 
 class UserService {
-  private async getUserOrFail(id: string) {
-    const user = await prisma.user.findUnique({ where: { id } });
+  async getAll(currentUser: CurrentUserDTO) {
+    const where = currentUser.role === "ADMIN" ? {} : { id: currentUser.id };
+    const users = await prisma.user.findMany({ where });
 
-    if (!user) {
-      throw new AppError("Usuário não encontrado!", 404);
-    }
+    return users.map(user => ({ ...user, password: undefined }));
+  }
 
+  async getById(id: string, currentUser: CurrentUserDTO) {
+    return findOrFail(
+      prisma.user, 
+      { id }, 
+      currentUser, 
+      { select: userSelect, checkOwnership: true, notFoundMessage: "Usuário não encontrado!" }
+    );
+  }
+
+  async update(id: string, data: Partial<CreateUserDTO>, currentUser: CurrentUserDTO) {
+    await findOrFail(
+      prisma.user,
+      { id },
+      currentUser,
+      { checkOwnership: true, notFoundMessage: "Usuário não encontrado!" }
+    );
+
+    if (data.email) { await ensureUniqueOrFail(prisma.user, { email: data.email }, "E-mail já está em uso!", id); }
+    
+    if (data.password) { data.password = await bcrypt.hash(data.password, 10); }
+
+    const user = await prisma.user.update({ where: { id }, select: userSelect, data });
     return user;
   }
 
-  async getAll() {
-    return prisma.user.findMany();
-  }
+  async delete(id: string, currentUser: CurrentUserDTO) {
+    await findOrFail(
+      prisma.user,
+      { id },
+      currentUser,
+      { checkOwnership: true, notFoundMessage: "Usuário não encontrado!" }
+    );
 
-  async getById(id: string) {
-    return this.getUserOrFail(id);
-  }
-
-  async create(data: CreateUserDTO) {
-    const existingUser = await prisma.user.findUnique({
-      where: { email: data.email }
-    });
-
-    if (existingUser) {
-      throw new AppError("Usuário já cadastrado!", 409);
-    }
-
-    return prisma.user.create({ data });
-  }
-
-  async update(id: string, data: Partial<CreateUserDTO>) {
-    await this.getUserOrFail(id);
-    return prisma.user.update({ where: { id }, data });
-  }
-
-  async delete(id: string) {
-    await this.getUserOrFail(id);
     return prisma.user.delete({ where: { id } });
+  }
+
+  async updateRole(userId: string, roleId: string, currentUser: CurrentUserDTO) {
+    await findOrFail(
+      prisma.user,
+      { id: userId },
+      currentUser,
+      { checkOwnership: true, notFoundMessage: "Usuário não encontrado!" }
+    );
+
+    await findOrFail(
+      prisma.role,
+      { id: roleId },
+      currentUser,
+      { checkOwnership: true, notFoundMessage: "Role não encontrada!" }
+    );
+
+    return prisma.user.update({
+      where: { id: userId },
+      data: { roleId },
+      include: { role: true },
+    });
   }
 }
 

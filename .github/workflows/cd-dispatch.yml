@@ -1,0 +1,50 @@
+name: 'Orquestrador CD (Front + Back)'
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  detect-changes:
+    name: Detectar mudanças
+    runs-on: ubuntu-latest
+    outputs:
+      run_front: ${{ steps.filter.outputs.front }}
+      run_back: ${{ steps.filter.outputs.back }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verificar alterações no repositório
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            front:
+              - 'front/**'
+            back:
+              - 'back/**'
+
+  front-cd:
+    name: Deploy Produção (Front)
+    needs: detect-changes
+    if: needs.detect-changes.outputs.run_front == 'true'
+    uses: ./.github/workflows/front-cd.yml
+    secrets: inherit
+
+  back-cd:
+    name: Deploy Produção (Back)
+    needs: detect-changes
+    if: needs.detect-changes.outputs.run_back == 'true'
+    uses: ./.github/workflows/back-cd.yml
+    secrets: inherit
+
+  nothing-to-deploy:
+    name: Nenhuma mudança relevante
+    needs: detect-changes
+    if: needs.detect-changes.outputs.run_front != 'true' && needs.detect-changes.outputs.run_back != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Nenhuma alteração em 'front/' ou 'back/'. Nenhum deploy necessário."
