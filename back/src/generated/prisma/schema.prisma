@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+
+  roleId String @map("role_id") @db.ObjectId
+  role   Role   @relation(fields: [roleId], references: [id])
+
+  pots         Pot[]
+  budgets      Budget[]
+  transactions Transaction[]
+}
+
+model Role {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  createdAt DateTime @default(now())
+
+  users User[]
+}
+
+model Category {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  createdAt DateTime @default(now())
+
+  budgets Budget[]
+}
+
+model Theme {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  colorName String   @unique @map("color_name")
+  colorHex  String   @unique @map("color_hex")
+  createdAt DateTime @default(now())
+
+  pots    Pot[]
+  budgets Budget[]
+}
+
+model Pot {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  targetAmount Float    @map("target_amount")
+  totalAmount  Float    @map("total_amount")
+  createdAt    DateTime @default(now())
+
+  userId String @map("user_id") @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  themeId String @map("theme_id") @db.ObjectId
+  theme   Theme  @relation(fields: [themeId], references: [id])
+
+  @@unique([name, userId])
+}
+
+model Budget {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  maximumSpend Float
+
+  userId String @map("user_id") @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  themeId String @map("theme_id") @db.ObjectId
+  theme   Theme  @relation(fields: [themeId], references: [id])
+
+  categoryId String   @map("category_id") @db.ObjectId
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  transactions Transaction[]
+
+  @@unique([categoryId, userId])
+}
+
+model Transaction {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  date      DateTime
+  amount    Float
+  recurring Boolean
+
+  userId String @map("user_id") @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  budgetId String @map("budget_id") @db.ObjectId
+  budget   Budget @relation(fields: [budgetId], references: [id])
+}

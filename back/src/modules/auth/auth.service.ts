@@ -3,14 +3,15 @@ import bcrypt from "bcryptjs";
 import { CreateUserDTO } from "../user/user.types";
 import { ensureUniqueOrFail, findEntityOrFail } from "@/src/core";
 import { AppError, signToken } from "@/src/utils";
+import { Role, User } from "../../generated/prisma";
 
 class AuthService {
   async create(data: CreateUserDTO) {
-    await ensureUniqueOrFail(prisma.user, { email: data.email }, "E-mail já está em uso!");
+    await ensureUniqueOrFail<User>(prisma.user, { email: data.email }, "E-mail já está em uso!");
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
-    const userRole = await findEntityOrFail(
+    const userRole = await findEntityOrFail<Role>(
       prisma.role,
       { name: "USER" },
       "Role padrão USER não encontrada!"
@@ -29,7 +30,7 @@ class AuthService {
   }
 
   async login(email: string, password: string) {
-    const user = await findEntityOrFail(
+    const user = await findEntityOrFail<User>(
       prisma.user, 
       { email }, 
       "Usuário não encontrado!"
@@ -42,7 +43,7 @@ class AuthService {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) { throw new AppError("Credenciais inválidas", 401); }
 
-    const role = await findEntityOrFail(
+    const role = await findEntityOrFail<Role>(
       prisma.role, 
       { id: user.roleId }, 
       "Role não encontrado durante Autenticação!"
