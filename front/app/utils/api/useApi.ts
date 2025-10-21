@@ -1,5 +1,5 @@
 import { httpClient } from './httpClient';
 
-export const useApi = async (endpoint: string) => {
-  return await useAsyncData(endpoint, () => httpClient()(endpoint));
+export const useApi = async <T>(endpoint: string) => {
+  return await useAsyncData<T>(endpoint, () => httpClient()(endpoint));
 };
