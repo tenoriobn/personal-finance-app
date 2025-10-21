@@ -27,7 +27,7 @@
       </p>
 
       <tr
-        v-for="{ avatar, name, category, date, amount } in transactions || []"
+        v-for="{ name, budget, date, amount } in transactions || []"
         v-else
         :key="date"
         class="grid max-xl:grid-cols-[auto_1fr_auto] xl:grid-cols-[minmax(300px,1fr)_140px_140px_minmax(100px,1fr)] max-xl:grid-rows-2 items-center max-xl:gap-x-4 xl:gap-6 py-4 last:pb-0"
@@ -35,11 +35,12 @@
         <td
           class="max-xl:row-span-2 flex items-center gap-4 text-grey-900 font-bold"
         >
-          <img
-            :src="`${avatar}`"
-            :alt="`Avatar da {{avatar}}`"
-            class="w-10 h-10 rounded-full"
+          <span
+            class="w-10 h-10 rounded-full grid place-items-center text-grey-100 bg-amber-500"
           >
+            {{ name[0] }}
+          </span>
+
           <span
             class="max-xl:hidden truncate"
             :title="name"
@@ -61,9 +62,9 @@
 
         <td
           class="max-xl:col-start-2 max-xl:row-start-2 font-normal truncate"
-          :title="category"
+          :title="budget.category.name"
         >
-          {{ category }}
+          {{ budget.category.name }}
         </td>
         <td
           class="max-xl:col-start-3 max-xl:row-start-2 font-normal truncate"

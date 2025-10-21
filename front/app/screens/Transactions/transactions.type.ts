@@ -1,7 +1,14 @@
 export interface TransactionsData {
-  avatar: string
+  id: string
   name: string
-  category: string
   date: string
   amount: number
+  recurring: boolean
+  userId: string
+  budget: {
+    category: {
+      id: string
+      name: string
+    }
+  }
 }

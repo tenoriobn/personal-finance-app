@@ -17,7 +17,7 @@
       />
 
       <Table
-        :transactions="transactions"
+        :transactions="transactions || []"
         :pending="pending"
       />
 
@@ -37,9 +37,13 @@ import Table from './Table/index.vue';
 import Filter from './Filters/index.vue';
 import Pagination from '~/components/Pagination/index.vue';
 import { useTransactions } from '~/composables/useTransactions';
+import { useApi } from '~/utils';
+import type { TransactionsData } from './transactions.type';
+
+const { data: transactions, pending } = await useApi<TransactionsData[]>('/transactions');
 
 const {
-  transactions, search, selectedCategory, selectedSort, totalPages, currentPage, goToPage, pending,
+  search, selectedCategory, selectedSort, totalPages, currentPage, goToPage,
 } = useTransactions('/api/transactions');
 
 const showCreateTransactionModal = ref(false);
