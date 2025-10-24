@@ -1,8 +1,8 @@
-import { prisma } from "@/src/config/prisma";
+import { prisma } from "src/config/prisma";
 import { BudgetEntityCheck, CreateBudgetDTO } from "./budget.type";
 import { budgetSelect } from "./budget.select";
-import { ensureUniqueOrFail, findOrFail } from "@/src/core";
-import { CurrentUserDTO } from "@/src/types/user.type";
+import { ensureUniqueOrFail, findOrFail } from "src/core";
+import { CurrentUserDTO } from "src/types/user.type";
 
 class BudgetService {  
   async getAll(currentUser: CurrentUserDTO) {

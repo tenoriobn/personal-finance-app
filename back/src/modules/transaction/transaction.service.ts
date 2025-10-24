@@ -1,8 +1,8 @@
-import { prisma } from "@/src/config/prisma";
+import { prisma } from "src/config/prisma";
 import { CreateTransactionDTO } from "./transaction.type";
 import { transactionSelect } from "./transaction.select";
-import { CurrentUserDTO } from "@/src/types/user.type";
-import { findOrFail } from "@/src/core";
+import { CurrentUserDTO } from "src/types/user.type";
+import { findOrFail } from "src/core";
 
 class TransactionService {
   async getAll(currentUser: CurrentUserDTO) {

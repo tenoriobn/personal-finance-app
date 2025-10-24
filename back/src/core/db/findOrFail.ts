@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 import { isValidObjectId } from "src/utils/objectId/objectId";
-import { CurrentUserDTO } from "@/src/types/user.type";
+import { CurrentUserDTO } from "src/types/user.type";
 import { FindOrFailOptions } from "./db.type";
-import { AppError } from "@/src/utils";
+import { AppError } from "src/utils";
 
 /**
  * Busca uma entidade com suporte a controle de acesso.

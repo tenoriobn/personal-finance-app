@@ -1,8 +1,8 @@
-import { prisma } from "@/src/config/prisma";
+import { prisma } from "src/config/prisma";
 import bcrypt from "bcryptjs";
 import { CreateUserDTO } from "../user/user.types";
-import { ensureUniqueOrFail, findEntityOrFail } from "@/src/core";
-import { AppError, signToken } from "@/src/utils";
+import { ensureUniqueOrFail, findEntityOrFail } from "src/core";
+import { AppError, signToken } from "src/utils";
 
 class AuthService {
   async create(data: CreateUserDTO) {

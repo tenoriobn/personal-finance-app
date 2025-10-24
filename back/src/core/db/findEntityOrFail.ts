@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { AppError } from "@/src/utils";
+import { AppError } from "src/utils";
 import { isValidObjectId } from "src/utils/objectId/objectId";
 
 /**

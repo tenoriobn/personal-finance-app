@@ -1,6 +1,6 @@
 import type { Context } from "hono";
 import { budgetService } from "./budget.service";
-import { formatZodErrors } from "@/src/utils/format/formatZodErrors";
+import { formatZodErrors } from "src/utils/format/formatZodErrors";
 import { createBudgetSchema } from "./budget.schema";
 
 class BudgetController {

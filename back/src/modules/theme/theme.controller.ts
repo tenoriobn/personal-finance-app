@@ -1,7 +1,7 @@
 import { Context } from "hono";
 import { themeService } from "./theme.service";
 import { createThemeSchema } from "./theme.schema";
-import { formatZodErrors } from "@/src/utils/format/formatZodErrors";
+import { formatZodErrors } from "src/utils/format/formatZodErrors";
 
 class ThemeController {
   async getAll(context: Context) {

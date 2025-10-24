@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { AppError } from "@/src/utils";
+import { AppError } from "src/utils";
 
 /**
  * Garante que não exista outro registro com os mesmos valores especificados.

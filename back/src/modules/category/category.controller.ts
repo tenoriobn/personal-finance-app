@@ -1,6 +1,6 @@
 import type { Context } from "hono";
 import { categoryService } from "./category.service";
-import { formatZodErrors } from "@/src/utils/format/formatZodErrors";
+import { formatZodErrors } from "src/utils/format/formatZodErrors";
 import { createCategorySchema } from "./category.schema";
 
 class CategoryController {

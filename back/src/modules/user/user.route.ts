@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { userController } from "./user.controller";
 import { validateId } from "src/middleware/validateId";
-import { authorize } from "@/src/middleware/authorize";
+import { authorize } from "src/middleware/authorize";
 
 export const userRoutes = new Hono();
 

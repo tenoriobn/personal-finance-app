@@ -1,6 +1,6 @@
-import { prisma } from "@/src/config/prisma";
+import { prisma } from "src/config/prisma";
 import { CreateThemeDTO } from "./theme.type";
-import { ensureUniqueOrFail, findEntityOrFail } from "@/src/core";
+import { ensureUniqueOrFail, findEntityOrFail } from "src/core";
 
 class ThemeService {
   async getAll() {
