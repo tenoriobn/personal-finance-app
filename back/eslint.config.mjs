@@ -21,5 +21,5 @@ export default defineConfig(
       "curly": ["error", "all"],
     },
   },
-  [globalIgnores(["generated/*"])],
+  [globalIgnores(["src/generated/**", "scripts", "dist"])],
 );
