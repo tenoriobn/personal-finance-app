@@ -1,7 +1,7 @@
 import { Context } from "hono";
 import { roleService } from "./role.service";
 import { createRoleSchema } from "./role.schema";
-import { formatZodErrors } from "@/src/utils/format/formatZodErrors";
+import { formatZodErrors } from "src/utils/format/formatZodErrors";
 
 export const roleController = {
   async findAll(context: Context) {

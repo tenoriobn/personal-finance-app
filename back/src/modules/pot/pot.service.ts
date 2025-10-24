@@ -1,8 +1,8 @@
-import { prisma } from "@/src/config/prisma";
+import { prisma } from "src/config/prisma";
 import { CreatePotDTO } from "./pot.type";
 import { potSelect } from "./pot.select";
-import { ensureUniqueOrFail, findOrFail } from "@/src/core";
-import { CurrentUserDTO } from "@/src/types/user.type";
+import { ensureUniqueOrFail, findOrFail } from "src/core";
+import { CurrentUserDTO } from "src/types/user.type";
 
 class PotService {
   async getAll(currentUser: CurrentUserDTO) {

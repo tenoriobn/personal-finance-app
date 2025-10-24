@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { themeController } from "./theme.controller";
-import { validateId } from "@/src/middleware/validateId";
-import { authorize } from "@/src/middleware/authorize";
+import { validateId } from "src/middleware/validateId";
+import { authorize } from "src/middleware/authorize";
 
 export const themeRoutes = new Hono();
 

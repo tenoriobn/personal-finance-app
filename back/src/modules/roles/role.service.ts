@@ -1,4 +1,4 @@
-import { ensureUniqueOrFail, findEntityOrFail } from "@/src/core";
+import { ensureUniqueOrFail, findEntityOrFail } from "src/core";
 import { prisma } from "src/config/prisma";
 import { CreateRoleDTO } from "./role.types";
 
