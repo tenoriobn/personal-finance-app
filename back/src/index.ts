@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import "dotenv/config";
 import { serve } from "@hono/node-server";
-import app from "./server";
+import app from "./server.js";
 
 const port = Number(process.env.PORT) || 4000;
 
