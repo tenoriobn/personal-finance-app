@@ -6,8 +6,9 @@ import { createTransactionSchema } from "./transaction.schema";
 class TransactionController {
   async getAll(context: Context) {
     const currentUser = context.get("user");
+    const query = context.req.query();
 
-    const transactions = await transactionService.getAll(currentUser);
+    const transactions = await transactionService.getAll(currentUser, query);
     return context.json(transactions, 200);
   }
 
