@@ -31,11 +31,7 @@ class TransactionService {
       { notFoundMessage: "Usuário não encontrado!" }
     ); 
 
-    // await getEntityOrFail(prisma.user, { id: data.userId }, "Usuário não encontrado!");
-
     if (data.budgetId) {
-      // await getEntityOrFail(prisma.budget, { id: data.budgetId, userId: currentUser.id }, "Budget não encontrado!");
-
       await findOrFail(
         prisma.budget,
         { id: data.budgetId },
