@@ -13,12 +13,15 @@ import { AppError } from "src/utils";
  * Ideal para entidades vinculadas a um usuário (ex: pot, budget, transaction, user).
  * Pode lançar erro de "Acesso negado" ou "Não encontrado".
  */
-export async function findOrFail<T>(
-  model: { findUnique(args: object): Promise<T | null> },
+export async function findOrFail<
+  TModel extends { findUnique(args: any): Promise<TEntity | null> },
+  TEntity = any
+>(
+  model: TModel,
   where: object,
   currentUser: CurrentUserDTO,
   { select, include, checkOwnership = false, notFoundMessage }: FindOrFailOptions = {}
-): Promise<T> {
+): Promise<TEntity> {
   if ("id" in where) {
     const id = (where as { id: string }).id;
     isValidObjectId(id);
