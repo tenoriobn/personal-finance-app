@@ -1,22 +1,23 @@
 import { ref } from 'vue';
 import type { TransactionsData } from '~/screens/Transactions/transactions.type';
+import { useApiGet } from './api/useApiMethods';
 
-type TransactionsReponse = {
+type TransactionsResponse = {
   data: TransactionsData[]
   totalPages: number
 };
 
 export function useTransactions(endpoint: string) {
   const search = ref('');
-  const selectedCategory = ref('Todos');
+  const selectedCategory = ref('');
   const selectedSort = ref('Mais recente');
   const currentPage = ref(1);
   const limit = ref(10);
 
-  const { data, pending } = useFetch<TransactionsReponse>(endpoint, {
+  const { data, pending } = useApiGet<TransactionsResponse>(endpoint, {
     query: {
       search,
-      category: selectedCategory,
+      categoryId: selectedCategory,
       sort: selectedSort,
       page: currentPage,
       limit,

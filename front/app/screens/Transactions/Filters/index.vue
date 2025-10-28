@@ -9,14 +9,12 @@
     />
 
     <div class="flex max-md:justify-center max-md:items-center md:justify-end max-md:gap-3 md:gap-6 md:w-full">
-      <SortByDropdown
-        v-model="selectedSortLocal"
-      />
+      <SortByDropdown v-model="selectedSortLocal" />
 
       <Dropdown
         v-model="selectedCategoryLocal"
         :label="'Categoria'"
-        :options="categories"
+        :options="[{ id: '', name: 'Todos' }, ...(categories || [])]"
         :icon-mobile="FilterIconMobile"
         data-testid="dropdown-category"
         custom-classes="md:w-[160px] 2xl:w-[224px]"
@@ -26,13 +24,14 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { Input, Dropdown } from '#components';
 import SortByDropdown from '~/components/Dropdown/SortByDropdown/index.vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import SearchIcon from '~/assets/icons/icon-search.svg';
 import type { FiltersProps } from './filters.type';
 import FilterIconMobile from '~/assets/icons/icon-filter-mobile.svg';
+import { useApiGet } from '~/composables/api/useApiMethods';
 
 const props = defineProps<FiltersProps>();
 
@@ -49,5 +48,5 @@ watch(selectedCategoryLocal, val => emit('update:selectedCategory', val));
 const selectedSortLocal = ref(props.selectedSort);
 watch(selectedSortLocal, val => emit('update:selectedSort', val));
 
-const categories = ['Todos', 'Entretenimento', 'Fundos', 'Alimentos', 'Jantar fora', 'Transporte'];
+const { data: categories } = useApiGet<{ id: string, name: string }[]>('categories');
 </script>
