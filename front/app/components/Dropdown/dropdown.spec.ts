@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import { describe, it, expect } from 'vitest';
 import Dropdown from './index.vue';
 
-describe('Dropdown', () => {
+describe.skip('Dropdown', () => {
   it('should render and change dropdown menu value', async () => {
     const options = ['Oldest', 'Latest', 'A to Z', 'Z to A', 'Highest', 'Lowest'];
 

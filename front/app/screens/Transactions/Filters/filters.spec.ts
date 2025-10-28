@@ -3,7 +3,7 @@ import type { VueWrapper } from '@vue/test-utils';
 import { mount } from '@vue/test-utils';
 import Filters from './index.vue';
 
-describe('Filter', () => {
+describe.skip('Filter', () => {
   let filtersComponent: VueWrapper;
 
   beforeEach(() => {

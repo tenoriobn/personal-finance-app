@@ -9,7 +9,7 @@ type TransactionsResponse = {
 
 export function useTransactions(endpoint: string) {
   const search = ref('');
-  const selectedCategory = ref('Todos');
+  const selectedCategory = ref('');
   const selectedSort = ref('Mais recente');
   const currentPage = ref(1);
   const limit = ref(10);
@@ -17,7 +17,7 @@ export function useTransactions(endpoint: string) {
   const { data, pending } = useApiGet<TransactionsResponse>(endpoint, {
     query: {
       search,
-      category: selectedCategory,
+      categoryId: selectedCategory,
       sort: selectedSort,
       page: currentPage,
       limit,
