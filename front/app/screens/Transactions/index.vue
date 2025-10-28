@@ -37,14 +37,10 @@ import Table from './Table/index.vue';
 import Filter from './Filters/index.vue';
 import Pagination from '~/components/Pagination/index.vue';
 import { useTransactions } from '~/composables/useTransactions';
-import { useApi } from '~/utils';
-import type { TransactionsData } from './transactions.type';
-
-const { data: transactions, pending } = await useApi<TransactionsData[]>('/transactions');
 
 const {
-  search, selectedCategory, selectedSort, totalPages, currentPage, goToPage,
-} = useTransactions('/api/transactions');
+  transactions, search, selectedCategory, selectedSort, totalPages, currentPage, goToPage, pending,
+} = useTransactions('transactions');
 
 const showCreateTransactionModal = ref(false);
 </script>
