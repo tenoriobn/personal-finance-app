@@ -6,4 +6,6 @@ export interface InputProps {
   icon?: Component | string
   name: string
   customClasses?: string
+  type?: string
+  disableAutocomplete?: boolean
 }

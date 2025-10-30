@@ -27,6 +27,8 @@
         :total-pages="totalPages"
         @page-change="goToPage"
       />
+
+      <CreateTransactionModal v-model="showCreateTransactionModal" />
     </div>
   </div>
 </template>
@@ -37,6 +39,7 @@ import Table from './Table/index.vue';
 import Filter from './Filters/index.vue';
 import Pagination from '~/components/Pagination/index.vue';
 import { useTransactions } from '~/composables/useTransactions';
+import CreateTransactionModal from './CreateTransactionModal/index.vue';
 
 const {
   transactions, search, selectedCategory, selectedSort, totalPages, currentPage, goToPage, pending,

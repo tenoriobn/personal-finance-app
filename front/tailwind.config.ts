@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import type { PluginAPI } from 'tailwindcss/types/config';
+
 export default {
   content: ['./app/**/*.{vue,js,ts}'],
   theme: {
@@ -67,7 +69,7 @@ export default {
     },
   },
   plugins: [
-    function ({ addUtilities }) {
+    function ({ addUtilities }: PluginAPI) {
       addUtilities({
         '.scroll-hide': {
           '-ms-overflow-style': 'none',

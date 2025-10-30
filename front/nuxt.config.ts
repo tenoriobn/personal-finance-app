@@ -4,6 +4,7 @@ import { resolve } from 'pathe';
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', 'motion-v/nuxt', '@nuxt/test-utils/module'],
+  plugins: ['~/plugins/vcalendar.ts'],
   devtools: { enabled: true },
   runtimeConfig: {
     public: {

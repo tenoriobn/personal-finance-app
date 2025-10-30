@@ -7,10 +7,14 @@
     <input
       :id="name"
       :name="name"
-      type="text"
+      :type="type || 'text'"
       class="peer block w-full appearance-none bg-transparent text-sm text-grey-900 focus:outline-none focus:ring-0"
       placeholder=" "
       :value="modelValue"
+      :autocomplete="disableAutocomplete ? 'off' : undefined"
+      :spellcheck="disableAutocomplete ? 'false' : undefined"
+      :autocorrect="disableAutocomplete ? 'off' : undefined"
+      :autocapitalize="disableAutocomplete ? 'off' : undefined"
       @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     >
 
@@ -34,7 +38,7 @@
 <script lang="ts" setup>
 import type { InputProps } from './input.type';
 
-const { label, modelValue, icon, name, customClasses } = defineProps<InputProps>();
+const { label, modelValue, icon, name, customClasses, type, disableAutocomplete } = defineProps<InputProps>();
 
 defineEmits<{ (e: 'update:modelValue', value: string): void }>();
 </script>
