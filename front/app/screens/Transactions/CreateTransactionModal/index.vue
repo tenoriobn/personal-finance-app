@@ -12,12 +12,13 @@
         custom-classes="w-full"
       />
 
-      <Input
+      <InputDatePicker
         v-model="transactionDate"
-        :label="'Data da Transação'"
-        type="date"
-        name="transactionData"
+        label="Data da Transação"
+        name="transactionDate"
         custom-classes="w-full"
+        is-dark
+        is-range
       />
 
       <Dropdown
@@ -59,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { Button, Modal } from '#components';
+import { Button, InputDatePicker, Modal } from '#components';
 import type { CreateTransactionModalProps } from './createTransactionModal.type';
 import { useCurrencyMask } from '~/composables/useCurrencyMask';
 
@@ -73,6 +74,11 @@ const showModal = computed({
 
 const transactionName = ref('');
 const transactionDate = ref('');
+watch(transactionDate, (val) => {
+  // eslint-disable-next-line no-console
+  console.log('transactionDate.value: ', val);
+}, { immediate: true });
+
 const transactionCategory = ref('');
 const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
 
