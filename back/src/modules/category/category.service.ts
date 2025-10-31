@@ -1,10 +1,37 @@
 import { prisma } from "src/config/prisma";
 import { CreateCategoryDTO } from "./category.type";
 import { ensureUniqueOrFail, findEntityOrFail } from "src/core";
+import { CurrentUserDTO } from "@/types/user.type";
 
 class CategoryService {
   async getAll() {
     return prisma.category.findMany();
+  }
+
+  async getUsedCategories(currentUser: CurrentUserDTO) {
+    return prisma.category.findMany({
+      where: {
+        budgets: {
+          some: {
+            userId: currentUser.id,
+          },
+        },
+      },
+      select: { id: true, name: true },
+    });
+  }
+
+  async getAvailableCategories(currentUser: CurrentUserDTO) {
+    return prisma.category.findMany({
+      where: {
+        budgets: {
+          none: {
+            userId: currentUser.id,
+          },
+        },
+      },
+      select: { id: true, name: true },
+    });
   }
 
   async getById(id: string) {

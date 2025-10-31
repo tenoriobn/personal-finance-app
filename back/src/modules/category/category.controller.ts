@@ -9,6 +9,18 @@ class CategoryController {
     return context.json(categories, 200);
   }
 
+  async getUsedCategories(context: Context) {
+    const currentUser = context.get("user");
+    const categories = await categoryService.getUsedCategories(currentUser);
+    return context.json(categories, 200);
+  }
+
+  async getAvailableCategories(context: Context) {
+    const currentUser = context.get("user");
+    const categories = await categoryService.getAvailableCategories(currentUser);
+    return context.json(categories, 200);
+  }
+
   async getById(context: Context) {
     const id = context.req.param("id");
     const category = await categoryService.getById(id);
