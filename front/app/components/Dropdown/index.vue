@@ -88,7 +88,7 @@ import { fadeSlideY } from '~/motion/transitions';
 import { ref, computed } from 'vue';
 import { useDropdownScroll } from './useDropdownScroll';
 
-const { dataTestid, label, options, modelValue, customClasses, iconMobile, compactOnMobile }
+const { dataTestid, label, options, modelValue, customClasses, iconMobile, compactOnMobile, startEmpty }
   = defineProps<DropdownProps>();
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();
 
@@ -99,31 +99,24 @@ const isOpen = ref(false);
 const toggleDropdown = () => (isOpen.value = !isOpen.value);
 const closeDropdown = () => (isOpen.value = false);
 
-const getLabel = (option: string | DropdownOption) =>
-  typeof option === 'string' ? option : option.name || option.id;
-
-const getKey = (option: string | DropdownOption) =>
-  typeof option === 'string' ? option : option.id || getLabel(option);
-
-const isOptionSelected = (option: string | DropdownOption) =>
-  typeof option === 'string'
-    ? option === modelValue
-    : option.id === modelValue;
+const getLabel = (option: DropdownOption) => option.name;
+const getKey = (option: DropdownOption) => option.id;
+const isOptionSelected = (option: DropdownOption) => option.id === modelValue;
 
 const selectedLabel = computed(() => {
-  const valueToFind = modelValue || (options[0] && (typeof options[0] === 'string' ? options[0] : options[0].id || ''));
+  if (startEmpty && !modelValue) {
+    return '';
+  }
 
-  const selected = options.find(opt =>
-    typeof opt === 'string'
-      ? opt === valueToFind
-      : opt.id === valueToFind,
-  );
+  // Caso contrário, usa modelValue ou primeira opção
+  const valueToFind = modelValue || options[0]?.id;
+  const selected = options.find(opt => opt.id === valueToFind);
 
   return selected ? getLabel(selected) : '';
 });
 
-const selectOption = (option: string | DropdownOption) => {
-  const value = typeof option === 'string' ? option : option.id || '';
+const selectOption = (option: DropdownOption) => {
+  const value = option.id || '';
   emit('update:modelValue', value);
   closeDropdown();
 };

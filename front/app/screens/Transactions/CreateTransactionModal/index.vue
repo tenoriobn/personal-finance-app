@@ -24,7 +24,8 @@
       <Dropdown
         v-model="transactionCategory"
         :label="'Categoria'"
-        :options="categories"
+        :options="[...categories || []]"
+        :start-empty="true"
         data-testid="dropdown-sort-by"
         custom-classes="w-full max-md:h-[46px] md:h-[54px]"
       />
@@ -61,6 +62,7 @@
 
 <script setup lang="ts">
 import { Button, InputDatePicker, Modal } from '#components';
+import { useApiGet } from '~/composables/api/useApiMethods';
 import type { CreateTransactionModalProps } from './createTransactionModal.type';
 import { useCurrencyMask } from '~/composables/useCurrencyMask';
 
@@ -80,6 +82,12 @@ watch(transactionDate, (val) => {
 }, { immediate: true });
 
 const transactionCategory = ref('');
+const { data: categories } = useApiGet<{ id: string, name: string }[]>('categories/used');
+watch(transactionCategory, (val) => {
+  // eslint-disable-next-line no-console
+  console.log('transactionCategory.value: ', val);
+}, { immediate: true });
+
 const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
 
 watch(formattedAmount, (val) => {
@@ -91,6 +99,4 @@ watch(amount, (val) => {
   // eslint-disable-next-line no-console
   console.log('amount.value: ', val);
 }, { immediate: true });
-
-const categories = ['Todos', 'Entretenimento', 'Fundos', 'Alimentos', 'Jantar fora', 'Transporte'];
 </script>

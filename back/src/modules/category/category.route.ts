@@ -6,6 +6,8 @@ import { authorize } from "src/middleware/authorize";
 export const categoryRoutes = new Hono();
 
 categoryRoutes.get("/", (context) => categoryController.getAll(context));
+categoryRoutes.get("/used", (context) => categoryController.getUsedCategories(context));
+categoryRoutes.get("/available", (context) => categoryController.getAvailableCategories(context));
 categoryRoutes.get("/:id", validateId, (context) => categoryController.getById(context));
 categoryRoutes.post("/", authorize(["ADMIN"]), (context) => categoryController.create(context));
 categoryRoutes.put("/:id", authorize(["ADMIN"]), validateId, (context) => categoryController.update(context));
