@@ -31,5 +31,30 @@ watch(() => props.modelValue, (val) => {
 
 watch(internalValue, val => emit('update:modelValue', val));
 
-const options = ['Mais recente', 'Mais antigo', 'A a Z', 'Z a A', 'Mais alto', 'Mais baixo'];
+const options = [
+  {
+    id: 'Mais recente',
+    name: 'Mais recente',
+  },
+  {
+    id: 'Mais antigo',
+    name: 'Mais antigo',
+  },
+  {
+    id: 'A a Z',
+    name: 'A a Z',
+  },
+  {
+    id: 'Z a A',
+    name: 'Z a A',
+  },
+  {
+    id: 'Mais alto',
+    name: 'Mais alto',
+  },
+  {
+    id: 'Mais baixo',
+    name: 'Mais baixo',
+  },
+];
 </script>
