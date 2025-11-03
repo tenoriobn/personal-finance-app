@@ -67,7 +67,7 @@
           {{ budget.category.name }}
         </td>
         <td
-          class="max-xl:col-start-3 max-xl:row-start-2 font-normal truncate"
+          class="max-xl:col-start-3 max-xl:row-start-2 max-xl:text-end font-normal truncate"
         >
           {{ formatDate(date) }}
         </td>

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defu } from 'defu';
 
-export function useApiFetch<T>(endpoint: string, options: Record<string, any> = {}) {
+export function useApiFetch<T>(endpoint: string, options: Record<string, any> = {}, lazy = false) {
   const config = useRuntimeConfig();
 
   const defaults = {
@@ -15,7 +15,10 @@ export function useApiFetch<T>(endpoint: string, options: Record<string, any> = 
   };
 
   const mergedOptions = defu(options, defaults);
-  const response = useFetch<T>(endpoint, mergedOptions);
 
-  return response;
+  if (lazy) {
+    return useFetch<T>(endpoint, mergedOptions);
+  };
+
+  return $fetch<T>(endpoint, mergedOptions);
 }

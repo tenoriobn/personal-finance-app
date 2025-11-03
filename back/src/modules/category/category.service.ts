@@ -9,25 +9,35 @@ class CategoryService {
   }
 
   async getUsedCategories(currentUser: CurrentUserDTO) {
-    return prisma.category.findMany({
+    const categories = await prisma.category.findMany({
       where: {
         budgets: {
-          some: {
-            userId: currentUser.id,
-          },
+          some: { userId: currentUser.id },
         },
       },
-      select: { id: true, name: true },
+      select: { 
+        id: true, 
+        name: true,
+        budgets: {
+          where: { userId: currentUser.id },
+          select: { id: true },
+          take: 1,
+        },
+      },
     });
+
+    return categories.map(category => ({
+      id: category.id,
+      name: category.name,
+      budgetId: category.budgets[0]?.id ?? null,
+    }));
   }
 
   async getAvailableCategories(currentUser: CurrentUserDTO) {
     return prisma.category.findMany({
       where: {
         budgets: {
-          none: {
-            userId: currentUser.id,
-          },
+          none: { userId: currentUser.id },
         },
       },
       select: { id: true, name: true },
