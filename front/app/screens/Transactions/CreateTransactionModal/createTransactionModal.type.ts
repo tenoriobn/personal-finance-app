@@ -4,8 +4,15 @@ export interface CreateTransactionModalProps {
 
 export interface TransactionForm {
   name: string
-  date: string | null
+  date: string
   amount: number
   recurring: boolean
-  category: string | null
+  budgetId: string
+  userId: string
+}
+
+export interface CategoryData {
+  id: string
+  name: string
+  budgetId: string
 }

@@ -42,3 +42,13 @@ const { label, modelValue, icon, name, customClasses, type, disableAutocomplete 
 
 defineEmits<{ (e: 'update:modelValue', value: string): void }>();
 </script>
+
+<style scoped>
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: inherit !important;
+  transition: background-color 9999s ease-in-out 0s !important;
+}
+</style>

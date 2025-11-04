@@ -57,7 +57,10 @@
         <span class="cursor-pointer text-sm text-grey-900">Recorrente</span>
       </label>
 
-      <Button label="Criar" />
+      <Button
+        :disabled="!isFormValid || isSubmitting"
+        label="Criar"
+      />
     </form>
   </Modal>
 </template>
@@ -66,7 +69,7 @@
 import { Button, InputDatePicker, Modal } from '#components';
 import { useApiGet, useApiPost } from '~/composables/api/useApiMethods';
 import { useCurrencyMask } from '~/composables/useCurrencyMask';
-import type { CreateTransactionModalProps, TransactionForm } from './createTransactionModal.type';
+import type { CategoryData, CreateTransactionModalProps, TransactionForm } from './createTransactionModal.type';
 
 const { modelValue } = defineProps<CreateTransactionModalProps>();
 const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>();
@@ -76,38 +79,52 @@ const showModal = computed({
   set: (val: boolean) => emit('update:modelValue', val),
 });
 
-const { data: categories } = useApiGet<{ id: string, name: string, budgetId: string }[]>('categories/used');
+const { data: categories } = useApiGet<CategoryData[]>('categories/used');
 const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
 
-const formState = reactive<TransactionForm>({
+const defaultForm: TransactionForm = {
   name: '',
-  date: null as Date | null,
-  amount: amount,
+  date: '',
+  amount: amount.value,
   recurring: false,
   budgetId: '',
   userId: '68cc2ec3f0818350607a26b6',
-});
-
-const resetForm = () => {
-  Object.assign(formState, {
-    name: '',
-    date: null,
-    amount: amount, // reusa o mesmo ref da máscara
-    recurring: false,
-    budgetId: '',
-    userId: '68cc2ec3f0818350607a26b6',
-  });
-
-  amount.value = 0; // garante que o campo monetário visual zera
 };
 
+const formState = reactive({ ...defaultForm });
+
+const resetForm = () => {
+  Object.assign(formState, { ...defaultForm });
+  amount.value = 0;
+};
+
+const isFormValid = computed(() =>
+  formState.name.trim()
+  && formState.date
+  && amount.value > 0
+  && formState.budgetId.trim(),
+);
+
+const isSubmitting = ref(false);
+
 const handleSubmit = async () => {
-  const data = await useApiPost('transactions', formState);
+  if (!isFormValid.value || isSubmitting.value) {
+    return;
+  }
 
-  // eslint-disable-next-line no-console
-  console.log('Payload preparado:', data);
+  isSubmitting.value = true;
 
-  resetForm();
-  showModal.value = false;
+  try {
+    const payload = { ...formState, amount: amount.value };
+    const data = await useApiPost('transactions', payload);
+    // eslint-disable-next-line no-console
+    console.log('Payload preparado:', data);
+
+    resetForm();
+    showModal.value = false;
+  }
+  finally {
+    isSubmitting.value = false;
+  }
 };
 </script>
