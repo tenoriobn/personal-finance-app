@@ -2,7 +2,7 @@
 import { useApiFetch } from './useApiFetch';
 
 export function useApiGet<T>(endpoint: string, options: Record<string, any> = {}) {
-  return useApiFetch<T>(endpoint, { method: 'GET', ...options });
+  return useApiFetch<T>(endpoint, { method: 'GET', ...options }, true) as ReturnType<typeof useFetch<T>>;
 }
 export function useApiPost<T>(endpoint: string, body: object, options: Record<string, any> = {}) {
   return useApiFetch<T>(endpoint, { method: 'POST', body: JSON.stringify(body), ...options });

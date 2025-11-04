@@ -11,6 +11,7 @@
       readonly
       :disable-autocomplete="true"
       @click="openCalendar"
+      @focusin="openCalendar"
       @keydown.prevent
     />
 
