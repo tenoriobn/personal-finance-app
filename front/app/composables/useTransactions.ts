@@ -14,7 +14,7 @@ export function useTransactions(endpoint: string) {
   const currentPage = ref(1);
   const limit = ref(10);
 
-  const { data, pending } = useApiGet<TransactionsResponse>(endpoint, {
+  const { data, pending, refresh } = useApiGet<TransactionsResponse>(endpoint, {
     query: {
       search,
       categoryId: selectedCategory,
@@ -47,5 +47,6 @@ export function useTransactions(endpoint: string) {
     transactions,
     goToPage,
     pending,
+    refresh,
   };
 }

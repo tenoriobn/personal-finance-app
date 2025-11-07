@@ -70,9 +70,8 @@
       </label>
 
       <Button
-        :disabled=" isSubmitting"
+        :is-submitting="isSubmitting"
         label="Criar"
-        class="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-grey-900 disabled:hover:border-grey-900 disabled:hover:text-grey-200 disabled:active:bg-grey-900 disabled:active:border-grey-900 disabled:active:text-grey-200 disabled:shadow-none"
       />
     </form>
   </Modal>
@@ -85,9 +84,13 @@ import { useCurrencyMask } from '~/composables/useCurrencyMask';
 import { createTransactionSchema } from './transaction.schema';
 import type { CategoryData, CreateTransactionModalProps, TransactionForm } from './createTransactionModal.type';
 import FormError from '~/components/FormError/index.vue';
+import { useToast } from '~/composables/useToast';
 
 const { modelValue } = defineProps<CreateTransactionModalProps>();
-const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>();
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void
+  (e: 'transactionCreated'): void
+}>();
 
 const showModal = computed({
   get: () => modelValue,
@@ -156,14 +159,19 @@ const resetForm = () => {
   Object.keys(errors).forEach(k => (errors[k] = ''));
 };
 
+const { notify } = useToast();
+
 const handleSubmit = async () => {
   if (isSubmitting.value || !validateAndSetErrors()) {
     return;
   }
 
   isSubmitting.value = true;
+
   try {
     await useApiPost('transactions', { ...formState, amount: amount.value });
+    emit('transactionCreated');
+    notify('success', 'Transação criada com sucesso!');
     resetForm();
     showModal.value = false;
   }

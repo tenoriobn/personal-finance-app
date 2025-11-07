@@ -28,7 +28,10 @@
         @page-change="goToPage"
       />
 
-      <CreateTransactionModal v-model="showCreateTransactionModal" />
+      <CreateTransactionModal
+        v-model="showCreateTransactionModal"
+        @transaction-created="refreshTransactions"
+      />
     </div>
   </div>
 </template>
@@ -42,8 +45,11 @@ import { useTransactions } from '~/composables/useTransactions';
 import CreateTransactionModal from './CreateTransactionModal/index.vue';
 
 const {
-  transactions, search, selectedCategory, selectedSort, totalPages, currentPage, goToPage, pending,
+  transactions, search, selectedCategory, selectedSort, totalPages, currentPage, goToPage, pending, refresh,
 } = useTransactions('transactions');
 
 const showCreateTransactionModal = ref(false);
+const refreshTransactions = async () => {
+  await refresh();
+};
 </script>
