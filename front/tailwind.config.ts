@@ -37,7 +37,7 @@ export default {
         'yellow': 'hsl(28, 73%, 81%)',
         'cyan': 'hsl(190, 52%, 68%)',
         'navy': 'hsl(248, 8%, 41%)',
-        'red': 'hsl(7, 58%, 50%)',
+        'red': 'hsl(0, 72%, 51%)',
         'purple': 'hsl(259, 30%, 56%)',
         'purple-alt': 'hsl(288, 29%, 62%)',
         'turquoise': 'hsl(180, 16%, 42%)',

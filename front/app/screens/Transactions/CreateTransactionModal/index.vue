@@ -8,39 +8,52 @@
       class="flex flex-col gap-6"
       @submit.prevent="handleSubmit"
     >
-      <Input
-        v-model="formState.name"
-        :label="'Nome da Transação'"
-        name="transactionName"
-        custom-classes="w-full"
-      />
+      <div class="flex flex-col gap-1">
+        <Input
+          v-model="formState.name"
+          label="Nome da Transação"
+          name="transactionName"
+          :custom-classes="`w-full ${errors.name ? 'border-red' : ''}`"
+        />
+        <FormError :message="errors.name" />
+      </div>
 
-      <InputDatePicker
-        v-model="formState.date"
-        label="Data da Transação"
-        name="transactionDate"
-        custom-classes="w-full"
-        is-dark
-        is-range
-      />
+      <div class="flex flex-col gap-1">
+        <InputDatePicker
+          v-model="formState.date"
+          label="Data da Transação"
+          name="transactionDate"
+          :custom-classes="`w-full ${errors.date ? 'border-red' : ''}`"
+          is-dark
+          is-range
+        />
+        <FormError :message="errors.date" />
+      </div>
 
-      <Dropdown
-        v-model="formState.budgetId"
-        label="Categoria"
-        :options="categories?.map(category => ({ name: category.name, id: category.budgetId })) || []"
-        :start-empty="true"
-        custom-classes="w-full max-md:h-[46px] md:h-[54px]"
-      />
+      <div class="flex flex-col gap-1">
+        <Dropdown
+          v-model="formState.budgetId"
+          label="Categoria"
+          :options="categories?.map(category => ({ name: category.name, id: category.budgetId })) || []"
+          :start-empty="true"
+          custom-classes="w-full max-md:h-[46px] md:h-[54px]"
+          :form-error="errors.budgetId"
+        />
+        <FormError :message="errors.budgetId" />
+      </div>
 
-      <Input
-        :model-value="formattedAmount"
-        label="Valor"
-        name="amount"
-        custom-classes="w-full"
-        @update:model-value="onInput"
-        @keydown="onKeyDown"
-        @paste="onPaste"
-      />
+      <div class="flex flex-col gap-1">
+        <Input
+          :model-value="formattedAmount"
+          label="Valor"
+          name="amount"
+          :custom-classes="`w-full ${errors.amount ? 'border-red' : ''}`"
+          @update:model-value="onInput"
+          @keydown="onKeyDown"
+          @paste="onPaste"
+        />
+        <FormError :message="errors.amount" />
+      </div>
 
       <label
         for="recurring"
@@ -53,12 +66,11 @@
           name="Recorrente"
           class="cursor-pointer w-4 h-4 rounded-lg"
         >
-
         <span class="cursor-pointer text-sm text-grey-900">Recorrente</span>
       </label>
 
       <Button
-        :disabled="!isFormValid || isSubmitting"
+        :is-submitting="isSubmitting"
         label="Criar"
       />
     </form>
@@ -69,10 +81,16 @@
 import { Button, InputDatePicker, Modal } from '#components';
 import { useApiGet, useApiPost } from '~/composables/api/useApiMethods';
 import { useCurrencyMask } from '~/composables/useCurrencyMask';
+import { createTransactionSchema } from './transaction.schema';
 import type { CategoryData, CreateTransactionModalProps, TransactionForm } from './createTransactionModal.type';
+import FormError from '~/components/FormError/index.vue';
+import { useToast } from '~/composables/useToast';
 
 const { modelValue } = defineProps<CreateTransactionModalProps>();
-const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>();
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void
+  (e: 'transactionCreated'): void
+}>();
 
 const showModal = computed({
   get: () => modelValue,
@@ -93,33 +111,67 @@ const defaultForm: TransactionForm = {
 
 const formState = reactive({ ...defaultForm });
 
-const resetForm = () => {
-  Object.assign(formState, { ...defaultForm });
-  amount.value = 0;
-};
+const errors = reactive<Record<string, string>>({
+  name: '',
+  date: '',
+  amount: '',
+  budgetId: '',
+});
 
-const isFormValid = computed(() =>
-  formState.name.trim()
-  && formState.date
-  && amount.value > 0
-  && formState.budgetId.trim(),
-);
+watch(() => formState.name, () => {
+  errors.name = '';
+});
+watch(() => formState.date, () => {
+  errors.date = '';
+});
+watch(() => formState.budgetId, () => {
+  errors.budgetId = '';
+});
+watch(amount, () => {
+  errors.amount = '';
+});
+
+const validateAndSetErrors = (): boolean => {
+  const payload = { ...formState, amount: amount.value };
+
+  Object.keys(errors).forEach(k => (errors[k] = ''));
+
+  const parsed = createTransactionSchema.safeParse(payload);
+
+  if (!parsed.success) {
+    for (const issue of parsed.error.issues) {
+      const key = String(issue.path[0] ?? '');
+      if (key && Object.prototype.hasOwnProperty.call(errors, key)) {
+        errors[key] = issue.message;
+      }
+    }
+    return false;
+  }
+
+  return true;
+};
 
 const isSubmitting = ref(false);
 
+const resetForm = () => {
+  Object.assign(formState, { ...defaultForm });
+  amount.value = 0;
+  Object.keys(errors).forEach(k => (errors[k] = ''));
+};
+
+const { notify } = useToast();
+
 const handleSubmit = async () => {
-  if (!isFormValid.value || isSubmitting.value) {
+  if (isSubmitting.value || !validateAndSetErrors()) {
     return;
   }
 
   isSubmitting.value = true;
 
   try {
-    const payload = { ...formState, amount: amount.value };
-    const data = await useApiPost('transactions', payload);
-    // eslint-disable-next-line no-console
-    console.log('Payload preparado:', data);
-
+    await useApiPost('transactions', { ...formState, amount: amount.value });
+    emit('transactionCreated');
+    notify('success', 'Transação criada com sucesso!');
     resetForm();
     showModal.value = false;
   }

@@ -13,4 +13,5 @@ export interface DropdownProps {
   dataTestid?: string
   compactOnMobile?: boolean
   startEmpty?: boolean
+  formError?: string
 }

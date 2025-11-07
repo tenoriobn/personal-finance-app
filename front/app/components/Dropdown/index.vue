@@ -16,7 +16,13 @@
 
     <div
       class="group relative flex justify-between items-center gap-4 rounded-xl border p-4 text-sm duration-150 ease-in-out cursor-pointer h-full"
-      :class="[isOpen || selectedLabel === 'Todos' || selectedLabel ? 'border-grey-900' : 'border-grey-300', compactOnMobile && 'max-md:hidden']"
+      :class="[
+        (isOpen || selectedLabel === 'Todos' || selectedLabel)
+          ? 'border-grey-900'
+          : 'border-grey-300',
+        compactOnMobile && 'max-md:hidden',
+        formError && 'border-red',
+      ]"
     >
       <span
         class="pointer-events-none absolute left-3 origin-[0] -translate-y-1/2 bg-white px-1 text-sm transition-all duration-150 ease-in-out"
@@ -35,7 +41,12 @@
 
       <CaretDownIcon
         class="duration-150 ease-in-out"
-        :class="[isOpen ? '-rotate-180' : '', selectedLabel === 'Todos' || selectedLabel ? 'fill-grey-900' : 'fill-grey-300']"
+        :class="[
+          isOpen ? '-rotate-180' : '', selectedLabel === 'Todos' || selectedLabel
+            ? 'fill-grey-900'
+            : 'fill-grey-300',
+          formError && 'fill-red',
+        ]"
       />
     </div>
 
@@ -88,7 +99,7 @@ import { fadeSlideY } from '~/motion/transitions';
 import { ref, computed } from 'vue';
 import { useDropdownScroll } from './useDropdownScroll';
 
-const { dataTestid, label, options, modelValue, customClasses, iconMobile, compactOnMobile, startEmpty }
+const { dataTestid, label, options, modelValue, customClasses, iconMobile, compactOnMobile, startEmpty, formError }
   = defineProps<DropdownProps>();
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();
 
@@ -108,7 +119,6 @@ const selectedLabel = computed(() => {
     return '';
   }
 
-  // Caso contrário, usa modelValue ou primeira opção
   const valueToFind = modelValue || options[0]?.id;
   const selected = options.find(opt => opt.id === valueToFind);
 
