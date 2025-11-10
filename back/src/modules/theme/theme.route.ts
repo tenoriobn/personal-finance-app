@@ -6,6 +6,8 @@ import { authorize } from "src/middleware/authorize";
 export const themeRoutes = new Hono();
 
 themeRoutes.get("/", (context) => themeController.getAll(context));
+themeRoutes.get("/used", (context) => themeController.getUsedThemes(context));
+themeRoutes.get("/available", (context) => themeController.getAvailableThemes(context));
 themeRoutes.get("/:id", validateId, (context) => themeController.getById(context));
 themeRoutes.post("/", authorize(["ADMIN"]), (context) => themeController.create(context));
 themeRoutes.put("/:id", authorize(["ADMIN"]), validateId, (context) => themeController.update(context));
