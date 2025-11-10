@@ -2,53 +2,159 @@
   <Modal
     v-model="showModal"
     title="Criar novo Orçamento"
-    intro="Selecione uma categoria para definir um orçamento de gastos. Essas categorias podem ajudar você a monitorar seus gastos."
+    intro="Ao criar um orçamento e estabelecer um limite de gastos, você poderá acompanhar melhor como utiliza seu dinheiro."
   >
-    <form class="flex flex-col gap-6">
-      <Input
-        v-model="maximumSpend"
-        :label="'Gasto máximo'"
-        name="maximumSpend"
-        custom-classes="w-full"
-      />
+    <form
+      class="flex flex-col gap-6"
+      @submit.prevent="handleSubmit"
+    >
+      <div class="flex flex-col gap-1">
+        <Input
+          :model-value="formattedAmount"
+          label="Gasto máximo"
+          name="maximumSpend"
+          :custom-classes="`w-full ${errors.maximumSpend ? 'border-red' : ''}`"
+          @update:model-value="onInput"
+          @keydown="onKeyDown"
+          @paste="onPaste"
+        />
+        <FormError :message="errors.maximumSpend" />
+      </div>
 
-      <Dropdown
-        v-model="budgetSelectedCategory"
-        :label="'Categoria'"
-        :options="categories"
-        data-testid="dropdown-sort-by"
-        custom-classes="w-full max-md:h-[46px] md:h-[54px]"
-      />
+      <div class="flex flex-col gap-1">
+        <Dropdown
+          v-model="formState.categoryId"
+          label="Categoria"
+          :options="categories?.map(category => ({ name: category.name, id: category.id })) || []"
+          :start-empty="true"
+          custom-classes="w-full max-md:h-[46px] md:h-[54px]"
+          :form-error="errors.categoryId"
+        />
+        <FormError :message="errors.categoryId" />
+      </div>
 
-      <Dropdown
-        v-model="selectedTheme"
-        :label="'Tema'"
-        :options="themes"
-        data-testid="dropdown-sort-by"
-        custom-classes="max-md:h-[46px] md:h-[54px]"
-      />
+      <div class="flex flex-col gap-1">
+        <Dropdown
+          v-model="formState.themeId"
+          label="Tema"
+          :options="themes?.map(theme => ({ name: theme.colorName, id: theme.id })) || []"
+          :start-empty="true"
+          data-testid="dropdown-sort-by"
+          custom-classes="w-full max-md:h-[46px] md:h-[54px]"
+          :form-error="errors.themeId"
+        />
+        <FormError :message="errors.themeId" />
+      </div>
 
-      <Button label="Criar" />
+      <Button
+        :is-submitting="isSubmitting"
+        label="Criar"
+      />
     </form>
   </Modal>
 </template>
 
 <script setup lang="ts">
 import { Button, Modal } from '#components';
-import type { CreateBudgetModalProps } from './createBudgetModal.type';
+import { useApiGet, useApiPost } from '~/composables/api/useApiMethods';
+import type { BudgetForm, CategoryData, CreateBudgetModalProps, ThemeData } from './createBudgetModal.type';
+import { useCurrencyMask } from '~/composables/useCurrencyMask';
+import { useToast } from '~/composables/useToast';
+import { createBudgetSchema } from './budget.schema';
 
 const { modelValue } = defineProps<CreateBudgetModalProps>();
-const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>();
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void
+  (e: 'budgetCreated'): void
+}>();
 
 const showModal = computed({
   get: () => modelValue,
   set: (val: boolean) => emit('update:modelValue', val),
 });
 
-const maximumSpend = ref('');
-const budgetSelectedCategory = ref('');
-const selectedTheme = ref('');
+const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
+const { data: categories, refresh: refreshCategories } = useApiGet<CategoryData[]>('categories/available');
+const { data: themes, refresh: refreshThemes } = useApiGet<ThemeData[]>('themes/available');
+const refreshCategoriesAndThemes = async () => {
+  await refreshCategories();
+  await refreshThemes();
+};
 
-const categories = ['Todos', 'Entretenimento', 'Fundos', 'Alimentos', 'Jantar fora', 'Transporte'];
-const themes = ['Azul', 'Verde', 'Rosa', 'Cinza', 'Amarelo', 'Branco'];
+const defaultForm: BudgetForm = {
+  maximumSpend: amount.value,
+  categoryId: '',
+  themeId: '',
+  userId: '68cc2ec3f0818350607a26b6',
+};
+
+const formState = reactive({ ...defaultForm });
+
+const errors = reactive<Record<string, string>>({
+  maximumSpend: '',
+  categoryId: '',
+  themeId: '',
+});
+
+watch(amount, () => {
+  errors.maximumSpend = '';
+});
+
+watch(() => formState.categoryId, () => {
+  errors.categoryId = '';
+});
+
+watch(() => formState.themeId, () => {
+  errors.themeId = '';
+});
+
+const validateAndSetErrors = (): boolean => {
+  const payload = { ...formState, maximumSpend: amount.value };
+
+  Object.keys(errors).forEach(k => (errors[k] = ''));
+
+  const parsed = createBudgetSchema.safeParse(payload);
+
+  if (!parsed.success) {
+    for (const issue of parsed.error.issues) {
+      const key = String(issue.path[0] ?? '');
+      if (key && Object.prototype.hasOwnProperty.call(errors, key)) {
+        errors[key] = issue.message;
+      }
+    }
+    return false;
+  }
+
+  return true;
+};
+
+const isSubmitting = ref(false);
+
+const resetForm = () => {
+  Object.assign(formState, { ...defaultForm });
+  amount.value = 0;
+  Object.keys(errors).forEach(k => (errors[k] = ''));
+};
+
+const { notify } = useToast();
+
+const handleSubmit = async () => {
+  if (isSubmitting.value || !validateAndSetErrors()) {
+    return;
+  }
+
+  isSubmitting.value = true;
+
+  try {
+    await useApiPost('budgets', { ...formState, maximumSpend: amount.value });
+    emit('budgetCreated');
+    notify('success', 'Orçamento criado com sucesso!');
+    refreshCategoriesAndThemes();
+    resetForm();
+    showModal.value = false;
+  }
+  finally {
+    isSubmitting.value = false;
+  }
+};
 </script>

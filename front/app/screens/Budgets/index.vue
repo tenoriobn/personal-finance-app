@@ -27,8 +27,10 @@ import { Button, TitleSection } from '#components';
 import SpendingChart from './SpendingChart/index.vue';
 import BudgetCard from './BudgetCard/index.vue';
 import CreateBudgetModal from './CreateBudgetModal/index.vue';
-import { useBudgets } from './useBudgets';
+import { useBudgets, useBudgetsTest } from './useBudgets';
 
 const { budgets } = useBudgets();
 const showCreateBudgetModal = ref(false);
+
+useBudgetsTest();
 </script>
