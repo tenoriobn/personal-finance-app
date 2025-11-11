@@ -9,7 +9,9 @@
         />
       </div>
 
-      <SpendingSummary />
+      <SpendingSummary
+        :budgets="budgets"
+      />
     </div>
   </div>
 </template>
@@ -25,12 +27,14 @@ ChartJS.register(ArcElement, Title, Tooltip, Legend);
 
 const { budgets } = defineProps<SpendingChartProps>();
 
+console.log('aquiii: ', budgets);
+
 const chartData = computed(() => ({
-  labels: budgets.map(b => b.category),
+  labels: budgets.map(b => b.category.name),
   datasets: [
     {
-      data: budgets.map(b => b.maximum),
-      backgroundColor: budgets.map(b => b.theme),
+      data: budgets.map(b => b.maximumSpend),
+      backgroundColor: budgets.map(b => b.theme.colorHex),
       borderWidth: 0,
     },
   ],

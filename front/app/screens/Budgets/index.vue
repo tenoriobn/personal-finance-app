@@ -12,9 +12,7 @@
       <SpendingChart :budgets="budgets" />
 
       <div class="grid gap-4">
-        <BudgetCard />
-        <BudgetCard />
-        <BudgetCard />
+        <BudgetCard :budgets="budgets" />
       </div>
 
       <CreateBudgetModal v-model="showCreateBudgetModal" />
@@ -27,10 +25,8 @@ import { Button, TitleSection } from '#components';
 import SpendingChart from './SpendingChart/index.vue';
 import BudgetCard from './BudgetCard/index.vue';
 import CreateBudgetModal from './CreateBudgetModal/index.vue';
-import { useBudgets, useBudgetsTest } from './useBudgets';
+import { useBudgets } from './useBudgets';
 
 const { budgets } = useBudgets();
 const showCreateBudgetModal = ref(false);
-
-useBudgetsTest();
 </script>

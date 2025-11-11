@@ -1,3 +1,4 @@
 export interface ProgressBarProps {
-  customClasses?: string
+  colorHex?: string
+  percent?: number
 }

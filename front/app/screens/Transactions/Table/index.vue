@@ -19,12 +19,14 @@
         v-if="pending"
       />
 
-      <p
-        v-else-if="transactions.length === 0"
-        class="text-center text-grey-500 text-sm xl:pt-10"
-      >
-        No transactions found.
-      </p>
+      <tr v-else-if="transactions.length === 0">
+        <td
+          colspan="3"
+          class="text-center text-grey-500 text-sm max-md:py-10 xl:pt-10"
+        >
+          Não há transações.
+        </td>
+      </tr>
 
       <tr
         v-for="{ name, budget, date, amount } in transactions || []"
