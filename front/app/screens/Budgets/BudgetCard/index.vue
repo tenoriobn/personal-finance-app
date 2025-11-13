@@ -37,6 +37,7 @@
 
     <LatestSpendingTable
       :transactions="transactions"
+      :category-id="category.id"
     />
   </div>
 </template>

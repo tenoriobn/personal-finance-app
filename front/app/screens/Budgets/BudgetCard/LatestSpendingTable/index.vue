@@ -14,6 +14,7 @@
             <NuxtLink
               to="/transacoes"
               class="group flex items-center gap-2 text-sm font-normal hover:text-grey-900 active:text-grey-300 duration-150 ease-in-out"
+              @click="category = categoryId"
             >
               Ver todos
               <CaretDownIcon class="fill-grey-500 group-hover:fill-grey-900 group-active:fill-grey-300 -rotate-90 duration-150 ease-in-out" />
@@ -68,6 +69,8 @@ import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import { NuxtLink } from '#components';
 import type { LatestSpendingTableProps } from './latestSpendingTable.type';
 import { formatDate, formatCurrency } from '~/utils';
+import { useTransactionCategoryFilter } from '~/composables/useTransactionCategoryFilter';
 
-const { transactions } = defineProps<LatestSpendingTableProps>();
+const { transactions, categoryId } = defineProps<LatestSpendingTableProps>();
+const { category } = useTransactionCategoryFilter();
 </script>

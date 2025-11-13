@@ -1,5 +1,6 @@
 export interface LatestSpendingTableProps {
   transactions: TransactionsData[]
+  categoryId: string
 }
 
 export interface TransactionsData {
