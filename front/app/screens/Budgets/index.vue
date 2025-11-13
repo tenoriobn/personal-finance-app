@@ -8,12 +8,12 @@
       />
     </header>
 
-    <div class="grid grid-cols-1 gap-4 xl:max-2xl:grid-cols-[minmax(0,400px)_1fr] 2xl:grid-cols-[minmax(0,480px)_1fr]">
-      <SpendingChart :budgets="budgets" />
+    <div
+      class="grid grid-cols-1 gap-4 xl:max-2xl:grid-cols-[minmax(0,400px)_1fr] 2xl:grid-cols-[minmax(0,480px)_1fr]"
+    >
+      <SpendingChart />
 
       <div class="grid gap-4">
-        <BudgetCard />
-        <BudgetCard />
         <BudgetCard />
       </div>
 
@@ -29,6 +29,8 @@ import BudgetCard from './BudgetCard/index.vue';
 import CreateBudgetModal from './CreateBudgetModal/index.vue';
 import { useBudgets } from './useBudgets';
 
-const { budgets } = useBudgets();
 const showCreateBudgetModal = ref(false);
+
+const { getBudgets } = useBudgets();
+getBudgets();
 </script>

@@ -1,6 +1,6 @@
-export function formatCurrency(value: number): string {
+export function formatCurrency(value: number, signal: boolean = true): string {
   const absValue = Math.abs(value);
-  const sign = value >= 0 ? '+' : '-';
+  const sign = signal ? (value >= 0 ? '+' : '-') : '';
 
   const useCompact = absValue >= 1_000_000;
 

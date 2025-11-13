@@ -9,6 +9,18 @@ class ThemeController {
     return context.json(themes, 200);
   }
 
+  async getUsedThemes(context: Context) {
+    const currentUser = context.get("user");
+    const themes = await themeService.getUsedThemes(currentUser);
+    return context.json(themes, 200);
+  }
+
+  async getAvailableThemes(context: Context) {
+    const currentUser = context.get("user");
+    const themes = await themeService.getAvailableTheme(currentUser);
+    return context.json(themes, 200);
+  }
+
   async getById(context: Context) {
     const id = context.req.param("id");
     const theme = await themeService.getById(id);
