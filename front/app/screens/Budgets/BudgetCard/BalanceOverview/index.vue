@@ -12,7 +12,9 @@
     <div class="relative flex flex-1 flex-col justify-between pl-4">
       <span class="absolute bottom-0 left-0 top-0 h-full w-1 rounded-lg bg-beige-100" />
       <p class="text-sm text-grey-500">Livre</p>
-      <p class="font-bold text-grey-900">{{ formatCurrency(free) }}</p>
+      <p :class="['font-bold', free < 0 ? 'text-red' : 'text-grey-900']">
+        {{ formatCurrency(free, free < 0) }}
+      </p>
     </div>
   </div>
 </template>
