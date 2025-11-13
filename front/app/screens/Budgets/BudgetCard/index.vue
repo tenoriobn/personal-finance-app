@@ -10,6 +10,7 @@
           class="block w-4 h-4 rounded-full"
           :style="{ backgroundColor: theme.colorHex }"
         />
+
         <h3 class="text-xl font-bold text-grey-900">{{ category.name }}</h3>
       </div>
 
@@ -48,12 +49,12 @@ import { Progressbar, CardActionsMenu } from '#components';
 import BalanceOverview from './BalanceOverview/index.vue';
 import { ref } from 'vue';
 import { formatCurrency } from '~/utils';
-import type { BudgetProps } from './budgetCard.type';
 import { getSpent, getFree, getPercent } from '~/utils/finance';
+import { useBudgets } from '../useBudgets';
 
 const isOpenBudgetActions = ref(false);
 
-const { budgets } = defineProps<BudgetProps>();
+const { budgets } = useBudgets();
 
 const handleEdit = () => {
   // eslint-disable-next-line no-console

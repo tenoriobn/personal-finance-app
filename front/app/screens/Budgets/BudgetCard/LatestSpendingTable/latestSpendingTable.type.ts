@@ -1,12 +1,6 @@
-export interface LatestSpendingTableProps {
-  transactions: TransactionsData[]
-  categoryId: string
-}
+import type { TransactionBudget } from '../../budgets.type';
 
-export interface TransactionsData {
-  id: string
-  name: string
-  date: string
-  amount: number
-  budgetId: string
+export interface LatestSpendingTableProps {
+  transactions: TransactionBudget[]
+  categoryId: string
 }

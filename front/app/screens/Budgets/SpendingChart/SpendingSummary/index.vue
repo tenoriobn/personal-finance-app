@@ -26,9 +26,9 @@
 </template>
 
 <script setup lang="ts">
-import type { SpendingSummaryProps } from './spendingSummary.type';
 import { getSpent } from '~/utils/finance';
 import { formatCurrency } from '~/utils';
+import { useBudgets } from '../../useBudgets';
 
-const { budgets } = defineProps<SpendingSummaryProps>();
+const { budgets } = useBudgets();
 </script>

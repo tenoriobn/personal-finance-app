@@ -20,7 +20,5 @@
 </template>
 
 <script setup lang="ts">
-import type { ProgressBarProps } from './progressBar.type';
-
-const { colorHex, percent } = defineProps<ProgressBarProps>();
+defineProps<{ colorHex?: string, percent?: number }>();
 </script>
