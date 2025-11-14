@@ -1,6 +1,15 @@
 <template>
   <div
+    v-if="budgets.length === 0"
+    class="grid place-items-center text-center text-grey-500 text-sm max-xl:py-6"
+  >
+    Nenhum orçamento encontrado. <br>
+    Crie um novo orçamento para começar a gerenciar seus gastos!
+  </div>
+
+  <div
     v-for="{ id, category, theme, maximumSpend, transactions } in budgets || []"
+    v-else
     :key="id"
     class="bg-white rounded-xl max-md:p-4 md:p-[2rem]"
   >
@@ -13,7 +22,6 @@
         <h3 class="text-xl font-bold text-grey-900">{{ category.name }}</h3>
       </div>
 
-      <!-- Aqui está a correção -->
       <CardActionsMenu
         :open="openMenuId === id"
         delete-label="Deletar Orçamento"

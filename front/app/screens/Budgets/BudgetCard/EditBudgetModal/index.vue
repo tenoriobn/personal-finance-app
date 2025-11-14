@@ -55,11 +55,12 @@
 
 <script setup lang="ts">
 import { Button, Modal } from '#components';
-import { useApiGet, useApiPut } from '~/composables/api/useApiMethods';
+import { useApiPut } from '~/composables/api/useApiMethods';
 import { useCurrencyMask } from '~/composables/useCurrencyMask';
 import { useToast } from '~/composables/useToast';
 import { EditBudgetSchema } from './editBudget.schema';
-import type { BudgetForm, CategoryData, EditBudgetModalProps, ThemeData } from './editBudgetModal.type';
+import type { BudgetForm, EditBudgetModalProps } from './editBudgetModal.type';
+import { useCategoriesAndThemes } from '../../useCategoriesAndThemes';
 
 const { modelValue, budget } = defineProps<EditBudgetModalProps>();
 const emit = defineEmits(['update:modelValue', 'refreshBudgets']);
@@ -91,8 +92,7 @@ watch(
   { immediate: true },
 );
 
-const { data: categories, refresh: refreshCategories } = useApiGet<CategoryData[]>('categories/available');
-const { data: themes, refresh: refreshThemes } = useApiGet<ThemeData[]>('themes/available');
+const { categories, themes, refreshCategoriesAndThemes } = useCategoriesAndThemes();
 
 const categoryOptions = computed(() => {
   if (!categories.value) {
@@ -214,8 +214,7 @@ const handleSubmit = async () => {
     notify('success', 'Orçamento atualizado com sucesso!');
     emit('refreshBudgets');
 
-    refreshCategories();
-    refreshThemes();
+    refreshCategoriesAndThemes();
 
     showModal.value = false;
   }

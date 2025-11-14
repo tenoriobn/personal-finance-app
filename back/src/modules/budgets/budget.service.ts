@@ -104,6 +104,10 @@ class BudgetService {
       { checkOwnership: true, notFoundMessage: "Budget não encontrado!" }
     );
 
+    await prisma.transaction.deleteMany({
+      where: { budgetId: id },
+    });
+
     return prisma.budget.delete({ where: { id } });
   }
 }

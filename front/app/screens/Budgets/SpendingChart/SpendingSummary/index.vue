@@ -3,8 +3,18 @@
 
   <table>
     <tbody class="divide-y text-grey-500 text-sm text-wrap">
+      <tr v-if="budgets.length === 0">
+        <td
+          colspan="3"
+          class="text-grey-500 text-sm max-md:py-6 md:pt-10"
+        >
+          Não há orçamentos.
+        </td>
+      </tr>
+
       <tr
         v-for="budget in (budgets || []).slice(0, 3)"
+        v-else
         :key="budget.id"
         class="grid grid-cols-[1fr_auto] items-center max-sm:gap-2 sm:gap-x-4 py-4 last:pb-0"
       >

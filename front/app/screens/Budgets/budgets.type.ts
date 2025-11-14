@@ -1,17 +1,17 @@
 export interface BudgetData {
   id: string
   maximumSpend: number
-  category: Category
-  theme: Theme
+  category: CategoryData
+  theme: ThemeData
   transactions: TransactionBudget[]
 }
 
-export interface Category {
+export interface CategoryData {
   id: string
   name: string
 }
 
-export interface Theme {
+export interface ThemeData {
   id: string
   colorName: string
   colorHex: string
