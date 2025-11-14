@@ -10,20 +10,23 @@
           class="block w-4 h-4 rounded-full"
           :style="{ backgroundColor: theme.colorHex }"
         />
-
         <h3 class="text-xl font-bold text-grey-900">{{ category.name }}</h3>
       </div>
 
+      <!-- Aqui está a correção -->
       <CardActionsMenu
-        v-model:open="isOpenBudgetActions"
+        :open="openMenuId === id"
         delete-label="Deletar Orçamento"
         edit-label="Editar Orçamento"
-        @edit="handleEdit"
-        @delete="handleDelete"
+        @update:open="value => openMenuId = value ? id : null"
+        @edit="handleEdit(id)"
+        @delete="handleDelete(id)"
       />
     </div>
 
-    <p class="text-sm text-grey-500 mt-6">Máximo de {{ formatCurrency(maximumSpend, false) }}</p>
+    <p class="text-sm text-grey-500 mt-6">
+      Máximo de {{ formatCurrency(maximumSpend, false) }}
+    </p>
 
     <Progressbar
       :color-hex="theme.colorHex"
@@ -52,17 +55,17 @@ import { formatCurrency } from '~/utils';
 import { getSpent, getFree, getPercent } from '~/utils/finance';
 import { useBudgets } from '../useBudgets';
 
-const isOpenBudgetActions = ref(false);
+const emit = defineEmits<{ (e: 'edit-budget' | 'delete-budget', id: string): void }>();
+
+const openMenuId = ref<string | null>(null);
 
 const { budgets } = useBudgets();
 
-const handleEdit = () => {
-  // eslint-disable-next-line no-console
-  console.log('Editar orçamento');
+const handleEdit = (id: string) => {
+  emit('edit-budget', id);
 };
 
-const handleDelete = () => {
-  // eslint-disable-next-line no-console
-  console.log('Deletar orçamento');
+const handleDelete = (id: string) => {
+  emit('delete-budget', id);
 };
 </script>

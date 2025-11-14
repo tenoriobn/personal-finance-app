@@ -14,10 +14,16 @@
       <SpendingChart />
 
       <div class="grid gap-4">
-        <BudgetCard />
+        <BudgetCard @edit-budget="openEdit" />
       </div>
 
       <CreateBudgetModal v-model="showCreateBudgetModal" />
+
+      <EditBudgetModal
+        v-model="showEditBudgetModal"
+        :budget="budgetToEdit"
+        @refresh-budgets="refreshGetBudgets"
+      />
     </div>
   </div>
 </template>
@@ -28,9 +34,23 @@ import SpendingChart from './SpendingChart/index.vue';
 import BudgetCard from './BudgetCard/index.vue';
 import CreateBudgetModal from './CreateBudgetModal/index.vue';
 import { useBudgets } from './useBudgets';
+import EditBudgetModal from './BudgetCard/EditBudgetModal/index.vue';
+import type { BudgetData } from './budgets.type';
 
 const showCreateBudgetModal = ref(false);
 
-const { getBudgets } = useBudgets();
+const { getBudgets, budgets, refreshBudgets } = useBudgets();
 getBudgets();
+
+const showEditBudgetModal = ref(false);
+const budgetToEdit = ref<BudgetData | null>(null);
+
+const openEdit = (id: string) => {
+  budgetToEdit.value = budgets.value.find(budget => budget.id === id) || null;
+  showEditBudgetModal.value = true;
+};
+
+const refreshGetBudgets = async () => {
+  await refreshBudgets();
+};
 </script>

@@ -48,10 +48,11 @@ import type { CardActionsMenuProps } from './cardActionsMenu.type';
 
 const { editLabel, deleteLabel } = defineProps<CardActionsMenuProps>();
 
+const isOpen = defineModel<boolean>('open', { required: true });
+
 const emit = defineEmits<{ (e: 'edit' | 'delete'): void }>();
 
 const actionsDropdownWrapper = ref<HTMLElement | null>(null);
-const isOpen = defineModel<boolean>('open', { required: true });
 
 const toggleBudgetActions = () => (isOpen.value = !isOpen.value);
 const closeDropdown = () => (isOpen.value = false);
