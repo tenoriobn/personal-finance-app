@@ -36,7 +36,7 @@ import SummaryCard from './SummaryCard/index.vue';
 import Table from './Table/index.vue';
 import Filter from './Filters/index.vue';
 import Pagination from '~/components/Pagination/index.vue';
-import { useTransactions } from '~/composables/useTransactions';
+import { useTransactions } from '~/composables/transactions/useTransactions';
 
 const {
   transactions, search, selectedSort, totalPages, currentPage, goToPage, pending,

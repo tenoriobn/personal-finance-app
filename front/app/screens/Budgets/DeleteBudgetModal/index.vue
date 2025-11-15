@@ -18,7 +18,7 @@ import { Button, Modal } from '#components';
 import { useApiDelete } from '~/composables/api/useApiMethods';
 import { useToast } from '~/composables/useToast';
 import type { DeleteBudgetModalProps } from './DeleteBudgetModal.type';
-import { useCategoriesAndThemes } from '../../useCategoriesAndThemes';
+import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
 
 const { modelValue, budget } = defineProps<DeleteBudgetModalProps>();
 const emit = defineEmits(['update:modelValue', 'refreshBudgets']);

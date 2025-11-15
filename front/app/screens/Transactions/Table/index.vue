@@ -85,11 +85,11 @@
 </template>
 
 <script lang="ts" setup>
+import type { TableTransactionsProps } from './table.type';
 import TableSkeleton from './TableSkeleton.vue';
 import { formatDate, formatCurrency } from '~/utils';
-import type { TableProps } from './table.type';
 
-const { transactions, pending } = defineProps<TableProps>();
+const { transactions, pending } = defineProps<TableTransactionsProps>();
 
 const tableHeaders = [
   { id: 1, title: 'Destinatário/Remetente' },

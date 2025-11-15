@@ -60,7 +60,7 @@ import { useCurrencyMask } from '~/composables/useCurrencyMask';
 import { useToast } from '~/composables/useToast';
 import { EditBudgetSchema } from './editBudget.schema';
 import type { BudgetForm, EditBudgetModalProps } from './editBudgetModal.type';
-import { useCategoriesAndThemes } from '../../useCategoriesAndThemes';
+import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
 
 const { modelValue, budget } = defineProps<EditBudgetModalProps>();
 const emit = defineEmits(['update:modelValue', 'refreshBudgets']);

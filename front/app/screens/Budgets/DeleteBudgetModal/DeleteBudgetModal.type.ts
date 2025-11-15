@@ -1,6 +1,6 @@
-import type { BudgetData } from '../../budgets.type';
+import type { BudgetData } from '../budgets.type';
 
-export interface EditBudgetModalProps {
+export interface DeleteBudgetModalProps {
   modelValue: boolean
   budget: BudgetData | null
 }

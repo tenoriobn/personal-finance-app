@@ -45,8 +45,8 @@ import { Button, TitleSection } from '#components';
 import SpendingChart from './SpendingChart/index.vue';
 import BudgetCard from './BudgetCard/index.vue';
 import CreateBudgetModal from './CreateBudgetModal/index.vue';
-import EditBudgetModal from './BudgetCard/EditBudgetModal/index.vue';
-import DeleteBudgetModal from './BudgetCard/DeleteBudgetModal/index.vue';
+import EditBudgetModal from './EditBudgetModal/index.vue';
+import DeleteBudgetModal from './DeleteBudgetModal/index.vue';
 import { useBudgets } from './useBudgets';
 import type { BudgetData } from './budgets.type';
 
