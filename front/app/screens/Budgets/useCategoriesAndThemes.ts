@@ -1,4 +1,4 @@
-import { useApiGet } from '~/composables/api/useApiMethods';
+import { useApiGet } from '~/composables';
 import type { CategoryData, ThemeData } from './budgets.type';
 
 export function useCategoriesAndThemes() {

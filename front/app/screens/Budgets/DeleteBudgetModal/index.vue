@@ -15,12 +15,11 @@
 
 <script setup lang="ts">
 import { Button, Modal } from '#components';
-import { useApiDelete } from '~/composables/api/useApiMethods';
-import { useToast } from '~/composables/useToast';
-import type { DeleteBudgetModalProps } from './DeleteBudgetModal.type';
+import { useApiDelete, useToast } from '~/composables';
 import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
+import type { BudgetData } from '../budgets.type';
 
-const { modelValue, budget } = defineProps<DeleteBudgetModalProps>();
+const { modelValue, budget } = defineProps<{ modelValue: boolean, budget: BudgetData | null }>();
 const emit = defineEmits(['update:modelValue', 'refreshBudgets']);
 const { refreshCategoriesAndThemes } = useCategoriesAndThemes();
 
@@ -44,9 +43,6 @@ const handleSubmit = async () => {
 
     notify('error', 'Orçamento deletado com sucesso!');
     emit('refreshBudgets');
-
-    // refreshCategories();
-    // refreshThemes();
 
     refreshCategoriesAndThemes();
 

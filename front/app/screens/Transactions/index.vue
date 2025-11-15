@@ -41,7 +41,7 @@ import { Button, TitleSection } from '#components';
 import Table from './Table/index.vue';
 import Filter from './Filters/index.vue';
 import Pagination from '~/components/Pagination/index.vue';
-import { useTransactions } from '~/composables/transactions/useTransactions';
+import { useTransactions } from '~/composables';
 import CreateTransactionModal from './CreateTransactionModal/index.vue';
 
 const {

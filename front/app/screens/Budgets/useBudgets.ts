@@ -1,4 +1,4 @@
-import { useApiGet } from '~/composables/api/useApiMethods';
+import { useApiGet } from '~/composables';
 import type { BudgetData } from './budgets.type';
 import type { FetchError } from 'ofetch';
 

@@ -9,6 +9,7 @@ export interface BudgetData {
 export interface CategoryData {
   id: string
   name: string
+  budgetId: string
 }
 
 export interface ThemeData {
@@ -24,4 +25,11 @@ export interface TransactionBudget {
   budgetId: string
   date: string
   recurring: boolean
+}
+
+export interface BudgetForm {
+  maximumSpend: number
+  categoryId: string
+  themeId: string
+  userId: string
 }

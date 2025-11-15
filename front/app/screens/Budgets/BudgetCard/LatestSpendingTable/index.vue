@@ -69,7 +69,7 @@ import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import { NuxtLink } from '#components';
 import type { LatestSpendingTableProps } from './latestSpendingTable.type';
 import { formatDate, formatCurrency } from '~/utils';
-import { useTransactionState } from '~/composables/transactions/useTransactionState';
+import { useTransactionState } from '~/composables';
 
 const { transactions, categoryId } = defineProps<LatestSpendingTableProps>();
 const { selectedCategory } = useTransactionState();

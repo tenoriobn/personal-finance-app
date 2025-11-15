@@ -42,7 +42,7 @@
 import DotsIcon from '~/assets/icons/icon-dots.svg';
 import { motion, AnimatePresence } from 'motion-v';
 import { fadeSlideY } from '~/motion/transitions';
-import { useClickOutside } from '~/composables/useClickOutside';
+import { useClickOutside } from '~/composables';
 import { ref } from 'vue';
 import type { CardActionsMenuProps } from './cardActionsMenu.type';
 

@@ -55,14 +55,12 @@
 
 <script setup lang="ts">
 import { Button, Modal } from '#components';
-import { useApiPut } from '~/composables/api/useApiMethods';
-import { useCurrencyMask } from '~/composables/useCurrencyMask';
-import { useToast } from '~/composables/useToast';
-import { EditBudgetSchema } from './editBudget.schema';
-import type { BudgetForm, EditBudgetModalProps } from './editBudgetModal.type';
+import { useApiPut, useCurrencyMask, useToast } from '~/composables';
 import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
+import type { BudgetData, BudgetForm } from '../budgets.type';
+import { baseBudgetSchema } from '../budget.schema';
 
-const { modelValue, budget } = defineProps<EditBudgetModalProps>();
+const { modelValue, budget } = defineProps<{ modelValue: boolean, budget: BudgetData | null }>();
 const emit = defineEmits(['update:modelValue', 'refreshBudgets']);
 
 const showModal = computed({
@@ -176,7 +174,7 @@ const validateAndSetErrors = () => {
 
   resetErrors();
 
-  const parsed = EditBudgetSchema.safeParse(payload);
+  const parsed = baseBudgetSchema.safeParse(payload);
   if (!parsed.success) {
     parsed.error.issues.forEach((issue) => {
       const key = issue.path[0] as string;

@@ -31,7 +31,7 @@ import { ref, watch } from 'vue';
 import SearchIcon from '~/assets/icons/icon-search.svg';
 import type { FiltersProps } from './filters.type';
 import FilterIconMobile from '~/assets/icons/icon-filter-mobile.svg';
-import { useApiGet } from '~/composables/api/useApiMethods';
+import { useApiGet } from '~/composables';
 
 const props = defineProps<FiltersProps>();
 
