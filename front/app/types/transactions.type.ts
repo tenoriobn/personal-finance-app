@@ -12,3 +12,8 @@ export interface TransactionsData {
     }
   }
 }
+
+export type TransactionsResponse = {
+  data: TransactionsData[]
+  totalPages: number
+};

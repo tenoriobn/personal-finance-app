@@ -93,7 +93,7 @@
 <script setup lang="ts">
 import { motion, AnimatePresence } from 'motion-v';
 import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
-import { useClickOutside } from '~/composables/useClickOutside';
+import { useClickOutside } from '~/composables';
 import type { DropdownProps, DropdownOption } from './dropdown.type';
 import { fadeSlideY } from '~/motion/transitions';
 import { ref, computed } from 'vue';

@@ -41,16 +41,12 @@ import { Button, TitleSection } from '#components';
 import Table from './Table/index.vue';
 import Filter from './Filters/index.vue';
 import Pagination from '~/components/Pagination/index.vue';
-import { useTransactions } from '~/composables/useTransactions';
+import { useTransactions } from '~/composables';
 import CreateTransactionModal from './CreateTransactionModal/index.vue';
-import { useTransactionCategoryFilter } from '~/composables/useTransactionCategoryFilter';
 
 const {
   transactions, search, selectedCategory, selectedSort, totalPages, currentPage, goToPage, pending, refresh,
 } = useTransactions('transactions');
-
-const { category } = useTransactionCategoryFilter();
-selectedCategory.value = category.value;
 
 const showCreateTransactionModal = ref(false);
 const refreshTransactions = async () => {

@@ -1,18 +1,9 @@
-import { ref } from 'vue';
-import type { TransactionsData } from '~/screens/Transactions/transactions.type';
-import { useApiGet } from './api/useApiMethods';
-
-type TransactionsResponse = {
-  data: TransactionsData[]
-  totalPages: number
-};
+import type { TransactionsResponse } from '~/types/transactions.type';
+import { useApiGet } from '../api/useApiMethods';
+import { useTransactionState } from './useTransactionState';
 
 export function useTransactions(endpoint: string) {
-  const search = ref('');
-  const selectedCategory = ref('');
-  const selectedSort = ref('Mais recente');
-  const currentPage = ref(1);
-  const limit = ref(10);
+  const { search, selectedCategory, selectedSort, currentPage, limit } = useTransactionState();
 
   const { data, pending, refresh } = useApiGet<TransactionsResponse>(endpoint, {
     query: {

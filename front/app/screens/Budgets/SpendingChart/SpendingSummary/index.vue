@@ -1,10 +1,31 @@
 <template>
-  <h3 class="text-xl font-bold text-grey-900 justify-self-start mt-6">Resumo de gastos</h3>
+  <div
+    v-if="pending"
+    class="w-44 h-7 justify-self-start mt-6 bg-grey-200 rounded animate-pulse"
+  />
+  <h3
+    v-else
+    class="text-xl font-bold text-grey-900 justify-self-start mt-6"
+  >
+    Resumo de gastos
+  </h3>
 
   <table>
     <tbody class="divide-y text-grey-500 text-sm text-wrap">
+      <SpendingSummarySkeleton v-if="pending" />
+
+      <tr v-else-if="budgets.length === 0">
+        <td
+          colspan="3"
+          class="text-grey-500 text-sm max-md:py-6 md:pt-10"
+        >
+          Não há orçamentos.
+        </td>
+      </tr>
+
       <tr
         v-for="budget in (budgets || []).slice(0, 3)"
+        v-else
         :key="budget.id"
         class="grid grid-cols-[1fr_auto] items-center max-sm:gap-2 sm:gap-x-4 py-4 last:pb-0"
       >
@@ -29,6 +50,7 @@
 import { getSpent } from '~/utils/finance';
 import { formatCurrency } from '~/utils';
 import { useBudgets } from '../../useBudgets';
+import SpendingSummarySkeleton from './SpendingSummarySkeleton.vue';
 
-const { budgets } = useBudgets();
+const { budgets, pending } = useBudgets();
 </script>

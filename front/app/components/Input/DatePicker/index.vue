@@ -34,7 +34,7 @@
 import { Input } from '#components';
 import { ref, computed, watch } from 'vue';
 import type { DatePickerProps } from './datePicker.type';
-import { useClickOutside } from '~/composables/useClickOutside';
+import { useClickOutside } from '~/composables';
 
 const { modelValue, label, name, customClasses } = defineProps<DatePickerProps>();
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();

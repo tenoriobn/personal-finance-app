@@ -42,16 +42,17 @@
 import DotsIcon from '~/assets/icons/icon-dots.svg';
 import { motion, AnimatePresence } from 'motion-v';
 import { fadeSlideY } from '~/motion/transitions';
-import { useClickOutside } from '~/composables/useClickOutside';
+import { useClickOutside } from '~/composables';
 import { ref } from 'vue';
 import type { CardActionsMenuProps } from './cardActionsMenu.type';
 
 const { editLabel, deleteLabel } = defineProps<CardActionsMenuProps>();
 
+const isOpen = defineModel<boolean>('open', { required: true });
+
 const emit = defineEmits<{ (e: 'edit' | 'delete'): void }>();
 
 const actionsDropdownWrapper = ref<HTMLElement | null>(null);
-const isOpen = defineModel<boolean>('open', { required: true });
 
 const toggleBudgetActions = () => (isOpen.value = !isOpen.value);
 const closeDropdown = () => (isOpen.value = false);

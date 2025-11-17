@@ -7,25 +7,25 @@ import { getSpent } from '~/utils/finance';
 ChartJS.register(ArcElement, Title, Tooltip, Legend);
 
 export function useChart() {
-  const { budgets } = useBudgets();
+  const { budgets, pending } = useBudgets();
 
   const chartData = computed(() => ({
-    labels: budgets.value.map(b => b.category.name),
+    labels: budgets.value.map(budget => budget.category.name),
     datasets: [
       {
-        data: budgets.value.map(b => b.maximumSpend),
-        backgroundColor: budgets.value.map(b => b.theme.colorHex),
+        data: budgets.value.map(budget => budget.maximumSpend),
+        backgroundColor: budgets.value.map(budget => budget.theme.colorHex),
         borderWidth: 0,
       },
     ],
   }));
 
   const totalMaximumSpend = computed(() =>
-    budgets.value.reduce((acc, b) => acc + (b.maximumSpend || 0), 0),
+    budgets.value.reduce((acc, budget) => acc + (budget.maximumSpend || 0), 0),
   );
 
   const totalSpent = computed(() =>
-    budgets.value.reduce((acc, b) => acc + getSpent(b.transactions), 0),
+    budgets.value.reduce((acc, budget) => acc + getSpent(budget.transactions), 0),
   );
 
   const centerTextPlugin: Plugin<'doughnut'> = {
@@ -80,5 +80,6 @@ export function useChart() {
     chartData,
     chartOptions,
     centerTextPlugin,
+    pending,
   };
 }

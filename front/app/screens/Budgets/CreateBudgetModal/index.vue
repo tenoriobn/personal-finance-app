@@ -56,16 +56,15 @@
 
 <script setup lang="ts">
 import { Button, Modal } from '#components';
-import { useApiGet, useApiPost } from '~/composables/api/useApiMethods';
-import type { BudgetForm, CategoryData, CreateBudgetModalProps, ThemeData } from './createBudgetModal.type';
-import { useCurrencyMask } from '~/composables/useCurrencyMask';
-import { useToast } from '~/composables/useToast';
-import { createBudgetSchema } from './budget.schema';
+import { useApiPost, useCurrencyMask, useToast } from '~/composables';
+import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
+import type { BudgetForm } from '../budgets.type';
+import { baseBudgetSchema } from '../budget.schema';
 
-const { modelValue } = defineProps<CreateBudgetModalProps>();
+const { modelValue } = defineProps<{ modelValue: boolean }>();
 const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void
-  (e: 'budgetCreated'): void
+  (e: 'refreshBudgets'): void
 }>();
 
 const showModal = computed({
@@ -74,12 +73,7 @@ const showModal = computed({
 });
 
 const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
-const { data: categories, refresh: refreshCategories } = useApiGet<CategoryData[]>('categories/available');
-const { data: themes, refresh: refreshThemes } = useApiGet<ThemeData[]>('themes/available');
-const refreshCategoriesAndThemes = async () => {
-  await refreshCategories();
-  await refreshThemes();
-};
+const { categories, themes, refreshCategoriesAndThemes } = useCategoriesAndThemes();
 
 const defaultForm: BudgetForm = {
   maximumSpend: amount.value,
@@ -113,7 +107,7 @@ const validateAndSetErrors = (): boolean => {
 
   Object.keys(errors).forEach(k => (errors[k] = ''));
 
-  const parsed = createBudgetSchema.safeParse(payload);
+  const parsed = baseBudgetSchema.safeParse(payload);
 
   if (!parsed.success) {
     for (const issue of parsed.error.issues) {
@@ -147,11 +141,11 @@ const handleSubmit = async () => {
 
   try {
     await useApiPost('budgets', { ...formState, maximumSpend: amount.value });
-    emit('budgetCreated');
-    notify('success', 'Orçamento criado com sucesso!');
+    emit('refreshBudgets');
     refreshCategoriesAndThemes();
-    resetForm();
+    notify('success', 'Orçamento criado com sucesso!');
     showModal.value = false;
+    resetForm();
   }
   finally {
     isSubmitting.value = false;

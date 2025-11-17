@@ -14,10 +14,28 @@
       <SpendingChart />
 
       <div class="grid gap-4">
-        <BudgetCard />
+        <BudgetCard
+          @edit-budget="openEdit"
+          @delete-budget="openDelete"
+        />
       </div>
 
-      <CreateBudgetModal v-model="showCreateBudgetModal" />
+      <CreateBudgetModal
+        v-model="showCreateBudgetModal"
+        @refresh-budgets="refreshGetBudgets"
+      />
+
+      <EditBudgetModal
+        v-model="showEditBudgetModal"
+        :budget="budgetToEdit"
+        @refresh-budgets="refreshGetBudgets"
+      />
+
+      <DeleteBudgetModal
+        v-model="showDeleteBudgetModal"
+        :budget="budgetToDelete"
+        @refresh-budgets="refreshGetBudgets"
+      />
     </div>
   </div>
 </template>
@@ -27,10 +45,33 @@ import { Button, TitleSection } from '#components';
 import SpendingChart from './SpendingChart/index.vue';
 import BudgetCard from './BudgetCard/index.vue';
 import CreateBudgetModal from './CreateBudgetModal/index.vue';
+import EditBudgetModal from './EditBudgetModal/index.vue';
+import DeleteBudgetModal from './DeleteBudgetModal/index.vue';
 import { useBudgets } from './useBudgets';
+import type { BudgetData } from './budgets.type';
 
 const showCreateBudgetModal = ref(false);
 
-const { getBudgets } = useBudgets();
+const { getBudgets, budgets, refreshBudgets } = useBudgets();
 getBudgets();
+
+const showEditBudgetModal = ref(false);
+const budgetToEdit = ref<BudgetData | null>(null);
+
+const openEdit = (id: string) => {
+  budgetToEdit.value = budgets.value.find(budget => budget.id === id) || null;
+  showEditBudgetModal.value = true;
+};
+
+const showDeleteBudgetModal = ref(false);
+const budgetToDelete = ref<BudgetData | null>(null);
+
+const openDelete = (id: string) => {
+  budgetToDelete.value = budgets.value.find(budget => budget.id === id) || null;
+  showDeleteBudgetModal.value = true;
+};
+
+const refreshGetBudgets = async () => {
+  await refreshBudgets();
+};
 </script>
