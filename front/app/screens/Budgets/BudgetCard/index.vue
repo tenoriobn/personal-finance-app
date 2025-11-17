@@ -1,6 +1,8 @@
 <template>
+  <BudgetCardSkeleton v-if="pending" />
+
   <div
-    v-if="budgets.length === 0"
+    v-else-if="budgets.length === 0"
     class="grid place-items-center text-center text-grey-500 text-sm max-xl:py-6"
   >
     Nenhum orçamento encontrado. <br>
@@ -62,12 +64,13 @@ import { ref } from 'vue';
 import { formatCurrency } from '~/utils';
 import { getSpent, getFree, getPercent } from '~/utils/finance';
 import { useBudgets } from '../useBudgets';
+import BudgetCardSkeleton from './BudgetCardSkeleton.vue';
 
 const emit = defineEmits<{ (e: 'edit-budget' | 'delete-budget', id: string): void }>();
 
 const openMenuId = ref<string | null>(null);
 
-const { budgets } = useBudgets();
+const { budgets, pending } = useBudgets();
 
 const handleEdit = (id: string) => {
   emit('edit-budget', id);

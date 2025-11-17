@@ -7,7 +7,7 @@ import { getSpent } from '~/utils/finance';
 ChartJS.register(ArcElement, Title, Tooltip, Legend);
 
 export function useChart() {
-  const { budgets } = useBudgets();
+  const { budgets, pending } = useBudgets();
 
   const chartData = computed(() => ({
     labels: budgets.value.map(budget => budget.category.name),
@@ -80,5 +80,6 @@ export function useChart() {
     chartData,
     chartOptions,
     centerTextPlugin,
+    pending,
   };
 }
