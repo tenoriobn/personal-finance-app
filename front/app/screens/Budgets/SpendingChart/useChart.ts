@@ -74,6 +74,23 @@ export function useChart() {
   const chartOptions: ChartOptions<'doughnut'> = {
     responsive: true,
     maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: false,
+      },
+      tooltip: {
+        callbacks: {
+          label(context) {
+            const value = context.raw as number;
+
+            return `${formatCurrency(value, false)}`;
+          },
+        },
+      },
+    },
   };
 
   return {
