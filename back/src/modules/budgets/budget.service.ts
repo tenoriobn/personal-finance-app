@@ -6,20 +6,23 @@ import { CurrentUserDTO } from "src/types/user.type";
 
 class BudgetService {  
   async getAll(currentUser: CurrentUserDTO) {
-    const where = currentUser.role === "ADMIN" ? {} : { userId: currentUser.id };
-
     return prisma.budget.findMany({
-      where,
+      where: { userId: currentUser.id },
       select: budgetSelect,
     });
   }
 
   async getById(id: string, currentUser: CurrentUserDTO) {    
+    const where = currentUser.role === "ADMIN" ? { id } : { id, userId: currentUser.id };
+
     return findOrFail(
       prisma.budget,
-      { id },
+      where,
       currentUser,
-      { select: budgetSelect, checkOwnership: true, notFoundMessage: "Budget não encontrado!" }
+      { 
+        select: budgetSelect, 
+        notFoundMessage: "Budget não encontrado!" 
+      }
     );
   }
 
