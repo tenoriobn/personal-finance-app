@@ -9,15 +9,27 @@ class ThemeController {
     return context.json(themes, 200);
   }
 
-  async getUsedThemes(context: Context) {
+  async getThemesUsedInBudgets(context: Context) {
     const currentUser = context.get("user");
-    const themes = await themeService.getUsedThemes(currentUser);
+    const themes = await themeService.getThemesUsedInBudgets(currentUser);
     return context.json(themes, 200);
   }
 
-  async getAvailableThemes(context: Context) {
+  async getThemesAvailableForBudgets(context: Context) {
     const currentUser = context.get("user");
-    const themes = await themeService.getAvailableTheme(currentUser);
+    const themes = await themeService.getThemesAvailableForBudgets(currentUser);
+    return context.json(themes, 200);
+  }
+
+  async getThemesUsedInPots(context: Context) {
+    const currentUser = context.get("user");
+    const themes = await themeService.getThemesUsedInPots(currentUser);
+    return context.json(themes, 200);
+  }
+
+  async getThemesAvailableForPots(context: Context) {
+    const currentUser = context.get("user");
+    const themes = await themeService.getThemesAvailableForPots(currentUser);
     return context.json(themes, 200);
   }
 
