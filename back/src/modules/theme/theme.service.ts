@@ -4,23 +4,22 @@ import { ensureUniqueOrFail, findEntityOrFail } from "src/core";
 import { CurrentUserDTO } from "@/types/user.type";
 
 class ThemeService {
-  async getAll() {
-    return prisma.theme.findMany();
-  }
-
-  async getUsedThemes(currentUser: CurrentUserDTO) {
+  private async getUsedThemesByRelation(
+    relation: "budgets" | "pots",
+    userId: string
+  ) {
     const themes = await prisma.theme.findMany({
       where: {
-        budgets: {
-          some: { userId: currentUser.id },
+        [relation]: {
+          some: { userId },
         },
       },
-      select: { 
-        id: true, 
+      select: {
+        id: true,
         colorHex: true,
         colorName: true,
-        budgets: {
-          where: { userId: currentUser.id },
+        [relation]: {
+          where: { userId },
           select: { id: true },
           take: 1,
         },
@@ -31,19 +30,42 @@ class ThemeService {
       id: theme.id,
       colorName: theme.colorName,
       colorHex: theme.colorHex,
-      budgetId: theme.budgets[0]?.id ?? null,
+      relationId: theme[relation]?.[0]?.id ?? null,
     }));
   }
 
-  async getAvailableTheme(currentUser: CurrentUserDTO) {
+  private async getAvailableThemesByRelation(
+    relation: "budgets" | "pots",
+    userId: string
+  ) {
     return prisma.theme.findMany({
       where: {
-        budgets: {
-          none: { userId: currentUser.id },
+        [relation]: {
+          none: { userId },
         },
       },
       select: { id: true, colorName: true },
     });
+  }
+
+  async getAll() {
+    return prisma.theme.findMany();
+  }
+
+  getThemesUsedInBudgets(user: CurrentUserDTO) {
+    return this.getUsedThemesByRelation("budgets", user.id);
+  }
+
+  getThemesAvailableForBudgets(user: CurrentUserDTO) {
+    return this.getAvailableThemesByRelation("budgets", user.id);
+  }
+
+  getThemesUsedInPots(user: CurrentUserDTO) {
+    return this.getUsedThemesByRelation("pots", user.id);
+  }
+
+  getThemesAvailableForPots(user: CurrentUserDTO) {
+    return this.getAvailableThemesByRelation("pots", user.id);
   }
 
   async getById(id: string) {
