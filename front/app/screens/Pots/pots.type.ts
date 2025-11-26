@@ -13,3 +13,11 @@ export interface ThemeData {
   colorName: string
   colorHex: string
 }
+
+export interface PotForm {
+  name: string
+  targetAmount: number
+  totalAmount: number
+  themeId: string
+  userId: string
+}
