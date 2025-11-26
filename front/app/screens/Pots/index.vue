@@ -10,10 +10,6 @@
 
     <div class="grid md:max-xl:grid-cols-2 xl:grid-cols-[repeat(auto-fit,minmax(380px,1fr))] gap-4">
       <PotCard />
-      <PotCard />
-      <PotCard />
-      <PotCard />
-      <PotCard />
     </div>
 
     <CreatePotModal v-model="showCreatePotModal" />
@@ -24,6 +20,10 @@
 import { Button, TitleSection } from '#components';
 import PotCard from './PotCard/index.vue';
 import CreatePotModal from './CreatePotModal/index.vue';
+import { usePots } from './usePots';
+
+const { getPots } = usePots();
+getPots();
 
 const showCreatePotModal = ref(false);
 </script>
