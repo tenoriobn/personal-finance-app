@@ -6,7 +6,7 @@ export function useCategoriesAndThemes() {
   const themes = useState<ThemeData[]>('budget-themes', () => []);
 
   const { data: catData, refresh: refreshCategories } = useApiGet<CategoryData[]>('categories/available');
-  const { data: themeData, refresh: refreshThemes } = useApiGet<ThemeData[]>('themes/available');
+  const { data: themeData, refresh: refreshThemes } = useApiGet<ThemeData[]>('themes/available/budget');
 
   if (catData.value && categories.value.length === 0) {
     categories.value = catData.value;

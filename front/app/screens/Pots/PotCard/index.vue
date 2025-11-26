@@ -1,9 +1,16 @@
 <template>
-  <div class="bg-white rounded-xl max-md:p-4 md:p-[2rem]">
+  <div
+    v-for="{ id, name, totalAmount, targetAmount, theme } in pots || []"
+    :key="id"
+    class="bg-white rounded-xl max-md:p-4 md:p-[2rem]"
+  >
     <div class="flex justify-between items-center">
       <div class="flex items-center gap-2">
-        <span class="block bg-green w-4 h-4 rounded-full" />
-        <h3 class="text-xl font-bold text-grey-900">Dia do churrasco</h3>
+        <span
+          class="block w-4 h-4 rounded-full"
+          :style="{ backgroundColor: theme.colorHex }"
+        />
+        <h3 class="text-xl font-bold text-grey-900">{{ name }}</h3>
       </div>
 
       <CardActionsMenu
@@ -17,14 +24,23 @@
 
     <div class="flex justify-between items-center mt-6">
       <p class="text-sm text-grey-500 font-semibold">Total Economizado</p>
-      <p class="text-2xl text-grey-900 font-bold">R$2.500,00</p>
+      <p class="text-2xl text-grey-900 font-bold">{{ formatCurrency(totalAmount, false) }}</p>
     </div>
 
-    <Progressbar custom-classes="h-2" />
+    <Progressbar
+      container-padding="p-0"
+      bar-height="h-2"
+      :color-hex="theme.colorHex"
+      :percent="getPercent(totalAmount, targetAmount)"
+    />
 
     <div class="flex justify-between items-center mt-2">
-      <p class="text-xs text-grey-500 font-medium">50.00%</p>
-      <p class="text-xs text-grey-500 font-medium">Meta de R$5.000</p>
+      <p class="text-xs text-grey-500 font-medium">
+        {{ getPercent(totalAmount, targetAmount).toFixed(2) }}%
+      </p>
+      <p class="text-xs text-grey-500 font-medium">
+        Meta de {{ formatCurrency(targetAmount, false) }}
+      </p>
     </div>
 
     <div class="flex max-sm:flex-col gap-4 mt-6">
@@ -44,8 +60,12 @@
 <script setup lang="ts">
 import { Button, Progressbar, CardActionsMenu } from '#components';
 import { ref } from 'vue';
+import { usePots } from '../usePots';
+import { formatCurrency } from '~/utils';
 
 const isOpenBudgetActions = ref(false);
+
+const { pots } = usePots();
 
 const handleEdit = () => {
   // eslint-disable-next-line no-console
