@@ -14,11 +14,12 @@
       </div>
 
       <CardActionsMenu
-        v-model:open="isOpenBudgetActions"
-        delete-label="Deletar Fundo"
-        edit-label="Editar Fundo"
-        @edit="handleEdit"
-        @delete="handleDelete"
+        :open="openMenuId === id"
+        delete-label="Deletar Poupança"
+        edit-label="Editar Poupança"
+        @update:open="value => openMenuId = value ? id : null"
+        @edit="handleEdit(id)"
+        @delete="handleDelete(id)"
       />
     </div>
 
@@ -63,17 +64,16 @@ import { ref } from 'vue';
 import { usePots } from '../usePots';
 import { formatCurrency } from '~/utils';
 
-const isOpenBudgetActions = ref(false);
+const emit = defineEmits<{ (e: 'edit-pot' | 'delete-pot', id: string): void }>();
+const openMenuId = ref<string | null>(null);
 
 const { pots } = usePots();
 
-const handleEdit = () => {
-  // eslint-disable-next-line no-console
-  console.log('Editar Fundo');
+const handleEdit = (id: string) => {
+  emit('edit-pot', id);
 };
 
-const handleDelete = () => {
-  // eslint-disable-next-line no-console
-  console.log('Deletar Fundo');
+const handleDelete = (id: string) => {
+  emit('delete-pot', id);
 };
 </script>

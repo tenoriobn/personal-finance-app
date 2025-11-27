@@ -152,7 +152,7 @@
     {
       "avatar": "/images/avatars/spark-electric-solutions.jpg",
       "name": "Spark Electric Solutions",
-      "category": "Fundos",
+      "category": "Poupanças",
       "date": "2024-08-02T09:25:11Z",
       "amount": -100.0,
       "recurring": true
@@ -160,7 +160,7 @@
     {
       "avatar": "/images/avatars/rina-sato.jpg",
       "name": "Rina Sato",
-      "category": "Fundos",
+      "category": "Poupanças",
       "date": "2024-08-02T13:31:11Z",
       "amount": -50.0,
       "recurring": false
@@ -176,7 +176,7 @@
     {
       "avatar": "/images/avatars/aqua-flow-utilities.jpg",
       "name": "Aqua Flow Utilities",
-      "category": "Fundos",
+      "category": "Poupanças",
       "date": "2024-07-30T13:20:14Z",
       "amount": -100.0,
       "recurring": true
@@ -184,7 +184,7 @@
     {
       "avatar": "/images/avatars/ecofuel-energy.jpg",
       "name": "EcoFuel Energy",
-      "category": "Fundos",
+      "category": "Poupanças",
       "date": "2024-07-29T11:55:29Z",
       "amount": -35.0,
       "recurring": true
@@ -240,7 +240,7 @@
     {
       "avatar": "/images/avatars/nimbus-data-storage.jpg",
       "name": "Nimbus Data Storage",
-      "category": "Fundos",
+      "category": "Poupanças",
       "date": "2024-07-21T10:05:42Z",
       "amount": -9.99,
       "recurring": true
@@ -312,7 +312,7 @@
     {
       "avatar": "/images/avatars/james-thompson.jpg",
       "name": "James Thompson",
-      "category": "Fundos",
+      "category": "Poupanças",
       "date": "2024-07-12T13:40:46Z",
       "amount": -95.5,
       "recurring": false
@@ -384,7 +384,7 @@
     {
       "avatar": "/images/avatars/spark-electric-solutions.jpg",
       "name": "Spark Electric Solutions",
-      "category": "Fundos",
+      "category": "Poupanças",
       "date": "2024-07-02T09:25:51Z",
       "amount": -100.0,
       "recurring": true
@@ -405,7 +405,7 @@
       "theme": "#277C78"
     },
     {
-      "category": "Fundos",
+      "category": "Poupanças",
       "maximum": 750.0,
       "theme": "#82C9D7"
     },

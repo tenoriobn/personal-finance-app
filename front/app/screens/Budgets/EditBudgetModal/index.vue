@@ -77,18 +77,14 @@ const formState = reactive<BudgetForm>({
   userId: '68cc2ec3f0818350607a26b6',
 });
 
-watch(
-  () => budget,
-  (newBudget) => {
-    if (!newBudget) {
-      return;
-    }
-    amount.value = Number(newBudget.maximumSpend);
-    formState.categoryId = newBudget.category.id;
-    formState.themeId = newBudget.theme.id;
-  },
-  { immediate: true },
-);
+watch(() => budget, (newBudget) => {
+  if (!newBudget) {
+    return;
+  }
+  amount.value = Number(newBudget.maximumSpend);
+  formState.categoryId = newBudget.category.id;
+  formState.themeId = newBudget.theme.id;
+}, { immediate: true });
 
 const { categories, themes, refreshCategoriesAndThemes } = useCategoriesAndThemes();
 

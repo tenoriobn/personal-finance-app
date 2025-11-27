@@ -2,7 +2,7 @@
   <Modal
     v-model="showModal"
     title="Criar novo Pote"
-    intro="Selecione um tema para definir um pote de economia. Esses potes podem ajudar você a monitorar seus gastos e reservas."
+    intro="Se seus objetivos de poupança mudarem, fique à vontade para atualizar seus valores."
   >
     <form
       class="flex flex-col gap-6"
@@ -36,9 +36,8 @@
         <Dropdown
           v-model="formState.themeId"
           label="Tema"
-          :options="themes?.map(theme => ({ name: theme.colorName, id: theme.id })) || []"
-          :start-empty="true"
-          data-testid="dropdown-sort-by"
+          :options="themeOptions"
+          :start-empty="false"
           custom-classes="w-full max-md:h-[46px] md:h-[54px]"
           :form-error="errors.themeId"
         />
@@ -55,16 +54,13 @@
 
 <script setup lang="ts">
 import { Button, Modal } from '#components';
-import { useApiPost, useCurrencyMask, useToast } from '~/composables';
+import { useApiPut, useCurrencyMask, useToast } from '~/composables';
 import { useThemes } from '../useThemes';
-import type { PotForm } from '../pots.type';
+import type { PotData, PotForm } from '../pots.type';
 import { basePotSchema } from '../pot.schema';
 
-const { modelValue } = defineProps<{ modelValue: boolean }>();
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
-  (e: 'refreshPots'): void
-}>();
+const { modelValue, pot } = defineProps<{ modelValue: boolean, pot: PotData | null }>();
+const emit = defineEmits(['update:modelValue', 'refreshPots']);
 
 const showModal = computed({
   get: () => modelValue,
@@ -72,17 +68,46 @@ const showModal = computed({
 });
 
 const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
-const { themes, refreshThemes } = useThemes();
 
-const defaultForm: PotForm = {
+const formState = reactive<PotForm>({
   name: '',
   targetAmount: amount.value,
   totalAmount: 0,
   themeId: '',
   userId: '68cc2ec3f0818350607a26b6',
-};
+});
 
-const formState = reactive({ ...defaultForm });
+watch(() => pot, (newPot) => {
+  if (!newPot) {
+    return;
+  }
+
+  formState.name = newPot.name;
+  amount.value = Number(newPot.targetAmount);
+  formState.themeId = newPot.theme.id;
+}, { immediate: true });
+
+const { themes, refreshThemes } = useThemes();
+
+const themeOptions = computed(() => {
+  if (!themes.value) {
+    return [];
+  }
+
+  const opts = themes.value.map(theme => ({
+    id: theme.id,
+    name: theme.colorName,
+  }));
+
+  if (pot?.theme && !opts.some(option => option.id === pot.theme.id)) {
+    opts.unshift({
+      id: pot.theme.id,
+      name: pot.theme.colorName,
+    });
+  }
+
+  return opts;
+});
 
 const errors = reactive<Record<string, string>>({
   name: '',
@@ -90,32 +115,51 @@ const errors = reactive<Record<string, string>>({
   themeId: '',
 });
 
-watch(() => formState.name, () => {
-  errors.name = '';
-});
-
-watch(amount, () => {
-  errors.targetAmount = '';
-});
-
-watch(() => formState.themeId, () => {
-  errors.themeId = '';
-});
-
-const validateAndSetErrors = (): boolean => {
-  const payload = { ...formState, targetAmount: amount.value };
-
+function resetErrors() {
   Object.keys(errors).forEach(k => (errors[k] = ''));
+}
+
+function initFormFromPot() {
+  if (!pot) {
+    formState.name = '';
+    amount.value = 0;
+    formState.themeId = '';
+    return;
+  }
+
+  formState.name = pot.name;
+  amount.value = Number(pot.targetAmount);
+  formState.themeId = pot.theme.id;
+}
+
+watch(
+  () => showModal.value,
+  (visible) => {
+    if (visible) {
+      resetErrors();
+      initFormFromPot();
+    }
+  },
+  { immediate: false },
+);
+
+const validateAndSetErrors = () => {
+  const payload = {
+    ...formState,
+    targetAmount: amount.value,
+  };
+
+  resetErrors();
 
   const parsed = basePotSchema.safeParse(payload);
-
   if (!parsed.success) {
-    for (const issue of parsed.error.issues) {
-      const key = String(issue.path[0] ?? '');
-      if (key && Object.prototype.hasOwnProperty.call(errors, key)) {
+    parsed.error.issues.forEach((issue) => {
+      const key = issue.path[0] as string;
+      if (errors[key] !== undefined) {
         errors[key] = issue.message;
       }
-    }
+    });
+
     return false;
   }
 
@@ -123,29 +167,31 @@ const validateAndSetErrors = (): boolean => {
 };
 
 const isSubmitting = ref(false);
-
-const resetForm = () => {
-  Object.assign(formState, { ...defaultForm });
-  amount.value = 0;
-  Object.keys(errors).forEach(k => (errors[k] = ''));
-};
-
 const { notify } = useToast();
 
 const handleSubmit = async () => {
   if (isSubmitting.value || !validateAndSetErrors()) {
     return;
   }
+  if (!pot) {
+    return;
+  }
 
   isSubmitting.value = true;
 
   try {
-    await useApiPost('pots', { ...formState, targetAmount: amount.value });
+    await useApiPut(`pots/${pot.id}`, {
+      name: formState.name,
+      targetAmount: amount.value,
+      themeId: formState.themeId,
+    });
+
+    notify('success', 'Poupança atualizado com sucesso!');
     emit('refreshPots');
+
     refreshThemes();
-    notify('success', 'Poupança criado com sucesso!');
+
     showModal.value = false;
-    resetForm();
   }
   finally {
     isSubmitting.value = false;

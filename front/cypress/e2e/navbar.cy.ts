@@ -31,7 +31,7 @@ describe('Navbar', () => {
     });
 
     it('should display all navbar menu links on large screens', () => {
-      const expectedLabels = ['Visão Geral', 'Transações', 'Orçamentos', 'Fundos', 'Recorrentes'];
+      const expectedLabels = ['Visão Geral', 'Transações', 'Orçamentos', 'Poupanças', 'Recorrentes'];
 
       cy.get('a span').should('have.length', expectedLabels.length).each((element, index) => {
         cy.wrap(element).should('have.text', expectedLabels[index]);

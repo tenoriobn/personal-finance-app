@@ -68,21 +68,21 @@ describe.skip('Transactions', () => {
     firstRowNameCell().should('contain', firstSortedName);
   });
 
-  it('should filter transactions by category "Fundos"', () => {
-    cy.intercept('GET', '/api/transactions*category=Fundos*', {
+  it('should filter transactions by category "Poupanças"', () => {
+    cy.intercept('GET', '/api/transactions*category=Poupanças*', {
       body: {
-        // data: transactions.filter(t => t.category === 'Fundos'),
+        // data: transactions.filter(t => t.category === 'Poupanças'),
         total: 2,
         page: 1,
         totalPages: 1,
       },
-    }).as('filterFundos');
+    }).as('filterPoupanças');
 
-    cy.getByData('dropdown-category').click().contains('Fundos').click();
-    cy.wait('@filterFundos');
+    cy.getByData('dropdown-category').click().contains('Poupanças').click();
+    cy.wait('@filterPoupanças');
 
     cy.get('tbody tr').each(($tr) => {
-      cy.wrap($tr).find('td').eq(2).should('contain', 'Fundos');
+      cy.wrap($tr).find('td').eq(2).should('contain', 'Poupanças');
     });
   });
 
