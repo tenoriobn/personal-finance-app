@@ -48,11 +48,17 @@
       <Button
         class="w-full"
         label="+Add Dinheiro"
+        :disabled="totalAmount >= targetAmount"
+        :title="totalAmount >= targetAmount ? 'Você já atingiu o objetivo deste pote.' : ''"
+        @click="handleAddMoney(id)"
       />
 
       <Button
+        :disabled="totalAmount <= 0"
         class="w-full"
         label="Retirar"
+        :title="totalAmount <= 0 ? 'O pote está zerado, não há nada para retirar.' : ''"
+        @click="handleWithdraw(id)"
       />
     </div>
   </div>
@@ -64,7 +70,7 @@ import { ref } from 'vue';
 import { usePots } from '../usePots';
 import { formatCurrency } from '~/utils';
 
-const emit = defineEmits<{ (e: 'edit-pot' | 'delete-pot', id: string): void }>();
+const emit = defineEmits<{ (e: 'edit-pot' | 'delete-pot' | 'add-money' | 'withdraw-money', id: string): void }>();
 const openMenuId = ref<string | null>(null);
 
 const { pots } = usePots();
@@ -75,5 +81,13 @@ const handleEdit = (id: string) => {
 
 const handleDelete = (id: string) => {
   emit('delete-pot', id);
+};
+
+const handleAddMoney = (id: string) => {
+  emit('add-money', id);
+};
+
+const handleWithdraw = (id: string) => {
+  emit('withdraw-money', id);
 };
 </script>

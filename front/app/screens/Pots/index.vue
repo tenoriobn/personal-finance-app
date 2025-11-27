@@ -12,6 +12,8 @@
       <PotCard
         @edit-pot="openEdit"
         @delete-pot="openDelete"
+        @add-money="openAddMoney"
+        @withdraw-money="openWithdrawMoney"
       />
     </div>
 
@@ -31,6 +33,18 @@
       :pot="potToDelete"
       @refresh-pots="refreshGetPots"
     />
+
+    <PotAddMoneyModal
+      v-model="showAddMoneyModal"
+      :pot="potToAddMoney"
+      @refresh-pots="refreshGetPots"
+    />
+
+    <PotWithdrawMoneyModal
+      v-model="showWithdrawMoneyModal"
+      :pot="potToWithdraw"
+      @refresh-pots="refreshGetPots"
+    />
   </div>
 </template>
 
@@ -40,6 +54,8 @@ import PotCard from './PotCard/index.vue';
 import CreatePotModal from './CreatePotModal/index.vue';
 import EditPotModal from './EditPotModal/index.vue';
 import DeletePotModal from './DeletePotModal/index.vue';
+import PotAddMoneyModal from './PotAddMoneyModal/index.vue';
+import PotWithdrawMoneyModal from './PotWithdrawMoneyModal/index.vue';
 import { usePots } from './usePots';
 import type { PotData } from './pots.type';
 
@@ -60,6 +76,21 @@ const potToDelete = ref<PotData | null>(null);
 const openDelete = (id: string) => {
   potToDelete.value = pots.value.find(pot => pot.id === id) || null;
   showDeletePotModal.value = true;
+};
+
+const showAddMoneyModal = ref(false);
+const potToAddMoney = ref<PotData | null>(null);
+const openAddMoney = (id: string) => {
+  potToAddMoney.value = pots.value.find(pot => pot.id === id) || null;
+  showAddMoneyModal.value = true;
+};
+
+const showWithdrawMoneyModal = ref(false);
+const potToWithdraw = ref<PotData | null>(null);
+
+const openWithdrawMoney = (id: string) => {
+  potToWithdraw.value = pots.value.find(pot => pot.id === id) || null;
+  showWithdrawMoneyModal.value = true;
 };
 
 const refreshGetPots = async () => {
