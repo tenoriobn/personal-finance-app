@@ -44,7 +44,7 @@ class ThemeService {
           none: { userId },
         },
       },
-      select: { id: true, colorName: true },
+      select: { id: true, colorName: true, colorHex: true },
     });
   }
 

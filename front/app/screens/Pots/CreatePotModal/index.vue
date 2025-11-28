@@ -36,7 +36,7 @@
         <Dropdown
           v-model="formState.themeId"
           label="Tema"
-          :options="themes?.map(theme => ({ name: theme.colorName, id: theme.id })) || []"
+          :options="themes?.map(theme => ({ name: theme.colorName, id: theme.id, colorHex: theme.colorHex })) || []"
           :start-empty="true"
           data-testid="dropdown-sort-by"
           custom-classes="w-full max-md:h-[46px] md:h-[54px]"

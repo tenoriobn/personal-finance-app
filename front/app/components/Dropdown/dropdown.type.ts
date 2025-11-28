@@ -2,6 +2,7 @@ export interface DropdownOption {
   id: string
   name: string
   label?: string
+  colorHex?: string
 }
 
 export interface DropdownProps {
