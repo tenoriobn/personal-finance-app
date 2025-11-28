@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defu } from 'defu';
 import { toast } from 'vue3-toastify';
@@ -15,6 +16,15 @@ export function useApiFetch<T>(endpoint: string, options: Record<string, any> = 
     credentials: 'include' as const,
     server: true,
     onResponseError({ response }: any) {
+      console.error(
+        `%c[API ERROR] ${response?.url || ''}`,
+        'color: #ff4d4f; font-weight: bold;',
+        {
+          status: response?.status,
+          message: response?._data?.message || 'Erro desconhecido',
+        },
+      );
+
       if (response?.status === 500) {
         toast.error('Erro interno do servidor. Tente novamente mais tarde.', {
           position: 'top-right',
