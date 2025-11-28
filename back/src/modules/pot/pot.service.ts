@@ -3,6 +3,7 @@ import { CreatePotDTO } from "./pot.type";
 import { potSelect } from "./pot.select";
 import { ensureUniqueOrFail, findOrFail } from "src/core";
 import { CurrentUserDTO } from "src/types/user.type";
+import { normalizeString } from "@/utils/format/normalizeString";
 
 class PotService {
   async getAll(currentUser: CurrentUserDTO) {
@@ -24,6 +25,8 @@ class PotService {
   }
 
   async create(data: CreatePotDTO, currentUser: CurrentUserDTO) {
+    const normalized = normalizeString(data.name);
+
     await findOrFail(
       prisma.user,
       { id: currentUser.id },
@@ -43,7 +46,7 @@ class PotService {
     if (data.name) {
       await ensureUniqueOrFail(
         prisma.pot,
-        { name: data.name, userId: currentUser.id },
+        { normalizedName: normalized, userId: currentUser.id },
         "Este nome já está em uso."
       );
     }
@@ -56,12 +59,14 @@ class PotService {
       );
     }
 
-    const payload = { ...data, userId: currentUser.id };
+    const payload = { ...data, userId: currentUser.id, normalizedName: normalizeString(data.name), };
 
     return prisma.pot.create({ data: payload });
   }
 
   async update(id: string, data: Partial<CreatePotDTO>, currentUser: CurrentUserDTO) {
+    const normalized = data.name ? normalizeString(data.name) : undefined;
+    
     await findOrFail(
       prisma.user,
       { id: currentUser.id },
@@ -88,7 +93,7 @@ class PotService {
     if (data.name) {
       await ensureUniqueOrFail(
         prisma.pot, 
-        { name: data.name, userId: currentUser.id }, 
+        { normalizedName: normalized, userId: currentUser.id },
         "Nome já está em uso.", 
         id
       );
@@ -103,8 +108,10 @@ class PotService {
       );
     }
 
-    const payload = { ...data, userId: currentUser.id };
-
+    const payload = { 
+      ...data, userId: currentUser.id, 
+      normalizedName: normalized 
+    };
     return prisma.pot.update({ where: { id }, data: payload });
   }
   
