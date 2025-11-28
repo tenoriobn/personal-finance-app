@@ -46,9 +46,9 @@ describe.skip('Filter', () => {
     expect(filtersComponent.emitted('update:selectedSort')![0]).toEqual(['Mais recente']);
   });
 
-  it('should emit "update:selectedCategory" when selecting "Fundos" option in Category dropdown', async () => {
-    await selectDropdownOption(filtersComponent, 'dropdown-category', 'Fundos');
+  it('should emit "update:selectedCategory" when selecting "Poupanças" option in Category dropdown', async () => {
+    await selectDropdownOption(filtersComponent, 'dropdown-category', 'Poupanças');
     expect(filtersComponent.emitted('update:selectedCategory')).toBeTruthy();
-    expect(filtersComponent.emitted('update:selectedCategory')![0]).toEqual(['Fundos']);
+    expect(filtersComponent.emitted('update:selectedCategory')![0]).toEqual(['Poupanças']);
   });
 });

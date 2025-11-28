@@ -21,8 +21,8 @@ export const navLinks = [
     icon: BudgetsIcon,
   },
   {
-    to: '/fundos',
-    label: 'Fundos',
+    to: '/poupancas',
+    label: 'Poupanças',
     icon: PotsIcon,
   },
   {

@@ -50,14 +50,13 @@ import DeleteBudgetModal from './DeleteBudgetModal/index.vue';
 import { useBudgets } from './useBudgets';
 import type { BudgetData } from './budgets.type';
 
-const showCreateBudgetModal = ref(false);
-
 const { getBudgets, budgets, refreshBudgets } = useBudgets();
 getBudgets();
 
+const showCreateBudgetModal = ref(false);
+
 const showEditBudgetModal = ref(false);
 const budgetToEdit = ref<BudgetData | null>(null);
-
 const openEdit = (id: string) => {
   budgetToEdit.value = budgets.value.find(budget => budget.id === id) || null;
   showEditBudgetModal.value = true;
@@ -65,7 +64,6 @@ const openEdit = (id: string) => {
 
 const showDeleteBudgetModal = ref(false);
 const budgetToDelete = ref<BudgetData | null>(null);
-
 const openDelete = (id: string) => {
   budgetToDelete.value = budgets.value.find(budget => budget.id === id) || null;
   showDeleteBudgetModal.value = true;
