@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col justify-center items-center w-full">
-    <div class="flex flex-wrap w-4/5 items-center justify-center gap-x-1 gap-y-2 mb-3">
+    <!-- <div class="flex flex-wrap w-4/5 items-center justify-center gap-x-1 gap-y-2 mb-3">
       <div class="w-24 h-4 rounded bg-grey-200" />
       <div class="w-24 h-4 rounded bg-grey-200" />
       <div class="w-24 h-4 rounded bg-grey-200" />
       <div class="w-24 h-4 rounded bg-grey-200" />
       <div class="w-24 h-4 rounded bg-grey-200" />
-    </div>
+    </div> -->
 
     <div class="relative">
       <div />

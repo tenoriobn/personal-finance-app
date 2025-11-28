@@ -8,14 +8,12 @@
       />
     </header>
 
-    <div class="grid md:max-xl:grid-cols-2 xl:grid-cols-[repeat(auto-fit,minmax(380px,1fr))] gap-4">
-      <PotCard
-        @edit-pot="openEdit"
-        @delete-pot="openDelete"
-        @add-money="openAddMoney"
-        @withdraw-money="openWithdrawMoney"
-      />
-    </div>
+    <PotCard
+      @edit-pot="openEdit"
+      @delete-pot="openDelete"
+      @add-money="openAddMoney"
+      @withdraw-money="openWithdrawMoney"
+    />
 
     <CreatePotModal
       v-model="showCreatePotModal"
