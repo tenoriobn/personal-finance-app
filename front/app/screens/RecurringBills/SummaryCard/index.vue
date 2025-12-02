@@ -6,7 +6,15 @@
       <div>
         <h3 class="grid md:gap-2 text-grey-100 text-base font-bold">
           Total de contas
-          <span class="text-3xl">{{ formatCurrency(safeSummary.totalBills, false) }}</span>
+
+          <div
+            v-if="pending"
+            class="w-36 h-9 bg-gray-200 rounded-md animate-pulse"
+          />
+          <span
+            v-else
+            class="text-3xl"
+          >{{ formatCurrency(safeSummary.totalBills, false) }}</span>
         </h3>
       </div>
     </div>
@@ -32,7 +40,11 @@
               class="text-grey-900 font-semibold"
               :title="value"
             >
-              {{ value }}
+              <div
+                v-if="pending"
+                class="w-20 h-6 bg-gray-200 rounded-md animate-pulse"
+              />
+              <span v-else>{{ value }}</span>
             </td>
           </tr>
         </tbody>
@@ -46,7 +58,7 @@ import RecurringBillsIcon from '~/assets/icons/icon-recurring-bills.svg';
 import type { SummaryCardProps } from './summaryCard.type';
 import { formatCurrency } from '~/utils';
 
-const { summary } = defineProps<SummaryCardProps>();
+const { summary, pending } = defineProps<SummaryCardProps>();
 
 const safeSummary = computed(() => summary ?? {
   paidBills: 0,

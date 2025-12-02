@@ -1,5 +1,5 @@
 <template>
-  <div class="grid md:max-xl:grid-cols-2 xl:grid-cols-[repeat(auto-fit,minmax(380px,1fr))] gap-4">
+  <div class="grid md:max-xl:grid-cols-2 xl:grid-cols-[repeat(auto-fit,minmax(380px,1fr))] gap-4 animate-pulse">
     <div
       v-for="n in 2"
       :key="n"
