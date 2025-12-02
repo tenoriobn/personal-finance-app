@@ -53,7 +53,7 @@
           class="max-md:col-start-3 max-md:row-start-2 flex items-center gap-1 font-normal truncate"
           :class="status === 'paid' ? 'text-green' : status === 'dueSoon' ? 'text-red' : 'text-grey-500'"
         >
-          <p class="max-md:order-2">{{ formatDate(date) }}</p>
+          <p class="max-md:order-2">{{ formatMonthDay(date) }}</p>
 
           <div class="max-md:order-1">
             <BillPaidIcon v-if="status === 'paid'" />
@@ -74,7 +74,7 @@
 
 <script lang="ts" setup>
 import TableSkeleton from './TableSkeleton.vue';
-import { formatDate, formatCurrency } from '~/utils';
+import { formatMonthDay, formatCurrency } from '~/utils';
 import type { RecurringBillsTableProps } from './table.type';
 import BillPaidIcon from '~/assets/icons/icon-bill-paid.svg';
 import BillDueIcon from '~/assets/icons/icon-bill-due.svg';
