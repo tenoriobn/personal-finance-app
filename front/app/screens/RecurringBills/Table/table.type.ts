@@ -1,6 +1,6 @@
-import type { Transactions } from '../transactions.type';
+import type { RecurringBill } from '../recurringBills.type';
 
-export interface TableProps {
-  transactions: Transactions[]
+export interface RecurringBillsTableProps {
+  recurringBills: RecurringBill[]
   pending: boolean
 }

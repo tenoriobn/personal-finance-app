@@ -6,7 +6,7 @@
       <div>
         <h3 class="grid md:gap-2 text-grey-100 text-base font-bold">
           Total de contas
-          <span class="text-3xl">R$ 250,00</span>
+          <span class="text-3xl">{{ formatCurrency(safeSummary.totalBills, false) }}</span>
         </h3>
       </div>
     </div>
@@ -43,10 +43,21 @@
 
 <script setup lang="ts">
 import RecurringBillsIcon from '~/assets/icons/icon-recurring-bills.svg';
+import type { SummaryCardProps } from './summaryCard.type';
+import { formatCurrency } from '~/utils';
 
-const billingDetails = [
-  { id: 1, label: 'Contas pagas', value: 'R$ 105.000,00' },
-  { id: 2, label: 'Total a pagar', value: 'R$ 105.000,00' },
-  { id: 3, label: 'Próximo vencimento', value: 'R$ 105.000,00' },
-];
+const { summary } = defineProps<SummaryCardProps>();
+
+const safeSummary = computed(() => summary ?? {
+  paidBills: 0,
+  upcoming: 0,
+  dueSoon: 0,
+  totalBills: 0,
+});
+
+const billingDetails = computed(() => [
+  { id: 1, label: 'Contas pagas', value: formatCurrency(safeSummary.value.paidBills, false) },
+  { id: 3, label: 'A vencer em 5 dias', value: formatCurrency(safeSummary.value.dueSoon, false) },
+  { id: 2, label: 'Próximos vencimentos', value: formatCurrency(safeSummary.value.upcoming, false) },
+]);
 </script>
