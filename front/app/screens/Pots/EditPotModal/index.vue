@@ -98,12 +98,14 @@ const themeOptions = computed(() => {
   const opts = themes.value.map(theme => ({
     id: theme.id,
     name: theme.colorName,
+    colorHex: theme.colorHex,
   }));
 
   if (pot?.theme && !opts.some(option => option.id === pot.theme.id)) {
     opts.unshift({
       id: pot.theme.id,
       name: pot.theme.colorName,
+      colorHex: pot.theme.colorHex,
     });
   }
 

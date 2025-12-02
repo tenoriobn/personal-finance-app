@@ -1,7 +1,7 @@
 import { prisma } from "src/config/prisma";
-import { CreateTransactionDTO } from "./transaction.type";
+import { CreateTransactionDTO, TransactionQuery } from "./transaction.type";
 import { transactionSelect } from "./transaction.select";
-import { CurrentUserDTO, TransactionQuery } from "src/types/user.type";
+import { CurrentUserDTO } from "src/types/user.type";
 import { findOrFail } from "src/core";
 import { Prisma } from "@prisma/client";
 

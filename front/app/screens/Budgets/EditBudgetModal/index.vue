@@ -116,12 +116,14 @@ const themeOptions = computed(() => {
   const opts = themes.value.map(theme => ({
     id: theme.id,
     name: theme.colorName,
+    colorHex: theme.colorHex,
   }));
 
   if (budget?.theme && !opts.some(option => option.id === budget.theme.id)) {
     opts.unshift({
       id: budget.theme.id,
       name: budget.theme.colorName,
+      colorHex: budget.theme.colorHex,
     });
   }
 

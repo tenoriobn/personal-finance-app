@@ -35,9 +35,17 @@
         {{ label }}
       </span>
 
-      <p class="text-sm text-grey-900 truncate">
-        {{ selectedLabel }}
-      </p>
+      <div class="flex items-center gap-2">
+        <span
+          v-if="selectedColorHex"
+          class="block w-4 h-4 rounded-full"
+          :style="{ backgroundColor: selectedColorHex }"
+        />
+
+        <p class="text-sm text-grey-900 truncate">
+          {{ selectedLabel }}
+        </p>
+      </div>
 
       <CaretDownIcon
         class="duration-150 ease-in-out"
@@ -65,10 +73,16 @@
           <li
             v-for="option in options"
             :key="getKey(option)"
-            class="text-sm p-4 cursor-pointer duration-150 ease-in-out border-b border-grey-100 last:border-b-0"
+            class="flex items-center gap-2 text-sm p-4 cursor-pointer duration-150 ease-in-out border-b border-grey-100 last:border-b-0"
             :class="isOptionSelected(option) ? 'bg-grey-900 text-white' : 'hover:bg-grey-100'"
             @click.stop="selectOption(option)"
           >
+            <span
+              v-if="option.colorHex"
+              class="block w-4 h-4 rounded-full"
+              :style="{ backgroundColor: option.colorHex }"
+            />
+
             {{ getLabel(option) }}
           </li>
         </ul>
@@ -123,6 +137,14 @@ const selectedLabel = computed(() => {
   const selected = options.find(opt => opt.id === valueToFind);
 
   return selected ? getLabel(selected) : '';
+});
+
+const selectedColorHex = computed(() => {
+  if (!selectedLabel.value) {
+    return null;
+  }
+  const match = options.find(opt => getLabel(opt) === selectedLabel.value);
+  return match?.colorHex || null;
 });
 
 const selectOption = (option: DropdownOption) => {
