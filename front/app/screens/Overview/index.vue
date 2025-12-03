@@ -11,10 +11,9 @@
     </header>
 
     <FinancialSummaryCard />
-
     <FinancialPots />
-
     <FinancialTransactions />
+    <FinancialBudgets />
   </div>
 </template>
 
@@ -24,6 +23,7 @@ import LogoutIcon from '~/assets/icons/icon-logout.svg';
 import FinancialSummaryCard from './FinancialSummaryCard/index.vue';
 import FinancialPots from './FinancialPots/index.vue';
 import FinancialTransactions from './FinancialTransactions/index.vue';
+import FinancialBudgets from './FinancialBudgets/index.vue';
 
 // import { useApi } from '~/utils/api/useApi';
 // import { api } from '~/utils/api/methods';
