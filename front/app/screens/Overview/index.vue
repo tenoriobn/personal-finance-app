@@ -14,6 +14,7 @@
     <FinancialPots />
     <FinancialTransactions />
     <FinancialBudgets />
+    <FinancialRecurringBills />
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import FinancialSummaryCard from './FinancialSummaryCard/index.vue';
 import FinancialPots from './FinancialPots/index.vue';
 import FinancialTransactions from './FinancialTransactions/index.vue';
 import FinancialBudgets from './FinancialBudgets/index.vue';
+import FinancialRecurringBills from './FinancialRecurringBills/index.vue';
 
 // import { useApi } from '~/utils/api/useApi';
 // import { api } from '~/utils/api/methods';
