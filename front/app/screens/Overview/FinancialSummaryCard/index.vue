@@ -30,17 +30,17 @@ const summaryItems = [
   {
     key: 'current-balance',
     label: 'Saldo Atual',
-    value: 483600,
+    value: 4836,
   },
   {
     key: 'income',
     label: 'Entradas',
-    value: 381425,
+    value: 3814.25,
   },
   {
     key: 'expenses',
     label: 'Saídas',
-    value: 170050,
+    value: 1700.5,
   },
 ];
 </script>
