@@ -53,5 +53,4 @@ import { useBudgets } from '../../useBudgets';
 import SpendingSummarySkeleton from './SpendingSummarySkeleton.vue';
 
 const { budgets, pending } = useBudgets();
-console.log('budgets: ', budgets.value);
 </script>

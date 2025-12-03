@@ -13,6 +13,8 @@
     <FinancialSummaryCard />
 
     <FinancialPots />
+
+    <FinancialTransactions />
   </div>
 </template>
 
@@ -21,6 +23,7 @@ import { Button, TitleSection } from '#components';
 import LogoutIcon from '~/assets/icons/icon-logout.svg';
 import FinancialSummaryCard from './FinancialSummaryCard/index.vue';
 import FinancialPots from './FinancialPots/index.vue';
+import FinancialTransactions from './FinancialTransactions/index.vue';
 
 // import { useApi } from '~/utils/api/useApi';
 // import { api } from '~/utils/api/methods';
