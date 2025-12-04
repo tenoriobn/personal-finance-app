@@ -9,6 +9,7 @@ import { authentication } from "../middleware/authentication";
 import { Hono } from "hono";
 import { roleRoutes } from "../modules/roles/role.routes";
 import { recurringBillsRoutes } from "@/modules/recurringBills/recurringBills.route";
+import { overviewRoutes } from "@/modules/overview/overview.route";
 
 export const routes = [
   { path: "/auth", handler: authRoutes },
@@ -20,6 +21,7 @@ export const routes = [
   { path: "/transactions", handler: transactionRoutes, protected: true },
   { path: "/roles", handler: roleRoutes, protected: true },
   { path: "/recurring-bills", handler: recurringBillsRoutes, protected: true },
+  { path: "/overview", handler: overviewRoutes, protected: true },
 ];
 
 export function registerRoutes(app: Hono) {
