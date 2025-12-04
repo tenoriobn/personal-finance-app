@@ -55,6 +55,15 @@
         <FormError :message="errors.amount" />
       </div>
 
+      <Dropdown
+        v-model="formState.type"
+        label="Tipo"
+        :options="[
+          { id: 'IN', name: 'Entrada' },
+          { id: 'OUT', name: 'Saída' },
+        ]"
+      />
+
       <label
         for="recurring"
         class="flex items-center gap-2 w-max h-4"
@@ -105,6 +114,7 @@ const defaultForm: TransactionForm = {
   recurring: false,
   budgetId: '',
   userId: '68cc2ec3f0818350607a26b6',
+  type: 'IN',
 };
 
 const formState = reactive({ ...defaultForm });
@@ -129,8 +139,15 @@ watch(amount, () => {
   errors.amount = '';
 });
 
+const buildPayload = () => ({
+  ...formState,
+  amount: formState.type === 'OUT'
+    ? -Math.abs(amount.value)
+    : Math.abs(amount.value),
+});
+
 const validateAndSetErrors = (): boolean => {
-  const payload = { ...formState, amount: amount.value };
+  const payload = buildPayload();
 
   Object.keys(errors).forEach(k => (errors[k] = ''));
 
@@ -167,7 +184,9 @@ const handleSubmit = async () => {
   isSubmitting.value = true;
 
   try {
-    await useApiPost('transactions', { ...formState, amount: amount.value });
+    const payload = buildPayload();
+    await useApiPost('transactions', payload);
+
     emit('transactionCreated');
     notify('success', 'Transação criada com sucesso!');
     resetForm();

@@ -55,7 +55,10 @@
             {{ formatDate(transaction.date) }}
           </td>
 
-          <td class="col-start-3 row-start-1 text-right font-bold truncate text-green">
+          <td
+            class="col-start-3 row-start-1 text-right font-bold truncate"
+            :class="transaction.amount > 0 ? 'text-green' : 'text-red'"
+          >
             {{ formatCurrency(transaction.amount) }}
           </td>
         </tr>
