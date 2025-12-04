@@ -90,10 +90,12 @@
 import { Button, InputDatePicker, Modal } from '#components';
 import { useApiGet, useApiPost, useCurrencyMask, useToast } from '~/composables';
 import { createTransactionSchema } from './transaction.schema';
-import type { CategoryData, CreateTransactionModalProps, TransactionForm } from './createTransactionModal.type';
+import type { CategoryData, TransactionForm } from './createTransactionModal.type';
 import FormError from '~/components/FormError/index.vue';
+import type { BudgetData } from '~/screens/Budgets/budgets.type';
+import { getSpent, getFree } from '~/utils/finance';
 
-const { modelValue } = defineProps<CreateTransactionModalProps>();
+const { modelValue } = defineProps<{ modelValue: boolean }>();
 const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void
   (e: 'transactionCreated'): void
@@ -126,18 +128,10 @@ const errors = reactive<Record<string, string>>({
   budgetId: '',
 });
 
-watch(() => formState.name, () => {
-  errors.name = '';
-});
-watch(() => formState.date, () => {
-  errors.date = '';
-});
-watch(() => formState.budgetId, () => {
-  errors.budgetId = '';
-});
-watch(amount, () => {
-  errors.amount = '';
-});
+watch(() => formState.name, () => (errors.name = ''));
+watch(() => formState.date, () => (errors.date = ''));
+watch(() => formState.budgetId, () => (errors.budgetId = ''));
+watch(amount, () => (errors.amount = ''));
 
 const buildPayload = () => ({
   ...formState,
@@ -146,21 +140,71 @@ const buildPayload = () => ({
     : Math.abs(amount.value),
 });
 
+const selectedBudget = ref<BudgetData | null>(null);
+
+watch(() => formState.budgetId, async (id) => {
+  errors.budgetId = '';
+  selectedBudget.value = null;
+
+  if (!id) {
+    return;
+  }
+
+  const result = await useApiGet<BudgetData>(`budgets/${id}`, {}, false);
+
+  if (result && !('data' in result)) {
+    selectedBudget.value = result;
+    return;
+  }
+
+  selectedBudget.value = result.data.value ?? null;
+});
+
 const validateAndSetErrors = (): boolean => {
   const payload = buildPayload();
 
   Object.keys(errors).forEach(k => (errors[k] = ''));
 
   const parsed = createTransactionSchema.safeParse(payload);
-
   if (!parsed.success) {
     for (const issue of parsed.error.issues) {
       const key = String(issue.path[0] ?? '');
-      if (key && Object.prototype.hasOwnProperty.call(errors, key)) {
+      if (key in errors) {
         errors[key] = issue.message;
       }
     }
     return false;
+  }
+
+  if (!selectedBudget.value) {
+    return true;
+  }
+
+  const { transactions = [], maximumSpend = 0 } = selectedBudget.value;
+
+  const spent = getSpent(transactions);
+  const free = getFree(transactions, maximumSpend);
+  const value = payload.amount;
+
+  if (value < 0) {
+    if (spent <= 0) {
+      errors.amount = 'Este orçamento não possui saldo para retirar.';
+      return false;
+    }
+
+    const maxWithdraw = spent;
+
+    if (Math.abs(value) > maxWithdraw) {
+      errors.amount = `Saldo insuficiente. Máximo para retirar: ${formatCurrency(maxWithdraw, false)}`;
+      return false;
+    }
+  }
+
+  if (value > 0) {
+    if (value > free) {
+      errors.amount = `Este valor excede o limite do orçamento. Máximo disponível para adicionar: ${formatCurrency(free, false)}`;
+      return false;
+    }
   }
 
   return true;
@@ -179,7 +223,7 @@ const { notify } = useToast();
 const handleSubmit = async () => {
   if (isSubmitting.value || !validateAndSetErrors()) {
     return;
-  }
+  };
 
   isSubmitting.value = true;
 

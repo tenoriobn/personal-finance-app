@@ -50,7 +50,7 @@
     />
 
     <LatestSpendingTable
-      :transactions="transactions"
+      :transactions="transactions.slice(0, 3)"
       :category-id="category.id"
     />
   </div>

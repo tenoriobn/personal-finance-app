@@ -19,6 +19,5 @@ export const budgetSelect = {
     orderBy: {
       date: "desc" as const,
     },
-    take: 3,
   },
 };

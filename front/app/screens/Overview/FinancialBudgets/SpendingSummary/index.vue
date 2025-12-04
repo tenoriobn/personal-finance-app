@@ -5,7 +5,7 @@
   />
 
   <div
-    class="grid items-center max-sm:gap-2 sm:gap-x-4"
+    class="flex flex-col justify-center max-sm:gap-2 sm:gap-4"
   >
     <div
       v-for="budget in (budgets || []).slice(0, 4)"
