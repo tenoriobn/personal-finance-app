@@ -1,0 +1,35 @@
+<template>
+  <div
+    v-if="pending"
+    class="w-44 h-7 justify-self-start mt-6 bg-grey-200 rounded animate-pulse"
+  />
+
+  <div
+    v-else
+    class="grid max-md:grid-cols-2 items-center gap-x-2 gap-y-4 h-max"
+  >
+    <div
+      v-for="budget in (budgets || []).slice(0, 4)"
+      :key="budget.id"
+      class="relative  pl-4 flex items-center max-sm:gap-2 sm:gap-4"
+    >
+      <span
+        class="absolute bottom-0 left-0 top-0 h-full w-1 rounded-lg"
+        :style="{ backgroundColor: budget.theme.colorHex || '#ccc' }"
+      />
+
+      <div class="grid gap-1">
+        <p class="text-sm text-grey-500">{{ budget.category.name }}</p>
+        <p class="text-sm text-grey-900 font-bold">{{ formatCurrency(getSpent(budget.transactions), false) }}</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { formatCurrency } from '~/utils';
+import { useOverview } from '../../useOverview';
+
+const { summaryBudgets, pending } = useOverview();
+const budgets = summaryBudgets.value?.budgets;
+</script>

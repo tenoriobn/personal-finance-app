@@ -75,7 +75,7 @@
         </td>
         <td
           class="max-xl:col-start-3 max-xl:row-start-1 text-right font-bold truncate"
-          :class="amount > 0 ? 'text-green' : 'text-grey-900'"
+          :class="amount > 0 ? 'text-green' : 'text-red'"
         >
           {{ formatCurrency(amount) }}
         </td>

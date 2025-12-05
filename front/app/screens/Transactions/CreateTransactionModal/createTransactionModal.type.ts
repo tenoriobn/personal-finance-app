@@ -9,6 +9,7 @@ export interface TransactionForm {
   recurring: boolean
   budgetId: string
   userId: string
+  type?: 'IN' | 'OUT'
 }
 
 export interface CategoryData {

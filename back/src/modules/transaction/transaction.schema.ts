@@ -13,8 +13,9 @@ export const createTransactionSchema = z.object({
   }, z.date({ required_error: "O campo 'date' é obrigatório!" })),
   amount: z
     .number({ required_error: "O campo 'amount' é obrigatório!" })
-    .positive("O valor deve ser positivo")
-    .min(1, "O valor deve ser maior ou igual a 1"),
+    .refine(value => value !== 0, {
+      message: "O valor não pode ser zero.",
+    }),
   recurring: z.boolean({ required_error: "O campo 'recurring' é obrigatório!" }),
   userId: z.string({ required_error: "O campo 'userId' é obrigatório!" }),
   budgetId: z.string({ required_error: "O campo 'budgetId' é obrigatório!" }),

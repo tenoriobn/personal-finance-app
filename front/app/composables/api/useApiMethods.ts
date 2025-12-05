@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useApiFetch } from './useApiFetch';
 
-export function useApiGet<T>(endpoint: string, options: Record<string, any> = {}) {
-  return useApiFetch<T>(endpoint, { method: 'GET', ...options }, true) as ReturnType<typeof useFetch<T>>;
+export function useApiGet<T>(endpoint: string, options: Record<string, any> = {}, lazy = true) {
+  return useApiFetch<T>(endpoint, { method: 'GET', ...options }, lazy) as ReturnType<typeof useFetch<T>>;
 }
 export function useApiPost<T>(endpoint: string, body: object, options: Record<string, any> = {}) {
   return useApiFetch<T>(endpoint, { method: 'POST', body: JSON.stringify(body), ...options });
