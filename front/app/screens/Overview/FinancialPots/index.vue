@@ -1,7 +1,7 @@
 <template>
-  <div class="grid md:gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
+  <div class="grid gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
     <div class="flex justify-between items-center gap-4">
-      <h3 class="max-sm:text-base text-xl font-bold text-grey-900">Poupanças</h3>
+      <h3 class="max-sm:text-base sm:text-xl font-bold text-grey-900">Poupanças</h3>
 
       <NuxtLink
         to="/poupancas"
@@ -12,11 +12,11 @@
       </NuxtLink>
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid md:grid-cols-2 gap-6">
       <div class="flex items-center gap-4 bg-beige-100 rounded-xl max-md:p-4 md:p-[2rem] w-full">
         <PotIcon />
 
-        <div class="grid md:gap-2">
+        <div class="grid gap-1">
           <h3 class="text-base text-grey-500 font-semibold">
             Total economizado
           </h3>
@@ -27,7 +27,7 @@
       </div>
 
       <div
-        class="grid grid-cols-3 items-center max-sm:gap-2 sm:gap-4"
+        class="grid grid-cols-2 items-center gap-x-2 gap-y-4"
       >
         <div
           v-for="pot in (summaryPots?.pots || [])"

@@ -6,7 +6,7 @@
 
   <div
     v-else
-    class="flex flex-col justify-center max-sm:gap-2 sm:gap-4"
+    class="grid max-md:grid-cols-2 items-center gap-x-2 gap-y-4 h-max"
   >
     <div
       v-for="budget in (budgets || []).slice(0, 4)"

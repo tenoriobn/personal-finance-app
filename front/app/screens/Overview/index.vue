@@ -11,10 +11,24 @@
     </header>
 
     <FinancialSummaryCard />
-    <FinancialPots />
-    <FinancialTransactions />
-    <FinancialBudgets />
-    <FinancialRecurringBills />
+
+    <div class="columns-1 2xl:columns-2 gap-4 space-y-4">
+      <div class="break-inside-avoid">
+        <FinancialPots />
+      </div>
+
+      <div class="break-inside-avoid">
+        <FinancialTransactions />
+      </div>
+
+      <div class="break-inside-avoid">
+        <FinancialBudgets />
+      </div>
+
+      <div class="break-inside-avoid">
+        <FinancialRecurringBills />
+      </div>
+    </div>
   </div>
 </template>
 

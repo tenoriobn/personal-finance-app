@@ -7,7 +7,7 @@
             scope="col"
             class="truncate text-sm font-normal"
           >
-            <h3 class="max-sm:text-base text-xl font-bold text-grey-900">Transações</h3>
+            <h3 class="max-sm:text-base sm:text-xl font-bold text-grey-900">Transações</h3>
           </th>
 
           <th scope="col">

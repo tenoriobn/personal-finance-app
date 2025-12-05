@@ -1,7 +1,7 @@
 <template>
-  <div class="grid md:gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
+  <div class="grid gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
     <div class="flex justify-between items-center gap-4">
-      <h3 class="max-sm:text-base text-xl font-bold text-grey-900">Contas Recorrentes</h3>
+      <h3 class="max-sm:text-base sm:text-xl font-bold text-grey-900">Contas Recorrentes</h3>
 
       <NuxtLink
         to="/contas-recorrentes"
@@ -34,8 +34,6 @@ import { NuxtLink } from '#components';
 import { useOverview } from '../useOverview';
 
 const { recurringBills } = useOverview();
-
-console.log('recurringBills: ', recurringBills.value);
 
 const pots = [
   {

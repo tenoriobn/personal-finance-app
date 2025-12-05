@@ -1,9 +1,9 @@
 <template>
-  <section class="grid grid-rows-1 xl:grid-cols-3 gap-4">
+  <section class="grid md:grid-cols-3 xl:grid-cols-3 max-md:gap-4 md:gap-6">
     <article
       v-for="(item, index) in summaryItems"
       :key="item.key"
-      class="grid md:gap-2 rounded-xl max-md:p-4 md:p-[2rem] w-full"
+      class="grid gap-1 rounded-xl max-md:p-4 md:p-[2rem] w-full"
       :class="index === 0 ? 'bg-grey-900' : 'bg-white'"
     >
       <h3

@@ -19,7 +19,7 @@ class OverviewService {
 
     return {
       totalPotsAmount,
-      pots: pots.slice(0, 6),
+      pots: pots.slice(0, 4),
     };
   }
 

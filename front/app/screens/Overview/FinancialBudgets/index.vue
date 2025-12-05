@@ -1,7 +1,7 @@
 <template>
-  <div class="grid md:gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
+  <div class="grid gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
     <div class="flex justify-between items-center gap-4">
-      <h3 class="max-sm:text-base text-xl font-bold text-grey-900">Orçamentos</h3>
+      <h3 class="max-sm:text-base sm:text-xl font-bold text-grey-900">Orçamentos</h3>
 
       <NuxtLink
         to="/orcamentos"
@@ -12,9 +12,10 @@
       </NuxtLink>
     </div>
 
-    <div class="flex gap-4 w-full">
+    <div class="grid md:grid-cols-[1fr_auto] md:items-center gap-6 w-full">
       <div>
         <Doughnut
+          class="max-sm:w-full"
           :data="chartData"
           :options="chartOptions"
           :plugins="[centerTextPlugin]"
@@ -34,3 +35,9 @@ import { useChart } from './useChart';
 
 const { chartData, chartOptions, centerTextPlugin } = useChart();
 </script>
+
+<style scoped>
+.grid-column-1fr-auto {
+  grid-template-columns: 1fr auto;
+}
+</style>
