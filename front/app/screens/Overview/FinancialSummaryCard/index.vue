@@ -17,7 +17,7 @@
         class="text-2xl xl:text-3xl font-bold"
         :class="index === 0 ? 'text-white' : 'text-grey-900'"
       >
-        {{ formatCurrency(item.value, false) }}
+        {{ formatCurrency(item.value || 0, false) }}
       </p>
     </article>
   </section>
@@ -25,22 +25,25 @@
 
 <script setup lang="ts">
 import { formatCurrency } from '~/utils';
+import { useOverview } from '../useOverview';
+
+const { transactions } = useOverview();
 
 const summaryItems = [
   {
     key: 'current-balance',
     label: 'Saldo Atual',
-    value: 4836,
+    value: transactions.value?.currentBalance,
   },
   {
     key: 'income',
     label: 'Entradas',
-    value: 3814.25,
+    value: transactions.value?.income,
   },
   {
     key: 'expenses',
     label: 'Saídas',
-    value: 1700.5,
+    value: transactions.value?.expenses,
   },
 ];
 </script>
