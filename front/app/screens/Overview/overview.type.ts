@@ -11,10 +11,16 @@ export interface OverviewTransaction {
 }
 
 export interface OverviewPot {
-  id: string
-  name: string
-  theme: string
-  totalAmount: number
+  totalPotsAmount: number
+  pots: {
+    id: string
+    name: string
+    theme: {
+      colorHex: string
+      colorName: string
+    }
+    totalAmount: number
+  }[]
 }
 
 export interface OverviewBudget {
@@ -33,7 +39,7 @@ export interface OverviewRecurringBill {
 
 export interface OverviewResponse {
   transactions: OverviewTransaction
-  pots: OverviewPot[]
+  pots: OverviewPot
   budgets: OverviewBudget[]
   recurringBills: OverviewRecurringBill[]
 }

@@ -27,23 +27,23 @@
 import { formatCurrency } from '~/utils';
 import { useOverview } from '../useOverview';
 
-const { transactions } = useOverview();
+const { summaryTransactions } = useOverview();
 
 const summaryItems = [
   {
     key: 'current-balance',
     label: 'Saldo Atual',
-    value: transactions.value?.currentBalance,
+    value: summaryTransactions.value?.currentBalance,
   },
   {
     key: 'income',
     label: 'Entradas',
-    value: transactions.value?.income,
+    value: summaryTransactions.value?.income,
   },
   {
     key: 'expenses',
     label: 'Saídas',
-    value: transactions.value?.expenses,
+    value: summaryTransactions.value?.expenses,
   },
 ];
 </script>

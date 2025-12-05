@@ -3,10 +3,10 @@ import type { OverviewResponse, OverviewTransaction, OverviewPot, OverviewBudget
 import type { FetchError } from 'ofetch';
 
 export function useOverview() {
-  const transactions = useState<OverviewTransaction | null>('overview:transactions', () => null);
-  const pots = useState<OverviewPot[]>('overview:pots', () => []);
-  const budgets = useState<OverviewBudget[]>('overview:budgets', () => []);
-  const recurringBills = useState<OverviewRecurringBill[]>('overview:recurringBills', () => []);
+  const summaryTransactions = useState<OverviewTransaction | null>('overview:transactions', () => null);
+  const summaryPots = useState<OverviewPot | null>('overview:pots', () => null);
+  const summaryBudgets = useState<OverviewBudget[]>('overview:budgets', () => []);
+  const summaryRecurringBills = useState<OverviewRecurringBill[]>('overview:recurringBills', () => []);
 
   const isLoading = useState<boolean>('overview:isLoading', () => false);
 
@@ -15,10 +15,10 @@ export function useOverview() {
   let refreshApi: (() => Promise<void>) | null = null;
 
   function assignOverviewData(data: OverviewResponse) {
-    transactions.value = data.transactions;
-    pots.value = data.pots;
-    budgets.value = data.budgets;
-    recurringBills.value = data.recurringBills;
+    summaryTransactions.value = data.transactions;
+    summaryPots.value = data.pots;
+    summaryBudgets.value = data.budgets;
+    summaryRecurringBills.value = data.recurringBills;
   }
 
   async function loadOverview() {
@@ -49,10 +49,10 @@ export function useOverview() {
   }
 
   return {
-    transactions,
-    pots,
-    budgets,
-    recurringBills,
+    summaryTransactions,
+    summaryPots,
+    summaryBudgets,
+    recurringBills: summaryRecurringBills,
     isLoading,
 
     loadOverview,

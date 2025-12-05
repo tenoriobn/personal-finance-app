@@ -12,13 +12,13 @@ class OverviewService {
       orderBy: { createdAt: "desc" },
     });
 
-    let totalAmount = 0;
+    let totalPotsAmount = 0;
     for (const pot of pots) {
-      totalAmount += pot.totalAmount;
+      totalPotsAmount += pot.totalAmount;
     }
 
     return {
-      totalAmount,
+      totalPotsAmount,
       pots: pots.slice(0, 6),
     };
   }
