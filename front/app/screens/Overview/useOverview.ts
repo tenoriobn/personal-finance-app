@@ -5,10 +5,10 @@ import type { FetchError } from 'ofetch';
 export function useOverview() {
   const summaryTransactions = useState<OverviewTransaction | null>('overview:transactions', () => null);
   const summaryPots = useState<OverviewPot | null>('overview:pots', () => null);
-  const summaryBudgets = useState<OverviewBudget[]>('overview:budgets', () => []);
-  const summaryRecurringBills = useState<OverviewRecurringBill[]>('overview:recurringBills', () => []);
+  const summaryBudgets = useState<OverviewBudget | null>('overview:budgets', () => null);
+  const summaryRecurringBills = useState<OverviewRecurringBill | null>('overview:recurringBills', () => null);
 
-  const isLoading = useState<boolean>('overview:isLoading', () => false);
+  const pending = ref(false);
 
   let overviewData: Ref<OverviewResponse | null>;
   let overviewError: Ref<FetchError<OverviewResponse> | undefined>;
@@ -22,7 +22,7 @@ export function useOverview() {
   }
 
   async function loadOverview() {
-    isLoading.value = true;
+    pending.value = true;
 
     const result = await useApiGet<OverviewResponse>('overview');
     overviewData = result.data;
@@ -33,7 +33,7 @@ export function useOverview() {
       assignOverviewData(overviewData.value);
     }
 
-    isLoading.value = false;
+    pending.value = false;
   }
 
   async function refreshOverview() {
@@ -53,7 +53,7 @@ export function useOverview() {
     summaryPots,
     summaryBudgets,
     recurringBills: summaryRecurringBills,
-    isLoading,
+    pending,
 
     loadOverview,
     refreshOverview,

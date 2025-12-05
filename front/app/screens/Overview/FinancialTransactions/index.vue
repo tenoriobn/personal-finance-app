@@ -54,7 +54,10 @@
             {{ formatDate(transaction.date) }}
           </td>
 
-          <td class="col-start-3 row-start-1 text-right font-bold truncate text-green">
+          <td
+            class="col-start-3 row-start-1 text-right font-bold truncate"
+            :class="transaction.amount > 0 ? 'text-green' : 'text-red'"
+          >
             {{ formatCurrency(transaction.amount) }}
           </td>
         </tr>
@@ -65,52 +68,54 @@
 
 <script setup lang="ts">
 import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
+import { useOverview } from '../useOverview';
 
-const transactions = [
-  {
-    id: '692f03ffa92189a2ee95f33c',
-    name: 'Alex Poatan',
-    date: '2025-12-08T03:00:00.000Z',
-    amount: 250,
-    recurring: true,
-    userId: '68cc2ec3f0818350607a26b6',
-    budgetId: '68e5679bde9ef6eb4d207be1',
-  },
-  {
-    id: '692ef8856b090fa57c8ad88b',
-    name: 'Bruno Tenorio',
-    date: '2025-12-04T03:00:00.000Z',
-    amount: 150,
-    recurring: true,
-    userId: '68cc2ec3f0818350607a26b6',
-    budgetId: '68e5679bde9ef6eb4d207be1',
-  },
-  {
-    id: '692f0462a92189a2ee95f33d',
-    name: 'Alex Poatan',
-    date: '2025-12-01T03:00:00.000Z',
-    amount: 250,
-    recurring: true,
-    userId: '68cc2ec3f0818350607a26b6',
-    budgetId: '68e5679bde9ef6eb4d207be1',
-  },
-  {
-    id: '692f0462a92189a2ee95f32c',
-    name: 'Correa Neto',
-    date: '2025-12-01T03:00:00.000Z',
-    amount: 250,
-    recurring: true,
-    userId: '68cc2ec3f0818350607a26b6',
-    budgetId: '68e5679bde9ef6eb4d207be1',
-  },
-  {
-    id: '692f0462a92189a2ee95f43e',
-    name: 'Alex Poatan',
-    date: '2025-12-01T03:00:00.000Z',
-    amount: 250,
-    recurring: true,
-    userId: '68cc2ec3f0818350607a26b6',
-    budgetId: '68e5679bde9ef6eb4d207be1',
-  },
-];
+const { summaryTransactions } = useOverview();
+const transactions = summaryTransactions.value?.transactions ?? [];
+//   {
+//     id: '692f03ffa92189a2ee95f33c',
+//     name: 'Alex Poatan',
+//     date: '2025-12-08T03:00:00.000Z',
+//     amount: 250,
+//     recurring: true,
+//     userId: '68cc2ec3f0818350607a26b6',
+//     budgetId: '68e5679bde9ef6eb4d207be1',
+//   },
+//   {
+//     id: '692ef8856b090fa57c8ad88b',
+//     name: 'Bruno Tenorio',
+//     date: '2025-12-04T03:00:00.000Z',
+//     amount: 150,
+//     recurring: true,
+//     userId: '68cc2ec3f0818350607a26b6',
+//     budgetId: '68e5679bde9ef6eb4d207be1',
+//   },
+//   {
+//     id: '692f0462a92189a2ee95f33d',
+//     name: 'Alex Poatan',
+//     date: '2025-12-01T03:00:00.000Z',
+//     amount: 250,
+//     recurring: true,
+//     userId: '68cc2ec3f0818350607a26b6',
+//     budgetId: '68e5679bde9ef6eb4d207be1',
+//   },
+//   {
+//     id: '692f0462a92189a2ee95f32c',
+//     name: 'Correa Neto',
+//     date: '2025-12-01T03:00:00.000Z',
+//     amount: 250,
+//     recurring: true,
+//     userId: '68cc2ec3f0818350607a26b6',
+//     budgetId: '68e5679bde9ef6eb4d207be1',
+//   },
+//   {
+//     id: '692f0462a92189a2ee95f43e',
+//     name: 'Alex Poatan',
+//     date: '2025-12-01T03:00:00.000Z',
+//     amount: 250,
+//     recurring: true,
+//     userId: '68cc2ec3f0818350607a26b6',
+//     budgetId: '68e5679bde9ef6eb4d207be1',
+//   },
+// ];
 </script>

@@ -5,6 +5,7 @@
   />
 
   <div
+    v-else
     class="flex flex-col justify-center max-sm:gap-2 sm:gap-4"
   >
     <div
@@ -19,7 +20,7 @@
 
       <div class="grid gap-1">
         <p class="text-sm text-grey-500">{{ budget.category.name }}</p>
-        <p class="text-sm text-grey-900 font-bold">{{ formatCurrency(159, false) }}</p>
+        <p class="text-sm text-grey-900 font-bold">{{ formatCurrency(getSpent(budget.transactions), false) }}</p>
       </div>
     </div>
   </div>
@@ -27,7 +28,8 @@
 
 <script setup lang="ts">
 import { formatCurrency } from '~/utils';
-import { useBudgets } from '~/screens/Budgets/useBudgets';
+import { useOverview } from '../../useOverview';
 
-const { budgets, pending } = useBudgets();
+const { summaryBudgets, pending } = useOverview();
+const budgets = summaryBudgets.value?.budgets;
 </script>

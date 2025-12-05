@@ -29,11 +29,8 @@
 <script lang="ts" setup>
 import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import { Doughnut } from 'vue-chartjs';
-import { useChart } from '~/screens/Budgets/SpendingChart/useChart';
-import { useBudgets } from '~/screens/Budgets/useBudgets';
 import SpendingSummary from './SpendingSummary/index.vue';
+import { useChart } from './useChart';
 
-const { getBudgets } = useBudgets();
-getBudgets();
 const { chartData, chartOptions, centerTextPlugin } = useChart();
 </script>

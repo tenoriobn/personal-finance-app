@@ -30,8 +30,6 @@ import { useOverview } from './useOverview';
 
 const logout = ref(false);
 
-const { loadOverview, summaryPots } = useOverview();
+const { loadOverview } = useOverview();
 loadOverview();
-
-console.log('transações summaryPots: ', summaryPots.value);
 </script>

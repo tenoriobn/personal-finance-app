@@ -24,22 +24,33 @@ export interface OverviewPot {
 }
 
 export interface OverviewBudget {
-  id: string
-  name: string
-  spent: number
-  limit: number
+  amountTransactionTotal: number
+  budgets: {
+    id: string
+    theme: {
+      colorHex: string
+      colorName: string
+    }
+    category: {
+      id: string
+      name: string
+    }
+    transactions: {
+      amount: number
+    }[]
+    maximumSpend: number
+  }[]
 }
 
 export interface OverviewRecurringBill {
-  id: string
-  name: string
-  amount: number
-  dueDate: string
+  dueSoon: number
+  paidBills: number
+  upcoming: number
 }
 
 export interface OverviewResponse {
   transactions: OverviewTransaction
   pots: OverviewPot
-  budgets: OverviewBudget[]
-  recurringBills: OverviewRecurringBill[]
+  budgets: OverviewBudget
+  recurringBills: OverviewRecurringBill
 }

@@ -17,10 +17,10 @@
         v-for="pot in (pots || [])"
         :key="pot.id"
         class="rounded-l-lg rounded-r-xl"
-        :style="{ backgroundColor: pot.theme.colorHex || '#ccc' }"
+        :style="{ backgroundColor: pot.colorHex || '#ccc' }"
       >
         <div class="bg-beige-100 flex justify-between items-center gap-1 ml-1 px-4 py-6 h-full w-full rounded-lg">
-          <p class="text-sm text-grey-500">{{ pot.category.name }}</p>
+          <p class="text-sm text-grey-500">{{ pot.name }}</p>
           <p class="text-sm text-grey-900 font-bold">{{ formatCurrency(pot.maximumSpend, false) }}</p>
         </div>
       </div>
@@ -31,46 +31,30 @@
 <script setup lang="ts">
 import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import { NuxtLink } from '#components';
+import { useOverview } from '../useOverview';
+
+const { recurringBills } = useOverview();
+
+console.log('recurringBills: ', recurringBills.value);
 
 const pots = [
   {
     id: '68e5679bde9ef6eb4d207be1',
-    maximumSpend: 50,
-    category: {
-      id: '68e56101e6616ee788ea45ae',
-      name: 'Contas pagas',
-    },
-    theme: {
-      id: '68e55f6be6616ee788ea45a0',
-      colorName: 'Verde',
-      colorHex: '#277C78',
-    },
+    name: 'Contas pagas',
+    maximumSpend: recurringBills?.value?.paidBills || 0,
+    colorHex: '#277C78',
   },
   {
     id: '68e567bade9ef6eb4d207be2',
-    maximumSpend: 750,
-    category: {
-      id: '68e5610fe6616ee788ea45af',
-      name: 'A vencer em 5 dias',
-    },
-    theme: {
-      id: '68e55f7ce6616ee788ea45a2',
-      colorName: 'Ciano',
-      colorHex: '#82C9D7',
-    },
+    name: 'A vencer em 5 dias',
+    maximumSpend: recurringBills?.value?.dueSoon || 0,
+    colorHex: '#82C9D7',
   },
   {
     id: '68e56820de9ef6eb4d207be3',
-    maximumSpend: 75,
-    category: {
-      id: '68e56125e6616ee788ea45b1',
-      name: 'Próximos vencimentos',
-    },
-    theme: {
-      id: '68e55f75e6616ee788ea45a1',
-      colorName: 'Amarelo',
-      colorHex: '#F2CDAC',
-    },
+    maximumSpend: recurringBills?.value?.upcoming || 0,
+    name: 'Próximos vencimentos',
+    colorHex: '#F2CDAC',
   },
 ];
 </script>
