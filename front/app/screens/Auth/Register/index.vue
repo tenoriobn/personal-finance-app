@@ -1,7 +1,17 @@
 <template>
-  <h2 class="text-grey-900 max-md:text-2xl md:text-[2rem] text-center font-bold leading-none">Acesse sua conta</h2>
+  <h2 class="text-grey-900 max-md:text-2xl md:text-[2rem] text-center font-bold leading-none">Crie sua conta</h2>
 
   <form class="flex flex-col gap-6">
+    <div class="flex flex-col gap-1">
+      <Input
+        v-model="name"
+        :label="'Nome'"
+        name="nome"
+      />
+
+      <!-- <FormError :message="errors.name" /> -->
+    </div>
+
     <div class="flex flex-col gap-1">
       <Input
         v-model="email"
@@ -24,16 +34,27 @@
       <!-- <FormError :message="errors.name" /> -->
     </div>
 
+    <div class="flex flex-col gap-1">
+      <Input
+        v-model="password"
+        :label="'Confirmar Senha'"
+        name="confirmar-senha"
+        type="password"
+      />
+
+      <!-- <FormError :message="errors.name" /> -->
+    </div>
+
     <Button
-      label="Entrar"
+      label="Criar Conta"
     />
 
     <p class="text-base text-grey-500 text-center">
-      Precisa criar uma conta?
+      Já tem uma conta?
       <NuxtLink
         class="text-grey-900 font-semibold underline"
-        to="/cadastro"
-      >Cadastre-se</NuxtLink>
+        to="/login"
+      >Entrar</NuxtLink>
     </p>
   </form>
 </template>
@@ -43,4 +64,5 @@ import { Button, Input, NuxtLink } from '#components';
 
 const email = ref('');
 const password = ref('');
+const name = ref('');
 </script>
