@@ -31,7 +31,7 @@
     <p class="text-base text-grey-500 text-center">
       Precisa criar uma conta?
       <NuxtLink
-        class="text-grey-900 font-semibold underline"
+        class="font-semibold underline text-grey-900 hover:text-grey-500 active:text-grey-300 duration-150 ease-in-out"
         to="/cadastro"
       >Cadastre-se</NuxtLink>
     </p>
