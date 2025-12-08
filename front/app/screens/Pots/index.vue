@@ -57,8 +57,7 @@ import PotWithdrawMoneyModal from './PotWithdrawMoneyModal/index.vue';
 import { usePots } from './usePots';
 import type { PotData } from './pots.type';
 
-const { getPots, pots, refreshPots } = usePots();
-getPots();
+const { pots, refreshPots } = usePots();
 
 const showCreatePotModal = ref(false);
 

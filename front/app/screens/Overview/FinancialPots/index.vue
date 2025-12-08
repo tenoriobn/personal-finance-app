@@ -12,8 +12,8 @@
       </NuxtLink>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="flex items-center gap-4 bg-beige-100 rounded-xl max-md:p-4 md:p-[2rem] w-full">
+    <div class="grid md:grid-cols-[auto_auto] gap-6">
+      <div class="grid grid-cols-[auto_1fr] items-center gap-4 bg-beige-100 rounded-xl max-md:p-4 md:p-[2rem] w-full">
         <PotIcon />
 
         <div class="grid gap-1">

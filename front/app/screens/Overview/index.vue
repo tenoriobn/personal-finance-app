@@ -40,7 +40,7 @@ import FinancialPots from './FinancialPots/index.vue';
 import FinancialTransactions from './FinancialTransactions/index.vue';
 import FinancialBudgets from './FinancialBudgets/index.vue';
 import FinancialRecurringBills from './FinancialRecurringBills/index.vue';
-import { useOverview } from './useOverview';
+
 import { useAuth } from '~/composables/useAuth';
 
 const { clearToken } = useAuth();
@@ -49,7 +49,4 @@ const handleLogout = () => {
   clearToken();
   navigateTo('/login');
 };
-
-const { loadOverview } = useOverview();
-loadOverview();
 </script>

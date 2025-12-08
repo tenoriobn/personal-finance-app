@@ -31,5 +31,6 @@ import { formatCurrency } from '~/utils';
 import { useOverview } from '../../useOverview';
 
 const { summaryBudgets, pending } = useOverview();
-const budgets = summaryBudgets.value?.budgets;
+
+const budgets = computed(() => summaryBudgets.value?.budgets || []);
 </script>
