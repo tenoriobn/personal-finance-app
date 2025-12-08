@@ -6,11 +6,12 @@ import 'vue3-toastify/dist/index.css';
 
 export function useApiFetch<T>(endpoint: string, options: Record<string, any> = {}, lazy = false) {
   const config = useRuntimeConfig();
+  const { token } = useAuth();
 
   const defaults = {
     baseURL: config.public.apiBase,
     headers: {
-      'Authorization': `Bearer ${config.public.apiToken}`,
+      'Authorization': token.value ? `Bearer ${token.value}` : '',
       'Content-Type': 'application/json',
     },
     credentials: 'include' as const,

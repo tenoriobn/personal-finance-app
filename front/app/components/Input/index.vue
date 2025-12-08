@@ -1,20 +1,22 @@
 <template>
   <label
     :for="name"
-    class="relative z-0 w-full grid grid-cols-[1fr_auto] items-center gap-2 rounded-xl border border-grey-300 max-md:py-3 max-md:px-4 md:p-4 duration-150 ease-in-out cursor-text focus-within:border-grey-900 has-[input:not(:placeholder-shown)]:border-grey-900"
-    :class="customClasses"
+    class="relative z-0 w-full grid grid-cols-[1fr_auto] items-center gap-2 rounded-xl border border-grey-300 max-md:py-3 max-md:px-4 md:p-4 duration-150 ease-in-out focus-within:border-grey-900 has-[input:not(:placeholder-shown)]:border-grey-900"
+    :class="[customClasses, isSubmitting ? 'cursor-not-allowed opacity-75' : 'cursor-text']"
   >
     <input
       :id="name"
       :name="name"
       :type="type || 'text'"
       class="peer block w-full appearance-none bg-transparent text-sm text-grey-900 focus:outline-none focus:ring-0"
+      :class="[isSubmitting ? 'cursor-not-allowed' : '']"
       placeholder=" "
       :value="modelValue"
       :autocomplete="disableAutocomplete ? 'off' : undefined"
       :spellcheck="disableAutocomplete ? 'false' : undefined"
       :autocorrect="disableAutocomplete ? 'off' : undefined"
       :autocapitalize="disableAutocomplete ? 'off' : undefined"
+      :disabled="isSubmitting"
       @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     >
 
@@ -38,7 +40,7 @@
 <script lang="ts" setup>
 import type { InputProps } from './input.type';
 
-const { label, modelValue, icon, name, customClasses, type, disableAutocomplete } = defineProps<InputProps>();
+const { label, modelValue, icon, name, customClasses, type, disableAutocomplete, isSubmitting } = defineProps<InputProps>();
 
 defineEmits<{ (e: 'update:modelValue', value: string): void }>();
 </script>
@@ -50,5 +52,13 @@ input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
   -webkit-text-fill-color: inherit !important;
   transition: background-color 9999s ease-in-out 0s !important;
+}
+
+label:has(input:-webkit-autofill) {
+  @apply border-grey-900;
+}
+
+input:-webkit-autofill ~ span {
+  @apply top-0 scale-90;
 }
 </style>

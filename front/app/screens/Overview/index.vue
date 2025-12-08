@@ -4,7 +4,7 @@
       <TitleSection title="Visão Geral" />
       <Button
         label="Sair"
-        @click="logout = true"
+        @click="handleLogout"
       >
         <LogoutIcon class="" />
       </Button>
@@ -41,8 +41,14 @@ import FinancialTransactions from './FinancialTransactions/index.vue';
 import FinancialBudgets from './FinancialBudgets/index.vue';
 import FinancialRecurringBills from './FinancialRecurringBills/index.vue';
 import { useOverview } from './useOverview';
+import { useAuth } from '~/composables/useAuth';
 
-const logout = ref(false);
+const { clearToken } = useAuth();
+
+const handleLogout = () => {
+  clearToken();
+  navigateTo('/login');
+};
 
 const { loadOverview } = useOverview();
 loadOverview();

@@ -126,9 +126,12 @@ const validateAndSetErrors = (): boolean => {
 const isSubmitting = ref(false);
 
 const resetForm = () => {
-  Object.assign(formState, { ...defaultForm });
+  Object.assign(formState, defaultForm);
   amount.value = 0;
-  Object.keys(errors).forEach(k => (errors[k] = ''));
+
+  for (const key in errors) {
+    errors[key] = '';
+  }
 };
 
 const { notify } = useToast();
