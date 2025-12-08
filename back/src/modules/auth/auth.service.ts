@@ -25,7 +25,17 @@ class AuthService {
       include: { role: true },
     });
 
-    return { ...user, password: undefined };
+    const payload = { id: user.id, role: user.role.name, };
+    const token = signToken(payload);
+
+    return { 
+      token, 
+      user: { 
+        id: user.id, 
+        email: user.email, 
+        role: user.role.name
+      } 
+    };
   }
 
   async login(email: string, password: string) {

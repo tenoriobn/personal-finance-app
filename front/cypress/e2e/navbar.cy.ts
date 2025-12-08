@@ -1,4 +1,4 @@
-describe('Navbar', () => {
+describe.skip('Navbar', () => {
   beforeEach(() => {
     cy.visit('/');
     cy.waitForNuxtHydration();

@@ -29,7 +29,7 @@ import { useOverview } from '../useOverview';
 
 const { summaryTransactions } = useOverview();
 
-const summaryItems = [
+const summaryItems = computed(() => [
   {
     key: 'current-balance',
     label: 'Saldo Atual',
@@ -45,5 +45,5 @@ const summaryItems = [
     label: 'Saídas',
     value: summaryTransactions.value?.expenses,
   },
-];
+]);
 </script>

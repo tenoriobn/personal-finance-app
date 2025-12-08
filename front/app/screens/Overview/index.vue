@@ -4,7 +4,7 @@
       <TitleSection title="Visão Geral" />
       <Button
         label="Sair"
-        @click="logout = true"
+        @click="handleLogout"
       >
         <LogoutIcon class="" />
       </Button>
@@ -40,10 +40,13 @@ import FinancialPots from './FinancialPots/index.vue';
 import FinancialTransactions from './FinancialTransactions/index.vue';
 import FinancialBudgets from './FinancialBudgets/index.vue';
 import FinancialRecurringBills from './FinancialRecurringBills/index.vue';
-import { useOverview } from './useOverview';
 
-const logout = ref(false);
+import { useAuth } from '~/composables/useAuth';
 
-const { loadOverview } = useOverview();
-loadOverview();
+const { clearToken } = useAuth();
+
+const handleLogout = () => {
+  clearToken();
+  navigateTo('/login');
+};
 </script>

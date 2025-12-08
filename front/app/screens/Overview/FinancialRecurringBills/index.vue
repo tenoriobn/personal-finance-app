@@ -35,7 +35,7 @@ import { useOverview } from '../useOverview';
 
 const { recurringBills } = useOverview();
 
-const pots = [
+const pots = computed(() => [
   {
     id: '68e5679bde9ef6eb4d207be1',
     name: 'Contas pagas',
@@ -54,5 +54,5 @@ const pots = [
     name: 'Próximos vencimentos',
     colorHex: '#F2CDAC',
   },
-];
+]);
 </script>

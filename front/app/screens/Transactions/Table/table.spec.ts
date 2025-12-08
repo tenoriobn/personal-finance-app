@@ -34,6 +34,6 @@ describe.skip('<Table />', () => {
 
     const message = tableComponent.find('p');
     expect(message.exists()).toBe(true);
-    expect(message.text()).toBe('No transactions found.');
+    expect(message.text()).toBe('Não há transações.');
   });
 });

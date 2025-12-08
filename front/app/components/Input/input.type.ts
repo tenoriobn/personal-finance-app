@@ -8,4 +8,5 @@ export interface InputProps {
   customClasses?: string
   type?: string
   disableAutocomplete?: boolean
+  isSubmitting?: boolean
 }

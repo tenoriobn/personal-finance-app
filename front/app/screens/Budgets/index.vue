@@ -50,8 +50,7 @@ import DeleteBudgetModal from './DeleteBudgetModal/index.vue';
 import { useBudgets } from './useBudgets';
 import type { BudgetData } from './budgets.type';
 
-const { getBudgets, budgets, refreshBudgets } = useBudgets();
-getBudgets();
+const { budgets, refreshBudgets } = useBudgets();
 
 const showCreateBudgetModal = ref(false);
 
