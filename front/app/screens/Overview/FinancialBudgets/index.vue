@@ -13,9 +13,8 @@
     </div>
 
     <div class="grid md:grid-cols-[1fr_auto] md:items-center gap-6 w-full">
-      <div>
+      <div class="chart-wrapper">
         <Doughnut
-          class="max-sm:w-full"
           :data="chartData"
           :options="chartOptions"
           :plugins="[centerTextPlugin]"
@@ -39,5 +38,17 @@ const { chartData, chartOptions, centerTextPlugin } = useChart();
 <style scoped>
 .grid-column-1fr-auto {
   grid-template-columns: 1fr auto;
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: 285px;
+  min-height: 260px;
+}
+.chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 </style>
