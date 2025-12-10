@@ -8,7 +8,7 @@
     v-else
     class="grid max-md:grid-cols-2 items-center gap-x-2 gap-y-4 h-max"
   >
-    <div
+    <article
       v-for="budget in (budgets || []).slice(0, 4)"
       :key="budget.id"
       class="relative  pl-4 flex items-center max-sm:gap-2 sm:gap-4"
@@ -19,10 +19,10 @@
       />
 
       <div class="grid gap-1">
-        <p class="text-sm text-grey-500">{{ budget.category.name }}</p>
+        <h4 class="text-sm text-grey-500">{{ budget.category.name }}</h4>
         <p class="text-sm text-grey-900 font-bold">{{ formatCurrency(getSpent(budget.transactions), false) }}</p>
       </div>
-    </div>
+    </article>
   </div>
 </template>
 
