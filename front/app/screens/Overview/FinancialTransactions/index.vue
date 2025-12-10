@@ -1,27 +1,18 @@
 <template>
-  <div class="bg-white rounded-xl max-md:p-4 md:p-10 w-full">
+  <section class="bg-white rounded-xl max-md:p-4 md:p-10 w-full">
+    <header class="flex justify-between items-center gap-4 mb-6">
+      <h3 class="max-sm:text-base sm:text-xl font-bold text-grey-900">Transações</h3>
+
+      <NuxtLink
+        to="/transacoes"
+        class="group text-grey-500 flex items-center gap-2 text-sm font-normal hover:text-grey-900 active:text-grey-300 duration-150 ease-in-out"
+      >
+        Ver todos
+        <CaretDownIcon class="fill-grey-500 group-hover:fill-grey-900 group-active:fill-grey-300 -rotate-90 duration-150 ease-in-out" />
+      </NuxtLink>
+    </header>
+
     <table class="w-full">
-      <thead class="text-grey-500">
-        <tr class="flex justify-between items-center gap-4 pb-2">
-          <th
-            scope="col"
-            class="truncate text-sm font-normal"
-          >
-            <h3 class="max-sm:text-base sm:text-xl font-bold text-grey-900">Transações</h3>
-          </th>
-
-          <th scope="col">
-            <NuxtLink
-              to="/transacoes"
-              class="group flex items-center gap-2 text-sm font-normal hover:text-grey-900 active:text-grey-300 duration-150 ease-in-out"
-            >
-              Ver todos
-              <CaretDownIcon class="fill-grey-500 group-hover:fill-grey-900 group-active:fill-grey-300 -rotate-90 duration-150 ease-in-out" />
-            </NuxtLink>
-          </th>
-        </tr>
-      </thead>
-
       <tbody class="divide-y text-grey-500 text-sm text-wrap">
         <tr v-if="transactions.length === 0">
           <td
@@ -36,7 +27,7 @@
           v-for="transaction in transactions || []"
           v-else
           :key="transaction.id"
-          class="grid grid-cols-[1fr_auto] grid-rows-2 items-center max-sm:gap-2 sm:gap-x-4 py-4 last:pb-0"
+          class="grid grid-cols-[1fr_auto] grid-rows-2 items-center max-sm:gap-2 sm:gap-x-4 py-4 first:pt-0 last:pb-0"
         >
           <td class="row-span-2 flex items-center max-sm:gap-2 sm:gap-4 text-grey-900 font-bold">
             <span
@@ -63,7 +54,7 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-rows-[auto_1fr] max-md:gap-8 md:gap-10">
+  <section class="grid grid-rows-[auto_1fr] max-md:gap-8 md:gap-10">
     <header class="flex justify-between items-center gap-2 flex-wrap">
       <TitleSection title="Visão Geral" />
       <Button
@@ -12,7 +12,7 @@
 
     <FinancialSummaryCard />
 
-    <div class="columns-1 2xl:columns-2 gap-4 space-y-4">
+    <div class="columns-1 xl:columns-2 gap-4 space-y-4">
       <div class="break-inside-avoid">
         <FinancialPots />
       </div>
@@ -29,7 +29,7 @@
         <FinancialRecurringBills />
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">

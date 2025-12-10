@@ -1,6 +1,6 @@
 <template>
-  <div class="grid gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
-    <div class="flex justify-between items-center gap-4">
+  <section class="grid gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
+    <header class="flex justify-between items-center gap-4">
       <h3 class="max-sm:text-base sm:text-xl font-bold text-grey-900">Contas Recorrentes</h3>
 
       <NuxtLink
@@ -10,22 +10,22 @@
         Ver todos
         <CaretDownIcon class="fill-grey-500 group-hover:fill-grey-900 group-active:fill-grey-300 -rotate-90 duration-150 ease-in-out" />
       </NuxtLink>
-    </div>
+    </header>
 
     <div class="grid items-center gap-4">
-      <div
+      <article
         v-for="pot in (pots || [])"
         :key="pot.id"
         class="rounded-l-lg rounded-r-xl"
         :style="{ backgroundColor: pot.colorHex || '#ccc' }"
       >
         <div class="bg-beige-100 flex justify-between items-center gap-1 ml-1 px-4 py-6 h-full w-full rounded-lg">
-          <p class="text-sm text-grey-500">{{ pot.name }}</p>
+          <h4 class="text-sm text-grey-500">{{ pot.name }}</h4>
           <p class="text-sm text-grey-900 font-bold">{{ formatCurrency(pot.maximumSpend, false) }}</p>
         </div>
-      </div>
+      </article>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
