@@ -1,4 +1,4 @@
-export function useTransactionState() {
+export function useTransactionsFilters() {
   const search = ref('');
   const selectedCategory = useState<string>('transactionCategory', () => '');
   const selectedSort = ref('Mais recente');
