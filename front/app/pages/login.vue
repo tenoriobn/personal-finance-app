@@ -6,4 +6,14 @@
 import Login from '~/screens/Auth/Login/index.vue';
 
 definePageMeta({ layout: 'auth' });
+
+useHead({
+  title: 'Login - Personal Finance App',
+  meta: [
+    {
+      name: 'description',
+      content: 'Acesse sua conta no Personal Finance App de forma segura para gerenciar suas finanças, acompanhar transações, orçamentos e poupanças.',
+    },
+  ],
+});
 </script>
