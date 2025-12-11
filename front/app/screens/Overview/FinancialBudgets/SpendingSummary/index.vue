@@ -1,15 +1,10 @@
 <template>
-  <div
-    v-if="pending"
-    class="w-44 h-7 justify-self-start mt-6 bg-grey-200 rounded animate-pulse"
-  />
+  <div class="grid max-md:grid-cols-2 items-center gap-x-2 gap-y-4 h-max">
+    <SpendingSummarySkeleton v-if="pending" />
 
-  <div
-    v-else
-    class="grid max-md:grid-cols-2 items-center gap-x-2 gap-y-4 h-max"
-  >
     <article
       v-for="budget in (budgets || []).slice(0, 4)"
+      v-else
       :key="budget.id"
       class="relative  pl-4 flex items-center max-sm:gap-2 sm:gap-4"
     >
@@ -29,6 +24,7 @@
 <script setup lang="ts">
 import { formatCurrency } from '~/utils';
 import { useOverview } from '../../useOverview';
+import SpendingSummarySkeleton from './SpendingSummarySkeleton.vue';
 
 const { summaryBudgets, pending } = useOverview();
 

@@ -1,5 +1,5 @@
 <template>
-  <section class="grid gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
+  <section class="break-inside-avoid grid gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
     <header class="flex justify-between items-center gap-4">
       <h3 class="max-sm:text-base sm:text-xl font-bold text-grey-900">Poupanças</h3>
 
@@ -19,17 +19,26 @@
         <div class="grid gap-1">
           <h4 class="text-base text-grey-500 font-semibold">Total economizado</h4>
 
-          <span class="text-2xl xl:text-3xl text-grey-900 font-bold">
+          <p
+            v-if="pending"
+            class="w-36 h-8 xl:w-40 xl:h-9 rounded animate-pulse bg-grey-200"
+          />
+
+          <p
+            v-else
+            class="text-2xl xl:text-3xl text-grey-900 font-bold"
+          >
             {{ formatCurrency(summaryPots?.totalPotsAmount || 0, false) }}
-          </span>
+          </p>
         </div>
       </article>
 
-      <div
-        class="grid grid-cols-2 items-center gap-x-2 gap-y-4"
-      >
+      <div class="grid grid-cols-2 items-center gap-x-2 gap-y-4">
+        <FinancialPotsSkeleton v-if="pending" />
+
         <article
           v-for="pot in (summaryPots?.pots || [])"
+          v-else
           :key="pot.id"
           class="relative row-span-2 pl-4 flex items-center max-sm:gap-2 sm:gap-4"
         >
@@ -53,6 +62,7 @@ import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import PotIcon from '~/assets/icons/icon-pot.svg';
 import { NuxtLink } from '#components';
 import { useOverview } from '../useOverview';
+import FinancialPotsSkeleton from './FinancialPotsSkeleton.vue';
 
-const { summaryPots } = useOverview();
+const { summaryPots, pending } = useOverview();
 </script>

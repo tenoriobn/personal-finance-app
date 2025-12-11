@@ -14,6 +14,12 @@
       </h3>
 
       <p
+        v-if="pending"
+        class="w-28 h-8 xl:w-36 xl:h-9 rounded animate-pulse bg-grey-200"
+      />
+
+      <p
+        v-else
         class="text-2xl xl:text-3xl font-bold"
         :class="index === 0 ? 'text-white' : 'text-grey-900'"
       >
@@ -27,7 +33,7 @@
 import { formatCurrency } from '~/utils';
 import { useOverview } from '../useOverview';
 
-const { summaryTransactions } = useOverview();
+const { summaryTransactions, pending } = useOverview();
 
 const summaryItems = computed(() => [
   {

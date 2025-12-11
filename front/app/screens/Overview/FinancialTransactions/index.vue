@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-white rounded-xl max-md:p-4 md:p-10 w-full">
+  <section class="break-inside-avoid bg-white rounded-xl max-md:p-4 md:p-10 w-full">
     <header class="flex justify-between items-center gap-4 mb-6">
       <h3 class="max-sm:text-base sm:text-xl font-bold text-grey-900">Transações</h3>
 
@@ -14,7 +14,9 @@
 
     <table class="w-full">
       <tbody class="divide-y text-grey-500 text-sm text-wrap">
-        <tr v-if="transactions.length === 0">
+        <FinancialTransactionsSkeleton v-if="pending" />
+
+        <tr v-else-if="transactions.length === 0 && !pending">
           <td
             colspan="3"
             class="text-center text-grey-500 text-sm py-10"
@@ -60,7 +62,8 @@
 <script setup lang="ts">
 import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import { useOverview } from '../useOverview';
+import FinancialTransactionsSkeleton from './FinancialTransactionsSkeleton.vue';
 
-const { summaryTransactions } = useOverview();
+const { summaryTransactions, pending } = useOverview();
 const transactions = computed(() => summaryTransactions.value?.transactions ?? []);
 </script>

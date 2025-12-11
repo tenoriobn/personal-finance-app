@@ -1,11 +1,11 @@
 import type { TransactionsResponse } from '~/types/transactions.type';
-import { useApiGet } from '../api/useApiMethods';
-import { useTransactionState } from './useTransactionState';
+import { useApiGet } from '~/composables/api/useApiMethods';
+import { useTransactionsFilters } from '~/composables/index';
 
 export function useTransactions(endpoint: string) {
-  const { search, selectedCategory, selectedSort, currentPage, limit } = useTransactionState();
+  const { search, selectedCategory, selectedSort, currentPage, limit } = useTransactionsFilters();
 
-  const { data, pending, refresh } = useApiGet<TransactionsResponse>(endpoint, {
+  const { data, refresh } = useApiGet<TransactionsResponse>(endpoint, {
     query: {
       search,
       categoryId: selectedCategory,
@@ -15,6 +15,8 @@ export function useTransactions(endpoint: string) {
     },
     watch: [search, selectedCategory, selectedSort, currentPage],
   });
+
+  const pending = false;
 
   const transactions = computed(() => data.value?.data ?? []);
   const totalPages = computed(() => data.value?.totalPages ?? 1);
