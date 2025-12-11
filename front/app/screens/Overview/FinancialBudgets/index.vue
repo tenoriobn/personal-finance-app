@@ -1,5 +1,5 @@
 <template>
-  <section class="grid gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
+  <section class="break-inside-avoid grid gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
     <header class="flex justify-between items-center gap-4">
       <h3 class="max-sm:text-base sm:text-xl font-bold text-grey-900">Orçamentos</h3>
 
@@ -13,7 +13,12 @@
     </header>
 
     <div class="grid md:grid-cols-[1fr_auto] md:items-center gap-6 w-full">
-      <div class="chart-wrapper">
+      <FinancialBudgetsChartSkeleton v-if="pending" />
+
+      <div
+        v-else
+        class="chart-wrapper"
+      >
         <Doughnut
           :data="chartData"
           :options="chartOptions"
@@ -31,8 +36,9 @@ import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import { Doughnut } from 'vue-chartjs';
 import SpendingSummary from './SpendingSummary/index.vue';
 import { useChart } from './useChart';
+import FinancialBudgetsChartSkeleton from './FinancialBudgetsChartSkeleton.vue';
 
-const { chartData, chartOptions, centerTextPlugin } = useChart();
+const { chartData, chartOptions, centerTextPlugin, pending } = useChart();
 </script>
 
 <style scoped>

@@ -12,22 +12,11 @@
 
     <FinancialSummaryCard />
 
-    <div class="columns-1 xl:columns-2 gap-4 space-y-4">
-      <div class="break-inside-avoid">
-        <FinancialPots />
-      </div>
-
-      <div class="break-inside-avoid">
-        <FinancialTransactions />
-      </div>
-
-      <div class="break-inside-avoid">
-        <FinancialBudgets />
-      </div>
-
-      <div class="break-inside-avoid">
-        <FinancialRecurringBills />
-      </div>
+    <div class="max-xl:columns-1 xl:columns-2 max-md:gap-4 md:gap-6 max-md:space-y-4 md:space-y-6">
+      <FinancialPots />
+      <FinancialTransactions />
+      <FinancialBudgets />
+      <FinancialRecurringBills />
     </div>
   </section>
 </template>
