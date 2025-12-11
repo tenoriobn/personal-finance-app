@@ -1,5 +1,5 @@
 <template>
-  <section class="grid gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
+  <section class="break-inside-avoid grid gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
     <header class="flex justify-between items-center gap-4">
       <h3 class="max-sm:text-base sm:text-xl font-bold text-grey-900">Contas Recorrentes</h3>
 
@@ -21,7 +21,17 @@
       >
         <div class="bg-beige-100 flex justify-between items-center gap-1 ml-1 px-4 py-6 h-full w-full rounded-lg">
           <h4 class="text-sm text-grey-500">{{ pot.name }}</h4>
-          <p class="text-sm text-grey-900 font-bold">{{ formatCurrency(pot.maximumSpend, false) }}</p>
+
+          <p
+            v-if="pending"
+            class="w-16 h-5 xl:w-36 xl:h-9 rounded animate-pulse bg-grey-200"
+          />
+          <p
+            v-else
+            class="text-sm text-grey-900 font-bold"
+          >
+            {{ formatCurrency(pot.maximumSpend, false) }}
+          </p>
         </div>
       </article>
     </div>
@@ -33,7 +43,7 @@ import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import { NuxtLink } from '#components';
 import { useOverview } from '../useOverview';
 
-const { recurringBills } = useOverview();
+const { recurringBills, pending } = useOverview();
 
 const pots = computed(() => [
   {

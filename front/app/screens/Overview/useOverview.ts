@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import type { OverviewResponse } from './overview.type';
 
 export function useOverview() {
-  const { data, pending, error, refresh } = useApiGet<OverviewResponse>('overview');
+  const { data, error, pending, refresh } = useApiGet<OverviewResponse>('overview');
 
   const summaryTransactions = computed(() => data.value?.transactions || null);
   const summaryPots = computed(() => data.value?.pots || null);
