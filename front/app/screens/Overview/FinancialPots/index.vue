@@ -63,6 +63,7 @@ import PotIcon from '~/assets/icons/icon-pot.svg';
 import { NuxtLink } from '#components';
 import { useOverview } from '../useOverview';
 import FinancialPotsSkeleton from './FinancialPotsSkeleton.vue';
+import { formatCurrency } from '~/utils';
 
 const { summaryPots, pending } = useOverview();
 </script>

@@ -15,7 +15,7 @@
 
       <div class="grid gap-1">
         <h4 class="text-sm text-grey-500">{{ budget.category.name }}</h4>
-        <p class="text-sm text-grey-900 font-bold">{{ formatCurrency(getSpent(budget.transactions), false) }}</p>
+        <p class="text-sm text-grey-900 font-bold">{{ formatCurrency(calculateSpent(budget.transactions), false) }}</p>
       </div>
     </article>
   </div>
@@ -25,6 +25,7 @@
 import { formatCurrency } from '~/utils';
 import { useOverview } from '../../useOverview';
 import SpendingSummarySkeleton from './SpendingSummarySkeleton.vue';
+import { calculateSpent } from '~/utils/calculations';
 
 const { summaryBudgets, pending } = useOverview();
 

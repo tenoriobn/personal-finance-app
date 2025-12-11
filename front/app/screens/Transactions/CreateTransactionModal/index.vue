@@ -87,13 +87,13 @@
 </template>
 
 <script setup lang="ts">
-import { Button, InputDatePicker, Modal } from '#components';
+import { Button, InputDatePicker, Modal, Dropdown, FormError, Input } from '#components';
 import { useApiGet, useApiPost, useCurrencyMask, useToast } from '~/composables';
 import { createTransactionSchema } from './transaction.schema';
 import type { CategoryData, TransactionForm } from './createTransactionModal.type';
-import FormError from '~/components/FormError/index.vue';
 import type { BudgetData } from '~/screens/Budgets/budgets.type';
-import { getSpent, getFree } from '~/utils/finance';
+import { calculateSpent, calculateRemaining } from '~/utils/calculations';
+import { formatCurrency } from '~/utils';
 
 const { modelValue } = defineProps<{ modelValue: boolean }>();
 const emit = defineEmits<{
@@ -182,8 +182,8 @@ const validateAndSetErrors = (): boolean => {
 
   const { transactions = [], maximumSpend = 0 } = selectedBudget.value;
 
-  const spent = getSpent(transactions);
-  const free = getFree(transactions, maximumSpend);
+  const spent = calculateSpent(transactions);
+  const free = calculateRemaining(transactions, maximumSpend);
   const value = payload.amount;
 
   if (value < 0) {

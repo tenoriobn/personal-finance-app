@@ -1,4 +1,4 @@
-import type { TransactionsData } from '~/types/transactions.type';
+import type { TransactionsData } from '../transactions.type';
 
 export interface TableTransactionsProps {
   transactions: TransactionsData[]

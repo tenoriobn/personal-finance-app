@@ -40,13 +40,13 @@
 
     <Progressbar
       :color-hex="theme.colorHex"
-      :percent="getPercent(transactions, maximumSpend) || 0"
+      :percent="calculatePercentUsed(transactions, maximumSpend) || 0"
     />
 
     <BalanceOverview
       :color-hex="theme.colorHex"
-      :spent="getSpent(transactions)"
-      :free="getFree(transactions, maximumSpend)"
+      :spent="calculateSpent(transactions)"
+      :free="calculateRemaining(transactions, maximumSpend)"
     />
 
     <LatestSpendingTable
@@ -62,7 +62,7 @@ import { Progressbar, CardActionsMenu } from '#components';
 import BalanceOverview from './BalanceOverview/index.vue';
 import { ref } from 'vue';
 import { formatCurrency } from '~/utils';
-import { getSpent, getFree, getPercent } from '~/utils/finance';
+import { calculateSpent, calculateRemaining, calculatePercentUsed } from '~/utils/calculations';
 import { useBudgets } from '../useBudgets';
 import BudgetCardSkeleton from './BudgetCardSkeleton.vue';
 

@@ -63,6 +63,7 @@
 import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import { useOverview } from '../useOverview';
 import FinancialTransactionsSkeleton from './FinancialTransactionsSkeleton.vue';
+import { formatCurrency, formatDate } from '~/utils';
 
 const { summaryTransactions, pending } = useOverview();
 const transactions = computed(() => summaryTransactions.value?.transactions ?? []);

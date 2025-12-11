@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Button, Input, NuxtLink } from '#components';
+import { Button, Input, NuxtLink, FormError } from '#components';
 import { handleRegisterApiErrors } from './handleRegisterApiErrors';
 import { baseRegisterSchema } from './register.schema';
 import type { RegisterForm, RegisterResponse } from './register.type';

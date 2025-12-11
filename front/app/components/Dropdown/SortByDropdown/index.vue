@@ -5,7 +5,7 @@
     :options="sortOptions"
     :icon-mobile="SortIconMobile"
     data-testid="dropdown-sort-by"
-    custom-classes="md:w-[142px]"
+    custom-classes="md:min-w-[142px]"
     :compact-on-mobile="true"
   />
 </template>

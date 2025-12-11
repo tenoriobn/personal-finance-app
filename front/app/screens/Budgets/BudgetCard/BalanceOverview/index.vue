@@ -20,5 +20,7 @@
 </template>
 
 <script setup lang="ts">
+import { formatCurrency } from '~/utils';
+
 defineProps<{ colorHex?: string, spent: number, free: number }>();
 </script>

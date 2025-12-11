@@ -56,9 +56,11 @@
 </template>
 
 <script setup lang="ts">
-import { Button, Modal, Progressbar } from '#components';
+import { Button, Modal, Progressbar, FormError, Input } from '#components';
 import { useApiPut, useCurrencyMask, useToast } from '~/composables';
 import type { PotData } from '../pots.type';
+import { calculatePercentUsed } from '~/utils/calculations';
+import { formatCurrency } from '~/utils';
 
 const { modelValue, pot } = defineProps<{ modelValue: boolean, pot: PotData | null }>();
 const emit = defineEmits(['update:modelValue', 'refresh-pots']);
@@ -94,7 +96,7 @@ const currentPercent = computed(() => {
   if (!pot) {
     return 0;
   }
-  return getPercent(currentTotal.value, pot.targetAmount);
+  return calculatePercentUsed(currentTotal.value, pot.targetAmount);
 });
 
 const validate = () => {
