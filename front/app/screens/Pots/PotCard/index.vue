@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid  gap-4"
+    class="grid gap-4"
     :class="pots.length > 0 && 'md:max-xl:grid-cols-2 xl:grid-cols-[repeat(auto-fit,minmax(380px,1fr))]'"
   >
     <PotCardSkeleton v-if="pending" />
