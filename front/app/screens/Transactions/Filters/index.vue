@@ -5,7 +5,7 @@
       :label="'Pesquisar transações'"
       :icon="SearchIcon"
       name="search"
-      custom-classes="w-full md:max-w-[432px]"
+      custom-classes="w-full max-w-[432px]"
     />
 
     <div class="flex max-md:justify-center max-md:items-center md:justify-end max-md:gap-3 md:gap-6 md:w-full">
@@ -17,7 +17,7 @@
         :options="[{ id: '', name: 'Todos' }, ...(categories || [])]"
         :icon-mobile="FilterIconMobile"
         data-testid="dropdown-category"
-        custom-classes="md:w-[160px] 2xl:w-[224px]"
+        custom-classes="md:w-[174px] 2xl:w-[200px]"
         :compact-on-mobile="true"
       />
     </div>
