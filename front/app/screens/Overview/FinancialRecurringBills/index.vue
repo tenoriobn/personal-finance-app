@@ -42,6 +42,7 @@
 import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import { NuxtLink } from '#components';
 import { useOverview } from '../useOverview';
+import { formatCurrency } from '~/utils';
 
 const { recurringBills, pending } = useOverview();
 

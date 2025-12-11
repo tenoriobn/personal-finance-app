@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { Button, Modal } from '#components';
+import { Button, Modal, Dropdown, FormError, Input } from '#components';
 import { useApiPut, useCurrencyMask, useToast } from '~/composables';
 import { useThemes } from '../useThemes';
 import type { PotData, PotForm } from '../pots.type';

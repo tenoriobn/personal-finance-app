@@ -20,9 +20,12 @@
 <script setup lang="ts">
 import { Doughnut } from 'vue-chartjs';
 import SpendingSummary from './SpendingSummary/index.vue';
-import { useChart } from './useChart';
+import { useChart } from '~/composables';
 import SpendingChartSkeleton from './SpendingChartSkeleton.vue';
+import { useBudgets } from '../useBudgets';
 
-const { chartData, chartOptions, centerTextPlugin, pending } = useChart();
+const { budgets, pending } = useBudgets();
+
+const { chartData, chartOptions, centerTextPlugin } = useChart(budgets);
 const chartReady = ref(false);
 </script>

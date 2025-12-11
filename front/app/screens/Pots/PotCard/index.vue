@@ -47,12 +47,12 @@
         container-padding="p-0"
         bar-height="h-2"
         :color-hex="theme.colorHex"
-        :percent="getPercent(totalAmount, targetAmount)"
+        :percent="calculatePercentUsed(totalAmount, targetAmount)"
       />
 
       <div class="flex justify-between items-center mt-2">
         <p class="text-xs text-grey-500 font-medium">
-          {{ getPercent(totalAmount, targetAmount).toFixed(2) }}%
+          {{ calculatePercentUsed(totalAmount, targetAmount).toFixed(2) }}%
         </p>
         <p class="text-xs text-grey-500 font-medium">
           Meta de {{ formatCurrency(targetAmount, false) }}
@@ -86,6 +86,7 @@ import { ref } from 'vue';
 import { usePots } from '../usePots';
 import { formatCurrency } from '~/utils';
 import PotCardSkeleton from './PotCardSkeleton.vue';
+import { calculatePercentUsed } from '~/utils/calculations';
 
 const emit = defineEmits<{ (e: 'edit-pot' | 'delete-pot' | 'add-money' | 'withdraw-money', id: string): void }>();
 const openMenuId = ref<string | null>(null);

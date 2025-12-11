@@ -35,10 +35,14 @@
 import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import { Doughnut } from 'vue-chartjs';
 import SpendingSummary from './SpendingSummary/index.vue';
-import { useChart } from './useChart';
 import FinancialBudgetsChartSkeleton from './FinancialBudgetsChartSkeleton.vue';
+import { useChart } from '~/composables';
+import { useOverview } from '../useOverview';
 
-const { chartData, chartOptions, centerTextPlugin, pending } = useChart();
+const { summaryBudgets, pending } = useOverview();
+
+const budgetsData = computed(() => summaryBudgets.value?.budgets ?? []);
+const { chartData, chartOptions, centerTextPlugin } = useChart(budgetsData);
 </script>
 
 <style scoped>

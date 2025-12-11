@@ -1,4 +1,4 @@
-import type { TransactionsResponse } from '~/types/transactions.type';
+import type { TransactionsResponse } from '~/screens/Transactions/transactions.type';
 import { useApiGet } from '~/composables/api/useApiMethods';
 import { useTransactionsFilters } from '~/composables/index';
 

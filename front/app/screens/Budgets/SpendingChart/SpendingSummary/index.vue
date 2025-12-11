@@ -38,7 +38,7 @@
         </td>
 
         <td class="col-start-3 row-span-2 sm:flex sm:items-end sm:gap-1">
-          <p class="text-base text-grey-900 font-bold">{{ formatCurrency(getSpent(budget.transactions), false) }}</p>
+          <p class="text-base text-grey-900 font-bold">{{ formatCurrency(calculateSpent(budget.transactions), false) }}</p>
           <p class="text-sm text-grey-500 text-nowrap text-end">de {{ formatCurrency(budget.maximumSpend, false) }}</p>
         </td>
       </tr>
@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { getSpent } from '~/utils/finance';
+import { calculateSpent } from '~/utils/calculations';
 import { formatCurrency } from '~/utils';
 import { useBudgets } from '../../useBudgets';
 import SpendingSummarySkeleton from './SpendingSummarySkeleton.vue';

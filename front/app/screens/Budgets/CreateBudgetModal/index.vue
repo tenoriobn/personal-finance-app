@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { Button, Modal } from '#components';
+import { Button, Modal, Dropdown, FormError, Input } from '#components';
 import { useApiPost, useCurrencyMask, useToast } from '~/composables';
 import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
 import type { BudgetForm } from '../budgets.type';

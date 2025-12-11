@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Button, Input, NuxtLink } from '#components';
+import { Button, Input, NuxtLink, FormError } from '#components';
 import { handleLoginApiErrors } from './handleLoginApiErrors';
 import { baseLoginSchema } from './login.schema';
 import type { LoginForm, LoginResponse } from './login.type';
