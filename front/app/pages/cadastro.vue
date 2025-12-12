@@ -6,4 +6,14 @@
 import Register from '~/screens/Auth/Register/index.vue';
 
 definePageMeta({ layout: 'auth' });
+
+useHead({
+  title: 'Cadastro - Personal Finance App',
+  meta: [
+    {
+      name: 'description',
+      content: 'Crie sua conta no Personal Finance App para começar a gerenciar suas finanças, criar orçamentos, acompanhar transações e poupanças de forma prática e segura.',
+    },
+  ],
+});
 </script>
