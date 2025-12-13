@@ -45,7 +45,7 @@
 
 <script lang="ts" setup>
 import { Button, Input, NuxtLink, FormError } from '#components';
-import { handleLoginApiErrors } from './handleLoginApiErrors';
+import { handleApiErrors } from '~/utils';
 import { baseLoginSchema } from './login.schema';
 import type { LoginForm, LoginResponse } from './login.type';
 
@@ -116,7 +116,9 @@ const handleSubmit = async () => {
     resetForm();
   }
   catch (err: unknown) {
-    handleLoginApiErrors(err, errors, notify);
+    handleApiErrors(err, errors, notify, {
+      password: ['Email ou senha incorretos'],
+    });
   }
   finally {
     isSubmitting.value = false;

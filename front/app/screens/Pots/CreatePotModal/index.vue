@@ -62,7 +62,7 @@ import { useApiPost, useCurrencyMask, useToast } from '~/composables';
 import { useThemes } from '../useThemes';
 import type { PotForm } from '../pots.type';
 import { basePotSchema } from '../pot.schema';
-import { handlePotApiErrors } from '../handlePotApiErrors';
+import { handleApiErrors } from '~/utils';
 
 const { modelValue } = defineProps<{ modelValue: boolean }>();
 const emit = defineEmits<{
@@ -155,7 +155,10 @@ const handleSubmit = async () => {
     resetForm();
   }
   catch (err: unknown) {
-    handlePotApiErrors(err, errors, notify);
+    handleApiErrors(err, errors, notify, {
+      name: ['nome', 'Nome'],
+      themeId: ['tema', 'Tema'],
+    });
   }
   finally {
     isSubmitting.value = false;

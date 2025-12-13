@@ -61,7 +61,7 @@ import { useApiPut, useCurrencyMask, useToast } from '~/composables';
 import { useThemes } from '../useThemes';
 import type { PotData, PotForm } from '../pots.type';
 import { basePotSchema } from '../pot.schema';
-import { handlePotApiErrors } from '../handlePotApiErrors';
+import { handleApiErrors } from '~/utils';
 
 const { modelValue, pot } = defineProps<{ modelValue: boolean, pot: PotData | null }>();
 const emit = defineEmits(['update:modelValue', 'refreshPots']);
@@ -200,7 +200,10 @@ const handleSubmit = async () => {
     showModal.value = false;
   }
   catch (err: unknown) {
-    handlePotApiErrors(err, errors, notify);
+    handleApiErrors(err, errors, notify, {
+      name: ['nome', 'Nome'],
+      themeId: ['tema', 'Tema'],
+    });
   }
   finally {
     isSubmitting.value = false;

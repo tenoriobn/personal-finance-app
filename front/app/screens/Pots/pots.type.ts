@@ -21,10 +21,3 @@ export interface PotForm {
   themeId: string
   userId: string
 }
-
-export interface PotApiErrors extends Error {
-  status: number
-  data: {
-    message: string
-  }
-}
