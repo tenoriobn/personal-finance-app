@@ -45,6 +45,7 @@
         :label="'Confirmar Senha'"
         name="confirmPassword"
         type="password"
+        :is-submitting="isSubmitting"
       />
 
       <FormError :message="errors.confirmPassword" />
@@ -67,7 +68,7 @@
 
 <script lang="ts" setup>
 import { Button, Input, NuxtLink, FormError } from '#components';
-import { handleRegisterApiErrors } from './handleRegisterApiErrors';
+import { handleApiErrors } from '~/utils';
 import { baseRegisterSchema } from './register.schema';
 import type { RegisterForm, RegisterResponse } from './register.type';
 
@@ -149,9 +150,9 @@ const handleSubmit = async () => {
     resetForm();
   }
   catch (err: unknown) {
-    // eslint-disable-next-line no-console
-    console.error(err, errors, notify);
-    handleRegisterApiErrors(err, errors, notify);
+    handleApiErrors(err, errors, notify, {
+      email: ['e-mail', 'E-mail'],
+    });
   }
   finally {
     isSubmitting.value = false;

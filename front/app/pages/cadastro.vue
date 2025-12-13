@@ -8,7 +8,7 @@ import Register from '~/screens/Auth/Register/index.vue';
 definePageMeta({ layout: 'auth' });
 
 useHead({
-  title: 'Cadastro - Personal Finance App',
+  title: 'Cadastro',
   meta: [
     {
       name: 'description',

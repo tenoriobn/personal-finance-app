@@ -6,7 +6,7 @@
 import Overview from '~/screens/Overview/index.vue';
 
 useHead({
-  title: 'Visão Geral - Personal Finance App',
+  title: 'Visão Geral',
   meta: [
     {
       name: 'description',

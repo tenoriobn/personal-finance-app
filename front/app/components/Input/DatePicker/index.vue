@@ -8,9 +8,10 @@
       :label="label"
       :name="name"
       :custom-classes="customClasses"
+      :is-submitting="isSubmitting"
       readonly
       :disable-autocomplete="true"
-      @click="openCalendar"
+      @click="!isSubmitting && openCalendar"
       @focusin="openCalendar"
       @keydown.prevent
     />
@@ -36,7 +37,7 @@ import { ref, computed, watch } from 'vue';
 import type { DatePickerProps } from './datePicker.type';
 import { useClickOutside } from '~/composables';
 
-const { modelValue, label, name, customClasses } = defineProps<DatePickerProps>();
+const { modelValue, label, name, customClasses, isSubmitting } = defineProps<DatePickerProps>();
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();
 
 const showCalendar = ref(false);

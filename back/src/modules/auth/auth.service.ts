@@ -6,7 +6,7 @@ import { AppError, signToken } from "src/utils";
 
 class AuthService {
   async create(data: CreateUserDTO) {
-    await ensureUniqueOrFail(prisma.user, { email: data.email }, "E-mail já está em uso!");
+    await ensureUniqueOrFail(prisma.user, { email: data.email }, "Este e-mail já está em uso!");
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
@@ -46,11 +46,11 @@ class AuthService {
     );
 
     if (!user){ 
-      throw new AppError("Credenciais inválidas", 401);
+      throw new AppError("Email ou senha incorretos", 401);
     };
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) { throw new AppError("Credenciais inválidas", 401); }
+    if (!isPasswordValid) { throw new AppError("Email ou senha incorretos", 401); }
 
     const role = await findEntityOrFail(
       prisma.role, 

@@ -94,7 +94,7 @@ class PotService {
       await ensureUniqueOrFail(
         prisma.pot, 
         { normalizedName: normalized, userId: currentUser.id },
-        "Nome já está em uso.", 
+        "Este nome já está em uso.", 
         id
       );
     }

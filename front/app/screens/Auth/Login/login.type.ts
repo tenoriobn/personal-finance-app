@@ -11,9 +11,3 @@ export type LoginResponse = {
     role: string
   }
 };
-export interface LoginApiErrors extends Error {
-  status: number
-  data: {
-    message: string
-  }
-}

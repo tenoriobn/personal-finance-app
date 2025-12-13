@@ -6,7 +6,7 @@
 import RecurringBills from '~/screens/RecurringBills/index.vue';
 
 useHead({
-  title: 'Contas Recorrentes - Personal Finance App',
+  title: 'Contas Recorrentes',
   meta: [
     {
       name: 'description',

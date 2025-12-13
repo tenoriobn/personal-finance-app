@@ -3,4 +3,5 @@ export interface DatePickerProps {
   label: string
   name: string
   customClasses?: string
+  isSubmitting?: boolean
 }
