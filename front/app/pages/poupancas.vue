@@ -6,7 +6,7 @@
 import Pots from '~/screens/Pots/index.vue';
 
 useHead({
-  title: 'Poupanças - Personal Finance App',
+  title: 'Poupanças',
   meta: [
     {
       name: 'description',
