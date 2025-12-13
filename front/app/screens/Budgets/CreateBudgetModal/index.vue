@@ -14,6 +14,7 @@
           label="Gasto máximo"
           name="maximumSpend"
           :custom-classes="`w-full ${errors.maximumSpend ? 'border-red' : ''}`"
+          :is-submitting="isSubmitting"
           @update:model-value="onInput"
           @keydown="onKeyDown"
           @paste="onPaste"
@@ -29,6 +30,7 @@
           :start-empty="true"
           custom-classes="w-full max-md:h-[46px] md:h-[54px]"
           :form-error="errors.categoryId"
+          :is-submitting="isSubmitting"
         />
         <FormError :message="errors.categoryId" />
       </div>
@@ -42,6 +44,7 @@
           data-testid="dropdown-sort-by"
           custom-classes="w-full max-md:h-[46px] md:h-[54px]"
           :form-error="errors.themeId"
+          :is-submitting="isSubmitting"
         />
         <FormError :message="errors.themeId" />
       </div>

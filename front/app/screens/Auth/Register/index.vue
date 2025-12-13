@@ -45,6 +45,7 @@
         :label="'Confirmar Senha'"
         name="confirmPassword"
         type="password"
+        :is-submitting="isSubmitting"
       />
 
       <FormError :message="errors.confirmPassword" />

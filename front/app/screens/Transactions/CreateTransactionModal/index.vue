@@ -14,6 +14,7 @@
           label="Nome da Transação"
           name="transactionName"
           :custom-classes="`w-full ${errors.name ? 'border-red' : ''}`"
+          :is-submitting="isSubmitting"
         />
         <FormError :message="errors.name" />
       </div>
@@ -24,6 +25,7 @@
           label="Data da Transação"
           name="transactionDate"
           :custom-classes="`w-full ${errors.date ? 'border-red' : ''}`"
+          :is-submitting="isSubmitting"
           is-dark
           is-range
         />
@@ -36,6 +38,7 @@
           label="Categoria"
           :options="categories?.map(category => ({ name: category.name, id: category.budgetId })) || []"
           :start-empty="true"
+          :is-submitting="isSubmitting"
           custom-classes="w-full max-md:h-[46px] md:h-[54px]"
           :form-error="errors.budgetId"
         />
@@ -48,6 +51,7 @@
           label="Valor"
           name="amount"
           :custom-classes="`w-full ${errors.amount ? 'border-red' : ''}`"
+          :is-submitting="isSubmitting"
           @update:model-value="onInput"
           @keydown="onKeyDown"
           @paste="onPaste"
@@ -57,6 +61,7 @@
 
       <Dropdown
         v-model="formState.type"
+        :is-submitting="isSubmitting"
         label="Tipo"
         :options="[
           { id: 'IN', name: 'Entrada' },
@@ -64,19 +69,12 @@
         ]"
       />
 
-      <label
-        for="recurring"
-        class="flex items-center gap-2 w-max h-4"
-      >
-        <input
-          id="recurring"
-          v-model="formState.recurring"
-          type="checkbox"
-          name="Recorrente"
-          class="cursor-pointer w-4 h-4 rounded-lg"
-        >
-        <span class="cursor-pointer text-sm text-grey-900">Recorrente</span>
-      </label>
+      <InputCheckbox
+        id="recurring"
+        v-model="formState.recurring"
+        label="Recorrente"
+        :is-submitting="isSubmitting"
+      />
 
       <Button
         :is-submitting="isSubmitting"
@@ -87,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { Button, InputDatePicker, Modal, Dropdown, FormError, Input } from '#components';
+import { Button, InputDatePicker, Modal, Dropdown, FormError, Input, InputCheckbox } from '#components';
 import { useApiGet, useApiPost, useCurrencyMask, useToast } from '~/composables';
 import { createTransactionSchema } from './transaction.schema';
 import type { CategoryData, TransactionForm } from './createTransactionModal.type';

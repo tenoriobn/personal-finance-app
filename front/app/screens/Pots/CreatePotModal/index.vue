@@ -14,6 +14,7 @@
           :label="'Nome do Pote'"
           name="potName"
           :custom-classes="`w-full ${errors.name ? 'border-red' : ''}`"
+          :is-submitting="isSubmitting"
         />
 
         <FormError :message="errors.name" />
@@ -25,6 +26,7 @@
           label="Valor da Meta"
           name="targetAmount"
           :custom-classes="`w-full ${errors.targetAmount ? 'border-red' : ''}`"
+          :is-submitting="isSubmitting"
           @update:model-value="onInput"
           @keydown="onKeyDown"
           @paste="onPaste"
@@ -41,6 +43,7 @@
           data-testid="dropdown-sort-by"
           custom-classes="w-full max-md:h-[46px] md:h-[54px]"
           :form-error="errors.themeId"
+          :is-submitting="isSubmitting"
         />
         <FormError :message="errors.themeId" />
       </div>

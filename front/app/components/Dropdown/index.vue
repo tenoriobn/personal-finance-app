@@ -2,11 +2,14 @@
   <div
     ref="dropdownWrapper"
     class="relative"
-    :class="customClasses"
+    :class="[
+      customClasses,
+      isSubmitting && 'opacity-60 cursor-not-allowed',
+    ]"
     :data-testid="dataTestid"
     tabindex="0"
-    @click="toggleDropdown"
-    @keydown.esc="closeDropdown"
+    @click="!isSubmitting && toggleDropdown()"
+    @keydown.esc="!isSubmitting && closeDropdown()"
   >
     <component
       :is="iconMobile"
@@ -15,8 +18,9 @@
     />
 
     <div
-      class="group relative flex justify-between items-center gap-4 rounded-xl border p-4 text-sm duration-150 ease-in-out cursor-pointer h-full"
+      class="group relative flex justify-between items-center gap-4 rounded-xl border p-4 text-sm duration-150 ease-in-out h-full"
       :class="[
+        isSubmitting ? 'cursor-not-allowed' : 'cursor-pointer',
         (isOpen || selectedLabel === 'Todos' || selectedLabel)
           ? 'border-grey-900'
           : 'border-grey-300',
@@ -113,7 +117,9 @@ import { fadeSlideY } from '~/motion/transitions';
 import { ref, computed } from 'vue';
 import { useDropdownScroll } from './useDropdownScroll';
 
-const { dataTestid, label, options, modelValue, customClasses, iconMobile, compactOnMobile, startEmpty, formError }
+const {
+  dataTestid, label, options, modelValue, customClasses, iconMobile, compactOnMobile, startEmpty, formError, isSubmitting,
+}
   = defineProps<DropdownProps>();
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();
 

@@ -40,6 +40,7 @@
           label="Valor Adicionado"
           name="totalAmount"
           :custom-classes="`w-full ${errors.totalAmount ? 'border-red' : ''}`"
+          :is-submitting="isSubmitting"
           @update:model-value="onInput"
           @keydown="onKeyDown"
           @paste="onPaste"
