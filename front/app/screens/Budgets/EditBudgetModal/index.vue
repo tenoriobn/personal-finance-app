@@ -57,168 +57,39 @@
 </template>
 
 <script setup lang="ts">
-import { Button, Modal, Dropdown, FormError, Input } from '#components';
-import { useApiPut, useCurrencyMask, useToast } from '~/composables';
-import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
-import type { BudgetData, BudgetForm } from '../budgets.type';
-import { baseBudgetSchema } from '../budget.schema';
+import { Modal, Button, Input, Dropdown, FormError } from '#components';
+import { computed } from 'vue';
+import { useEditBudgetModal } from './useEditBudgetModal';
+import type { BudgetData } from '../budgets.type';
 
-const { modelValue, budget } = defineProps<{ modelValue: boolean, budget: BudgetData | null }>();
+const { modelValue, budget } = defineProps<{
+  modelValue: boolean
+  budget: BudgetData | null
+}>();
+
 const emit = defineEmits(['update:modelValue', 'refreshBudgets']);
 
 const showModal = computed({
   get: () => modelValue,
-  set: (val: boolean) => emit('update:modelValue', val),
+  set: v => emit('update:modelValue', v),
 });
 
-const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
-
-const formState = reactive<BudgetForm>({
-  maximumSpend: 0,
-  categoryId: '',
-  themeId: '',
-  userId: '68cc2ec3f0818350607a26b6',
-});
-
-watch(() => budget, (newBudget) => {
-  if (!newBudget) {
-    return;
-  }
-  amount.value = Number(newBudget.maximumSpend);
-  formState.categoryId = newBudget.category.id;
-  formState.themeId = newBudget.theme.id;
-}, { immediate: true });
-
-const { categories, themes, refreshCategoriesAndThemes } = useCategoriesAndThemes();
-
-const categoryOptions = computed(() => {
-  if (!categories.value) {
-    return [];
-  }
-
-  const opts = categories.value.map(category => ({
-    id: category.id,
-    name: category.name,
-  }));
-
-  if (budget?.category && !opts.some(option => option.id === budget.category.id)) {
-    opts.unshift({
-      id: budget.category.id,
-      name: budget.category.name,
-    });
-  }
-
-  return opts;
-});
-
-const themeOptions = computed(() => {
-  if (!themes.value) {
-    return [];
-  }
-
-  const opts = themes.value.map(theme => ({
-    id: theme.id,
-    name: theme.colorName,
-    colorHex: theme.colorHex,
-  }));
-
-  if (budget?.theme && !opts.some(option => option.id === budget.theme.id)) {
-    opts.unshift({
-      id: budget.theme.id,
-      name: budget.theme.colorName,
-      colorHex: budget.theme.colorHex,
-    });
-  }
-
-  return opts;
-});
-
-const errors = reactive<Record<string, string>>({
-  maximumSpend: '',
-  categoryId: '',
-  themeId: '',
-});
-
-function resetErrors() {
-  Object.keys(errors).forEach(k => (errors[k] = ''));
-}
-
-function initFormFromBudget() {
-  if (!budget) {
-    amount.value = 0;
-    formState.categoryId = '';
-    formState.themeId = '';
-    return;
-  }
-
-  amount.value = Number(budget.maximumSpend);
-  formState.categoryId = budget.category.id;
-  formState.themeId = budget.theme.id;
-}
-
-watch(
-  () => showModal.value,
-  (visible) => {
-    if (visible) {
-      resetErrors();
-      initFormFromBudget();
-    }
-  },
-  { immediate: false },
-);
-
-const validateAndSetErrors = () => {
-  const payload = {
-    ...formState,
-    maximumSpend: amount.value,
-  };
-
-  resetErrors();
-
-  const parsed = baseBudgetSchema.safeParse(payload);
-  if (!parsed.success) {
-    parsed.error.issues.forEach((issue) => {
-      const key = issue.path[0] as string;
-      if (errors[key] !== undefined) {
-        errors[key] = issue.message;
-      }
-    });
-
-    return false;
-  }
-
-  return true;
-};
-
-const isSubmitting = ref(false);
-const { notify } = useToast();
-
-const handleSubmit = async () => {
-  if (isSubmitting.value || !validateAndSetErrors()) {
-    return;
-  }
-  if (!budget) {
-    return;
-  }
-
-  isSubmitting.value = true;
-
-  try {
-    await useApiPut(`budgets/${budget.id}`, {
-      maximumSpend: amount.value,
-      categoryId: formState.categoryId,
-      themeId: formState.themeId,
-    });
-
-    notify('success', 'Orçamento atualizado com sucesso!');
+const {
+  formState,
+  errors,
+  isSubmitting,
+  formattedAmount,
+  onInput,
+  onKeyDown,
+  onPaste,
+  categoryOptions,
+  themeOptions,
+  handleSubmit,
+} = useEditBudgetModal(
+  () => budget,
+  () => {
     emit('refreshBudgets');
-
-    refreshCategoriesAndThemes();
-
     showModal.value = false;
-  }
-  finally {
-    isSubmitting.value = false;
-  }
-};
+  },
+);
 </script>
