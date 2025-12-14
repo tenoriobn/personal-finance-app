@@ -58,10 +58,9 @@
 
 <script setup lang="ts">
 import { Button, Modal, Progressbar, FormError, Input } from '#components';
-import { useApiPut, useCurrencyMask, useToast } from '~/composables';
 import type { PotData } from '../pots.type';
-import { calculatePercentUsed } from '~/utils/calculations';
 import { formatCurrency } from '~/utils';
+import { usePotAddMoneyModal } from './usePotAddMoneyModal';
 
 const { modelValue, pot } = defineProps<{ modelValue: boolean, pot: PotData | null }>();
 const emit = defineEmits(['update:modelValue', 'refresh-pots']);
@@ -71,76 +70,28 @@ const showModal = computed({
   set: val => emit('update:modelValue', val),
 });
 
-const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
-
-const errors = reactive({ totalAmount: '' });
-
-const resetErrors = () => {
-  errors.totalAmount = '';
-};
-
-watch(() => showModal.value, (visible) => {
-  if (visible) {
-    resetErrors();
-    amount.value = 0;
-  }
-});
-
-const currentTotal = computed(() => {
-  if (!pot) {
-    return 0;
-  }
-  return (pot.totalAmount || 0) + amount.value;
-});
-
-const currentPercent = computed(() => {
-  if (!pot) {
-    return 0;
-  }
-  return calculatePercentUsed(currentTotal.value, pot.targetAmount);
-});
-
-const validate = () => {
-  resetErrors();
-  if (amount.value <= 0) {
-    errors.totalAmount = 'O valor mínimo permitido é R$ 1,00.';
-    return false;
-  }
-
-  const maxAdd = (pot?.targetAmount ?? 0) - (pot?.totalAmount ?? 0);
-
-  if (amount.value > maxAdd) {
-    errors.totalAmount = `Esse valor excede a meta do pote. Máximo disponível para adicionar: ${formatCurrency(maxAdd, false)}.`;
-    return false;
-  }
-
-  return true;
-};
-
-const isSubmitting = ref(false);
-const { notify } = useToast();
-
-const handleSubmit = async () => {
-  if (!pot) {
-    return;
-  }
-  if (isSubmitting.value || !validate()) {
-    return;
-  }
-
-  isSubmitting.value = true;
-
-  try {
-    await useApiPut(`pots/${pot.id}`, {
-      totalAmount: pot.totalAmount + amount.value,
-    });
-
-    notify('success', 'Poupança atualizada com sucesso!');
+const {
+  formattedAmount,
+  onInput,
+  onKeyDown,
+  onPaste,
+  errors,
+  isSubmitting,
+  currentTotal,
+  currentPercent,
+  reset,
+  handleSubmit,
+} = usePotAddMoneyModal(
+  toRef(() => pot),
+  () => {
     emit('refresh-pots');
     showModal.value = false;
+  },
+);
+
+watch(showModal, (visible) => {
+  if (visible) {
+    reset();
   }
-  finally {
-    isSubmitting.value = false;
-  }
-};
+});
 </script>

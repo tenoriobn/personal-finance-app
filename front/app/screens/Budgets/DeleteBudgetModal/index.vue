@@ -15,41 +15,22 @@
 
 <script setup lang="ts">
 import { Button, Modal } from '#components';
-import { useApiDelete, useToast } from '~/composables';
-import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
 import type { BudgetData } from '../budgets.type';
+import { useDeleteBudgetModal } from './useDeleteBudgetModal';
 
 const { modelValue, budget } = defineProps<{ modelValue: boolean, budget: BudgetData | null }>();
 const emit = defineEmits(['update:modelValue', 'refreshBudgets']);
-const { refreshCategoriesAndThemes } = useCategoriesAndThemes();
 
 const showModal = computed({
   get: () => modelValue,
-  set: (val: boolean) => emit('update:modelValue', val),
+  set: val => emit('update:modelValue', val),
 });
 
-const isSubmitting = ref(false);
-const { notify } = useToast();
-
-const handleSubmit = async () => {
-  if (isSubmitting.value || !budget) {
-    return;
-  }
-
-  isSubmitting.value = true;
-
-  try {
-    await useApiDelete(`budgets/${budget.id}`);
-
-    notify('error', 'Orçamento deletado com sucesso!');
+const { isSubmitting, handleSubmit } = useDeleteBudgetModal(
+  toRef(() => budget),
+  () => {
     emit('refreshBudgets');
-
-    refreshCategoriesAndThemes();
-
     showModal.value = false;
-  }
-  finally {
-    isSubmitting.value = false;
-  }
-};
+  },
+);
 </script>
