@@ -15,41 +15,22 @@
 
 <script setup lang="ts">
 import { Button, Modal } from '#components';
-import { useApiDelete, useToast } from '~/composables';
-import { useThemes } from '../useThemes';
 import type { PotData } from '../pots.type';
+import { useDeletePotModal } from './useDeletePotModal';
 
 const { modelValue, pot } = defineProps<{ modelValue: boolean, pot: PotData | null }>();
 const emit = defineEmits(['update:modelValue', 'refreshPots']);
-const { refreshThemes } = useThemes();
 
 const showModal = computed({
   get: () => modelValue,
   set: (val: boolean) => emit('update:modelValue', val),
 });
 
-const isSubmitting = ref(false);
-const { notify } = useToast();
-
-const handleSubmit = async () => {
-  if (isSubmitting.value || !pot) {
-    return;
-  }
-
-  isSubmitting.value = true;
-
-  try {
-    await useApiDelete(`pots/${pot.id}`);
-
-    notify('error', 'Poupança deletada com sucesso!');
+const { isSubmitting, handleSubmit } = useDeletePotModal(
+  toRef(() => pot),
+  () => {
     emit('refreshPots');
-
-    refreshThemes();
-
     showModal.value = false;
-  }
-  finally {
-    isSubmitting.value = false;
-  }
-};
+  },
+);
 </script>

@@ -58,9 +58,8 @@
 
 <script setup lang="ts">
 import { Button, Modal, Progressbar, FormError, Input } from '#components';
-import { useApiPut, useCurrencyMask, useToast } from '~/composables';
 import type { PotData } from '../pots.type';
-import { calculatePercentUsed } from '~/utils/calculations';
+import { usePotWithdrawMoneyModal } from './usePotWithdrawMoneyModal';
 import { formatCurrency } from '~/utils';
 
 const { modelValue, pot } = defineProps<{ modelValue: boolean, pot: PotData | null }>();
@@ -71,75 +70,28 @@ const showModal = computed({
   set: val => emit('update:modelValue', val),
 });
 
-const { formattedAmount, amount, onInput, onKeyDown, onPaste }
-  = useCurrencyMask();
-
-const errors = reactive({ withdrawAmount: '' });
-
-const resetErrors = () => {
-  errors.withdrawAmount = '';
-};
-
-watch(() => showModal.value, (visible) => {
-  if (visible) {
-    resetErrors();
-    amount.value = 0;
-  }
-});
-
-const currentTotal = computed(() => {
-  if (!pot) {
-    return 0;
-  }
-  return (pot.totalAmount || 0) - amount.value;
-});
-
-const currentPercent = computed(() => {
-  if (!pot) {
-    return 0;
-  }
-  return calculatePercentUsed(currentTotal.value, pot.targetAmount);
-});
-
-const validate = () => {
-  resetErrors();
-
-  if (amount.value <= 0) {
-    errors.withdrawAmount = 'O valor mínimo permitido é R$ 1,00.';
-    return false;
-  }
-
-  const maxWithdraw = pot?.totalAmount ?? 0;
-
-  if (amount.value > maxWithdraw) {
-    errors.withdrawAmount = `Valor excede o saldo do pote. Máximo disponível para retirar: ${formatCurrency(maxWithdraw, false)}.`;
-    return false;
-  }
-
-  return true;
-};
-
-const isSubmitting = ref(false);
-const { notify } = useToast();
-
-const handleSubmit = async () => {
-  if (!pot || isSubmitting.value || !validate()) {
-    return;
-  }
-
-  isSubmitting.value = true;
-
-  try {
-    await useApiPut(`pots/${pot.id}`, {
-      totalAmount: pot.totalAmount - amount.value,
-    });
-
-    notify('success', 'Valor retirado com sucesso!');
+const {
+  formattedAmount,
+  onInput,
+  onKeyDown,
+  onPaste,
+  errors,
+  isSubmitting,
+  currentTotal,
+  currentPercent,
+  reset,
+  handleSubmit,
+} = usePotWithdrawMoneyModal(
+  toRef(() => pot),
+  () => {
     emit('refresh-pots');
     showModal.value = false;
+  },
+);
+
+watch(showModal, (visible) => {
+  if (visible) {
+    reset();
   }
-  finally {
-    isSubmitting.value = false;
-  }
-};
+});
 </script>

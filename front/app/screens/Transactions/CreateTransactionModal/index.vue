@@ -2,9 +2,11 @@
   <Modal
     v-model="showModal"
     title="Criar nova Transação"
-    intro="Selecione uma categoria para vincular essa transação. Assim, você poderá monitorar seus gastos em Orçamentos."
+    :intro="modalIntro"
+    :intro-has-spacing="hasAvailableCategories"
   >
     <form
+      v-if="hasAvailableCategories"
       class="flex flex-col gap-6"
       @submit.prevent="handleSubmit"
     >
@@ -36,7 +38,7 @@
         <Dropdown
           v-model="formState.budgetId"
           label="Categoria"
-          :options="categories?.map(category => ({ name: category.name, id: category.budgetId })) || []"
+          :options="categoryOptions"
           :start-empty="true"
           :is-submitting="isSubmitting"
           custom-classes="w-full max-md:h-[46px] md:h-[54px]"
@@ -85,15 +87,22 @@
 </template>
 
 <script setup lang="ts">
-import { Button, InputDatePicker, Modal, Dropdown, FormError, Input, InputCheckbox } from '#components';
-import { useApiGet, useApiPost, useCurrencyMask, useToast } from '~/composables';
-import { createTransactionSchema } from './transaction.schema';
-import type { CategoryData, TransactionForm } from './createTransactionModal.type';
-import type { BudgetData } from '~/screens/Budgets/budgets.type';
-import { calculateSpent, calculateRemaining } from '~/utils/calculations';
-import { formatCurrency } from '~/utils';
+import {
+  Modal,
+  Button,
+  InputDatePicker,
+  Dropdown,
+  FormError,
+  Input,
+  InputCheckbox,
+} from '#components';
+
+import { useApiGet } from '~/composables';
+import { useCreateTransactionModal } from './useCreateTransactionModal';
+import type { CategoryData } from './createTransactionModal.type';
 
 const { modelValue } = defineProps<{ modelValue: boolean }>();
+
 const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void
   (e: 'transactionCreated'): void
@@ -105,137 +114,24 @@ const showModal = computed({
 });
 
 const { data: categories } = useApiGet<CategoryData[]>('categories/used');
-const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
 
-const defaultForm: TransactionForm = {
-  name: '',
-  date: '',
-  amount: amount.value,
-  recurring: false,
-  budgetId: '',
-  userId: '68cc2ec3f0818350607a26b6',
-  type: 'IN',
-};
-
-const formState = reactive({ ...defaultForm });
-
-const errors = reactive<Record<string, string>>({
-  name: '',
-  date: '',
-  amount: '',
-  budgetId: '',
-});
-
-watch(() => formState.name, () => (errors.name = ''));
-watch(() => formState.date, () => (errors.date = ''));
-watch(() => formState.budgetId, () => (errors.budgetId = ''));
-watch(amount, () => (errors.amount = ''));
-
-const buildPayload = () => ({
-  ...formState,
-  amount: formState.type === 'OUT'
-    ? -Math.abs(amount.value)
-    : Math.abs(amount.value),
-});
-
-const selectedBudget = ref<BudgetData | null>(null);
-
-watch(() => formState.budgetId, async (id) => {
-  errors.budgetId = '';
-  selectedBudget.value = null;
-
-  if (!id) {
-    return;
-  }
-
-  const result = await useApiGet<BudgetData>(`budgets/${id}`, {}, false);
-
-  if (result && !('data' in result)) {
-    selectedBudget.value = result;
-    return;
-  }
-
-  selectedBudget.value = result.data.value ?? null;
-});
-
-const validateAndSetErrors = (): boolean => {
-  const payload = buildPayload();
-
-  Object.keys(errors).forEach(k => (errors[k] = ''));
-
-  const parsed = createTransactionSchema.safeParse(payload);
-  if (!parsed.success) {
-    for (const issue of parsed.error.issues) {
-      const key = String(issue.path[0] ?? '');
-      if (key in errors) {
-        errors[key] = issue.message;
-      }
-    }
-    return false;
-  }
-
-  if (!selectedBudget.value) {
-    return true;
-  }
-
-  const { transactions = [], maximumSpend = 0 } = selectedBudget.value;
-
-  const spent = calculateSpent(transactions);
-  const free = calculateRemaining(transactions, maximumSpend);
-  const value = payload.amount;
-
-  if (value < 0) {
-    if (spent <= 0) {
-      errors.amount = 'Este orçamento não possui saldo para retirar.';
-      return false;
-    }
-
-    const maxWithdraw = spent;
-
-    if (Math.abs(value) > maxWithdraw) {
-      errors.amount = `Saldo insuficiente. Máximo para retirar: ${formatCurrency(maxWithdraw, false)}`;
-      return false;
-    }
-  }
-
-  if (value > 0) {
-    if (value > free) {
-      errors.amount = `Este valor excede o limite do orçamento. Máximo disponível para adicionar: ${formatCurrency(free, false)}`;
-      return false;
-    }
-  }
-
-  return true;
-};
-
-const isSubmitting = ref(false);
-
-const resetForm = () => {
-  Object.assign(formState, { ...defaultForm });
-  amount.value = 0;
-  Object.keys(errors).forEach(k => (errors[k] = ''));
-};
-
-const { notify } = useToast();
-
-const handleSubmit = async () => {
-  if (isSubmitting.value || !validateAndSetErrors()) {
-    return;
-  };
-
-  isSubmitting.value = true;
-
-  try {
-    const payload = buildPayload();
-    await useApiPost('transactions', payload);
-
+const {
+  formState,
+  errors,
+  isSubmitting,
+  formattedAmount,
+  onInput,
+  onKeyDown,
+  onPaste,
+  hasAvailableCategories,
+  modalIntro,
+  categoryOptions,
+  handleSubmit,
+} = useCreateTransactionModal(
+  () => categories.value ?? [],
+  () => {
     emit('transactionCreated');
-    notify('success', 'Transação criada com sucesso!');
-    resetForm();
     showModal.value = false;
-  }
-  finally {
-    isSubmitting.value = false;
-  }
-};
+  },
+);
 </script>
