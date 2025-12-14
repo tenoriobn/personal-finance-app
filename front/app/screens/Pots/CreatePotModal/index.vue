@@ -60,13 +60,11 @@
 
 <script setup lang="ts">
 import { Button, Modal, Dropdown, FormError, Input } from '#components';
-import { useApiPost, useCurrencyMask, useToast } from '~/composables';
 import { useThemes } from '../useThemes';
-import type { PotForm } from '../pots.type';
-import { basePotSchema } from '../pot.schema';
-import { handleApiErrors } from '~/utils';
+import { useCreatePotModal } from './useCreatePotModal';
 
 const { modelValue } = defineProps<{ modelValue: boolean }>();
+
 const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void
   (e: 'refreshPots'): void
@@ -77,107 +75,25 @@ const showModal = computed({
   set: (val: boolean) => emit('update:modelValue', val),
 });
 
-const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
 const { themes, refreshThemes } = useThemes();
 
-const hasAvailableThemes = computed(() =>
-  (themes.value?.length ?? 0) > 0,
-);
-
-const modalIntro = computed(() => {
-  if (!hasAvailableThemes.value) {
-    return `Você já criou poupanças com todos os temas disponíveis.
-      Para criar uma nova poupança, exclua uma poupança que não esteja mais em uso e reaproveite o tema correspondente.
-    `;
-  }
-
-  return 'Selecione um tema para definir um pote de economia. Esses potes podem ajudar você a monitorar seus gastos e reservas.';
-});
-
-const defaultForm: PotForm = {
-  name: '',
-  targetAmount: amount.value,
-  totalAmount: 0,
-  themeId: '',
-  userId: '68cc2ec3f0818350607a26b6',
-};
-
-const formState = reactive({ ...defaultForm });
-
-const errors = reactive<Record<string, string>>({
-  name: '',
-  targetAmount: '',
-  themeId: '',
-});
-
-watch(() => formState.name, () => {
-  errors.name = '';
-});
-
-watch(amount, () => {
-  errors.targetAmount = '';
-});
-
-watch(() => formState.themeId, () => {
-  errors.themeId = '';
-});
-
-const validateAndSetErrors = (): boolean => {
-  const payload = { ...formState, targetAmount: amount.value };
-
-  Object.keys(errors).forEach(k => (errors[k] = ''));
-
-  const parsed = basePotSchema.safeParse(payload);
-
-  if (!parsed.success) {
-    for (const issue of parsed.error.issues) {
-      const key = String(issue.path[0] ?? '');
-      if (key && Object.prototype.hasOwnProperty.call(errors, key)) {
-        errors[key] = issue.message;
-      }
-    }
-    return false;
-  }
-
-  return true;
-};
-
-const isSubmitting = ref(false);
-
-const resetForm = () => {
-  Object.assign(formState, defaultForm);
-  amount.value = 0;
-
-  for (const key in errors) {
-    errors[key] = '';
-  }
-};
-
-const { notify } = useToast();
-
-const handleSubmit = async () => {
-  if (isSubmitting.value || !validateAndSetErrors()) {
-    return;
-  }
-
-  isSubmitting.value = true;
-
-  try {
-    await useApiPost('pots', { ...formState, targetAmount: amount.value });
+const {
+  formState,
+  errors,
+  isSubmitting,
+  formattedAmount,
+  onInput,
+  onKeyDown,
+  onPaste,
+  hasAvailableThemes,
+  modalIntro,
+  handleSubmit,
+} = useCreatePotModal(
+  () => themes.value ?? [],
+  () => {
     emit('refreshPots');
     refreshThemes();
-    notify('success', 'Poupança criado com sucesso!');
     showModal.value = false;
-    resetForm();
-  }
-  catch (err: unknown) {
-    handleApiErrors(err, errors, notify, {
-      name: ['nome', 'Nome'],
-      themeId: ['tema', 'Tema'],
-    });
-  }
-  finally {
-    isSubmitting.value = false;
-  }
-};
+  },
+);
 </script>

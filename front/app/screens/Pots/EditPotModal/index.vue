@@ -57,156 +57,44 @@
 
 <script setup lang="ts">
 import { Button, Modal, Dropdown, FormError, Input } from '#components';
-import { useApiPut, useCurrencyMask, useToast } from '~/composables';
 import { useThemes } from '../useThemes';
-import type { PotData, PotForm } from '../pots.type';
-import { basePotSchema } from '../pot.schema';
-import { handleApiErrors } from '~/utils';
+import { useEditPotModal } from './useEditPotModal';
+import type { PotData } from '../pots.type';
 
-const { modelValue, pot } = defineProps<{ modelValue: boolean, pot: PotData | null }>();
-const emit = defineEmits(['update:modelValue', 'refreshPots']);
+const { modelValue, pot } = defineProps<{
+  modelValue: boolean
+  pot: PotData | null
+}>();
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void
+  (e: 'refreshPots'): void
+}>();
 
 const showModal = computed({
   get: () => modelValue,
   set: (val: boolean) => emit('update:modelValue', val),
 });
 
-const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
-
-const formState = reactive<PotForm>({
-  name: '',
-  targetAmount: amount.value,
-  totalAmount: 0,
-  themeId: '',
-  userId: '68cc2ec3f0818350607a26b6',
-});
-
-watch(() => pot, (newPot) => {
-  if (!newPot) {
-    return;
-  }
-
-  formState.name = newPot.name;
-  amount.value = Number(newPot.targetAmount);
-  formState.themeId = newPot.theme.id;
-}, { immediate: true });
-
 const { themes, refreshThemes } = useThemes();
 
-const themeOptions = computed(() => {
-  if (!themes.value) {
-    return [];
-  }
-
-  const opts = themes.value.map(theme => ({
-    id: theme.id,
-    name: theme.colorName,
-    colorHex: theme.colorHex,
-  }));
-
-  if (pot?.theme && !opts.some(option => option.id === pot.theme.id)) {
-    opts.unshift({
-      id: pot.theme.id,
-      name: pot.theme.colorName,
-      colorHex: pot.theme.colorHex,
-    });
-  }
-
-  return opts;
-});
-
-const errors = reactive<Record<string, string>>({
-  name: '',
-  targetAmount: '',
-  themeId: '',
-});
-
-function resetErrors() {
-  Object.keys(errors).forEach(k => (errors[k] = ''));
-}
-
-function initFormFromPot() {
-  if (!pot) {
-    formState.name = '';
-    amount.value = 0;
-    formState.themeId = '';
-    return;
-  }
-
-  formState.name = pot.name;
-  amount.value = Number(pot.targetAmount);
-  formState.themeId = pot.theme.id;
-}
-
-watch(
-  () => showModal.value,
-  (visible) => {
-    if (visible) {
-      resetErrors();
-      initFormFromPot();
-    }
-  },
-  { immediate: false },
-);
-
-const validateAndSetErrors = () => {
-  const payload = {
-    ...formState,
-    targetAmount: amount.value,
-  };
-
-  resetErrors();
-
-  const parsed = basePotSchema.safeParse(payload);
-  if (!parsed.success) {
-    parsed.error.issues.forEach((issue) => {
-      const key = issue.path[0] as string;
-      if (errors[key] !== undefined) {
-        errors[key] = issue.message;
-      }
-    });
-
-    return false;
-  }
-
-  return true;
-};
-
-const isSubmitting = ref(false);
-const { notify } = useToast();
-
-const handleSubmit = async () => {
-  if (isSubmitting.value || !validateAndSetErrors()) {
-    return;
-  }
-  if (!pot) {
-    return;
-  }
-
-  isSubmitting.value = true;
-
-  try {
-    await useApiPut(`pots/${pot.id}`, {
-      name: formState.name,
-      targetAmount: amount.value,
-      themeId: formState.themeId,
-    });
-
-    notify('success', 'Poupança atualizado com sucesso!');
+const {
+  formState,
+  errors,
+  isSubmitting,
+  formattedAmount,
+  onInput,
+  onKeyDown,
+  onPaste,
+  themeOptions,
+  handleSubmit,
+} = useEditPotModal(
+  () => pot,
+  () => themes.value ?? [],
+  () => {
     emit('refreshPots');
-
     refreshThemes();
-
     showModal.value = false;
-  }
-  catch (err: unknown) {
-    handleApiErrors(err, errors, notify, {
-      name: ['nome', 'Nome'],
-      themeId: ['tema', 'Tema'],
-    });
-  }
-  finally {
-    isSubmitting.value = false;
-  }
-};
+  },
+);
 </script>
