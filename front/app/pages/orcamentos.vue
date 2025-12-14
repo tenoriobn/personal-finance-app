@@ -6,7 +6,7 @@
 import Budgets from '~/screens/Budgets/index.vue';
 
 useHead({
-  title: 'Orçamentos - Personal Finance App',
+  title: 'Orçamentos',
   meta: [
     {
       name: 'description',

@@ -1,7 +1,7 @@
 <template>
   <Modal
     v-model="showModal"
-    title="Criar novo Pote"
+    title="Editar Pote"
     intro="Se seus objetivos de poupança mudarem, fique à vontade para atualizar seus valores."
   >
     <form
@@ -14,6 +14,7 @@
           :label="'Nome do Pote'"
           name="potName"
           :custom-classes="`w-full ${errors.name ? 'border-red' : ''}`"
+          :is-submitting="isSubmitting"
         />
 
         <FormError :message="errors.name" />
@@ -25,6 +26,7 @@
           label="Valor da Meta"
           name="targetAmount"
           :custom-classes="`w-full ${errors.targetAmount ? 'border-red' : ''}`"
+          :is-submitting="isSubmitting"
           @update:model-value="onInput"
           @keydown="onKeyDown"
           @paste="onPaste"
@@ -40,13 +42,14 @@
           :start-empty="false"
           custom-classes="w-full max-md:h-[46px] md:h-[54px]"
           :form-error="errors.themeId"
+          :is-submitting="isSubmitting"
         />
         <FormError :message="errors.themeId" />
       </div>
 
       <Button
         :is-submitting="isSubmitting"
-        label="Criar"
+        label="Editar"
       />
     </form>
   </Modal>
@@ -58,7 +61,7 @@ import { useApiPut, useCurrencyMask, useToast } from '~/composables';
 import { useThemes } from '../useThemes';
 import type { PotData, PotForm } from '../pots.type';
 import { basePotSchema } from '../pot.schema';
-import { handlePotApiErrors } from '../handlePotApiErrors';
+import { handleApiErrors } from '~/utils';
 
 const { modelValue, pot } = defineProps<{ modelValue: boolean, pot: PotData | null }>();
 const emit = defineEmits(['update:modelValue', 'refreshPots']);
@@ -197,7 +200,10 @@ const handleSubmit = async () => {
     showModal.value = false;
   }
   catch (err: unknown) {
-    handlePotApiErrors(err, errors, notify);
+    handleApiErrors(err, errors, notify, {
+      name: ['nome', 'Nome'],
+      themeId: ['tema', 'Tema'],
+    });
   }
   finally {
     isSubmitting.value = false;

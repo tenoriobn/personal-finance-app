@@ -6,7 +6,7 @@
 import Transactions from '~/screens/Transactions/index.vue';
 
 useHead({
-  title: 'Transações - Personal Finance App',
+  title: 'Transações',
   meta: [
     {
       name: 'description',

@@ -15,4 +15,5 @@ export interface DropdownProps {
   compactOnMobile?: boolean
   startEmpty?: boolean
   formError?: string
+  isSubmitting?: boolean
 }

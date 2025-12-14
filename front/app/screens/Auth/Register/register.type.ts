@@ -13,9 +13,3 @@ export type RegisterResponse = {
     role: string
   }
 };
-export interface RegisterApiErrors extends Error {
-  status: number
-  data: {
-    message: string
-  }
-}

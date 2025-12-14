@@ -8,7 +8,7 @@ import Login from '~/screens/Auth/Login/index.vue';
 definePageMeta({ layout: 'auth' });
 
 useHead({
-  title: 'Login - Personal Finance App',
+  title: 'Login',
   meta: [
     {
       name: 'description',

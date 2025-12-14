@@ -40,6 +40,7 @@
           label="Valor a retirar"
           name="withdrawAmount"
           :custom-classes="`w-full ${errors.withdrawAmount ? 'border-red' : ''}`"
+          :is-submitting="isSubmitting"
           @update:model-value="onInput"
           @keydown="onKeyDown"
           @paste="onPaste"
