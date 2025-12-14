@@ -2,9 +2,11 @@
   <Modal
     v-model="showModal"
     title="Criar novo Orçamento"
-    intro="Ao criar um orçamento e estabelecer um limite de gastos, você poderá acompanhar melhor como utiliza seu dinheiro."
+    :intro="modalIntro"
+    :intro-has-spacing="hasAvailableCategories"
   >
     <form
+      v-if="hasAvailableCategories"
       class="flex flex-col gap-6"
       @submit.prevent="handleSubmit"
     >
@@ -77,6 +79,20 @@ const showModal = computed({
 
 const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
 const { categories, themes, refreshCategoriesAndThemes } = useCategoriesAndThemes();
+
+const hasAvailableCategories = computed(() =>
+  (categories.value?.length ?? 0) > 0,
+);
+
+const modalIntro = computed(() => {
+  if (!hasAvailableCategories.value) {
+    return `Você já criou orçamentos para todas as categorias disponíveis.
+      Para criar um novo orçamento, exclua um orçamento que não esteja mais em uso e reaproveite a categoria correspondente.
+    `;
+  }
+
+  return 'Ao criar um orçamento e estabelecer um limite de gastos, você poderá acompanhar melhor como utiliza seu dinheiro.';
+});
 
 const defaultForm: BudgetForm = {
   maximumSpend: amount.value,

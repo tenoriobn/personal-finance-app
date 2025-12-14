@@ -2,9 +2,11 @@
   <Modal
     v-model="showModal"
     title="Criar nova Transação"
-    intro="Selecione uma categoria para vincular essa transação. Assim, você poderá monitorar seus gastos em Orçamentos."
+    :intro="modalIntro"
+    :intro-has-spacing="hasAvailableCategories"
   >
     <form
+      v-if="hasAvailableCategories"
       class="flex flex-col gap-6"
       @submit.prevent="handleSubmit"
     >
@@ -105,6 +107,20 @@ const showModal = computed({
 });
 
 const { data: categories } = useApiGet<CategoryData[]>('categories/used');
+
+const hasAvailableCategories = computed(() =>
+  (categories.value?.length ?? 0) > 0,
+);
+
+const modalIntro = computed(() => {
+  if (!hasAvailableCategories.value) {
+    return `Para registrar uma transação, é necessário ter um orçamento criado. Crie um orçamento e vincule-o a uma categoria para começar a acompanhar seus gastos.
+    `;
+  }
+
+  return 'Selecione uma categoria para vincular essa transação. Assim, você poderá monitorar seus gastos em Orçamentos.';
+});
+
 const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
 
 const defaultForm: TransactionForm = {

@@ -23,7 +23,10 @@
       <div class="max-md:p-4 md:p-[2rem] bg-white rounded-b-xl">
         <p
           v-if="intro"
-          class="text-base text-grey-500 max-md:mb-6 md:mb-[2rem]"
+          :class="[
+            'text-base text-grey-500 whitespace-pre-line',
+            introHasSpacing && 'max-md:mb-6 md:mb-[2rem]',
+          ]"
         >
           {{ intro }}
         </p>
@@ -51,7 +54,7 @@ onBeforeUnmount(() => {
   document.body.classList.remove('overflow-hidden');
 });
 
-const { title, intro, modelValue } = defineProps<ModalProps>();
+const { title, intro, modelValue, introHasSpacing = true } = defineProps<ModalProps>();
 </script>
 
 <style>

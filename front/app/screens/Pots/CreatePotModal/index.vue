@@ -2,9 +2,11 @@
   <Modal
     v-model="showModal"
     title="Criar novo Pote"
-    intro="Selecione um tema para definir um pote de economia. Esses potes podem ajudar você a monitorar seus gastos e reservas."
+    :intro="modalIntro"
+    :intro-has-spacing="hasAvailableThemes"
   >
     <form
+      v-if="hasAvailableThemes"
       class="flex flex-col gap-6"
       @submit.prevent="handleSubmit"
     >
@@ -77,6 +79,20 @@ const showModal = computed({
 
 const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
 const { themes, refreshThemes } = useThemes();
+
+const hasAvailableThemes = computed(() =>
+  (themes.value?.length ?? 0) > 0,
+);
+
+const modalIntro = computed(() => {
+  if (!hasAvailableThemes.value) {
+    return `Você já criou poupanças com todos os temas disponíveis.
+      Para criar uma nova poupança, exclua uma poupança que não esteja mais em uso e reaproveite o tema correspondente.
+    `;
+  }
+
+  return 'Selecione um tema para definir um pote de economia. Esses potes podem ajudar você a monitorar seus gastos e reservas.';
+});
 
 const defaultForm: PotForm = {
   name: '',
