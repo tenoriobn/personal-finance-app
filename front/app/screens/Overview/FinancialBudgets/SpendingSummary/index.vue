@@ -3,7 +3,7 @@
     <SpendingSummarySkeleton v-if="pending" />
 
     <article
-      v-for="budget in (budgets || []).slice(0, 4)"
+      v-for="budget in (summaryBudgets || []).slice(0, 4)"
       v-else
       :key="budget.id"
       class="relative  pl-4 flex items-center max-sm:gap-2 sm:gap-4"
@@ -28,6 +28,4 @@ import SpendingSummarySkeleton from './SpendingSummarySkeleton.vue';
 import { calculateSpent } from '~/utils/calculations';
 
 const { summaryBudgets, pending } = useOverview();
-
-const budgets = computed(() => summaryBudgets.value?.budgets || []);
 </script>

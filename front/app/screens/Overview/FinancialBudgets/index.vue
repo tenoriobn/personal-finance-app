@@ -40,9 +40,7 @@ import { useChart } from '~/composables';
 import { useOverview } from '../useOverview';
 
 const { summaryBudgets, pending } = useOverview();
-
-const budgetsData = computed(() => summaryBudgets.value?.budgets ?? []);
-const { chartData, chartOptions, centerTextPlugin } = useChart(budgetsData);
+const { chartData, chartOptions, centerTextPlugin } = useChart(summaryBudgets);
 </script>
 
 <style scoped>
