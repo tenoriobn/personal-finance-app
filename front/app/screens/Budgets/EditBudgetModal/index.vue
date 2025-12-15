@@ -79,6 +79,8 @@ const {
   errors,
   isSubmitting,
   formattedAmount,
+  initFormFromBudget,
+  resetErrors,
   onInput,
   onKeyDown,
   onPaste,
@@ -92,4 +94,11 @@ const {
     showModal.value = false;
   },
 );
+
+watch(showModal, (isOpen) => {
+  if (!isOpen) {
+    resetErrors();
+    initFormFromBudget();
+  }
+});
 </script>

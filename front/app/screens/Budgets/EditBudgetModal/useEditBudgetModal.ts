@@ -3,11 +3,21 @@ import { useApiPut, useCurrencyMask, useToast } from '~/composables';
 import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
 import type { BudgetData, BudgetForm } from '../budgets.type';
 import { baseBudgetSchema } from '../budget.schema';
+import { calculateSpent } from '~/utils/calculations';
 
 export function useEditBudgetModal(budget: () => BudgetData | null, onSuccess?: () => void) {
   const { notify } = useToast();
   const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
   const { categories, themes, refreshCategoriesAndThemes } = useCategoriesAndThemes();
+
+  const spent = computed(() => {
+    const current = budget();
+    if (!current) {
+      return 0;
+    }
+
+    return calculateSpent(current.transactions ?? []);
+  });
 
   const formState = reactive<BudgetForm>({
     maximumSpend: 0,
@@ -108,6 +118,15 @@ export function useEditBudgetModal(budget: () => BudgetData | null, onSuccess?: 
       return false;
     }
 
+    const spentValue = spent.value;
+    const newMaximum = amount.value;
+
+    if (newMaximum < spentValue) {
+      errors.maximumSpend = `Este orçamento já possui ${formatCurrency(spentValue, false)} 
+      gastos. O valor máximo não pode ser menor que isso.`;
+      return false;
+    }
+
     return true;
   }
 
@@ -144,6 +163,7 @@ export function useEditBudgetModal(budget: () => BudgetData | null, onSuccess?: 
     formState,
     errors,
     isSubmitting,
+    resetErrors,
 
     formattedAmount,
     onInput,
