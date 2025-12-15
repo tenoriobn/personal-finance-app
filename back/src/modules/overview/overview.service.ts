@@ -58,22 +58,7 @@ class OverviewService {
       select: getBudgetsSummarySelect,
     });
 
-    let maximumSpendTotal = 0;
-    let amountTransactionTotal = 0;
-
-    for (const budget of budgets) {
-      maximumSpendTotal += budget.maximumSpend ?? 0;
-
-      for (const transaction of budget.transactions) {
-        amountTransactionTotal += transaction.amount;
-      }
-    }
-
-    return {
-      maximumSpendTotal,
-      amountTransactionTotal,
-      budgets: budgets.slice(0, 5),
-    };
+    return budgets;
   }
 
   private async getRecurringBillsSummary(currentUser: CurrentUserDTO) {
