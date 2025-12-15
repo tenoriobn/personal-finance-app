@@ -83,6 +83,8 @@ const {
   errors,
   isSubmitting,
   formattedAmount,
+  resetErrors,
+  initFormFromPot,
   onInput,
   onKeyDown,
   onPaste,
@@ -97,4 +99,11 @@ const {
     showModal.value = false;
   },
 );
+
+watch(showModal, (isOpen) => {
+  if (!isOpen) {
+    resetErrors();
+    initFormFromPot();
+  }
+});
 </script>

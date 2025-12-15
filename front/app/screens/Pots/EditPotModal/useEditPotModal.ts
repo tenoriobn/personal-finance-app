@@ -8,6 +8,15 @@ export function useEditPotModal(pot: () => PotData | null, themes: () => ThemeDa
   const { notify } = useToast();
   const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
 
+  const currentTotal = computed(() => {
+    const current = pot();
+    if (!current) {
+      return 0;
+    }
+
+    return calculateSpent(current.totalAmount ?? []);
+  });
+
   const formState = reactive<PotForm>({
     name: '',
     targetAmount: amount.value,
@@ -89,6 +98,15 @@ export function useEditPotModal(pot: () => PotData | null, themes: () => ThemeDa
       return false;
     }
 
+    const currentPot = currentTotal.value;
+    const newMaximum = amount.value;
+
+    if (newMaximum < currentPot) {
+      errors.targetAmount = `Está poupança já economizou ${formatCurrency(currentPot, false)}. 
+      O valor da meta não pode ser menor que isso.`;
+      return false;
+    }
+
     return true;
   };
 
@@ -127,6 +145,7 @@ export function useEditPotModal(pot: () => PotData | null, themes: () => ThemeDa
     formState,
     errors,
     isSubmitting,
+    resetErrors,
 
     formattedAmount,
     onInput,
@@ -135,6 +154,7 @@ export function useEditPotModal(pot: () => PotData | null, themes: () => ThemeDa
 
     themeOptions,
 
+    initFormFromPot,
     handleSubmit,
   };
 }
