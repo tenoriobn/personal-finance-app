@@ -77,8 +77,9 @@
           <li
             v-for="option in options"
             :key="getKey(option)"
-            class="flex items-center gap-2 text-sm p-4 cursor-pointer duration-150 ease-in-out border-b border-grey-100 last:border-b-0"
+            class="flex items-center gap-2 text-sm p-4 cursor-pointer duration-150 ease-in-out border-b border-grey-100 last:border-b-0 select-none"
             :class="isOptionSelected(option) ? 'bg-grey-900 text-white' : 'hover:bg-grey-100'"
+            :data-selected="isOptionSelected(option)"
             @click.stop="selectOption(option)"
           >
             <span
@@ -92,15 +93,24 @@
         </ul>
 
         <div
-          v-if="canScroll"
-          class="absolute inset-x-0 p-2 flex justify-center items-center backdrop-blur-[.0625rem] pointer-events-none"
-          :class="atBottom ? 'top-0 pt-3 bg-gradient-to-b from-grey-500 to-transparent' : 'bottom-0 bg-gradient-to-t from-grey-500 to-transparent'"
+          v-if="canScrollUp"
+          class="absolute top-0 inset-x-0 p-2 flex justify-center cursor-pointer
+         bg-gradient-to-b from-grey-500 to-transparent backdrop-blur-[.0625rem] select-none"
+          @click.stop="scrollByOptions(-2)"
         >
-          <div class="w-6 h-6 flex items-center justify-center rounded-full shadow-md bg-grey-500 animate-bounce">
-            <CaretDownIcon
-              :class="atBottom && 'rotate-180'"
-              class="text-grey-400 fill-white"
-            />
+          <div class="w-4 h-4 flex items-center justify-center rounded-full shadow-md bg-grey-500 animate-bounce">
+            <CaretDownIcon class="rotate-180 fill-white scale-75" />
+          </div>
+        </div>
+
+        <div
+          v-if="canScrollDown"
+          class="absolute bottom-0 inset-x-0 p-2 flex justify-center cursor-pointer
+         bg-gradient-to-t from-grey-500 to-transparent backdrop-blur-[.0625rem] select-none"
+          @click.stop="scrollByOptions(2)"
+        >
+          <div class="w-4 h-4 flex items-center justify-center rounded-full shadow-md bg-grey-500 animate-bounce">
+            <CaretDownIcon class="fill-white scale-75" />
           </div>
         </div>
       </motion.div>
@@ -159,6 +169,12 @@ const selectOption = (option: DropdownOption) => {
   closeDropdown();
 };
 
-const { canScroll, atBottom, handleScroll } = useDropdownScroll(dropdownList, isOpen, ref(options));
+const {
+  canScrollUp,
+  canScrollDown,
+  handleScroll,
+  scrollByOptions,
+} = useDropdownScroll(dropdownList, isOpen, ref(options));
+
 useClickOutside(dropdownWrapper, closeDropdown);
 </script>

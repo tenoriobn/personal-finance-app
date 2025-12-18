@@ -1,47 +1,116 @@
-import { ref, onMounted, watch, nextTick, type Ref } from 'vue';
+import { ref, watch, nextTick, type Ref } from 'vue';
 import type { DropdownOption } from './dropdown.type';
 
-export function useDropdownScroll(
-  dropdownList: Ref<HTMLElement | null>,
-  isOpen: Ref<boolean>,
-  options: Ref<(string | DropdownOption)[]>,
-) {
-  const canScroll = ref(false);
-  const atTop = ref(true);
-  const atBottom = ref(false);
+const OPTION_HEIGHT_PX = 53;
+const DEFAULT_VISIBLE_OFFSET = 2;
 
-  const recalcScrollState = () => {
-    const listElement = dropdownList.value;
-    if (!listElement) {
+export function useDropdownScroll(
+  dropdownListRef: Ref<HTMLElement | null>,
+  isOpenRef: Ref<boolean>,
+  optionsRef: Ref<(string | DropdownOption)[]>,
+) {
+  const canScrollUp = ref(false);
+  const canScrollDown = ref(false);
+
+  const getScrollableElement = () => dropdownListRef.value;
+
+  const getMaxScrollTop = (el: HTMLElement) =>
+    el.scrollHeight - el.clientHeight;
+
+  const clampScrollTop = (value: number, max: number) =>
+    Math.max(0, Math.min(value, max));
+
+  const snapToOptionHeight = (scrollTop: number) =>
+    Math.round(scrollTop / OPTION_HEIGHT_PX) * OPTION_HEIGHT_PX;
+
+  const updateScrollIndicators = () => {
+    const el = getScrollableElement();
+    if (!el) {
       return;
     }
 
-    canScroll.value = listElement.scrollHeight > listElement.clientHeight + 1;
-    atTop.value = listElement.scrollTop <= 0;
-    atBottom.value
-      = listElement.scrollTop + listElement.clientHeight
-        >= listElement.scrollHeight - 1;
+    const maxScrollTop = getMaxScrollTop(el);
+
+    canScrollUp.value = el.scrollTop > 0;
+    canScrollDown.value = el.scrollTop < maxScrollTop;
   };
 
-  const handleScroll = () => recalcScrollState();
+  const handleScroll = () => {
+    updateScrollIndicators();
+  };
+
+  const scrollByOptions = (optionsCount: number) => {
+    const el = getScrollableElement();
+    if (!el) {
+      return;
+    }
+
+    const maxScrollTop = getMaxScrollTop(el);
+    const currentSnap = snapToOptionHeight(el.scrollTop);
+
+    const nextScrollTop = clampScrollTop(
+      currentSnap + optionsCount * OPTION_HEIGHT_PX,
+      maxScrollTop,
+    );
+
+    el.scrollTo({
+      top: nextScrollTop,
+      behavior: 'smooth',
+    });
+  };
 
   watch(
-    [isOpen, options],
-    async ([open]) => {
-      if (open) {
-        await nextTick();
-        recalcScrollState();
+    [isOpenRef, optionsRef],
+    async ([isOpen]) => {
+      if (!isOpen) {
+        return;
       }
-      else {
-        canScroll.value = false;
-        atTop.value = true;
-        atBottom.value = false;
+
+      await nextTick();
+
+      const el = getScrollableElement();
+      if (!el) {
+        return;
       }
+
+      const selectedItem = el.querySelector<HTMLElement>(
+        '[data-selected="true"]',
+      );
+
+      if (selectedItem) {
+        const items = el.children;
+        let selectedIndex = -1;
+
+        for (let i = 0; i < items.length; i++) {
+          if (items[i] === selectedItem) {
+            selectedIndex = i;
+            break;
+          }
+        }
+
+        if (selectedIndex >= 0) {
+          const maxScrollTop = getMaxScrollTop(el);
+          const targetIndex = Math.max(
+            0,
+            selectedIndex - DEFAULT_VISIBLE_OFFSET,
+          );
+
+          el.scrollTop = clampScrollTop(
+            targetIndex * OPTION_HEIGHT_PX,
+            maxScrollTop,
+          );
+        }
+      }
+
+      updateScrollIndicators();
     },
     { deep: true },
   );
 
-  onMounted(() => recalcScrollState());
-
-  return { canScroll, atTop, atBottom, handleScroll };
+  return {
+    canScrollUp,
+    canScrollDown,
+    handleScroll,
+    scrollByOptions,
+  };
 }
