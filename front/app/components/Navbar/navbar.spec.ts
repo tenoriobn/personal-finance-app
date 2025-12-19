@@ -1,27 +1,71 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { describe, it, expect } from 'vitest';
 import Navbar from './index.vue';
-import { unref } from 'vue';
+
+vi.mock('vue-router', () => ({
+  useRoute: () => ({
+    path: '/overview',
+  }),
+}));
+
+const mountNavbar = () =>
+  mount(Navbar, {
+    global: {
+      stubs: {
+        NuxtLink: {
+          template: '<a><slot /></a>',
+        },
+        Logo: true,
+      },
+    },
+  });
+
+beforeEach(() => {
+  document.cookie
+    = 'navbar-collapsed=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+});
 
 describe('Navbar', () => {
-  it('should toggle boolean isCollapsed when clicking the button', async () => {
-    const navbarComponent = mount(Navbar, {
-      global: {
-        stubs: {
-          NuxtLink: true,
-        },
-      },
-    });
+  it('renderiza corretamente', () => {
+    const wrapper = mountNavbar();
+    expect(wrapper.exists()).toBe(true);
+  });
 
-    const button = navbarComponent.find('[data-testid="colapse-navbar"]');
-    expect(button.exists()).toBe(true);
+  it('exibe o botão de colapsar menu', () => {
+    const wrapper = mountNavbar();
+    wrapper.get('[data-testid="colapse-navbar"]');
+  });
 
-    expect(unref(navbarComponent.vm.isCollapsed)).toBe(false);
-
-    await button.trigger('click');
-    expect(navbarComponent.vm.isCollapsed).toBe(true);
+  it('alterna o estado ao clicar no botão', async () => {
+    const wrapper = mountNavbar();
+    const button = wrapper.get('[data-testid="colapse-navbar"]');
 
     await button.trigger('click');
-    expect(navbarComponent.vm.isCollapsed).toBe(false);
+    expect(button.attributes('aria-expanded')).toBe('false');
+
+    await button.trigger('click');
+    expect(button.attributes('aria-expanded')).toBe('true');
+  });
+
+  it('aplica classes de layout quando colapsado', async () => {
+    const wrapper = mountNavbar();
+    const button = wrapper.get('[data-testid="colapse-navbar"]');
+
+    await button.trigger('click');
+
+    const nav = wrapper.get('#primary-navigation');
+    expect(nav.classes()).toContain('lg:w-[100px]');
+  });
+
+  it('mantém o estado colapsado após nova renderização', async () => {
+    const firstMount = mountNavbar();
+    await firstMount
+      .get('[data-testid="colapse-navbar"]')
+      .trigger('click');
+
+    const secondMount = mountNavbar();
+    const button = secondMount.get('[data-testid="colapse-navbar"]');
+
+    expect(button.attributes('aria-expanded')).toBe('false');
   });
 });
