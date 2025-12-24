@@ -1,6 +1,7 @@
 <template>
   <button
     :disabled="isSubmitting || disabled"
+    :aria-busy="isSubmitting || undefined"
     :class="[
       'flex items-center justify-center gap-2 border border-grey-900 bg-grey-900 max-sm:text-sm text-sm text-grey-200 stroke-grey-200 font-medium p-3 rounded-xl duration-150 ease-in-out  min-w-28',
       isSubmitting || disabled
