@@ -26,17 +26,17 @@ beforeEach(() => {
 });
 
 describe('Navbar', () => {
-  it('renderiza corretamente', () => {
+  it('Should render correctly', () => {
     const wrapper = mountNavbar();
     expect(wrapper.exists()).toBe(true);
   });
 
-  it('exibe o botão de colapsar menu', () => {
+  it('Should display the collapse menu button', () => {
     const wrapper = mountNavbar();
     wrapper.get('[data-testid="colapse-navbar"]');
   });
 
-  it('alterna o estado ao clicar no botão', async () => {
+  it('Should toggle state when clicking the button', async () => {
     const wrapper = mountNavbar();
     const button = wrapper.get('[data-testid="colapse-navbar"]');
 
@@ -47,7 +47,7 @@ describe('Navbar', () => {
     expect(button.attributes('aria-expanded')).toBe('true');
   });
 
-  it('aplica classes de layout quando colapsado', async () => {
+  it('Should apply layout classes when collapsed', async () => {
     const wrapper = mountNavbar();
     const button = wrapper.get('[data-testid="colapse-navbar"]');
 
@@ -57,7 +57,7 @@ describe('Navbar', () => {
     expect(nav.classes()).toContain('lg:w-[100px]');
   });
 
-  it('mantém o estado colapsado após nova renderização', async () => {
+  it('Should keep the collapsed state after remounting', async () => {
     const firstMount = mountNavbar();
     await firstMount
       .get('[data-testid="colapse-navbar"]')

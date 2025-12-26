@@ -13,31 +13,31 @@ function mountButton(props = {}, slots = {}) {
 }
 
 describe('Button', () => {
-  it('renderiza o botão', () => {
+  it('Should render the button', () => {
     const wrapper = mountButton();
 
     wrapper.get('button');
   });
 
-  it('exibe o label corretamente', () => {
+  it('Should display the label correctly', () => {
     const wrapper = mountButton({ label: 'Enviar' });
 
     expect(wrapper.text()).toContain('Enviar');
   });
 
-  it('renderiza conteúdo do slot', () => {
+  it('Should render slot content', () => {
     const wrapper = mountButton({}, { default: 'Conteúdo extra' });
 
     expect(wrapper.text()).toContain('Conteúdo extra');
   });
 
-  it('fica desabilitado quando disabled é true', () => {
+  it('Should be disabled when disabled is true', () => {
     const wrapper = mountButton({ disabled: true });
 
     expect(wrapper.get('button').attributes('disabled')).toBeDefined();
   });
 
-  it('fica desabilitado e exibe loading quando isSubmitting é true', () => {
+  it('Should be disabled and display loading when isSubmitting is true', () => {
     const wrapper = mountButton({ isSubmitting: true });
 
     const button = wrapper.get('button');
@@ -46,7 +46,7 @@ describe('Button', () => {
     expect(button.find('svg').exists()).toBe(true);
   });
 
-  it('não exibe label nem slot quando está em loading', () => {
+  it('Should not display label or slot content when loading', () => {
     const wrapper = mountButton(
       { isSubmitting: true },
       { default: 'Slot oculto' },
@@ -56,7 +56,7 @@ describe('Button', () => {
     expect(wrapper.text()).not.toContain('Slot oculto');
   });
 
-  it('define aria-busy quando está em loading', () => {
+  it('Should set aria-busy when loading', () => {
     const wrapper = mountButton({ isSubmitting: true });
     expect(wrapper.get('button').attributes('aria-busy')).toBe('true');
   });
