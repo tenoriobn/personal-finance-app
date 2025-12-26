@@ -3,8 +3,9 @@
     <article
       v-for="(item, index) in summaryItems"
       :key="item.key"
-      class="grid gap-1 rounded-xl max-md:p-4 md:p-[2rem] w-full"
-      :class="index === 0 ? 'bg-grey-900' : 'bg-white'"
+      class="grid gap-1 rounded-xl max-md:p-4 md:p-[2rem] w-full shadow-lg shadow-grey-500/20"
+
+      :class="index === 0 ? 'bg-grey-900 ' : 'bg-white'"
     >
       <h3
         class="text-base font-semibold"

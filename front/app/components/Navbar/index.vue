@@ -2,11 +2,11 @@
   <nav
     id="primary-navigation"
     aria-label="Menu principal"
-    class="duration-150 ease-in-out max-lg:rounded-t-lg lg:rounded-r-2xl z-50"
+    class="duration-150 ease-in-out"
     :class="isCollapsed ? 'lg:w-[100px]' : 'lg:w-[252px] 2xl:w-[300px]'"
   >
     <div
-      class="bg-grey-900 fixed max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:rounded-t-lg lg:rounded-r-2xl lg:h-dvh duration-150 ease-in-out overflow-hidden z-50"
+      class="bg-grey-900 fixed max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:rounded-t-lg lg:max-4xl:rounded-r-2xl 4xl:rounded-3xl lg:max-4xl:h-dvh 4xl:h-[calc(100%-96px)] 4xl:max-h-[1080px] duration-150 ease-in-out overflow-hidden z-50"
       :class="isCollapsed ? 'lg:w-[100px]' : 'lg:w-[252px] 2xl:w-[300px]'"
     >
       <div

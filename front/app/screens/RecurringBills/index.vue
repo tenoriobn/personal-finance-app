@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-rows-[auto_1fr] max-md:gap-8 md:gap-10">
+  <div class="grid grid-rows-[auto_1fr] max-md:gap-8 md:gap-10 h-full">
     <header class="flex justify-between items-center gap-2 flex-wrap">
       <TitleSection title="Contas Recorrentes" />
     </header>
@@ -10,7 +10,7 @@
         :pending="pending"
       />
 
-      <div class="grid grid-rows-[auto_1fr] max-md:gap-6 md:gap-10 bg-white rounded-xl max-md:p-4 md:p-10 w-full h-max">
+      <div class="grid grid-rows-[auto_1fr] max-md:gap-6 md:gap-10 bg-white rounded-xl max-md:p-4 md:p-10 w-full h-max shadow-lg shadow-grey-500/20">
         <Filter
           v-model:search="search"
           v-model:selected-sort="selectedSort"

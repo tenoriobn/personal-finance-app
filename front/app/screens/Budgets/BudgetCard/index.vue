@@ -13,7 +13,7 @@
     v-for="{ id, category, theme, maximumSpend, transactions } in budgets || []"
     v-else
     :key="id"
-    class="bg-white rounded-xl max-md:p-4 md:p-[2rem]"
+    class="bg-white rounded-xl max-md:p-4 md:p-[2rem] shadow-lg shadow-grey-500/20"
   >
     <div class="flex justify-between items-center">
       <div class="flex items-center gap-2">

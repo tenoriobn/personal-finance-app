@@ -1,5 +1,5 @@
 <template>
-  <section class="grid grid-rows-[auto_1fr] max-md:gap-8 md:gap-10">
+  <section class="grid grid-rows-[auto_1fr] max-md:gap-8 md:gap-10 ">
     <header class="flex justify-between items-center gap-2 flex-wrap">
       <TitleSection title="Visão Geral" />
       <Button

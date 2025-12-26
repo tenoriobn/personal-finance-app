@@ -11,15 +11,20 @@ export default {
         'lg': '992px',
         'xl': '1200px',
         '2xl': '1440px',
+        '3xl': '1600px',
+        '4xl': '1920px',
         'max-sm': { max: '374px' },
         'max-md': { max: '767px' },
         'max-lg': { max: '991px' },
         'max-xl': { max: '1199px' },
         'max-2xl': { max: '1439px' },
+        'max-3xl': { max: '1599px' },
+        'max-4xl': { max: '1919px' },
       },
       colors: {
         'beige': {
           100: 'hsl(30, 36%, 96%)',
+          300: 'hsl(36, 13%, 92%)',
           500: 'hsl(23, 6%, 57%)',
         },
         'slate': {
