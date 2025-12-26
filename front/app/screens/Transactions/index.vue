@@ -9,7 +9,7 @@
       />
     </header>
 
-    <div class="grid max-md:gap-6 md:gap-10 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
+    <div class="grid max-md:gap-6 md:gap-10 bg-white rounded-xl max-md:p-4 md:p-10 w-full shadow-lg shadow-grey-500/20">
       <Filter
         v-model:search="search"
         v-model:selected-category="selectedCategory"

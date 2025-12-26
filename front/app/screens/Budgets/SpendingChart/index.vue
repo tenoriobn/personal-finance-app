@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <div class="xl:sticky xl:top-10 flex flex-col h-max  bg-white rounded-xl max-md:p-4 md:p-[2rem]">
+    <div class="xl:sticky xl:top-10 flex flex-col h-max  bg-white rounded-xl max-md:p-4 md:p-[2rem] shadow-lg shadow-grey-500/20">
       <SpendingChartSkeleton v-if="pending" />
 
       <div v-else>

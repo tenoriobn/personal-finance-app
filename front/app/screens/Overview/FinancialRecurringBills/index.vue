@@ -1,5 +1,5 @@
 <template>
-  <section class="break-inside-avoid grid gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full">
+  <section class="break-inside-avoid grid gap-6 bg-white rounded-xl max-md:p-4 md:p-10 w-full shadow-lg shadow-grey-500/20">
     <header class="flex justify-between items-center gap-4">
       <h3 class="max-sm:text-base sm:text-xl font-bold text-grey-900">Contas Recorrentes</h3>
 

@@ -1,5 +1,5 @@
 <template>
-  <section class="break-inside-avoid bg-white rounded-xl max-md:p-4 md:p-10 w-full">
+  <section class="break-inside-avoid bg-white rounded-xl max-md:p-4 md:p-10 w-full shadow-lg shadow-grey-500/20">
     <header class="flex justify-between items-center gap-4 mb-6">
       <h3 class="max-sm:text-base sm:text-xl font-bold text-grey-900">Transações</h3>
 
