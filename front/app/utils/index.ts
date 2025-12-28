@@ -1,4 +1,4 @@
 export * from './formatCurrency';
-export * from './formatDate';
+export * from './dateFormatters';
 export * from './calculations';
 export * from './handleApiErrors';

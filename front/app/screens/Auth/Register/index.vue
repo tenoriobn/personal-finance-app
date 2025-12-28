@@ -71,6 +71,7 @@ import { Button, Input, NuxtLink, FormError } from '#components';
 import { handleApiErrors } from '~/utils';
 import { baseRegisterSchema } from './register.schema';
 import type { RegisterForm, RegisterResponse } from './register.type';
+import { useAuth, useToast } from '~/composables';
 
 const defaultForm: RegisterForm = {
   name: '',
