@@ -4,4 +4,4 @@ export interface AmountItem {
   amount: number
 }
 
-export type SpendInput = number | AmountItem[];
+export type SpendInput = number | Array<AmountItem | undefined>;
