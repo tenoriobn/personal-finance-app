@@ -3,6 +3,7 @@
 import { defu } from 'defu';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import { useAuth } from '~/composables';
 
 export function useApiFetch<T>(endpoint: string, options: Record<string, any> = {}, lazy = false) {
   const config = useRuntimeConfig();

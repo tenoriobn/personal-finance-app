@@ -1,4 +1,4 @@
-import { useApiGet } from '~/composables/api/useApiMethods';
+import { useApiGet } from '~/composables';
 import type { RecurringBillsResponse } from './recurringBills.type';
 
 export function useRecurringBills() {

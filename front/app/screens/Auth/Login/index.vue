@@ -48,6 +48,7 @@ import { Button, Input, NuxtLink, FormError } from '#components';
 import { handleApiErrors } from '~/utils';
 import { baseLoginSchema } from './login.schema';
 import type { LoginForm, LoginResponse } from './login.type';
+import { useAuth, useToast } from '~/composables';
 
 const defaultForm: LoginForm = {
   email: '',

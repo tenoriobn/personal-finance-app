@@ -1,5 +1,5 @@
 import type { TransactionsResponse } from '~/screens/Transactions/transactions.type';
-import { useApiGet } from '~/composables/api/useApiMethods';
+import { useApiGet } from '~/composables';
 import { useTransactionsFilters } from '~/composables/index';
 
 export function useTransactions(endpoint: string) {

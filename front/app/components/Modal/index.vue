@@ -51,7 +51,7 @@
 <script setup lang="ts">
 import CloseModalIcon from '~/assets/icons/icon-close-modal.svg';
 import type { ModalProps } from './modal.type';
-import { useClickOutside } from '#imports';
+import { useClickOutside } from '~/composables';
 import { ref, watchEffect, onBeforeUnmount } from 'vue';
 
 const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>();

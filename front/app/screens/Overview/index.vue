@@ -30,7 +30,7 @@ import FinancialTransactions from './FinancialTransactions/index.vue';
 import FinancialBudgets from './FinancialBudgets/index.vue';
 import FinancialRecurringBills from './FinancialRecurringBills/index.vue';
 
-import { useAuth } from '~/composables/useAuth';
+import { useAuth } from '~/composables';
 
 const { clearToken } = useAuth();
 

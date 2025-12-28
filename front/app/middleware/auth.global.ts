@@ -1,3 +1,5 @@
+import { useAuth } from '~/composables';
+
 export default defineNuxtRouteMiddleware((to) => {
   const { isAuthenticated } = useAuth();
 
