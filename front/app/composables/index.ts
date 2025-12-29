@@ -1,6 +1,6 @@
 export * from './api/useApiFetch';
 export * from './api/useApiMethods';
-export * from './chart/useChart';
+export * from './useChart';
 export * from './useAuth';
 export * from './useClickOutside';
 export * from './useCurrencyMask';

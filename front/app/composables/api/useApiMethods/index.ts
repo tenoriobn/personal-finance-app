@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useApiFetch } from './useApiFetch';
+import { useApiFetch } from '../useApiFetch';
 
 export function useApiGet<T>(endpoint: string, options: Record<string, any> = {}, lazy = true) {
   return useApiFetch<T>(endpoint, { method: 'GET', ...options }, lazy) as ReturnType<typeof useFetch<T>>;
