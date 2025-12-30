@@ -48,7 +48,7 @@ import { Button, Input, NuxtLink, FormError } from '#components';
 import { handleApiErrors } from '~/utils';
 import { baseLoginSchema } from './login.schema';
 import type { LoginForm, LoginResponse } from './login.type';
-import { useAuth, useToast } from '~/composables';
+import { useAuth, useToast, useApiPost } from '~/composables';
 
 const defaultForm: LoginForm = {
   email: '',
@@ -108,7 +108,7 @@ const handleSubmit = async () => {
   isSubmitting.value = true;
 
   try {
-    const { token } = await useApiPost('auth/login', formState) as LoginResponse;
+    const { token } = await useApiPost('auth/login', { ...formState }) as LoginResponse;
     const { setToken } = useAuth();
     setToken(token);
 
