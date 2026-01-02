@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ref } from 'vue';
-import { useCreateBudgetModal } from './index';
+import { useCreateBudgetModal } from './useCreateBudgetModal';
 
 const postMock = vi.fn();
 const notifyMock = vi.fn();
@@ -34,7 +34,7 @@ vi.mock('~/composables', () => ({
   },
 }));
 
-vi.mock('../../useCategoriesAndThemes', () => ({
+vi.mock('../useCategoriesAndThemes', () => ({
   useCategoriesAndThemes: () => ({
     categories: ref([{ id: 'cat-1', name: 'Supermercado' }]),
     themes: ref([{ id: 'theme-1', colorName: 'Red', colorHex: '#ff0000' }]),

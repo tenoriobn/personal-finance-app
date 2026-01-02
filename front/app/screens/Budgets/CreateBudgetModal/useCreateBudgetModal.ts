@@ -1,8 +1,8 @@
 import { computed, reactive, ref, watch } from 'vue';
 import { useApiPost, useCurrencyMask, useToast } from '~/composables';
-import { useCategoriesAndThemes } from '../../useCategoriesAndThemes';
-import type { BudgetForm } from '../../budgets.type';
-import { baseBudgetSchema } from '../../budget.schema';
+import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
+import type { BudgetForm } from '../budgets.type';
+import { baseBudgetSchema } from '../budget.schema';
 
 export function useCreateBudgetModal(onSuccess?: () => void) {
   const { notify } = useToast();
