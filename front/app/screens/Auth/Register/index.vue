@@ -143,7 +143,7 @@ const handleSubmit = async () => {
   isSubmitting.value = true;
 
   try {
-    const { token } = await useApiPost('auth/register', formState) as RegisterResponse;
+    const { token } = await useApiPost('auth/register', { ...formState }) as RegisterResponse;
     const { setToken } = useAuth();
     setToken(token);
     await navigateTo('/');
