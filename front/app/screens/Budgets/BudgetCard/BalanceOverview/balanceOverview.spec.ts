@@ -1,4 +1,3 @@
-// front-end/Personal/9-personalFinanceApp/front/app/screens/Budgets/BudgetCard/BalanceOverview/balanceOverview.spec.ts
 import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import BalanceOverview from './index.vue';
