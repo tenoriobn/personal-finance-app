@@ -33,7 +33,7 @@ function createBudget(): BudgetData {
 }
 
 describe('EditBudgetModal', () => {
-  it('renders modal when open', () => {
+  it('Should render modal when open', () => {
     const wrapper = mount(EditBudgetModal, {
       props: {
         modelValue: true,
@@ -44,7 +44,7 @@ describe('EditBudgetModal', () => {
     expect(wrapper.text()).toContain('Editar Orçamento');
   });
 
-  it('emits update:modelValue when closing', async () => {
+  it('Should emit update:modelValue when closing', async () => {
     const wrapper = mount(EditBudgetModal, {
       props: {
         modelValue: true,
@@ -57,7 +57,7 @@ describe('EditBudgetModal', () => {
     expect(wrapper.emitted('update:modelValue')).toBeTruthy();
   });
 
-  it('submits form', async () => {
+  it('Should submit form', async () => {
     const wrapper = mount(EditBudgetModal, {
       props: {
         modelValue: true,
