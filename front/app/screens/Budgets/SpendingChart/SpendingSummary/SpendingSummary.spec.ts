@@ -52,7 +52,7 @@ describe('SpendingSummary', () => {
     pendingMock.value = false;
   });
 
-  it('renders skeleton title when pending', () => {
+  it('Should renders skeleton title when pending', () => {
     pendingMock.value = true;
 
     const wrapper = mount(SpendingSummary);
@@ -61,19 +61,19 @@ describe('SpendingSummary', () => {
     expect(wrapper.text()).not.toContain('Resumo de gastos');
   });
 
-  it('renders title when not pending', () => {
+  it('Should render title when not pending', () => {
     const wrapper = mount(SpendingSummary);
 
     expect(wrapper.text()).toContain('Resumo de gastos');
   });
 
-  it('renders empty state when there are no budgets', () => {
+  it('Should renders empty state when there are no budgets', () => {
     const wrapper = mount(SpendingSummary);
 
     expect(wrapper.text()).toContain('Não há orçamentos.');
   });
 
-  it('renders up to 3 budgets', () => {
+  it('Should renders up to 3 budgets', () => {
     budgetsMock.value = [
       makeBudget({ id: '1' }),
       makeBudget({ id: '2' }),
@@ -90,7 +90,7 @@ describe('SpendingSummary', () => {
     expect(rows.length).toBe(3);
   });
 
-  it('renders budget category name', () => {
+  it('Should renders budget category name', () => {
     budgetsMock.value = [
       makeBudget({
         category: { id: 'cat', name: 'Transporte', budgetId: '1' },
@@ -105,7 +105,7 @@ describe('SpendingSummary', () => {
     expect(wrapper.text()).toContain('Transporte');
   });
 
-  it('applies theme color to indicator bar', () => {
+  it('Should applies theme color to indicator bar', () => {
     budgetsMock.value = [
       makeBudget({
         theme: {
@@ -125,7 +125,7 @@ describe('SpendingSummary', () => {
     expect(indicator.attributes('style')).toContain('background-color: #0000FF');
   });
 
-  it('calls calculateSpent with budget transactions', () => {
+  it('Should calls calculateSpent with budget transactions', () => {
     const transactions = [
       { id: 't1', amount: 40, name: 'A', budgetId: '1', date: '', recurring: false },
     ];
@@ -142,7 +142,7 @@ describe('SpendingSummary', () => {
     expect(calculateSpentMock).toHaveBeenCalledWith(transactions);
   });
 
-  it('formats spent and maximum values without signal', () => {
+  it('Should formats spent and maximum values without signal', () => {
     budgetsMock.value = [
       makeBudget({ maximumSpend: 200 }),
     ];
