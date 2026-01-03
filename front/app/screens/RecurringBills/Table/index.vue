@@ -58,8 +58,15 @@
           <p class="max-md:order-2">{{ formatMonthDay(date) }}</p>
 
           <div class="max-md:order-1">
-            <BillPaidIcon v-if="status === 'paid'" />
-            <BillDueIcon v-if="status==='dueSoon'" />
+            <BillPaidIcon
+              v-if="status === 'paid'"
+              data-testid="bill-paid-icon"
+            />
+
+            <BillDueIcon
+              v-if="status==='dueSoon'"
+              data-testid="bill-due-icon"
+            />
           </div>
         </td>
 
