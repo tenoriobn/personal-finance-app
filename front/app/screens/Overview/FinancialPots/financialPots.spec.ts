@@ -71,7 +71,7 @@ describe('Overview > FinancialPots', () => {
   it('Should render skeleton when pending', () => {
     pendingMock.value = true;
 
-    const wrapper = mount(FinancialPots);
+    const wrapper = mount(FinancialPots, globalMountOptions);
 
     expect(wrapper.find('.animate-pulse').exists()).toBe(true);
   });
@@ -84,7 +84,7 @@ describe('Overview > FinancialPots', () => {
 
     formatCurrencyMock.mockReturnValue('R$ 500,00');
 
-    const wrapper = mount(FinancialPots);
+    const wrapper = mount(FinancialPots, globalMountOptions);
 
     expect(formatCurrencyMock).toHaveBeenCalledWith(500, false);
     expect(wrapper.text()).toContain('R$ 500,00');
@@ -101,7 +101,7 @@ describe('Overview > FinancialPots', () => {
 
     formatCurrencyMock.mockReturnValue('R$ 100,00');
 
-    const wrapper = mount(FinancialPots);
+    const wrapper = mount(FinancialPots, globalMountOptions);
 
     expect(wrapper.text()).toContain('Viagem');
     expect(wrapper.text()).toContain('Emergência');
@@ -122,7 +122,7 @@ describe('Overview > FinancialPots', () => {
 
     formatCurrencyMock.mockReturnValue('R$ 100,00');
 
-    const wrapper = mount(FinancialPots);
+    const wrapper = mount(FinancialPots, globalMountOptions);
     const indicator = wrapper.find('span');
 
     expect(indicator.attributes('style')).toContain(
@@ -140,7 +140,7 @@ describe('Overview > FinancialPots', () => {
 
     formatCurrencyMock.mockReturnValue('R$ 250,00');
 
-    mount(FinancialPots);
+    mount(FinancialPots, globalMountOptions);
 
     expect(formatCurrencyMock).toHaveBeenCalledWith(250, false);
   });
