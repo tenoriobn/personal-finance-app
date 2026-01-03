@@ -72,7 +72,7 @@ describe('Overview > FinancialTransactions', () => {
   it('Should render skeleton when pending', () => {
     pendingMock.value = true;
 
-    const wrapper = mount(FinancialTransactions);
+    const wrapper = mount(FinancialTransactions, globalMountOptions);
 
     expect(wrapper.find('.animate-pulse').exists()).toBe(true);
   });
@@ -80,7 +80,7 @@ describe('Overview > FinancialTransactions', () => {
   it('Should render empty state when there are no transactions', () => {
     summaryTransactionsMock.value = makeSummaryTransactions();
 
-    const wrapper = mount(FinancialTransactions);
+    const wrapper = mount(FinancialTransactions, globalMountOptions);
 
     expect(wrapper.text()).toContain('Não há transações.');
   });
@@ -111,7 +111,7 @@ describe('Overview > FinancialTransactions', () => {
       .mockReturnValueOnce('10/01/2024')
       .mockReturnValueOnce('05/01/2024');
 
-    const wrapper = mount(FinancialTransactions);
+    const wrapper = mount(FinancialTransactions, globalMountOptions);
 
     expect(wrapper.text()).toContain('Mercado');
     expect(wrapper.text()).toContain('Salário');
@@ -132,7 +132,7 @@ describe('Overview > FinancialTransactions', () => {
     formatCurrencyMock.mockReturnValue('-R$ 55,00');
     formatDateMock.mockReturnValue('01/01/2024');
 
-    const wrapper = mount(FinancialTransactions);
+    const wrapper = mount(FinancialTransactions, globalMountOptions);
 
     expect(wrapper.text()).toContain('N');
   });
@@ -152,7 +152,7 @@ describe('Overview > FinancialTransactions', () => {
     formatCurrencyMock.mockReturnValue('R$ 2.000,00');
     formatDateMock.mockReturnValue('01/01/2024');
 
-    const wrapper = mount(FinancialTransactions);
+    const wrapper = mount(FinancialTransactions, globalMountOptions);
 
     expect(wrapper.find('.text-green').exists()).toBe(true);
   });
@@ -172,7 +172,7 @@ describe('Overview > FinancialTransactions', () => {
     formatCurrencyMock.mockReturnValue('-R$ 1.200,00');
     formatDateMock.mockReturnValue('01/01/2024');
 
-    const wrapper = mount(FinancialTransactions);
+    const wrapper = mount(FinancialTransactions, globalMountOptions);
 
     expect(wrapper.find('.text-red').exists()).toBe(true);
   });
@@ -192,7 +192,7 @@ describe('Overview > FinancialTransactions', () => {
     formatCurrencyMock.mockReturnValue('-R$ 200,00');
     formatDateMock.mockReturnValue('15/01/2024');
 
-    mount(FinancialTransactions);
+    mount(FinancialTransactions, globalMountOptions);
 
     expect(formatCurrencyMock).toHaveBeenCalledWith(-200);
     expect(formatDateMock).toHaveBeenCalledWith('2024-01-15');

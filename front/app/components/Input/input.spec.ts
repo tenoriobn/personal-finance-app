@@ -1,10 +1,11 @@
 import { mount } from '@vue/test-utils';
 import { describe, it, expect } from 'vitest';
 import Input from './index.vue';
+import { markRaw } from 'vue';
 
-const DummyIcon = {
+const DummyIcon = markRaw({
   template: '<svg data-testid="icon" />',
-};
+});
 
 const mountComponent = (props = {}) => {
   return mount(Input, {
