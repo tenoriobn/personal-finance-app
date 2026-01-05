@@ -1,5 +1,3 @@
-// app/utils/finance/finance.types.ts
-
 export interface AmountItem {
   amount: number
 }

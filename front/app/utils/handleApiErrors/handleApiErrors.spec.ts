@@ -1,4 +1,3 @@
-// tests/utils/handleApiErrors.spec.ts
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { handleApiErrors } from './index';
 

@@ -1,4 +1,3 @@
-// tests/utils/calculations.spec.ts
 import { describe, it, expect } from 'vitest';
 import { calculateSpent, calculateRemaining, calculatePercentUsed } from './index';
 
