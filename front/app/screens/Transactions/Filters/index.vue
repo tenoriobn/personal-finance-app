@@ -14,7 +14,7 @@
       <Dropdown
         v-model="selectedCategoryLocal"
         :label="'Categoria'"
-        :options="[{ id: '', name: 'Todos' }, ...(categories || [])]"
+        :options="categoryOptions"
         :icon-mobile="FilterIconMobile"
         data-testid="dropdown-category"
         custom-classes="md:w-[174px] 2xl:w-[200px]"
@@ -49,4 +49,9 @@ const selectedSortLocal = ref(props.selectedSort);
 watch(selectedSortLocal, val => emit('update:selectedSort', val));
 
 const { data: categories } = useApiGet<{ id: string, name: string }[]>('categories');
+
+const categoryOptions = computed(() => [
+  { id: '', name: 'Todos' },
+  ...(Array.isArray(categories.value) ? categories.value : []),
+]);
 </script>

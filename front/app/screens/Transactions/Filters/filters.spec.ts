@@ -1,54 +1,141 @@
-import { describe, it, expect } from 'vitest';
-import type { VueWrapper } from '@vue/test-utils';
+import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
+import { ref } from 'vue';
 import Filters from './index.vue';
 
-describe.skip('Filter', () => {
-  let filtersComponent: VueWrapper;
+vi.mock('~/composables', () => ({
+  useApiGet: () => ({
+    data: ref([
+      { id: '1', name: 'Alimentação' },
+      { id: '2', name: 'Transporte' },
+    ]),
+  }),
+}));
 
-  beforeEach(() => {
-    filtersComponent = mount(Filters, {
-      props: {
-        search: '',
-        selectedCategory: 'Todas',
-        selectedSort: 'Mais antigo',
+const mountComponent = (props?: Partial<{
+  search: string
+  selectedCategory: string
+  selectedSort: string
+}>) =>
+  mount(Filters, {
+    props: {
+      search: '',
+      selectedCategory: '',
+      selectedSort: 'Mais recente',
+      ...props,
+    },
+    global: {
+      stubs: {
+        Input: {
+          props: ['modelValue'],
+          emits: ['update:modelValue'],
+          template: `
+            <input
+              data-testid="input-search"
+              :value="modelValue"
+              @input="$emit('update:modelValue', $event.target.value)"
+            />
+          `,
+        },
+        Dropdown: {
+          props: ['modelValue'],
+          emits: ['update:modelValue'],
+          template: `
+          <div data-testid="dropdown-category">
+            <span data-testid="dropdown-category-value">{{ modelValue }}</span>
+            <button
+              data-testid="dropdown-category-trigger"
+              @click="$emit('update:modelValue', '1')"
+            />
+          </div>
+        ` },
+        SortByDropdown: {
+          props: ['modelValue'],
+          emits: ['update:modelValue'],
+          template: `
+            <div data-testid="dropdown-sort">
+              <span data-testid="dropdown-sort-value">{{ modelValue }}</span>
+              <button
+                data-testid="dropdown-sort-trigger"
+                @click="$emit('update:modelValue', 'A a Z')"
+              />
+            </div>
+          ` },
       },
+    },
+  });
+
+describe('Filters', () => {
+  describe('Render', () => {
+    it('Should render search input', () => {
+      const wrapper = mountComponent();
+      expect(wrapper.find('[data-testid="input-search"]').exists()).toBe(true);
+    });
+
+    it('Should render category dropdown', () => {
+      const wrapper = mountComponent();
+      expect(wrapper.find('[data-testid="dropdown-category"]').exists()).toBe(true);
+    });
+
+    it('Should render sort dropdown', () => {
+      const wrapper = mountComponent();
+      expect(wrapper.find('[data-testid="dropdown-sort"]').exists()).toBe(true);
     });
   });
 
-  function findDropdown(component: VueWrapper, testid: string) {
-    return component.find(`[data-testid="${testid}"]`);
-  }
+  describe('Emits', () => {
+    it('Should emit update:search when search value changes', async () => {
+      const wrapper = mountComponent();
+      const input = wrapper.get('[data-testid="input-search"]');
 
-  async function selectDropdownOption(component: VueWrapper, testid: string, optionText: string) {
-    const dropdown = findDropdown(component, testid);
-    expect(dropdown.exists()).toBe(true);
-    await dropdown.trigger('click');
-    await component.vm.$nextTick();
+      await input.setValue('mercado');
 
-    const options = component.findAll('li');
-    const option = options.find(opt => opt.text() === optionText);
-    expect(option).toBeTruthy();
-    await option!.trigger('click');
-  }
+      expect(wrapper.emitted('update:search')?.[0]).toEqual(['mercado']);
+    });
 
-  it('Should issue "update:search" when adding text in search input', async () => {
-    const input = filtersComponent.find('input[name="search"]');
-    await input.setValue('Netflix');
+    it('Should emit update:selectedCategory when category changes', async () => {
+      const wrapper = mountComponent();
 
-    expect(filtersComponent.emitted('update:search')).toBeTruthy();
-    expect(filtersComponent.emitted('update:search')![0]).toEqual(['Netflix']);
+      await wrapper
+        .get('[data-testid="dropdown-category-trigger"]')
+        .trigger('click');
+
+      expect(wrapper.emitted('update:selectedCategory')?.[0]).toEqual(['1']);
+    });
+
+    it('Should emit update:selectedSort when sort option changes', async () => {
+      const wrapper = mountComponent();
+
+      await wrapper
+        .get('[data-testid="dropdown-sort-trigger"]')
+        .trigger('click');
+
+      expect(wrapper.emitted('update:selectedSort')?.[0]).toEqual(['A a Z']);
+    });
   });
 
-  it('should emit "update:selectedSort" when selecting "Mais recente"', async () => {
-    await selectDropdownOption(filtersComponent, 'dropdown-sort-by', 'Mais recente');
-    expect(filtersComponent.emitted('update:selectedSort')).toBeTruthy();
-    expect(filtersComponent.emitted('update:selectedSort')![0]).toEqual(['Mais recente']);
-  });
+  describe('Props sync', () => {
+    it('Should initialize local search with prop value', () => {
+      const wrapper = mountComponent({ search: 'teste' });
 
-  it('should emit "update:selectedCategory" when selecting "Poupanças" option in Category dropdown', async () => {
-    await selectDropdownOption(filtersComponent, 'dropdown-category', 'Poupanças');
-    expect(filtersComponent.emitted('update:selectedCategory')).toBeTruthy();
-    expect(filtersComponent.emitted('update:selectedCategory')![0]).toEqual(['Poupanças']);
+      const input = wrapper.get('[data-testid="input-search"]');
+      expect((input.element as HTMLInputElement).value).toBe('teste');
+    });
+
+    it('Should initialize selectedCategoryLocal with prop value', () => {
+      const wrapper = mountComponent({ selectedCategory: 'cat-2' });
+
+      expect(
+        wrapper.get('[data-testid="dropdown-category-value"]').text(),
+      ).toBe('cat-2');
+    });
+
+    it('Should initialize selectedSortLocal with prop value', () => {
+      const wrapper = mountComponent({ selectedSort: 'Mais antigo' });
+
+      expect(
+        wrapper.get('[data-testid="dropdown-sort-value"]').text(),
+      ).toBe('Mais antigo');
+    });
   });
 });
