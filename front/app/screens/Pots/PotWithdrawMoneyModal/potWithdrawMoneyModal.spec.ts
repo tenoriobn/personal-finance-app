@@ -1,4 +1,3 @@
-// potWithdrawMoneyModal.spec.ts
 import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ref } from 'vue';
@@ -78,10 +77,6 @@ const mountComponent = (props?: { modelValue?: boolean }) =>
       },
     },
   });
-
-// -----------------------------------------------------------------------------
-// Tests
-// -----------------------------------------------------------------------------
 describe('PotWithdrawMoneyModal', () => {
   beforeEach(() => {
     vi.clearAllMocks();

@@ -1,12 +1,8 @@
-// createPotModal.spec.ts
 import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ref } from 'vue';
 import CreatePotModal from './index.vue';
 
-// -----------------------------------------------------------------------------
-// Mocks
-// -----------------------------------------------------------------------------
 const refreshThemesMock = vi.fn();
 const handleSubmitMock = vi.fn();
 
@@ -45,9 +41,6 @@ vi.mock('./useCreatePotModal', () => ({
   useCreatePotModal: vi.fn(() => createPotModalState),
 }));
 
-// -----------------------------------------------------------------------------
-// Helpers
-// -----------------------------------------------------------------------------
 const mountComponent = (props?: { modelValue?: boolean }) =>
   mount(CreatePotModal, {
     props: {
@@ -82,9 +75,6 @@ const mountComponent = (props?: { modelValue?: boolean }) =>
     },
   });
 
-// -----------------------------------------------------------------------------
-// Tests
-// -----------------------------------------------------------------------------
 describe('CreatePotModal', () => {
   beforeEach(() => {
     vi.clearAllMocks();
