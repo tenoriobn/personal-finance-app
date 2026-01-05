@@ -87,15 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  Modal,
-  Button,
-  InputDatePicker,
-  Dropdown,
-  FormError,
-  Input,
-  InputCheckbox,
-} from '#components';
+import { Modal, Button, InputDatePicker, Dropdown, FormError, Input, InputCheckbox } from '#components';
 
 import { useApiGet } from '~/composables';
 import { useCreateTransactionModal } from './useCreateTransactionModal';
