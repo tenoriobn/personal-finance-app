@@ -2,13 +2,13 @@ import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import CreateTransactionModal from './index.vue';
 
+const handleSubmitMock = vi.fn();
+
 vi.mock('~/composables', () => ({
   useApiGet: vi.fn(() => ({
-    data: { value: [] },
+    data: { value: [{ id: '1', name: 'Alimentação', budgetId: 'b1' }] },
   })),
 }));
-
-const handleSubmitMock = vi.fn();
 
 vi.mock('./useCreateTransactionModal', () => ({
   useCreateTransactionModal: vi.fn(() => ({
@@ -20,7 +20,12 @@ vi.mock('./useCreateTransactionModal', () => ({
       budgetId: '',
       type: 'IN',
     },
-    errors: {},
+    errors: {
+      name: '',
+      date: '',
+      amount: '',
+      budgetId: '',
+    },
     isSubmitting: false,
     formattedAmount: '0',
     onInput: vi.fn(),
@@ -28,7 +33,7 @@ vi.mock('./useCreateTransactionModal', () => ({
     onPaste: vi.fn(),
     hasAvailableCategories: true,
     modalIntro: 'Intro mock',
-    categoryOptions: [],
+    categoryOptions: [{ id: 'b1', name: 'Alimentação' }],
     handleSubmit: handleSubmitMock,
   })),
 }));
@@ -43,8 +48,9 @@ const mountComponent = (props = {}) =>
       stubs: {
         Modal: {
           name: 'Modal',
-          template: '<div><slot /></div>',
+          props: ['modelValue'],
           emits: ['update:modelValue'],
+          template: '<div><slot /></div>',
         },
         Input: true,
         InputDatePicker: true,
@@ -63,34 +69,36 @@ describe('CreateTransactionModal', () => {
     vi.clearAllMocks();
   });
 
-  it('renders modal when modelValue is true', () => {
-    const wrapper = mountComponent();
+  describe('Render', () => {
+    it('Should render modal when modelValue is true', () => {
+      const wrapper = mountComponent();
+      expect(wrapper.exists()).toBe(true);
+    });
 
-    expect(wrapper.exists()).toBe(true);
+    it('Should render form when there are available categories', () => {
+      const wrapper = mountComponent();
+      expect(wrapper.find('form').exists()).toBe(true);
+    });
   });
 
-  it('emits update:modelValue when modal emits close', async () => {
-    const wrapper = mountComponent();
+  describe('Modal behavior', () => {
+    it('Should emit update:modelValue when modal requests close', async () => {
+      const wrapper = mountComponent();
+      const modal = wrapper.findComponent({ name: 'Modal' });
 
-    const modal = wrapper.findComponent({ name: 'Modal' });
-    expect(modal.exists()).toBe(true);
+      await modal.vm.$emit('update:modelValue', false);
 
-    await modal.vm.$emit('update:modelValue', false);
-
-    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false]);
+      expect(wrapper.emitted('update:modelValue')).toEqual([[false]]);
+    });
   });
 
-  it('renders form when hasAvailableCategories is true', () => {
-    const wrapper = mountComponent();
+  describe('Submit behavior', () => {
+    it('Should call handleSubmit when form is submitted', async () => {
+      const wrapper = mountComponent();
 
-    expect(wrapper.find('form').exists()).toBe(true);
-  });
+      await wrapper.find('form').trigger('submit.prevent');
 
-  it('calls handleSubmit on form submit', async () => {
-    const wrapper = mountComponent();
-
-    await wrapper.find('form').trigger('submit.prevent');
-
-    expect(handleSubmitMock).toHaveBeenCalled();
+      expect(handleSubmitMock).toHaveBeenCalledTimes(1);
+    });
   });
 });
