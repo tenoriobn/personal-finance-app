@@ -19,7 +19,7 @@
         v-if="pending"
       />
 
-      <tr v-else-if="transactions.length === 0">
+      <tr v-else-if="transactions.length === 0 && !pending">
         <td
           colspan="3"
           class="text-center text-grey-500 text-sm max-md:py-10 xl:pt-10"
