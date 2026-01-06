@@ -5,8 +5,6 @@ import { themeRoutes } from "src/modules/theme/theme.route";
 import { transactionRoutes } from "src/modules/transaction/transaction.route";
 import { userRoutes } from "src/modules/user/user.route";
 import { authRoutes } from "../modules/auth/auth.routes";
-import { authentication } from "../middleware/authentication";
-import { Hono } from "hono";
 import { roleRoutes } from "../modules/roles/role.routes";
 import { recurringBillsRoutes } from "@/modules/recurringBills/recurringBills.route";
 import { overviewRoutes } from "@/modules/overview/overview.route";
@@ -23,17 +21,3 @@ export const routes = [
   { path: "/recurring-bills", handler: recurringBillsRoutes, protected: true },
   { path: "/overview", handler: overviewRoutes, protected: true },
 ];
-
-export function registerRoutes(app: Hono) {
-  routes.forEach(({ path, handler, protected: isProtected }) => {
-    const router = new Hono();
-
-    if (isProtected) {
-      router.use(authentication);
-    }
-
-    router.route("/", handler);
-
-    app.route(path, router);
-  });
-}
