@@ -1,8 +1,8 @@
 import { Hono } from "hono";
 import { errorHandler } from "./middleware/errorHandler";
-import { registerRoutes } from "./routes";
 import { logger } from "./middleware/logger";
 import { corsMiddleware } from "./middleware/cors";
+import { registerRoutes } from "./routes/registerRoutes";
 
 const app = new Hono();
 
