@@ -1,0 +1,35 @@
+name: CD (Monorepo)
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      front: ${{ steps.filter.outputs.front }}
+      back: ${{ steps.filter.outputs.back }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            front:
+              - 'front/**'
+            back:
+              - 'back/**'
+
+  front:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.front == 'true'
+    uses: ./.github/workflows/front-cd.yml
+    secrets: inherit
+
+  back:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.back == 'true'
+    uses: ./.github/workflows/back-cd.yml
+    secrets: inherit

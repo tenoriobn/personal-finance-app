@@ -1,18 +1,10 @@
-name: 'CD + Deploy Produção (Node.js + Prisma)'
+name: CD Back-end (Node)
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'back/**'
-
-permissions:
-  contents: read
+  workflow_call:
 
 jobs:
   deploy:
-    if: github.event.head_commit.modified && contains(join(github.event.head_commit.modified, ','), 'back/')
-    name: Deploy Produção na Vercel
     runs-on: ubuntu-latest
     defaults:
       run:

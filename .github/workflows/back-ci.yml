@@ -1,18 +1,10 @@
-name: 'CI (Node.js + Prisma)'
+name: CI Back-end (Node)
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'back/**'
-
-permissions: 
-  pull-requests: write
-  contents: read
+  workflow_call:
 
 jobs:
   validate:
-    name: Validar Código Back
     runs-on: ubuntu-latest
     defaults:
       run:

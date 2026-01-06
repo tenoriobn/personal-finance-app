@@ -1,18 +1,10 @@
-name: 'CI + Preview Deploy (Nuxt)'
+name: CI Front-end (Nuxt)
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'front/**'
-
-permissions: 
-  pull-requests: write
-  contents: read
+  workflow_call:
 
 jobs:
   validate:
-    name: Validar Código e Deploy Preview
     runs-on: ubuntu-latest
     defaults:
       run:

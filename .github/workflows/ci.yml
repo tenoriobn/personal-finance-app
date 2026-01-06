@@ -1,0 +1,46 @@
+name: CI (Monorepo)
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      front: ${{ steps.filter.outputs.front }}
+      back: ${{ steps.filter.outputs.back }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            front:
+              - 'front/**'
+            back:
+              - 'back/**'
+
+  front:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.front == 'true'
+    uses: ./.github/workflows/front-ci.yml
+    secrets: inherit
+
+  back:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.back == 'true'
+    uses: ./.github/workflows/back-ci.yml
+    secrets: inherit
+
+  nothing:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.front != 'true' && needs.detect-changes.outputs.back != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Nada para validar"
