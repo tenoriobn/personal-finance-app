@@ -1,18 +1,10 @@
-name: 'CD + Deploy Produção (Nuxt)'
+name: CD Front-end (Vercel)
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'front/**'
-
-permissions:
-  contents: read
+  workflow_call:
 
 jobs:
   deploy:
-    if: github.event.head_commit.modified && contains(join(github.event.head_commit.modified, ','), 'front/')
-    name: Deploy Produção na Vercel
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -30,7 +22,7 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      - name: Deploy para Produção na Vercel
+      - name: Deploy para Produção (Vercel)
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
