@@ -1,8 +1,11 @@
-name: CD (Monorepo)
+name: CD (Front e Back)
 
 on:
   push:
     branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
   detect-changes:
@@ -13,6 +16,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: dorny/paths-filter@v3
         id: filter
         with:
@@ -23,13 +27,29 @@ jobs:
               - 'back/**'
 
   front:
+    name: Deploy Front-end
     needs: detect-changes
     if: needs.detect-changes.outputs.front == 'true'
     uses: ./.github/workflows/front-cd.yml
     secrets: inherit
 
   back:
+    name: Deploy Back-end
     needs: detect-changes
     if: needs.detect-changes.outputs.back == 'true'
     uses: ./.github/workflows/back-cd.yml
     secrets: inherit
+
+  gatekeeper:
+    name: CD (Monorepo)
+    runs-on: ubuntu-latest
+    needs:
+      - detect-changes
+      - front
+      - back
+    if: always()
+
+    steps:
+      - name: Finalizar CD
+        run: |
+          echo "CD finalizado"

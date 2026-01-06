@@ -1,4 +1,4 @@
-name: CI (Monorepo)
+name: CI (Front e Back)
 
 on:
   pull_request:
@@ -17,6 +17,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: dorny/paths-filter@v3
         id: filter
         with:
@@ -27,20 +28,29 @@ jobs:
               - 'back/**'
 
   front:
+    name: Front CI
     needs: detect-changes
     if: needs.detect-changes.outputs.front == 'true'
     uses: ./.github/workflows/front-ci.yml
     secrets: inherit
 
   back:
+    name: Back CI
     needs: detect-changes
     if: needs.detect-changes.outputs.back == 'true'
     uses: ./.github/workflows/back-ci.yml
     secrets: inherit
 
-  nothing:
-    needs: detect-changes
-    if: needs.detect-changes.outputs.front != 'true' && needs.detect-changes.outputs.back != 'true'
+  gatekeeper:
+    name: CI (Monorepo)
     runs-on: ubuntu-latest
+    needs:
+      - detect-changes
+      - front
+      - back
+    if: always()
+
     steps:
-      - run: echo "Nada para validar"
+      - name: Avaliar resultado do CI
+        run: |
+          echo "CI finalizado com sucesso"
