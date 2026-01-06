@@ -1,4 +1,4 @@
-name: CI (Front e Back)
+name: CI (Monorepo)
 
 on:
   pull_request:
