@@ -61,7 +61,6 @@ describe('TableTransactions', () => {
         date: '2024-01-10',
         amount: -39.9,
         recurring: false,
-        userId: 'user-1',
         budget: {
           category: {
             id: 'cat-1',
@@ -75,7 +74,6 @@ describe('TableTransactions', () => {
         date: '2024-01-05',
         amount: 2500,
         recurring: true,
-        userId: 'user-1',
         budget: {
           category: {
             id: 'cat-2',

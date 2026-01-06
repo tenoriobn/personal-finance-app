@@ -12,7 +12,6 @@ const potMock = ref<PotData | null>({
   name: 'Poupança Teste',
   targetAmount: 250,
   totalAmount: 200,
-  userId: 'user-1',
   theme: {
     id: 'theme-1',
     colorName: 'Azul',

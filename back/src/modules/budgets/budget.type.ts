@@ -2,7 +2,6 @@ import { PrismaClient } from "@prisma/client";
 
 export interface CreateBudgetDTO {
   maximumSpend: number;
-  userId: string;
   themeId: string;
   categoryId: string;
 }

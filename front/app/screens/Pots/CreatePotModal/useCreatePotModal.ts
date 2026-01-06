@@ -13,7 +13,6 @@ export function useCreatePotModal(themes: () => ThemeData[], onSuccess?: () => v
     targetAmount: amount.value,
     totalAmount: 0,
     themeId: '',
-    userId: '68cc2ec3f0818350607a26b6',
   });
 
   const errors = reactive<Record<string, string>>({
@@ -69,7 +68,6 @@ export function useCreatePotModal(themes: () => ThemeData[], onSuccess?: () => v
       targetAmount: amount.value,
       totalAmount: 0,
       themeId: '',
-      userId: '68cc2ec3f0818350607a26b6',
     });
 
     amount.value = 0;

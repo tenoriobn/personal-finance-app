@@ -27,7 +27,6 @@ const potMock: PotData = {
   name: 'Poupança Teste',
   targetAmount: 1000,
   totalAmount: 0,
-  userId: 'user-1',
   theme: {
     id: 'theme-1',
     colorName: 'Azul',

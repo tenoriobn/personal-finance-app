@@ -27,7 +27,6 @@ export function useCreateBudgetModal(onSuccess?: () => void) {
     maximumSpend: amount.value,
     categoryId: '',
     themeId: '',
-    userId: '68cc2ec3f0818350607a26b6',
   };
 
   const formState = reactive({ ...defaultForm });

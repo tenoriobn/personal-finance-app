@@ -3,7 +3,6 @@ export interface CreateTransactionDTO {
   date: Date;
   amount: number;
   recurring: boolean;
-  userId: string;
   budgetId: string;
 }
 

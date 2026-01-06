@@ -23,7 +23,6 @@ export function useEditBudgetModal(budget: () => BudgetData | null, onSuccess?: 
     maximumSpend: 0,
     categoryId: '',
     themeId: '',
-    userId: '68cc2ec3f0818350607a26b6',
   });
 
   const errors = reactive<Record<string, string>>({

@@ -13,7 +13,6 @@ vi.mock('~/composables', () => ({
       maximumSpend: number
       categoryId: string
       themeId: string
-      userId: string
     },
     options?: Record<string, unknown>,
   ) => postMock(endpoint, body, options),
@@ -78,7 +77,6 @@ describe('useCreateBudgetModal', () => {
         maximumSpend: 100,
         categoryId: 'cat-1',
         themeId: 'theme-1',
-        userId: expect.any(String),
       }),
       undefined,
     );

@@ -3,7 +3,6 @@ export interface PotData {
   name: string
   targetAmount: number
   totalAmount: number
-  userId: string
   theme: ThemeData
   createdAt: string
 }
@@ -19,5 +18,4 @@ export interface PotForm {
   targetAmount: number
   totalAmount: number
   themeId: string
-  userId: string
 }

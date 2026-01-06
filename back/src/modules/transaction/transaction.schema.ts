@@ -17,7 +17,6 @@ export const createTransactionSchema = z.object({
       message: "O valor não pode ser zero.",
     }),
   recurring: z.boolean({ required_error: "O campo 'recurring' é obrigatório!" }),
-  userId: z.string({ required_error: "O campo 'userId' é obrigatório!" }),
   budgetId: z.string({ required_error: "O campo 'budgetId' é obrigatório!" }),
 });
 
