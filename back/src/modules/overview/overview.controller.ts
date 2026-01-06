@@ -4,9 +4,8 @@ import { overviewService } from "./overview.service";
 class OverviewController {
   async getAll(context: Context) {
     const user = context.get("user");
-    const query = context.req.query();
 
-    const result = await overviewService.getAll(user, query);
+    const result = await overviewService.getAll(user);
     return context.json(result, 200);
   }
 }
