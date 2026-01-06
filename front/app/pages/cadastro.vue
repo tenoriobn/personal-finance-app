@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 import Register from '~/screens/Auth/Register/index.vue';
 
-definePageMeta({ layout: 'auth' });
+definePageMeta({ layout: 'auth', public: true });
 
 useHead({
   title: 'Cadastro',
