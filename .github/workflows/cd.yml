@@ -1,4 +1,4 @@
-name: CD (Front e Back)
+name: CD (Monorepo)
 
 on:
   push:
