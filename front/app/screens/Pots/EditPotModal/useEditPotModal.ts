@@ -22,7 +22,6 @@ export function useEditPotModal(pot: () => PotData | null, themes: () => ThemeDa
     targetAmount: amount.value,
     totalAmount: 0,
     themeId: '',
-    userId: '68cc2ec3f0818350607a26b6',
   });
 
   const errors = reactive<Record<string, string>>({

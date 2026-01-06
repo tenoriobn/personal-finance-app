@@ -16,7 +16,6 @@ export function useCreateTransactionModal(categories: () => CategoryData[], onSu
     amount: amount.value,
     recurring: false,
     budgetId: '',
-    userId: '68cc2ec3f0818350607a26b6',
     type: 'IN',
   });
 
@@ -121,7 +120,7 @@ export function useCreateTransactionModal(categories: () => CategoryData[], onSu
       amount: amount.value,
       recurring: false,
       budgetId: '',
-      userId: '68cc2ec3f0818350607a26b6',
+
       type: 'IN',
     });
     amount.value = 0;

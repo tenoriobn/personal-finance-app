@@ -4,7 +4,6 @@ export interface TransactionsData {
   date: string
   amount: number
   recurring: boolean
-  userId: string
   budget: {
     category: {
       id: string

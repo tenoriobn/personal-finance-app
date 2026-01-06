@@ -18,7 +18,6 @@ const potMock: PotData = {
   name: 'Viagem',
   targetAmount: 500,
   totalAmount: 150,
-  userId: 'user-1',
   theme: {
     id: 'theme-1',
     colorName: 'Azul',

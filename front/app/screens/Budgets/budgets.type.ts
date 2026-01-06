@@ -31,5 +31,4 @@ export interface BudgetForm {
   maximumSpend: number
   categoryId: string
   themeId: string
-  userId: string
 }

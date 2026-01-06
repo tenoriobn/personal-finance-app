@@ -8,7 +8,6 @@ export interface TransactionForm {
   amount: number
   recurring: boolean
   budgetId: string
-  userId: string
   type?: 'IN' | 'OUT'
 }
 
