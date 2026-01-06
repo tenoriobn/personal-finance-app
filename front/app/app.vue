@@ -5,7 +5,9 @@
 </template>
 
 <script setup lang="ts">
-useHead({
+const route = useRoute();
+
+useHead(() => ({
   titleTemplate: title => title ? `${title} · Personal Finance App` : 'Personal Finance App',
   link: [
     {
@@ -16,12 +18,18 @@ useHead({
   ],
   meta: [
     {
+      name: 'keywords',
+      content:
+        'finanças pessoais, controle financeiro, orçamento pessoal, poupança, gastos, planejamento financeiro',
+    },
+    {
       name: 'viewport',
       content: 'width=device-width, initial-scale=1',
     },
     {
       name: 'robots',
-      content: 'index, follow',
+      content: route.meta?.public ? 'index, follow' : 'noindex, nofollow',
+      key: 'robots',
     },
     {
       name: 'author',
@@ -49,5 +57,5 @@ useHead({
       content: 'summary_large_image',
     },
   ],
-});
+}));
 </script>

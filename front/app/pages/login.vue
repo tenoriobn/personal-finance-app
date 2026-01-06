@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 import Login from '~/screens/Auth/Login/index.vue';
 
-definePageMeta({ layout: 'auth' });
+definePageMeta({ layout: 'auth', public: true });
 
 useHead({
   title: 'Login',
