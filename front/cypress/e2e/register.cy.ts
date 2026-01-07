@@ -37,6 +37,21 @@ describe('Cadastro — Criação de conta', () => {
     });
   });
 
+  describe('Acesso à página de Login', () => {
+    it('Should display link to login page', () => {
+      visitPage();
+
+      cy.findByRole('link', { name: 'Entrar' }).should('be.visible');
+    });
+
+    it('Should navigate to login page when clicking on Entrar link', () => {
+      visitPage();
+
+      cy.findByRole('link', { name: 'Entrar' }).click();
+      cy.location('pathname').should('eq', '/login');
+    });
+  });
+
   describe('Fluxo principal (happy path)', () => {
     it('Should register successfully and redirect to home page', () => {
       visitPage();
