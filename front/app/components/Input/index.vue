@@ -11,12 +11,12 @@
       class="peer block w-full appearance-none bg-transparent text-sm text-grey-900 focus:outline-none focus:ring-0"
       :class="[isSubmitting ? 'cursor-not-allowed' : '']"
       placeholder=" "
-      :value="modelValue"
       :autocomplete="disableAutocomplete ? 'off' : undefined"
       :spellcheck="disableAutocomplete ? 'false' : undefined"
       :autocorrect="disableAutocomplete ? 'off' : undefined"
       :autocapitalize="disableAutocomplete ? 'off' : undefined"
       :disabled="isSubmitting"
+      :value="modelValue"
       @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     >
 

@@ -9,7 +9,7 @@
       <Input
         v-model="formState.name"
         :label="'Nome'"
-        name="nome"
+        name="name"
         :is-submitting="isSubmitting"
       />
 
@@ -31,7 +31,7 @@
       <Input
         v-model="formState.password"
         :label="'Senha'"
-        name="senha"
+        name="password"
         :type="'password'"
         :is-submitting="isSubmitting"
       />
