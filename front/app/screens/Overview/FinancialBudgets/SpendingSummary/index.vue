@@ -1,5 +1,8 @@
 <template>
-  <div class="grid max-md:grid-cols-2 items-center gap-x-2 gap-y-4 h-max">
+  <div
+    class="grid max-md:grid-cols-2 items-center gap-x-2 gap-y-4 h-max"
+    data-testid="financial-budgets"
+  >
     <SpendingSummarySkeleton v-if="pending" />
 
     <article

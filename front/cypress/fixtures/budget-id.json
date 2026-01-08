@@ -1,0 +1,21 @@
+{
+  "id": "693991789c031cc034ff0c0a",
+  "maximumSpend": 500,
+  "userId": "68cc2ec3f0818350607a26b6",
+  "category": {
+    "id": "68e5610fe6616ee788ea45af",
+    "name": "Supermercado"
+  },
+  "theme": {
+    "id": "68e55f75e6616ee788ea45a1",
+    "colorName": "Amarelo",
+    "colorHex": "#F2CDAC"
+  },
+  "transactions": [
+    { "amount": 100 },
+    { "amount": -50 },
+    { "amount": 100 },
+    { "amount": -5 },
+    { "amount": 1 }
+  ]
+}

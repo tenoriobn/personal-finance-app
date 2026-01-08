@@ -33,7 +33,10 @@
         </div>
       </article>
 
-      <div class="grid grid-cols-2 items-center gap-x-2 gap-y-4">
+      <div
+        data-testid="financial-pots"
+        class="grid grid-cols-2 items-center gap-x-2 gap-y-4"
+      >
         <FinancialPotsSkeleton v-if="pending" />
 
         <article

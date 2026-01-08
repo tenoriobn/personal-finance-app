@@ -107,6 +107,7 @@
           v-if="canScrollDown"
           class="absolute bottom-0 inset-x-0 p-2 flex justify-center cursor-pointer
          bg-gradient-to-t from-grey-500 to-transparent backdrop-blur-[.0625rem] select-none"
+          data-testid="scroll-down"
           @click.stop="scrollByOptions(2)"
         >
           <div class="w-4 h-4 flex items-center justify-center rounded-full shadow-md bg-grey-500 animate-bounce">

@@ -1,28 +1,175 @@
 {
-  "transactions": [
+  "data": [
     {
-      "avatar": "/images/avatars/aqua-flow-utilities.jpg",
-      "name": "Aqua Flow Utilities aqui mesmo",
-      "category": "Poupanças",
-      "date": "2024-08-01T10:00:00Z",
-      "amount": -120,
-      "recurring": false
+      "id": "695fb1779f3edbe002741b12",
+      "name": "Antonio Figueiredo",
+      "date": "2026-01-08T03:00:00.000Z",
+      "amount": 1,
+      "recurring": false,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "budget": {
+        "category": {
+          "id": "68e5610fe6616ee788ea45af",
+          "name": "Contas"
+        }
+      }
     },
     {
-      "avatar": "/images/avatars/savory-bites-bistro.jpg",
-      "name": "Savory Bites Bistro",
-      "category": "Jantar fora",
-      "date": "2024-08-19T20:23:11Z",
-      "amount": -55.5,
-      "recurring": false
+      "id": "695fb18e9f3edbe002741b13",
+      "name": "Rafael Meireles",
+      "date": "2026-01-08T03:00:00.000Z",
+      "amount": 30,
+      "recurring": false,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "budget": {
+        "category": {
+          "id": "68e5611ae6616ee788ea45b0",
+          "name": "Supermercado"
+        }
+      }
     },
     {
-      "avatar": "/images/avatars/emma-richardson.jpg",
-      "name": "Emma Richardson",
-      "category": "Poupanças",
-      "date": "2024-07-22T15:45:00Z",
-      "amount": 500,
-      "recurring": false
+      "id": "695989617f1de99e1426685b",
+      "name": "Bruno",
+      "date": "2026-01-03T03:00:00.000Z",
+      "amount": -10,
+      "recurring": true,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "budget": {
+        "category": {
+          "id": "68e56101e6616ee788ea45ae",
+          "name": "Entretenimento"
+        }
+      }
+    },
+    {
+      "id": "69529f7f02e894a690ac2619",
+      "name": "Bruno",
+      "date": "2025-12-29T03:00:00.000Z",
+      "amount": 20,
+      "recurring": false,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "budget": {
+        "category": {
+          "id": "68e56101e6616ee788ea45ae",
+          "name": "Entretenimento"
+        }
+      }
+    },
+    {
+      "id": "693eddb8ec443c68890aea38",
+      "name": "Bruno",
+      "date": "2025-12-14T03:00:00.000Z",
+      "amount": 100,
+      "recurring": true,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "budget": {
+        "category": {
+          "id": "68e5610fe6616ee788ea45af",
+          "name": "Contas"
+        }
+      }
+    },
+    {
+      "id": "693ede2aec443c68890aea39",
+      "name": "Bruno Eumesmo",
+      "date": "2025-12-14T03:00:00.000Z",
+      "amount": -1,
+      "recurring": true,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "budget": {
+        "category": {
+          "id": "68e56101e6616ee788ea45ae",
+          "name": "Entretenimento"
+        }
+      }
+    },
+    {
+      "id": "69332f816b1a4324c58559bf",
+      "name": "Bruno Tenorio",
+      "date": "2025-12-05T03:00:00.000Z",
+      "amount": 10,
+      "recurring": false,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "budget": {
+        "category": {
+          "id": "68e56101e6616ee788ea45ae",
+          "name": "Entretenimento"
+        }
+      }
+    },
+    {
+      "id": "69332f8c6b1a4324c58559c0",
+      "name": "Bruno Tenorio",
+      "date": "2025-12-05T03:00:00.000Z",
+      "amount": -5,
+      "recurring": true,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "budget": {
+        "category": {
+          "id": "68e5610fe6616ee788ea45af",
+          "name": "Contas"
+        }
+      }
+    },
+    {
+      "id": "69320550acb49c97b4969a47",
+      "name": "Bruno Tenorio",
+      "date": "2025-12-04T03:00:00.000Z",
+      "amount": 100,
+      "recurring": true,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "budget": {
+        "category": {
+          "id": "68e5610fe6616ee788ea45af",
+          "name": "Contas"
+        }
+      }
+    },
+    {
+      "id": "69320534acb49c97b4969a46",
+      "name": "Bruno Tenorio",
+      "date": "2025-12-04T03:00:00.000Z",
+      "amount": 20,
+      "recurring": false,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "budget": {
+        "category": {
+          "id": "68e56101e6616ee788ea45ae",
+          "name": "Entretenimento"
+        }
+      }
+    },
+    {
+      "id": "69320534acb49c97b4969a49",
+      "name": "Bruno Tenorio",
+      "date": "2025-12-04T03:00:00.000Z",
+      "amount": 20,
+      "recurring": false,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "budget": {
+        "category": {
+          "id": "68e56101e6616ee788ea45ae",
+          "name": "Entretenimento"
+        }
+      }
+    },
+    {
+      "id": "69320534acb49c97b4969a56",
+      "name": "Bruno Tenorio",
+      "date": "2025-12-04T03:00:00.000Z",
+      "amount": 20,
+      "recurring": false,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "budget": {
+        "category": {
+          "id": "68e56101e6616ee788ea45ae",
+          "name": "Entretenimento"
+        }
+      }
     }
-  ]
+  ],
+  "total": 11,
+  "page": 2,
+  "totalPages": 2
 }

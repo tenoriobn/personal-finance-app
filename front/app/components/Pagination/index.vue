@@ -8,7 +8,7 @@
       <li>
         <button
           data-testid="prev-pagination"
-          :disabled="currentPage < 1"
+          :disabled="currentPage === 1"
           class="flex items-center justify-center enabled:hover:bg-grey-100 enabled:active:bg-grey-200 border py-2 px-2 max-md:w-9 max-md:h-9 md:w-11 md:h-11 rounded-xl duration-150 ease-in-out opacity-60 shadow-lg shadow-grey-500/20"
           :class="currentPage === 1 ? 'cursor-not-allowed' : ''"
           aria-label="Previous page"
@@ -27,6 +27,7 @@
         <AnimatePresence>
           <motion.button
             v-if="page > 0"
+            data-testid="page-button"
             class="flex items-center justify-center border py-2 px-2 max-md:w-9 max-md:h-9 md:w-11 md:h-11 rounded-xl transition-colors duration-150 ease-in-out shadow-lg shadow-grey-500/20"
             v-bind="growIn"
             :class="[
