@@ -32,6 +32,7 @@
         v-for="{ id, name, budget, date, amount } in transactions || []"
         v-else
         :key="id"
+        role="row"
         class="grid max-xl:grid-cols-[auto_1fr_auto] xl:grid-cols-[minmax(300px,1fr)_140px_140px_minmax(100px,1fr)] max-xl:grid-rows-2 items-center max-xl:gap-x-4 xl:gap-6 py-4 last:pb-0"
       >
         <td

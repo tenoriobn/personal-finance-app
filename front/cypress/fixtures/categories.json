@@ -1,0 +1,47 @@
+[
+    {
+        "id": "68e56101e6616ee788ea45ae",
+        "name": "Entretenimento",
+        "createdAt": "2025-10-07T18:50:41.340Z"
+    },
+    {
+        "id": "68e5610fe6616ee788ea45af",
+        "name": "Contas",
+        "createdAt": "2025-10-07T18:50:55.694Z"
+    },
+    {
+        "id": "68e5611ae6616ee788ea45b0",
+        "name": "Supermercado",
+        "createdAt": "2025-10-07T18:51:06.623Z"
+    },
+    {
+        "id": "68e56125e6616ee788ea45b1",
+        "name": "Jantar Fora",
+        "createdAt": "2025-10-07T18:51:17.128Z"
+    },
+    {
+        "id": "68e5612be6616ee788ea45b2",
+        "name": "Transporte",
+        "createdAt": "2025-10-07T18:51:23.704Z"
+    },
+    {
+        "id": "68e56130e6616ee788ea45b3",
+        "name": "Cuidados Pessoais",
+        "createdAt": "2025-10-07T18:51:28.774Z"
+    },
+    {
+        "id": "68e56137e6616ee788ea45b4",
+        "name": "Educação",
+        "createdAt": "2025-10-07T18:51:35.502Z"
+    },
+    {
+        "id": "68e5613ae6616ee788ea45b5",
+        "name": "Estilo de Vida",
+        "createdAt": "2025-10-07T18:51:38.072Z"
+    },
+    {
+        "id": "68e56142e6616ee788ea45b6",
+        "name": "Compras",
+        "createdAt": "2025-10-07T18:51:46.704Z"
+    }
+]

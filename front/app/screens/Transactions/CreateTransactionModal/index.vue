@@ -43,6 +43,7 @@
           :is-submitting="isSubmitting"
           custom-classes="w-full max-md:h-[46px] md:h-[54px]"
           :form-error="errors.budgetId"
+          data-testid="dropdown-category-options"
         />
         <FormError :message="errors.budgetId" />
       </div>
@@ -65,6 +66,7 @@
         v-model="formState.type"
         :is-submitting="isSubmitting"
         label="Tipo"
+        data-testid="dropdown-recurring"
         :options="[
           { id: 'IN', name: 'Entrada' },
           { id: 'OUT', name: 'Saída' },
