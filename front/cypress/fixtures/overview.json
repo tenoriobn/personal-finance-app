@@ -1,0 +1,192 @@
+{
+  "transactions": {
+    "currentBalance": 184,
+    "income": 250,
+    "expenses": 66,
+    "transactions": [
+      {
+        "id": "69320534acb49c97b4969a46",
+        "name": "Bruno Tenorio",
+        "date": "2025-12-04T03:00:00.000Z",
+        "amount": 20
+      },
+      {
+        "id": "69320550acb49c97b4969a47",
+        "name": "Bruno Tenorio",
+        "date": "2025-12-04T03:00:00.000Z",
+        "amount": 100
+      },
+      {
+        "id": "69320569acb49c97b4969a48",
+        "name": "Bruno Tenorio",
+        "date": "2025-12-04T03:00:00.000Z",
+        "amount": -50
+      },
+      {
+        "id": "69332f816b1a4324c58559bf",
+        "name": "Bruno Tenorio",
+        "date": "2025-12-05T03:00:00.000Z",
+        "amount": 10
+      },
+      {
+        "id": "69332f8c6b1a4324c58559c0",
+        "name": "Bruno Tenorio",
+        "date": "2025-12-05T03:00:00.000Z",
+        "amount": -5
+      }
+    ]
+  },
+  "pots": {
+    "totalPotsAmount": 3344,
+    "pots": [
+      {
+        "id": "693ee47cec443c68890aea3c",
+        "name": "Presentes1234567",
+        "totalAmount": 100,
+        "theme": {
+          "id": "68e55fd5e6616ee788ea45ac",
+          "colorName": "Dourado",
+          "colorHex": "#CAB361"
+        }
+      },
+      {
+        "id": "693ed11bec443c68890aea32",
+        "name": "Presentes12345",
+        "totalAmount": 0,
+        "theme": {
+          "id": "68e55fc7e6616ee788ea45aa",
+          "colorName": "Cinza",
+          "colorHex": "#97A0AC"
+        }
+      },
+      {
+        "id": "693ed10fec443c68890aea31",
+        "name": "Presentes1234",
+        "totalAmount": 0,
+        "theme": {
+          "id": "68e55fbfe6616ee788ea45a9",
+          "colorName": "Azul",
+          "colorHex": "#3F82B2"
+        }
+      },
+      {
+        "id": "693ed107ec443c68890aea30",
+        "name": "Presentes123",
+        "totalAmount": 0,
+        "theme": {
+          "id": "68e55fade6616ee788ea45a6",
+          "colorName": "Turquesa",
+          "colorHex": "#597C7C"
+        }
+      }
+    ]
+  },
+  "budgets": [
+    {
+      "id": "6931d41b8f10a300bf9dbead",
+      "maximumSpend": 100,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "category": {
+        "id": "68e56101e6616ee788ea45ae",
+        "name": "Entretenimento"
+      },
+      "theme": {
+        "id": "68e55f6be6616ee788ea45a0",
+        "colorName": "Verde",
+        "colorHex": "#277C78"
+      },
+      "transactions": [
+        { "amount": -10 },
+        { "amount": 20 },
+        { "amount": -1 },
+        { "amount": 10 },
+        { "amount": 20 }
+      ]
+    },
+    {
+      "id": "6931dd9e8f10a300bf9dbeba",
+      "maximumSpend": 500,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "category": {
+        "id": "68e5610fe6616ee788ea45af",
+        "name": "Contas"
+      },
+      "theme": {
+        "id": "68e55f75e6616ee788ea45a1",
+        "colorName": "Amarelo",
+        "colorHex": "#F2CDAC"
+      },
+      "transactions": [
+        { "amount": 100 },
+        { "amount": -5 },
+        { "amount": 100 },
+        { "amount": -50 }
+      ]
+    },
+    {
+      "id": "693991789c031cc034ff0c0a",
+      "maximumSpend": 700,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "category": {
+        "id": "68e5611ae6616ee788ea45b0",
+        "name": "Supermercado"
+      },
+      "theme": {
+        "id": "68e55f7ce6616ee788ea45a2",
+        "colorName": "Ciano",
+        "colorHex": "#82C9D7"
+      },
+      "transactions": []
+    },
+    {
+      "id": "693991829c031cc034ff0c0b",
+      "maximumSpend": 900,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "category": {
+        "id": "68e56125e6616ee788ea45b1",
+        "name": "Jantar Fora"
+      },
+      "theme": {
+        "id": "68e55f90e6616ee788ea45a3",
+        "colorName": "Azul Marinho",
+        "colorHex": "#626070"
+      },
+      "transactions": []
+    },
+    {
+      "id": "693b0d5bd41905afc5a00dd1",
+      "maximumSpend": 700,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "category": {
+        "id": "68e5612be6616ee788ea45b2",
+        "name": "Transporte"
+      },
+      "theme": {
+        "id": "68e55f9ae6616ee788ea45a4",
+        "colorName": "Vermelho",
+        "colorHex": "#C94736"
+      },
+      "transactions": []
+    },
+    {
+      "id": "693ec8e8ec443c68890aea29",
+      "maximumSpend": 700,
+      "userId": "68cc2ec3f0818350607a26b6",
+      "category": {
+        "id": "68e56130e6616ee788ea45b3",
+        "name": "Cuidados Pessoais"
+      },
+      "theme": {
+        "id": "68e55fa2e6616ee788ea45a5",
+        "colorName": "Roxo",
+        "colorHex": "#826CB0"
+      },
+      "transactions": []
+    }
+  ],
+  "recurringBills": {
+    "paidBills": 10,
+    "dueSoon": 5,
+    "upcoming": 0
+  }
+}

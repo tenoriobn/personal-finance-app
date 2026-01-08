@@ -16,7 +16,8 @@
 
       <p
         v-if="pending"
-        class="w-28 h-8 xl:w-36 xl:h-9 rounded animate-pulse bg-grey-200"
+        data-testid="summary-skeleton"
+        class="w-28 h-8 rounded animate-pulse bg-grey-200"
       />
 
       <p

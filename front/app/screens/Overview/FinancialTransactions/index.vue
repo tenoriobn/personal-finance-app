@@ -29,6 +29,7 @@
           v-for="transaction in transactions || []"
           v-else
           :key="transaction.id"
+          role="row"
           class="grid grid-cols-[1fr_auto] grid-rows-2 items-center max-sm:gap-2 sm:gap-x-4 py-4 first:pt-0 last:pb-0"
         >
           <td class="row-span-2 flex items-center max-sm:gap-2 sm:gap-4 text-grey-900 font-bold">
