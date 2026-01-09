@@ -4,7 +4,7 @@
       <TitleSection title="Contas Recorrentes" />
     </header>
 
-    <div class="grid gap-4 xl:grid-cols-[minmax(306px,480px)_1fr]">
+    <div class="grid gap-4 xl:grid-cols-[minmax(306px,480px)_1fr] grid-rows-[auto_1fr]">
       <SummaryCard
         :summary="summary"
         :pending="pending"
