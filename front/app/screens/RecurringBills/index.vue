@@ -7,7 +7,7 @@
     <div class="grid gap-4 xl:grid-cols-[minmax(306px,480px)_1fr] grid-rows-[auto_1fr]">
       <SummaryCard
         :summary="summary"
-        :pending="pending"
+        :pending="summaryPending"
       />
 
       <div class="grid grid-rows-[auto_1fr] max-md:gap-6 md:gap-10 bg-white rounded-xl max-md:p-4 md:p-10 w-full h-max shadow-lg shadow-grey-500/20">
@@ -40,5 +40,5 @@ import Filter from './Filters/index.vue';
 import Pagination from '~/components/Pagination/index.vue';
 import { useRecurringBills } from './useRecurringBills';
 
-const { bills, totalPages, currentPage, goToPage, pending, search, selectedSort, summary } = useRecurringBills();
+const { bills, totalPages, currentPage, goToPage, pending, search, selectedSort, summary, summaryPending } = useRecurringBills();
 </script>

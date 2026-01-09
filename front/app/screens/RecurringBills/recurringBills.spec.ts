@@ -10,6 +10,7 @@ vi.mock('./useRecurringBills', () => ({
     totalPages: 2,
     currentPage: 1,
     goToPage: goToPageMock,
+    summaryPending: false,
     pending: false,
     search: '',
     selectedSort: '',

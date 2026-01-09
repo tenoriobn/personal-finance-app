@@ -11,14 +11,18 @@ class RecurringBillsService {
     const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
     const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
-    const where: Prisma.TransactionWhereInput = {
+    const baseWhere: Prisma.TransactionWhereInput = {
       userId: user.id,
       recurring: true,
       date: { gte: firstDay, lte: lastDay },
     };
 
+    const filteredWhere: Prisma.TransactionWhereInput = {
+      ...baseWhere,
+    };
+
     if (search) {
-      where.name = { contains: search, mode: "insensitive" };
+      filteredWhere.name = { contains: search, mode: "insensitive" };
     }
 
     let orderBy: Prisma.TransactionOrderByWithRelationInput = { date: "desc" };
@@ -39,16 +43,13 @@ class RecurringBillsService {
     case "Mais baixo":
       orderBy = { amount: "asc" };
       break;
-    default:
-      orderBy = { date: "desc" };
     }
 
     const skip = (Number(page) - 1) * Number(limit);
     const take = Number(limit);
 
     const allTransactions = await prisma.transaction.findMany({
-      where,
-      orderBy,
+      where: baseWhere,
       select: {
         id: true,
         name: true,
@@ -57,10 +58,8 @@ class RecurringBillsService {
       },
     });
 
-    const total = await prisma.transaction.count({ where });
-
     const paginatedTransactions = await prisma.transaction.findMany({
-      where,
+      where: filteredWhere,
       orderBy,
       skip,
       take,
@@ -72,7 +71,11 @@ class RecurringBillsService {
       },
     });
 
-    const allBills = allTransactions.map<RecurringBillDTO>((t) => {
+    const total = await prisma.transaction.count({
+      where: filteredWhere,
+    });
+
+    const allBills = allTransactions.map((t) => {
       const isoDate = t.date.toISOString();
       return {
         id: t.id,
@@ -83,7 +86,7 @@ class RecurringBillsService {
       };
     });
 
-    const paginatedBills = paginatedTransactions.map<RecurringBillDTO>((t) => {
+    const paginatedBills = paginatedTransactions.map((t) => {
       const isoDate = t.date.toISOString();
       return {
         id: t.id,
@@ -104,6 +107,7 @@ class RecurringBillsService {
       summary,
     };
   }
+
 
   private getStatus(date: string, reference: Date): "paid" | "dueSoon" | "upcoming" {
     const billDate = new Date(date).getDate();
