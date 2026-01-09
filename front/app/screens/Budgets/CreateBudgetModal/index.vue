@@ -33,6 +33,7 @@
           custom-classes="w-full max-md:h-[46px] md:h-[54px]"
           :form-error="errors.categoryId"
           :is-submitting="isSubmitting"
+          data-testid="category-dropdown"
         />
         <FormError :message="errors.categoryId" />
       </div>
@@ -46,6 +47,7 @@
           custom-classes="w-full max-md:h-[46px] md:h-[54px]"
           :form-error="errors.themeId"
           :is-submitting="isSubmitting"
+          data-testid="theme-dropdown"
         />
         <FormError :message="errors.themeId" />
       </div>

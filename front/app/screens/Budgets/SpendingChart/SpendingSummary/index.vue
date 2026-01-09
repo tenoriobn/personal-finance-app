@@ -10,7 +10,7 @@
     Resumo de gastos
   </h3>
 
-  <table>
+  <table data-testid="spending-summary-table">
     <tbody class="divide-y text-grey-500 text-sm text-wrap">
       <SpendingSummarySkeleton v-if="pending" />
 
@@ -27,6 +27,7 @@
         v-for="budget in (budgets || []).slice(0, 3)"
         v-else
         :key="budget.id"
+        role="row"
         class="grid grid-cols-[1fr_auto] items-center max-sm:gap-2 sm:gap-x-4 py-4 last:pb-0"
       >
         <td class="relative row-span-2 pl-4 flex items-center max-sm:gap-2 sm:gap-4 text-grey-900 font-bold">
