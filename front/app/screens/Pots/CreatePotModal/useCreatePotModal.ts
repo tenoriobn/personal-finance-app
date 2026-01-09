@@ -30,7 +30,7 @@ export function useCreatePotModal(themes: () => ThemeData[], onSuccess?: () => v
       `;
     }
 
-    return 'Selecione um tema para definir um pote de economia. Esses potes podem ajudar você a monitorar seus gastos e reservas.';
+    return 'Selecione um tema para definir uma poupança de economia. Essas poupanças podem ajudar você a monitorar seus gastos e reservas.';
   });
 
   watch(() => formState.name, () => (errors.name = ''));

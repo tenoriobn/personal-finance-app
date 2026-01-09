@@ -1,7 +1,7 @@
 <template>
   <Modal
     v-model="showModal"
-    title="Editar Pote"
+    title="Editar Poupança"
     intro="Se seus objetivos de poupança mudarem, fique à vontade para atualizar seus valores."
   >
     <form
@@ -11,7 +11,7 @@
       <div class="flex flex-col gap-1">
         <Input
           v-model="formState.name"
-          :label="'Nome do Pote'"
+          :label="'Nome do Poupança'"
           name="potName"
           :custom-classes="`w-full ${errors.name ? 'border-red' : ''}`"
           :is-submitting="isSubmitting"

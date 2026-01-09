@@ -19,13 +19,16 @@ export function useRecurringBills() {
     },
   );
 
-  const bills = computed(() => {
-    return data.value?.data ?? [];
+  const { data: summaryData, pending: summaryPending } = useApiGet<RecurringBillsResponse>('recurring-bills', {
+    query: {
+      page: 1,
+      limit: 1,
+    },
   });
 
-  const summary = computed(() => {
-    return data.value?.summary;
-  });
+  const bills = computed(() => data.value?.data ?? []);
+
+  const summary = computed(() => summaryData.value?.summary);
 
   const totalPages = computed(() => data.value?.totalPages ?? 1);
 
@@ -47,6 +50,7 @@ export function useRecurringBills() {
     bills,
     summary,
     pending,
+    summaryPending,
     goToPage,
     refresh,
     data,

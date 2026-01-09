@@ -14,6 +14,7 @@
     v-else
     :key="id"
     class="bg-white rounded-xl max-md:p-4 md:p-[2rem] shadow-lg shadow-grey-500/20"
+    data-testid="budget-card"
   >
     <div class="flex justify-between items-center">
       <div class="flex items-center gap-2">

@@ -33,7 +33,7 @@ export function usePotAddMoneyModal(pot: Ref<PotData | null>, onSuccess: () => v
     const maxAdd = (pot.value?.targetAmount ?? 0) - (pot.value?.totalAmount ?? 0);
     if (amount.value > maxAdd) {
       errors.totalAmount
-        = `Esse valor excede a meta do pote. Máximo disponível: ${formatCurrency(maxAdd, false)}.`;
+        = `Esse valor excede a meta da poupança. Máximo disponível: ${formatCurrency(maxAdd, false)}.`;
       return false;
     }
 

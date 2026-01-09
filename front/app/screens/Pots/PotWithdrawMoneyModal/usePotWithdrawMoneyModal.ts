@@ -40,7 +40,7 @@ export function usePotWithdrawMoneyModal(pot: Ref<PotData | null>, onSuccess: ()
 
     if (amount.value > maxWithdraw) {
       errors.withdrawAmount
-        = `Valor excede o saldo do pote. Máximo disponível para retirar: ${formatCurrency(maxWithdraw, false)}.`;
+        = `Valor excede o saldo da poupança. Máximo disponível para retirar: ${formatCurrency(maxWithdraw, false)}.`;
       return false;
     }
 

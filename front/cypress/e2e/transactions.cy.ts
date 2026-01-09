@@ -1,4 +1,4 @@
-import type { TransactionsData } from '../../app/screens/Transactions/transactions.type';
+import type { TransactionsResponse, TransactionsData } from '../../app/screens/Transactions/transactions.type';
 
 describe('Transações — Página autenticada', () => {
   const login = () => {
@@ -25,7 +25,7 @@ describe('Transações — Página autenticada', () => {
       cy.intercept('GET', '**/overview*', { body: overview }).as('getOverview');
     });
 
-    cy.fixture('transactions.json').then((transactions) => {
+    cy.fixture('transactions.json').then((transactions: TransactionsResponse) => {
       cy.intercept('GET', '**/transactions*', (req) => {
         const page = Number(req.query.page || 1);
         const limit = Number(req.query.limit || 10);
@@ -98,7 +98,7 @@ describe('Transações — Página autenticada', () => {
 
   describe('Filtros', () => {
     it('Should filter by search input', () => {
-      cy.fixture('transactions.json').then((transactions) => {
+      cy.fixture('transactions.json').then((transactions: TransactionsResponse) => {
         const filteredData = transactions.data.filter((t: TransactionsData) =>
           t.name.toLowerCase().includes('rafael'),
         );
@@ -133,7 +133,7 @@ describe('Transações — Página autenticada', () => {
     });
 
     it('Should sort by "Mais Alto" (Z → A)', () => {
-      cy.fixture('transactions.json').then((transactions) => {
+      cy.fixture('transactions.json').then((transactions: TransactionsResponse) => {
         const sortedData = [...transactions.data].sort((a, b) =>
           b.name.localeCompare(a.name),
         );
@@ -160,7 +160,7 @@ describe('Transações — Página autenticada', () => {
     });
 
     it('Should filter by category "Contas"', () => {
-      cy.fixture('transactions.json').then((transactions) => {
+      cy.fixture('transactions.json').then((transactions: TransactionsResponse) => {
         const filteredData = transactions.data.filter(
           (t: TransactionsData) => t.budget?.category?.id === '68e5610fe6616ee788ea45af',
         );
@@ -198,7 +198,7 @@ describe('Transações — Página autenticada', () => {
 
   describe('Paginação', () => {
     it('Should display correct number of pages', () => {
-      cy.fixture('transactions.json').then((transactions) => {
+      cy.fixture('transactions.json').then((transactions: TransactionsResponse) => {
         const totalPages = Math.ceil(transactions.data.length / 10);
 
         cy.getByData('pagination')
@@ -210,7 +210,7 @@ describe('Transações — Página autenticada', () => {
     it('Should navigate to next page and display transactions correctly', () => {
       const limit = 10;
 
-      cy.fixture('transactions.json').then((transactions) => {
+      cy.fixture('transactions.json').then((transactions: TransactionsResponse) => {
         const totalPages = Math.ceil(transactions.data.length / limit);
         const page1Data = transactions.data.slice(0, limit);
         const page2Data = transactions.data.slice(limit, limit * 2);
@@ -244,7 +244,7 @@ describe('Transações — Página autenticada', () => {
     it('Should disable prev button on first page and next button on last page', () => {
       const limit = 10;
 
-      cy.fixture('transactions.json').then((transactions) => {
+      cy.fixture('transactions.json').then((transactions: TransactionsResponse) => {
         const totalPages = Math.ceil(transactions.data.length / limit);
 
         cy.intercept('GET', `**/transactions**page=${totalPages}**`, (req) => {
@@ -290,7 +290,7 @@ describe('Transações — Página autenticada', () => {
         },
       };
 
-      cy.fixture('transactions.json').then((transactions) => {
+      cy.fixture('transactions.json').then((transactions: TransactionsResponse) => {
         cy.intercept('POST', '**/transactions', (req) => {
           expect(req.body).to.include({
             name: newTransaction.name,

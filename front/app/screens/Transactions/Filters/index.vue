@@ -5,7 +5,7 @@
       :label="'Pesquisar transações'"
       :icon="SearchIcon"
       name="search"
-      custom-classes="w-full max-w-[284px]"
+      custom-classes="w-full max-w-[400px]"
     />
 
     <div class="flex max-md:justify-center max-md:items-center md:justify-end max-md:gap-3 md:gap-6 md:w-full">
