@@ -1,0 +1,171 @@
+[
+  {
+    "id": "68e566e1de9ef6eb4d207bde",
+    "name": "Presentes",
+    "targetAmount": 220,
+    "totalAmount": 120,
+    "userId": "68cc2ec3f0818350607a26b6",
+    "theme": {
+      "id": "68e55f7ce6616ee788ea45a2",
+      "colorName": "Ciano",
+      "colorHex": "#82C9D7"
+    },
+    "createdAt": "2025-10-07T19:15:45.707Z"
+  },
+  {
+    "id": "68e566fade9ef6eb4d207bdf",
+    "name": "Novo Notebook",
+    "targetAmount": 1000,
+    "totalAmount": 1000,
+    "userId": "68cc2ec3f0818350607a26b6",
+    "theme": {
+      "id": "68e55f75e6616ee788ea45a1",
+      "colorName": "Amarelo",
+      "colorHex": "#F2CDAC"
+    },
+    "createdAt": "2025-10-07T19:16:10.673Z"
+  },
+  {
+    "id": "68e56713de9ef6eb4d207be0",
+    "name": "Férias",
+    "targetAmount": 1440,
+    "totalAmount": 531,
+    "userId": "68cc2ec3f0818350607a26b6",
+    "theme": {
+      "id": "68e55fa2e6616ee788ea45a5",
+      "colorName": "Roxo",
+      "colorHex": "#826CB0"
+    },
+    "createdAt": "2025-10-07T19:16:35.053Z"
+  },
+  {
+    "id": "68eea04845e782791b47c159",
+    "name": "Turquia",
+    "targetAmount": 1440,
+    "totalAmount": 531,
+    "userId": "68cc2ec3f0818350607a26b6",
+    "theme": {
+      "id": "68e55fdae6616ee788ea45ad",
+      "colorName": "Laranja",
+      "colorHex": "#BE6C49"
+    },
+    "createdAt": "2025-10-14T19:11:04.555Z"
+  },
+  {
+    "id": "68efc3cb3740c27274c440a7",
+    "name": "Equador",
+    "targetAmount": 1440,
+    "totalAmount": 531,
+    "userId": "68cc2ec3f0818350607a26b6",
+    "theme": {
+      "id": "68e55fb3e6616ee788ea45a7",
+      "colorName": "Marrom",
+      "colorHex": "#A52A2A"
+    },
+    "createdAt": "2025-10-15T15:54:51.459Z"
+  },
+  {
+    "id": "68efc498e219db7c763da54d",
+    "name": "Viagens",
+    "targetAmount": 1440,
+    "totalAmount": 531,
+    "userId": "68cc2ec3f0818350607a26b6",
+    "theme": {
+      "id": "68e55fb9e6616ee788ea45a8",
+      "colorName": "Magenta",
+      "colorHex": "#934F6F"
+    },
+    "createdAt": "2025-10-15T15:58:16.410Z"
+  },
+  {
+    "id": "6936d2d650c8be4c5fa0c745",
+    "name": "Teste",
+    "targetAmount": 100,
+    "totalAmount": 0,
+    "userId": "68cc2ec3f0818350607a26b6",
+    "theme": {
+      "id": "68e55f6be6616ee788ea45a0",
+      "colorName": "Verde",
+      "colorHex": "#277C78"
+    },
+    "createdAt": "2025-12-08T13:29:58.875Z"
+  },
+  {
+    "id": "693ed0f8ec443c68890aea2e",
+    "name": "Presentes1",
+    "targetAmount": 1000,
+    "totalAmount": 0,
+    "userId": "68cc2ec3f0818350607a26b6",
+    "theme": {
+      "id": "68e55f90e6616ee788ea45a3",
+      "colorName": "Azul Marinho",
+      "colorHex": "#626070"
+    },
+    "createdAt": "2025-12-14T15:00:08.596Z"
+  },
+  {
+    "id": "693ed100ec443c68890aea2f",
+    "name": "Presentes12",
+    "targetAmount": 1000,
+    "totalAmount": 0,
+    "userId": "68cc2ec3f0818350607a26b6",
+    "theme": {
+      "id": "68e55f9ae6616ee788ea45a4",
+      "colorName": "Vermelho",
+      "colorHex": "#C94736"
+    },
+    "createdAt": "2025-12-14T15:00:16.227Z"
+  },
+  {
+    "id": "693ed107ec443c68890aea30",
+    "name": "Presentes123",
+    "targetAmount": 1000,
+    "totalAmount": 0,
+    "userId": "68cc2ec3f0818350607a26b6",
+    "theme": {
+      "id": "68e55fade6616ee788ea45a6",
+      "colorName": "Turquesa",
+      "colorHex": "#597C7C"
+    },
+    "createdAt": "2025-12-14T15:00:23.337Z"
+  },
+  {
+    "id": "693ed10fec443c68890aea31",
+    "name": "Presentes1234",
+    "targetAmount": 1000,
+    "totalAmount": 0,
+    "userId": "68cc2ec3f0818350607a26b6",
+    "theme": {
+      "id": "68e55fbfe6616ee788ea45a9",
+      "colorName": "Azul",
+      "colorHex": "#3F82B2"
+    },
+    "createdAt": "2025-12-14T15:00:31.289Z"
+  },
+  {
+    "id": "693ed11bec443c68890aea32",
+    "name": "Presentes12345",
+    "targetAmount": 1000,
+    "totalAmount": 0,
+    "userId": "68cc2ec3f0818350607a26b6",
+    "theme": {
+      "id": "68e55fc7e6616ee788ea45aa",
+      "colorName": "Cinza",
+      "colorHex": "#97A0AC"
+    },
+    "createdAt": "2025-12-14T15:00:43.410Z"
+  },
+  {
+    "id": "693ee47cec443c68890aea3c",
+    "name": "Presentes1234567",
+    "targetAmount": 200,
+    "totalAmount": 100,
+    "userId": "68cc2ec3f0818350607a26b6",
+    "theme": {
+      "id": "68e55fd5e6616ee788ea45ac",
+      "colorName": "Dourado",
+      "colorHex": "#CAB361"
+    },
+    "createdAt": "2025-12-14T16:23:24.825Z"
+  }
+]

@@ -90,7 +90,7 @@ describe('PotAddMoneyModal', () => {
       expect(modal.props('title')).toBe('Adicionar em Poupança Teste');
 
       expect(modal.props('intro')).toBe(
-        'Adicione dinheiro ao seu pote para mantê-lo separado do saldo principal. O valor será descontado do seu saldo atual.',
+        'Adicione dinheiro na sua poupança para mantê-lo separado do saldo principal. O valor será descontado do seu saldo atual.',
       );
     });
 

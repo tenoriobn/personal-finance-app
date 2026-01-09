@@ -1,7 +1,7 @@
 <template>
   <Modal
     v-model="showModal"
-    title="Criar novo Pote"
+    title="Criar nova Poupança"
     :intro="modalIntro"
     :intro-has-spacing="hasAvailableThemes"
   >
@@ -13,7 +13,7 @@
       <div class="flex flex-col gap-1">
         <Input
           v-model="formState.name"
-          :label="'Nome do Pote'"
+          :label="'Nome da Poupança'"
           name="potName"
           :custom-classes="`w-full ${errors.name ? 'border-red' : ''}`"
           :is-submitting="isSubmitting"
@@ -42,7 +42,7 @@
           label="Tema"
           :options="themes?.map(theme => ({ name: theme.colorName, id: theme.id, colorHex: theme.colorHex })) || []"
           :start-empty="true"
-          data-testid="dropdown-sort-by"
+          data-testid="theme-dropdown"
           custom-classes="w-full max-md:h-[46px] md:h-[54px]"
           :form-error="errors.themeId"
           :is-submitting="isSubmitting"

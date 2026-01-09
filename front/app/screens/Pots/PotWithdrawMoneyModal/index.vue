@@ -2,7 +2,7 @@
   <Modal
     v-model="showModal"
     :title="`Retirar de ${pot?.name}`"
-    intro="Retire dinheiro deste pote. O valor será devolvido ao saldo principal e reduzirá o valor que você tem neste pote."
+    intro="Retire dinheiro desta poupança. O valor será devolvido ao saldo principal e reduzirá o valor que você tem nesta poupança."
   >
     <form
       class="flex flex-col gap-6"
@@ -51,6 +51,7 @@
       <Button
         :is-submitting="isSubmitting"
         label="Retirar"
+        data-testid="confirm-remove-money"
       />
     </form>
   </Modal>

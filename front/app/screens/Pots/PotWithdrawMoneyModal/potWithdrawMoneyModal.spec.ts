@@ -90,7 +90,7 @@ describe('PotWithdrawMoneyModal', () => {
       expect(modal.props('title')).toBe('Retirar de Poupança Teste');
 
       expect(modal.props('intro')).toBe(
-        'Retire dinheiro deste pote. O valor será devolvido ao saldo principal e reduzirá o valor que você tem neste pote.',
+        'Retire dinheiro desta poupança. O valor será devolvido ao saldo principal e reduzirá o valor que você tem nesta poupança.',
       );
     });
 

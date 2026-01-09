@@ -18,6 +18,7 @@
       v-else
       :key="id"
       class="bg-white rounded-xl max-md:p-4 md:p-[2rem] shadow-lg shadow-grey-500/20"
+      data-testid="pot-card"
     >
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-2">
@@ -64,7 +65,7 @@
           class="w-full"
           label="+Add Dinheiro"
           :disabled="totalAmount >= targetAmount"
-          :title="totalAmount >= targetAmount ? 'Você já atingiu o objetivo deste pote.' : ''"
+          :title="totalAmount >= targetAmount ? 'Você já atingiu o objetivo desta poupança.' : ''"
           @click="handleAddMoney(id)"
         />
 
@@ -72,7 +73,7 @@
           :disabled="totalAmount <= 0"
           class="w-full"
           label="Retirar"
-          :title="totalAmount <= 0 ? 'O pote está zerado, não há nada para retirar.' : ''"
+          :title="totalAmount <= 0 ? 'A poupança está zerada, não há nada para retirar.' : ''"
           @click="handleWithdraw(id)"
         />
       </div>
