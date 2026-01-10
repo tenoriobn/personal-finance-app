@@ -1,6 +1,6 @@
 <template>
   <div class="xl:sticky xl:top-10 w-full h-max flex flex-col md:max-xl:flex-row gap-4">
-    <div class="flex max-md:items-center md:flex-col md:justify-center gap-4 bg-grey-900 rounded-xl max-md:p-4 md:p-[2rem] w-full shadow-lg shadow-grey-500/20">
+    <div class="flex max-md:items-center md:flex-col gap-4 bg-grey-900 rounded-xl max-md:p-4 md:p-[2rem] w-full shadow-lg shadow-grey-500/20">
       <RecurringBillsIcon class="fill-grey-100" />
 
       <div>

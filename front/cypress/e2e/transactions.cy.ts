@@ -79,10 +79,7 @@ describe('Transações — Página autenticada', () => {
 
   describe('Tabela de transações', () => {
     it('Should display 10 transactions on the first page', () => {
-      cy.findByRole('table')
-        .find('tbody')
-        .findAllByRole('row')
-        .should('have.length', 10);
+      cy.findByRole('table').find('tbody').findAllByRole('row').should('have.length', 10);
     });
 
     it('Should display first transaction row correctly', () => {
@@ -126,9 +123,7 @@ describe('Transações — Página autenticada', () => {
           cy.findByText(`+R$ ${filteredData[0].amount},00`);
         });
 
-        cy.findByRole('table')
-          .find('tbody > tr')
-          .should('have.length', filteredData.length);
+        cy.findByRole('table').find('tbody > tr').should('have.length', filteredData.length);
       });
     });
 
@@ -201,9 +196,7 @@ describe('Transações — Página autenticada', () => {
       cy.fixture('transactions.json').then((transactions: TransactionsResponse) => {
         const totalPages = Math.ceil(transactions.data.length / 10);
 
-        cy.getByData('pagination')
-          .find('[data-testid="page-button"]')
-          .should('have.length', totalPages);
+        cy.getByData('pagination').find('[data-testid="page-button"]').should('have.length', totalPages);
       });
     });
 
