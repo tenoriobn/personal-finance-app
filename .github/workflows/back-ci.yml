@@ -24,3 +24,6 @@ jobs:
 
       - name: Rodar Linter
         run: npm run lint
+
+      - name: Rodar Testes
+        run: npm run test
