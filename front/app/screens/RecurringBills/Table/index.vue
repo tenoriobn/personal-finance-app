@@ -1,5 +1,5 @@
 <template>
-  <table>
+  <table data-testid="recurring-bills-table">
     <thead class="max-md:hidden text-grey-500 text-nowrap">
       <tr class="grid md:grid-cols-[minmax(172px,1fr)_140px_minmax(90px,1fr)] gap-6">
         <th
@@ -32,6 +32,7 @@
         v-for="{ name, date, amount, status } in recurringBills || []"
         v-else
         :key="date"
+        role="row"
         class="grid items-center max-md:grid-cols-[auto_1fr_auto] max-md:grid-rows-2 max-md:gap-x-4 md:grid-cols-[minmax(172px,1fr)_140px_minmax(90px,1fr)] md:gap-6 py-4 last:pb-0"
       >
         <td

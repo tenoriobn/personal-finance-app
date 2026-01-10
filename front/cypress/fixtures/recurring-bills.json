@@ -1,0 +1,27 @@
+{
+  "data": [
+    {
+      "id": "6962526424d6575635630f18",
+      "name": "Olavio Santista",
+      "date": "2026-01-10T03:00:00.000Z",
+      "amount": 10,
+      "status": "paid"
+    },
+    {
+      "id": "695989617f1de99e1426685b",
+      "name": "Bruno",
+      "date": "2026-01-03T03:00:00.000Z",
+      "amount": 10,
+      "status": "paid"
+    }
+  ],
+  "total": 2,
+  "page": 1,
+  "totalPages": 1,
+  "summary": {
+    "totalBills": 20,
+    "paidBills": 20,
+    "dueSoon": 0,
+    "upcoming": 0
+  }
+}

@@ -14,6 +14,7 @@
         :class="isCollapsed ? 'lg:pr-2' : 'lg:pr-6'"
       >
         <div
+          data-testid="logo-wrapper"
           class="max-lg:hidden lg:pl-[2.25rem] overflow-hidden lg:shrink-0 duration-150 ease-in-out"
           :class="isCollapsed ? 'lg:max-w-[49px]' : 'lg:max-w-full'"
         >

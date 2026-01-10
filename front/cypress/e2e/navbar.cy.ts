@@ -1,7 +1,29 @@
-describe.skip('Navbar', () => {
-  beforeEach(() => {
-    cy.visit('/');
+describe('Navbar', () => {
+  const login = () => {
+    cy.intercept('POST', '**/auth/login', {
+      statusCode: 200,
+      body: { token: 'fake-jwt-token' },
+    }).as('loginRequest');
+
+    cy.visit('/login');
     cy.waitForNuxtHydration();
+
+    cy.findByLabelText('Email').type('bruno.teste@email.com');
+    cy.findByLabelText('Senha').type('@Ab12345678');
+    cy.findByRole('button', { name: 'Entrar' }).click();
+
+    cy.wait('@loginRequest');
+    cy.location('pathname').should('eq', '/');
+  };
+
+  beforeEach(() => {
+    cy.intercept('GET', '**/overview', {
+      fixture: 'overview.json',
+    }).as('getOverview');
+
+    login();
+
+    cy.wait('@getOverview');
   });
 
   context('telas até 767p', () => {
