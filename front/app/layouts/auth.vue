@@ -1,7 +1,7 @@
 <template>
   <main class="bg-beige-100 lg:min-h-dvh lg:grid lg:place-items-center lg:p-10">
     <div
-      class="grid max-lg:grid-rows-[auto_1fr] w-full max-w-[1240px] lg:max-h-[912px] max-lg:min-h-dvh lg:bg-white lg:grid-cols-2 lg:h-full max-lg:gap-10 lg:rounded-2xl max-lg:pb-10"
+      class="grid max-lg:grid-rows-[auto_1fr] w-full max-w-[1240px] lg:max-h-[912px] max-lg:min-h-dvh lg:bg-white lg:grid-cols-2 lg:h-full max-lg:gap-10 lg:rounded-2xl max-lg:pb-10 shadow-2xl shadow-grey-900/40"
     >
       <header
         class="background grid max-lg:place-items-center max-lg:bg-grey-900 max-lg:py-8 lg:p-10 max-lg:rounded-b-2xl lg:rounded-2xl"
