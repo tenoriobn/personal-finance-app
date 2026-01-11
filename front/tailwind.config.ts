@@ -13,6 +13,7 @@ export default {
         '2xl': '1440px',
         '3xl': '1600px',
         '4xl': '1920px',
+        '5xl': '2220px',
         'max-sm': { max: '374px' },
         'max-md': { max: '767px' },
         'max-lg': { max: '991px' },
@@ -20,6 +21,7 @@ export default {
         'max-2xl': { max: '1439px' },
         'max-3xl': { max: '1599px' },
         'max-4xl': { max: '1919px' },
+        'max-5xl': { max: '2219px' },
       },
       colors: {
         'beige': {
