@@ -6,7 +6,7 @@
     :class="isCollapsed ? 'lg:w-[100px]' : 'lg:w-[252px] 2xl:w-[300px]'"
   >
     <div
-      class="bg-grey-900 fixed max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:rounded-t-lg lg:max-4xl:rounded-r-2xl 4xl:rounded-3xl lg:max-4xl:h-dvh 4xl:h-[calc(100%-96px)] 4xl:max-h-[1080px] duration-150 ease-in-out overflow-hidden z-50"
+      class="bg-grey-900 max-5xl:fixed max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:rounded-t-lg lg:max-5xl:rounded-r-2xl 5xl:rounded-3xl lg:max-5xl:h-dvh 5xl:h-full 5xl:max-h-full duration-150 ease-in-out overflow-hidden z-50"
       :class="isCollapsed ? 'lg:w-[100px]' : 'lg:w-[252px] 2xl:w-[300px]'"
     >
       <div
