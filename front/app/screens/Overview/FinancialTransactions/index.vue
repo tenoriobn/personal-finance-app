@@ -34,9 +34,13 @@
         >
           <td class="row-span-2 flex items-center max-sm:gap-2 sm:gap-4 text-grey-900 font-bold">
             <span
-              class="max-sm:w-8 max-sm:h-8 sm:w-10 sm:h-10 rounded-full grid place-items-center text-grey-100 bg-amber-500"
+              class="max-sm:w-8 max-sm:h-8 sm:w-10 sm:h-10 rounded-full grid place-items-center"
+              :style="{
+                backgroundColor: useAvatar(transaction.name).bgColor.value,
+                color: useAvatar(transaction.name).textColor.value,
+              }"
             >
-              {{ transaction.name[0] }}
+              {{ useAvatar(transaction.name).letter.value }}
             </span>
 
             <span class="truncate">
@@ -65,6 +69,7 @@ import CaretDownIcon from '~/assets/icons/icon-caret-down.svg';
 import { useOverview } from '../useOverview';
 import FinancialTransactionsSkeleton from './FinancialTransactionsSkeleton.vue';
 import { formatCurrency, formatDate } from '~/utils';
+import { useAvatar } from '~/composables';
 
 const { summaryTransactions, pending } = useOverview();
 const transactions = computed(() => summaryTransactions.value?.transactions ?? []);
