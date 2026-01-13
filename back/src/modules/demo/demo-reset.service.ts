@@ -3,15 +3,13 @@ import { seedDemoUser } from "./demo.seed";
 
 class DemoResetService {
   async resetUserData(userId: string): Promise<void> {
-    await prisma.$transaction(async () => {
-      await prisma.transaction.deleteMany({ where: { userId } });
+    await prisma.$transaction([
+      prisma.transaction.deleteMany({ where: { userId } }),
+      prisma.budget.deleteMany({ where: { userId } }),
+      prisma.pot.deleteMany({ where: { userId } }),
+    ]);
 
-      await prisma.budget.deleteMany({ where: { userId } });
-
-      await prisma.pot.deleteMany({ where: { userId } });
-
-      await seedDemoUser(userId);
-    });
+    await seedDemoUser(userId);
   }
 }
 
