@@ -58,6 +58,7 @@ export function useCreateTransactionModal(categories: () => CategoryData[], onSu
 
   const buildPayload = () => ({
     ...formState,
+    name: formState.name.trim(),
     amount: formState.type === 'OUT' ? -Math.abs(amount.value) : Math.abs(amount.value),
   });
 

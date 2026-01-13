@@ -126,7 +126,7 @@ const validateAndSetErrors = (): boolean => {
   return true;
 };
 
-const isSubmitting = ref(true);
+const isSubmitting = ref(false);
 
 const resetForm = () => {
   Object.assign(formState, defaultForm);

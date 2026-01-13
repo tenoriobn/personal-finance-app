@@ -16,6 +16,10 @@ vi.mock('~/composables', () => ({
     setToken: setTokenMock,
   }),
   useApiPost: apiPostMock,
+  useDemoAuth: () => ({
+    loginDemoUser: vi.fn(),
+    isSubmitting: false,
+  }),
 }));
 
 vi.mock('~/utils', () => ({
@@ -160,13 +164,13 @@ describe('Login Component', () => {
       await flushPromises();
 
       const inputs = wrapper.findAll('input');
-      const button = wrapper.find('button');
+      const button = wrapper.find('form button');
 
       expect(inputs.length).toBeGreaterThanOrEqual(2);
 
       expect(inputs[0]!.element.disabled).toBe(true);
       expect(inputs[1]!.element.disabled).toBe(true);
-      expect(button.element.disabled).toBe(true);
+      expect((button.element as HTMLButtonElement).disabled).toBe(true);
     });
 
     it('Should handle API error and keep form enabled', async () => {

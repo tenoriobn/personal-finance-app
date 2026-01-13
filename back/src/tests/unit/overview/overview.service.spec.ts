@@ -43,13 +43,11 @@ describe("OverviewService", () => {
       ] as any);
 
       vi.mocked(prisma.transaction.findMany)
-        // transactions summary
         .mockResolvedValueOnce([
           { amount: 500 },
           { amount: -200 },
           { amount: -100 },
         ] as any)
-        // recurring bills summary
         .mockResolvedValueOnce([
           {
             amount: -50,

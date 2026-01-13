@@ -12,18 +12,15 @@ export const corsMiddleware = cors({
   origin: (origin) => {
     if (!origin) { return null; }
 
-    // Em dev, também permite localhost
     // const isDev = process.env.NODE_ENV === "development";
     // if (isDev) {
     //   allowedOrigins.push("http://localhost:3000");
     // }
 
-    // Se o origin estiver na lista, permite
     if (allowedOrigins.includes(origin)) {
       return origin;
     }
 
-    // Se for um preview válido da Vercel, permite
     if (vercelPreviewRegex.test(origin)) {
       return origin;
     }
