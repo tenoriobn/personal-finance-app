@@ -3,6 +3,9 @@ import bcrypt from "bcryptjs";
 import { CreateUserDTO } from "../user/user.types";
 import { ensureUniqueOrFail, findEntityOrFail } from "src/core";
 import { AppError, signToken } from "src/utils";
+import { demoResetService } from "../demo/demo-reset.service";
+
+const DEMO_EMAIL = "demo@personalfinance.app";
 
 class AuthService {
   async create(data: CreateUserDTO) {
@@ -69,6 +72,38 @@ class AuthService {
         role: user.roleId
       } 
     };
+  }
+
+  async demoLogin() {
+    const demoUser = await findEntityOrFail(
+      prisma.user,
+      { email: DEMO_EMAIL },
+      "Usuário DEMO não configurado!"
+    );
+
+    await this.resetDemoUserData(demoUser.id);
+
+    const role = await findEntityOrFail(
+      prisma.role,
+      { id: demoUser.roleId },
+      "Role não encontrada para usuário DEMO!"
+    );
+
+    const payload = { id: demoUser.id, role: role.name };
+    const token = signToken(payload);
+
+    return {
+      token,
+      user: {
+        id: demoUser.id,
+        email: demoUser.email,
+        role: role.name,
+      },
+    };
+  }
+
+  private async resetDemoUserData(userId: string): Promise<void> {
+    await demoResetService.resetUserData(userId);
   }
 }
 

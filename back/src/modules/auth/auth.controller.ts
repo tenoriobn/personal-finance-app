@@ -30,6 +30,11 @@ class AuthController {
 
     return context.json(result);
   }
+
+  async demoLogin(context: Context) {
+    const result = await authService.demoLogin();
+    return context.json(result);
+  }
 }
 
 export const authController = new AuthController();
