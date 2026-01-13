@@ -1,0 +1,328 @@
+{
+  "transactions": [
+    {
+      "id": "69668abb47477b9439adadbe",
+      "name": "Carlos Cavallieri",
+      "date": "2026-01-13T03:00:00.000Z",
+      "amount": 350,
+      "recurring": true,
+      "budget": {
+        "category": {
+          "id": "68e56101e6616ee788ea45ae",
+          "name": "Entretenimento"
+        }
+      }
+    },
+    {
+      "id": "69668ad947477b9439adadbf",
+      "name": "Josivaldo Santos",
+      "date": "2026-01-13T03:00:00.000Z",
+      "amount": 580,
+      "recurring": true,
+      "budget": {
+        "category": {
+          "id": "68e5610fe6616ee788ea45af",
+          "name": "Contas"
+        }
+      }
+    },
+    {
+      "id": "69668af147477b9439adadc0",
+      "name": "Josivaldo Santos",
+      "date": "2026-01-13T03:00:00.000Z",
+      "amount": -80,
+      "recurring": false,
+      "budget": {
+        "category": {
+          "id": "68e5610fe6616ee788ea45af",
+          "name": "Contas"
+        }
+      }
+    },
+    {
+      "id": "69668b5647477b9439adadc1",
+      "name": "Shibata Supermercado",
+      "date": "2026-01-13T03:00:00.000Z",
+      "amount": 1000,
+      "recurring": false,
+      "budget": {
+        "category": {
+          "id": "68e5611ae6616ee788ea45b0",
+          "name": "Supermercado"
+        }
+      }
+    },
+    {
+      "id": "69668bb447477b9439adadc2",
+      "name": "Casa São Lourenço",
+      "date": "2026-01-13T03:00:00.000Z",
+      "amount": 100,
+      "recurring": false,
+      "budget": {
+        "category": {
+          "id": "68e56125e6616ee788ea45b1",
+          "name": "Jantar Fora"
+        }
+      }
+    },
+    {
+      "id": "69668bc747477b9439adadc3",
+      "name": "Casa São Lourenço",
+      "date": "2026-01-13T03:00:00.000Z",
+      "amount": 80,
+      "recurring": false,
+      "budget": {
+        "category": {
+          "id": "68e56125e6616ee788ea45b1",
+          "name": "Jantar Fora"
+        }
+      }
+    },
+    {
+      "id": "69668bd747477b9439adadc4",
+      "name": "Casa São Lourenço",
+      "date": "2026-01-13T03:00:00.000Z",
+      "amount": -30,
+      "recurring": false,
+      "budget": {
+        "category": {
+          "id": "68e56125e6616ee788ea45b1",
+          "name": "Jantar Fora"
+        }
+      }
+    },
+    {
+      "id": "69668be247477b9439adadc5",
+      "name": "Casa São Lourenço",
+      "date": "2026-01-13T03:00:00.000Z",
+      "amount": 90,
+      "recurring": false,
+      "budget": {
+        "category": {
+          "id": "68e56125e6616ee788ea45b1",
+          "name": "Jantar Fora"
+        }
+      }
+    },
+    {
+      "id": "69668c7347477b9439adadc6",
+      "name": "Bario Bar",
+      "date": "2026-01-13T03:00:00.000Z",
+      "amount": 110,
+      "recurring": true,
+      "budget": {
+        "category": {
+          "id": "68e56101e6616ee788ea45ae",
+          "name": "Entretenimento"
+        }
+      }
+    }
+  ],
+  "budgets": [
+    {
+      "id": "696689f647477b9439adadba",
+      "maximumSpend": 500,
+      "category": {
+        "id": "68e56101e6616ee788ea45ae",
+        "name": "Entretenimento"
+      },
+      "theme": {
+        "id": "68e55f6be6616ee788ea45a0",
+        "colorName": "Verde",
+        "colorHex": "#277C78"
+      },
+      "transactions": [
+        {
+          "name": "Carlos Cavallieri",
+          "amount": 350,
+          "date": "2026-01-13T03:00:00.000Z",
+          "recurring": true,
+          "budgetId": "696689f647477b9439adadba"
+        },
+        {
+          "id": "69668c7347477b9439adadc6",
+          "name": "Bario Bar",
+          "date": "2026-01-13T03:00:00.000Z",
+          "amount": 110,
+          "recurring": true,
+          "budgetId": "696689f647477b9439adadba"
+        }
+      ]
+    },
+    {
+      "id": "69668a0347477b9439adadbb",
+      "maximumSpend": 600,
+      "category": {
+        "id": "68e5610fe6616ee788ea45af",
+        "name": "Contas"
+      },
+      "theme": {
+        "id": "68e55f75e6616ee788ea45a1",
+        "colorName": "Amarelo",
+        "colorHex": "#F2CDAC"
+      },
+      "transactions": [
+        {
+          "id": "69668ad947477b9439adadbf",
+          "name": "Josivaldo Santos",
+          "date": "2026-01-13T03:00:00.000Z",
+          "amount": 580,
+          "recurring": true,
+          "budgetId": "69668a0347477b9439adadbb"
+        },
+        {
+          "id": "69668af147477b9439adadc0",
+          "name": "Josivaldo Santos",
+          "date": "2026-01-13T03:00:00.000Z",
+          "amount": -80,
+          "recurring": false,
+          "budgetId": "69668a0347477b9439adadbb"
+        }
+      ]
+    },
+    {
+      "id": "69668a1147477b9439adadbc",
+      "maximumSpend": 1000,
+      "category": {
+        "id": "68e5611ae6616ee788ea45b0",
+        "name": "Supermercado"
+      },
+      "theme": {
+        "id": "68e55f7ce6616ee788ea45a2",
+        "colorName": "Ciano",
+        "colorHex": "#82C9D7"
+      },
+      "transactions": [
+        {
+          "id": "69668b5647477b9439adadc1",
+          "name": "Shibata Supermercado",
+          "date": "2026-01-13T03:00:00.000Z",
+          "amount": 1000,
+          "recurring": false,
+          "budgetId": "69668a1147477b9439adadbc"
+        }
+      ]
+    },
+    {
+      "id": "69668a2247477b9439adadbd",
+      "maximumSpend": 300,
+      "category": {
+        "id": "68e56125e6616ee788ea45b1",
+        "name": "Jantar Fora"
+      },
+      "theme": {
+        "id": "68e55f90e6616ee788ea45a3",
+        "colorName": "Azul Marinho",
+        "colorHex": "#626070"
+      },
+      "transactions": [
+        {
+          "id": "69668bb447477b9439adadc2",
+          "name": "Casa São Lourenço",
+          "date": "2026-01-13T03:00:00.000Z",
+          "amount": 100,
+          "recurring": false,
+          "budgetId": "69668a2247477b9439adadbd"
+        },
+        {
+          "id": "69668bc747477b9439adadc3",
+          "name": "Casa São Lourenço",
+          "date": "2026-01-13T03:00:00.000Z",
+          "amount": 80,
+          "recurring": false,
+          "budgetId": "69668a2247477b9439adadbd"
+        },
+        {
+          "id": "69668bd747477b9439adadc4",
+          "name": "Casa São Lourenço",
+          "date": "2026-01-13T03:00:00.000Z",
+          "amount": -30,
+          "recurring": false,
+          "budgetId": "69668a2247477b9439adadbd"
+        },
+        {
+          "id": "69668be247477b9439adadc5",
+          "name": "Casa São Lourenço",
+          "date": "2026-01-13T03:00:00.000Z",
+          "amount": 90,
+          "recurring": false,
+          "budgetId": "69668a2247477b9439adadbd"
+        }
+      ]
+    }
+  ],
+  "pots": [
+    {
+      "id": "68e566e1de9ef6eb4d207bde",
+      "name": "Acadêmia",
+      "targetAmount": 200,
+      "totalAmount": 120,
+      "theme": {
+        "id": "68e55f7ce6616ee788ea45a2",
+        "colorName": "Ciano",
+        "colorHex": "#82C9D7"
+      },
+      "createdAt": "2025-10-07T19:15:45.707Z"
+    },
+    {
+      "id": "68e566fade9ef6eb4d207bdf",
+      "name": "Novo Notebook",
+      "targetAmount": 4000,
+      "totalAmount": 1000,
+      "theme": {
+        "id": "68e55f75e6616ee788ea45a1",
+        "colorName": "Amarelo",
+        "colorHex": "#F2CDAC"
+      },
+      "createdAt": "2025-10-07T19:16:10.673Z"
+    },
+    {
+      "id": "68e56713de9ef6eb4d207be0",
+      "name": "Férias",
+      "targetAmount": 700,
+      "totalAmount": 531,
+      "theme": {
+        "id": "68e55fa2e6616ee788ea45a5",
+        "colorName": "Roxo",
+        "colorHex": "#826CB0"
+      },
+      "createdAt": "2025-10-07T19:16:35.053Z"
+    },
+    {
+      "id": "68efc498e219db7c763da54d",
+      "name": "Viagens",
+      "targetAmount": 1440,
+      "totalAmount": 531,
+      "theme": {
+        "id": "68e55fb9e6616ee788ea45a8",
+        "colorName": "Magenta",
+        "colorHex": "#934F6F"
+      },
+      "createdAt": "2025-10-15T15:58:16.410Z"
+    },
+    {
+      "id": "693ed11bec443c68890aea32",
+      "name": "Mercado",
+      "targetAmount": 1000,
+      "totalAmount": 980,
+      "theme": {
+        "id": "68e55fc7e6616ee788ea45aa",
+        "colorName": "Cinza",
+        "colorHex": "#97A0AC"
+      },
+      "createdAt": "2025-12-14T15:00:43.410Z"
+    },
+    {
+      "id": "693ee47cec443c68890aea3c",
+      "name": "Cursos / Educação",
+      "targetAmount": 250,
+      "totalAmount": 100,
+      "theme": {
+        "id": "68e55fd5e6616ee788ea45ac",
+        "colorName": "Dourado",
+        "colorHex": "#CAB361"
+      },
+      "createdAt": "2025-12-14T16:23:24.825Z"
+    }
+  ]
+}

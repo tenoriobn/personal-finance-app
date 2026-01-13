@@ -39,9 +39,13 @@
           class="max-xl:row-span-2 flex items-center gap-4 text-grey-900 font-bold"
         >
           <span
-            class="w-10 h-10 rounded-full grid place-items-center text-grey-100 bg-amber-500"
+            class="w-10 h-10 rounded-full grid place-items-center"
+            :style="{
+              backgroundColor: useAvatar(name).bgColor.value,
+              color: useAvatar(name).textColor.value,
+            }"
           >
-            {{ name[0] }}
+            {{ useAvatar(name).letter.value }}
           </span>
 
           <span
@@ -89,6 +93,7 @@
 import type { TableTransactionsProps } from './table.type';
 import TableSkeleton from './TableSkeleton.vue';
 import { formatDate, formatCurrency } from '~/utils';
+import { useAvatar } from '~/composables';
 
 const { transactions, pending } = defineProps<TableTransactionsProps>();
 

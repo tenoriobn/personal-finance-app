@@ -59,7 +59,10 @@
     <p class="text-base text-grey-500 text-center">
       Já tem uma conta?
       <NuxtLink
-        class="font-semibold underline text-grey-900 hover:text-grey-500 active:text-grey-300 duration-150 ease-in-out"
+        :class="[
+          'font-semibold underline text-grey-900 duration-150 ease-in-out',
+          isSubmitting ? 'cursor-not-allowed opacity-75' : ' hover:text-grey-500 active:text-grey-300 ',
+        ]"
         to="/login"
       >Entrar</NuxtLink>
     </p>

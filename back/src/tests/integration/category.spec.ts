@@ -198,7 +198,7 @@ describe("Category Integration (route → controller → service)", () => {
       const response = await app.request("/categories", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: "AB" }), // Nome muito curto
+        body: JSON.stringify({ name: "AB" }),
       });
 
       expect(response.status).toBe(400);

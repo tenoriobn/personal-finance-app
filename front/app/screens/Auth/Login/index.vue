@@ -1,6 +1,21 @@
 <template>
   <h2 class="text-grey-900 max-md:text-2xl md:text-[2rem] text-center font-bold leading-none">Acesse sua conta</h2>
 
+  <button
+    :class="[
+      'flex items-center justify-center gap-2 font-semibold text-grey-900 duration-150 ease-in-out w-max self-center',
+      demoIsSubmitting ? 'disabled:cursor-not-allowed opacity-75' : 'hover:text-grey-500 active:text-grey-300 ',
+    ]"
+    :disabled="demoIsSubmitting"
+    @click="handleDemoLogin"
+  >
+    <LoadingIcon
+      v-if="demoIsSubmitting"
+      class="w-5"
+    />
+    Entrar como DEMO
+  </button>
+
   <form
     class="flex flex-col gap-6"
     @submit.prevent="handleSubmit"
@@ -10,7 +25,7 @@
         v-model="formState.email"
         :label="'Email'"
         name="email"
-        :is-submitting="isSubmitting"
+        :is-submitting="isSubmitting || demoIsSubmitting"
       />
 
       <FormError :message="errors.email" />
@@ -22,22 +37,26 @@
         :label="'Senha'"
         name="senha"
         type="password"
-        :is-submitting="isSubmitting"
+        :is-submitting="isSubmitting || demoIsSubmitting"
       />
 
       <FormError :message="errors.password" />
     </div>
 
     <Button
-      :is-submitting="isSubmitting"
+      :is-submitting="isSubmitting || demoIsSubmitting"
       label="Entrar"
     />
 
     <p class="text-base text-grey-500 text-center">
       Precisa criar uma conta?
       <NuxtLink
-        class="font-semibold underline text-grey-900 hover:text-grey-500 active:text-grey-300 duration-150 ease-in-out"
+        :class="[
+          'font-semibold underline text-grey-900 duration-150 ease-in-out',
+          isSubmitting || demoIsSubmitting ? 'cursor-not-allowed opacity-75' : ' hover:text-grey-500 active:text-grey-300 ',
+        ]"
         to="/cadastro"
+        :disabled="isSubmitting || demoIsSubmitting"
       >Cadastre-se</NuxtLink>
     </p>
   </form>
@@ -48,7 +67,14 @@ import { Button, Input, NuxtLink, FormError } from '#components';
 import { handleApiErrors } from '~/utils';
 import { baseLoginSchema } from './login.schema';
 import type { LoginForm, LoginResponse } from './login.type';
-import { useAuth, useToast, useApiPost } from '~/composables';
+import { useAuth, useToast, useApiPost, useDemoAuth } from '~/composables';
+import LoadingIcon from '~/assets/icons/loading.svg';
+
+const { loginDemoUser, isSubmitting: demoIsSubmitting } = useDemoAuth();
+
+const handleDemoLogin = async () => {
+  await loginDemoUser();
+};
 
 const defaultForm: LoginForm = {
   email: '',

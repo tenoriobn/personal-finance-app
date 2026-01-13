@@ -12,6 +12,11 @@ vi.mock('~/composables', () => ({
   useTransactionsFilters: () => ({
     selectedCategory: { value: '' },
   }),
+  useAvatar: (name: string) => ({
+    letter: name.charAt(0),
+    bgColor: 'bg-gray',
+    textColor: 'text-white',
+  }),
 }));
 
 const normalizeTransactions = (
