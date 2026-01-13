@@ -12,31 +12,28 @@ export async function seedDemoUser(userId: string): Promise<void> {
       },
     });
 
-    for (const transaction of budget.transactions) {
-      await prisma.transaction.create({
-        data: {
-          name: transaction.name,
-          amount: transaction.amount,
-          date: new Date(transaction.date),
-          recurring: transaction.recurring,
-          budgetId: createdBudget.id,
-          userId,
-        },
-      });
-    }
-  }
-
-  for (const pot of demoSeed.pots) {
-    await prisma.pot.create({
-      data: {
-        name: pot.name,
-        normalizedName: pot.name.toLowerCase().replace(/\s+/g, "-"),
-        targetAmount: pot.targetAmount,
-        totalAmount: pot.totalAmount,
-        themeId: pot.theme.id,
+    await prisma.transaction.createMany({
+      data: budget.transactions.map((transaction) => ({
+        name: transaction.name,
+        amount: transaction.amount,
+        date: new Date(transaction.date),
+        recurring: transaction.recurring,
+        budgetId: createdBudget.id,
         userId,
-        createdAt: pot.createdAt ? new Date(pot.createdAt) : undefined,
-      },
+      })),
     });
   }
+
+  await prisma.pot.createMany({
+    data: demoSeed.pots.map((pot) => ({
+      name: pot.name,
+      normalizedName: pot.name.toLowerCase().replace(/\s+/g, "-"),
+      targetAmount: pot.targetAmount,
+      totalAmount: pot.totalAmount,
+      themeId: pot.theme.id,
+      userId,
+      createdAt: pot.createdAt ? new Date(pot.createdAt) : undefined,
+    })),
+  });
 }
+
