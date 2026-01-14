@@ -16,22 +16,11 @@ export function useApiFetch<T>(endpoint: string, options: Record<string, any> = 
       'Content-Type': 'application/json',
     },
     credentials: 'include' as const,
-    server: true,
+    server: false,
     onResponseError({ response }: any) {
-      console.error(
-        `%c[API ERROR] ${response?.url || ''}`,
-        'color: #ff4d4f; font-weight: bold;',
-        {
-          status: response?.status,
-          message: response?._data?.message || 'Erro desconhecido',
-        },
-      );
-
+      console.error('[API ERROR]', response?.status, response?._data);
       if (response?.status === 500) {
-        toast.error('Erro interno do servidor. Tente novamente mais tarde.', {
-          position: 'top-right',
-          theme: 'colored',
-        });
+        toast.error('Erro interno do servidor. Tente novamente mais tarde.');
       }
     },
   };
@@ -40,7 +29,7 @@ export function useApiFetch<T>(endpoint: string, options: Record<string, any> = 
 
   if (lazy) {
     return useFetch<T>(endpoint, mergedOptions);
-  };
+  }
 
   return $fetch<T>(endpoint, mergedOptions);
 }
