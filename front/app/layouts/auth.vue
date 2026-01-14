@@ -25,6 +25,7 @@
           class="max-lg:bg-white flex flex-col justify-center gap-8 w-full max-lg:p-6 lg:p-10 rounded-2xl max-lg:max-w-[560px]"
         >
           <slot />
+          <InfoPerformanceModal />
         </div>
       </section>
     </div>
@@ -33,6 +34,7 @@
 
 <script setup lang="ts">
 import Logo from '~/assets/icons/logo-large.svg';
+import InfoPerformanceModal from '~/components/InfoPerformanceModal/index.vue';
 </script>
 
 <style scoped>
