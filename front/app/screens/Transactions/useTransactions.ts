@@ -1,11 +1,10 @@
-import type { TransactionsResponse } from '~/screens/Transactions/transactions.type';
-import { useTransactionsFilters, useApiGet, useTransactionsCache } from '~/composables';
+import type { TransactionsResponse, TransactionsCache } from '~/screens/Transactions/transactions.type';
+import { useTransactionsFilters, useApiGet } from '~/composables';
 
 export function useTransactions(endpoint: string) {
-  const cache = useTransactionsCache();
+  const cache = useState<TransactionsCache | null>('transactions-cache', () => null);
 
-  const { search, selectedCategory, selectedSort, currentPage, limit }
-    = useTransactionsFilters();
+  const { search, selectedCategory, selectedSort, currentPage, limit } = useTransactionsFilters();
 
   const filters = computed(() => ({
     search: search.value || null,

@@ -1,16 +1,35 @@
-import { useApiGet } from '~/composables';
-import { computed } from 'vue';
 import type { BudgetData } from './budgets.type';
+import { useApiGet } from '~/composables';
 
 export function useBudgets() {
-  const { data, pending, error, refresh } = useApiGet<BudgetData[]>('budgets');
+  const cache = useState<BudgetData[] | null>('budgets-cache', () => null);
 
-  const budgets = computed(() => data.value || []);
+  const { data, pending, refresh } = useApiGet<BudgetData[]>('budgets', {
+    watch: false,
+    immediate: false,
+  });
+
+  if (!cache.value) {
+    refresh();
+  }
+
+  watch(
+    () => data.value,
+    (val) => {
+      if (val) {
+        cache.value = val;
+      }
+    },
+  );
+
+  const budgets = computed(() => cache.value ?? []);
 
   return {
     budgets,
     pending,
-    error,
-    refreshBudgets: refresh,
+    refreshBudgets: async () => {
+      cache.value = null;
+      await refresh();
+    },
   };
 }
