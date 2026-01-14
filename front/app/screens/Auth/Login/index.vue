@@ -13,7 +13,8 @@
       v-if="demoIsSubmitting"
       class="w-5"
     />
-    Entrar como DEMO
+
+    {{ demoIsSubmitting ? 'Entrando...' : 'Entrar como DEMO' }}
   </button>
 
   <form
@@ -70,7 +71,7 @@ import type { LoginForm, LoginResponse } from './login.type';
 import { useAuth, useToast, useApiPost, useDemoAuth } from '~/composables';
 import LoadingIcon from '~/assets/icons/loading.svg';
 
-const { loginDemoUser, isSubmitting: demoIsSubmitting } = useDemoAuth();
+const { loginDemoUser, demoIsSubmitting } = useDemoAuth();
 
 const handleDemoLogin = async () => {
   await loginDemoUser();

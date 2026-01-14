@@ -6,14 +6,14 @@ import type { LoginResponse } from '~/screens/Auth/Login/login.type';
 export function useDemoAuth() {
   const { setToken } = useAuth();
   const { notify } = useToast();
-  const isSubmitting = ref(false);
+  const demoIsSubmitting = ref(false);
 
   const loginDemoUser = async () => {
-    if (isSubmitting.value) {
+    if (demoIsSubmitting.value) {
       return;
     }
 
-    isSubmitting.value = true;
+    demoIsSubmitting.value = true;
 
     try {
       const { token } = await useApiPost('auth/demo-login', {}) as LoginResponse;
@@ -26,12 +26,12 @@ export function useDemoAuth() {
       console.error(err);
     }
     finally {
-      isSubmitting.value = false;
+      demoIsSubmitting.value = false;
     }
   };
 
   return {
     loginDemoUser,
-    isSubmitting,
+    demoIsSubmitting,
   };
 }
