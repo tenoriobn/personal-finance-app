@@ -97,10 +97,7 @@ import type { CategoryData } from './createTransactionModal.type';
 
 const { modelValue } = defineProps<{ modelValue: boolean }>();
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
-  (e: 'transactionCreated'): void
-}>();
+const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>();
 
 const showModal = computed({
   get: () => modelValue,
@@ -123,9 +120,6 @@ const {
   handleSubmit,
 } = useCreateTransactionModal(
   () => categories.value ?? [],
-  () => {
-    emit('transactionCreated');
-    showModal.value = false;
-  },
+  () => showModal.value = false,
 );
 </script>

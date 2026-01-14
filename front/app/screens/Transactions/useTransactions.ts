@@ -1,7 +1,7 @@
 import type { TransactionsResponse, TransactionsCache } from '~/screens/Transactions/transactions.type';
 import { useTransactionsFilters, useApiGet } from '~/composables';
 
-export function useTransactions(endpoint: string) {
+export function useTransactions() {
   const cache = useState<TransactionsCache | null>('transactions-cache', () => null);
 
   const { search, selectedCategory, selectedSort, currentPage, limit } = useTransactionsFilters();
@@ -25,8 +25,8 @@ export function useTransactions(endpoint: string) {
     );
   };
 
-  const { data, pending, refresh } = useApiGet<TransactionsResponse>(
-    endpoint,
+  const { data, pending, refresh: refreshTransactions } = useApiGet<TransactionsResponse>(
+    'transactions',
     {
       query: {
         search,
@@ -41,7 +41,7 @@ export function useTransactions(endpoint: string) {
   );
 
   if (filtersAreDifferent()) {
-    refresh();
+    refreshTransactions();
   }
 
   watch(
@@ -60,12 +60,12 @@ export function useTransactions(endpoint: string) {
   watch([search, selectedCategory, selectedSort], () => {
     currentPage.value = 1;
     cache.value = null;
-    refresh();
+    refreshTransactions();
   });
 
   watch(currentPage, () => {
     cache.value = null;
-    refresh();
+    refreshTransactions();
   });
 
   const transactions = computed(() => cache.value?.result?.data ?? []);
@@ -86,6 +86,6 @@ export function useTransactions(endpoint: string) {
     transactions,
     goToPage,
     pending,
-    refresh,
+    refreshTransactions,
   };
 }

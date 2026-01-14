@@ -1,14 +1,15 @@
 import { computed, reactive, ref, watch } from 'vue';
-import { useApiGet, useApiPost, useCurrencyMask, useToast } from '~/composables';
+import { useApiGet, useApiPost, useCurrencyMask, useToast, useRefreshAll } from '~/composables';
 import { createTransactionSchema } from './transaction.schema';
 import type { CategoryData, TransactionForm } from './createTransactionModal.type';
 import type { BudgetData } from '~/screens/Budgets/budgets.type';
 import { calculateSpent, calculateRemaining } from '~/utils/calculations';
 import { formatCurrency } from '~/utils';
 
-export function useCreateTransactionModal(categories: () => CategoryData[], onSuccess?: () => void) {
+export function useCreateTransactionModal(categories: () => CategoryData[], showModal?: () => void) {
   const { notify } = useToast();
   const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
+  const { refreshOverview, refreshBudgets, refreshBills, refreshTransactions } = useRefreshAll();
 
   const formState = reactive<TransactionForm>({
     name: '',
@@ -128,6 +129,13 @@ export function useCreateTransactionModal(categories: () => CategoryData[], onSu
     Object.keys(errors).forEach(k => (errors[k] = ''));
   };
 
+  const refreshPages = () => {
+    refreshOverview();
+    refreshBudgets();
+    refreshBills();
+    refreshTransactions();
+  };
+
   const handleSubmit = async () => {
     if (isSubmitting.value || !validateAndSetErrors()) {
       return;
@@ -138,10 +146,10 @@ export function useCreateTransactionModal(categories: () => CategoryData[], onSu
     try {
       const payload = buildPayload();
       await useApiPost('transactions', payload);
-
       notify('success', 'Transação criada com sucesso!');
+      refreshPages();
       resetForm();
-      onSuccess?.();
+      showModal?.();
     }
     finally {
       isSubmitting.value = false;

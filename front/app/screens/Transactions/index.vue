@@ -30,7 +30,6 @@
 
       <CreateTransactionModal
         v-model="showCreateTransactionModal"
-        @transaction-created="refreshTransactions"
       />
     </div>
   </div>
@@ -45,11 +44,8 @@ import { useTransactions } from './useTransactions';
 import CreateTransactionModal from './CreateTransactionModal/index.vue';
 
 const {
-  transactions, search, selectedCategory, selectedSort, totalPages, currentPage, goToPage, pending, refresh,
-} = useTransactions('transactions');
+  transactions, search, selectedCategory, selectedSort, totalPages, currentPage, goToPage, pending,
+} = useTransactions();
 
 const showCreateTransactionModal = ref(false);
-const refreshTransactions = async () => {
-  await refresh();
-};
 </script>
