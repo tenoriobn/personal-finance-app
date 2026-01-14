@@ -5,12 +5,14 @@ const OPTION_HEIGHT_PX = 53;
 const DEFAULT_VISIBLE_OFFSET = 2;
 
 export function useDropdownScroll(
+  dropdownWrapperRef: Ref<HTMLElement | null>,
   dropdownListRef: Ref<HTMLElement | null>,
   isOpenRef: Ref<boolean>,
   optionsRef: Ref<(string | DropdownOption)[]>,
 ) {
   const canScrollUp = ref(false);
   const canScrollDown = ref(false);
+  const openDirection = ref<'up' | 'down'>('down');
 
   const getScrollableElement = () => dropdownListRef.value;
 
@@ -59,6 +61,35 @@ export function useDropdownScroll(
     });
   };
 
+  const calculateDropdownDirection = () => {
+    const wrapper = dropdownWrapperRef.value;
+    const list = dropdownListRef.value;
+
+    if (!wrapper || !list) {
+      openDirection.value = 'down';
+      return;
+    }
+
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+
+    const spaceBelow = viewportHeight - wrapperRect.bottom;
+    const spaceAbove = wrapperRect.top;
+
+    // altura estimada do dropdown
+    const dropdownHeight = Math.min(
+      list.scrollHeight,
+      212, // mesma max-height que você já usa
+    );
+
+    if (spaceBelow < dropdownHeight && spaceAbove > spaceBelow) {
+      openDirection.value = 'up';
+    }
+    else {
+      openDirection.value = 'down';
+    }
+  };
+
   watch(
     [isOpenRef, optionsRef],
     async ([isOpen]) => {
@@ -67,6 +98,8 @@ export function useDropdownScroll(
       }
 
       await nextTick();
+
+      calculateDropdownDirection();
 
       const el = getScrollableElement();
       if (!el) {
@@ -112,5 +145,6 @@ export function useDropdownScroll(
     canScrollDown,
     handleScroll,
     scrollByOptions,
+    openDirection,
   };
 }
