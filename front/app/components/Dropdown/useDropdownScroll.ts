@@ -76,10 +76,9 @@ export function useDropdownScroll(
     const spaceBelow = viewportHeight - wrapperRect.bottom;
     const spaceAbove = wrapperRect.top;
 
-    // altura estimada do dropdown
     const dropdownHeight = Math.min(
       list.scrollHeight,
-      212, // mesma max-height que você já usa
+      212,
     );
 
     if (spaceBelow < dropdownHeight && spaceAbove > spaceBelow) {

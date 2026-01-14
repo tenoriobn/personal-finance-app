@@ -9,7 +9,7 @@ export function useEditPotModal(pot: () => PotData | null, showModal?: () => voi
   const { notify } = useToast();
   const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
   const { themes, refreshThemes } = useThemes();
-  const { refreshOverview, refreshPots } = useRefreshAll();
+  const { refreshAfterPot } = useRefreshAll();
 
   const currentTotal = computed(() => {
     const current = pot();
@@ -114,12 +114,6 @@ export function useEditPotModal(pot: () => PotData | null, showModal?: () => voi
 
   const isSubmitting = ref(false);
 
-  const refreshDataPages = () => {
-    refreshOverview();
-    refreshPots();
-    refreshThemes();
-  };
-
   const handleSubmit = async () => {
     const currentPot = pot();
     if (!currentPot || isSubmitting.value || !validateAndSetErrors()) {
@@ -135,7 +129,9 @@ export function useEditPotModal(pot: () => PotData | null, showModal?: () => voi
         themeId: formState.themeId,
       });
 
-      refreshDataPages();
+      refreshAfterPot();
+      refreshThemes();
+
       notify('success', 'Poupança atualizada com sucesso!');
       showModal?.();
     }

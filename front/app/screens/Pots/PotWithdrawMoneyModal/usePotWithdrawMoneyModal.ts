@@ -8,7 +8,7 @@ export function usePotWithdrawMoneyModal(pot: Ref<PotData | null>, showModal: ()
   const errors = reactive({ withdrawAmount: '' });
   const isSubmitting = ref(false);
   const { notify } = useToast();
-  const { refreshOverview, refreshPots } = useRefreshAll();
+  const { refreshAfterPot } = useRefreshAll();
 
   const reset = () => {
     errors.withdrawAmount = '';
@@ -48,11 +48,6 @@ export function usePotWithdrawMoneyModal(pot: Ref<PotData | null>, showModal: ()
     return true;
   };
 
-  const refreshDataPages = () => {
-    refreshOverview();
-    refreshPots();
-  };
-
   const handleSubmit = async () => {
     if (!pot.value || isSubmitting.value || !validate()) {
       return;
@@ -65,7 +60,8 @@ export function usePotWithdrawMoneyModal(pot: Ref<PotData | null>, showModal: ()
         totalAmount: pot.value.totalAmount - amount.value,
       });
 
-      refreshDataPages();
+      refreshAfterPot();
+
       notify('success', 'Valor retirado com sucesso!');
       showModal();
     }

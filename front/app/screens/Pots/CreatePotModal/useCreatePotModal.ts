@@ -9,7 +9,7 @@ export function useCreatePotModal(showModal?: () => void) {
   const { notify } = useToast();
   const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
   const { themes, refreshThemes } = useThemes();
-  const { refreshOverview, refreshPots } = useRefreshAll();
+  const { refreshAfterPot } = useRefreshAll();
 
   const formState = reactive<PotForm>({
     name: '',
@@ -76,13 +76,6 @@ export function useCreatePotModal(showModal?: () => void) {
     amount.value = 0;
     Object.keys(errors).forEach(k => (errors[k] = ''));
   };
-
-  const refreshDataPages = () => {
-    refreshOverview();
-    refreshPots();
-    refreshThemes();
-  };
-
   const handleSubmit = async () => {
     if (isSubmitting.value || !validateAndSetErrors()) {
       return;
@@ -96,7 +89,8 @@ export function useCreatePotModal(showModal?: () => void) {
         targetAmount: amount.value,
       });
 
-      refreshDataPages();
+      refreshAfterPot();
+      refreshThemes();
 
       notify('success', 'Poupança criada com sucesso!');
       resetForm();

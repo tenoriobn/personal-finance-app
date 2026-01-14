@@ -5,11 +5,11 @@ import type { BudgetData, BudgetForm } from '../budgets.type';
 import { baseBudgetSchema } from '../budget.schema';
 import { calculateSpent } from '~/utils/calculations';
 
-export function useEditBudgetModal(budget: () => BudgetData | null, onSuccess?: () => void) {
+export function useEditBudgetModal(budget: () => BudgetData | null, showModal?: () => void) {
   const { notify } = useToast();
   const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
   const { categories, themes, refreshCategoriesAndThemes } = useCategoriesAndThemes();
-  const { refreshOverview, refreshBudgets, refreshTransactions } = useRefreshAll();
+  const { refreshAfterBudget } = useRefreshAll();
 
   const spent = computed(() => {
     const current = budget();
@@ -132,13 +132,6 @@ export function useEditBudgetModal(budget: () => BudgetData | null, onSuccess?: 
 
   const isSubmitting = ref(false);
 
-  const refreshDataPages = () => {
-    refreshOverview();
-    refreshBudgets();
-    refreshTransactions();
-    refreshCategoriesAndThemes();
-  };
-
   async function handleSubmit() {
     const current = budget();
     if (!current) {
@@ -157,9 +150,11 @@ export function useEditBudgetModal(budget: () => BudgetData | null, onSuccess?: 
         themeId: formState.themeId,
       });
 
+      refreshAfterBudget();
+      refreshCategoriesAndThemes();
+
       notify('success', 'Orçamento atualizado com sucesso!');
-      refreshDataPages();
-      onSuccess?.();
+      showModal?.();
     }
     finally {
       isSubmitting.value = false;

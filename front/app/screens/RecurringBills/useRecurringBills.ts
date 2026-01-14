@@ -92,7 +92,7 @@ export function useRecurringBills() {
   });
 
   const bills = computed(() => cache.value?.result?.data ?? []);
-  const summary = computed(() => summaryCache.value ?? null);
+  const summary = computed(() => summaryCache.value ?? undefined);
   const totalPages = computed(() => cache.value?.result?.totalPages ?? 1);
 
   function goToPage(page: number) {

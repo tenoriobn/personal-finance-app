@@ -12,10 +12,28 @@ export function useRefreshAll() {
   const { refreshPots } = usePots();
 
   return {
-    refreshOverview,
-    refreshBudgets,
-    refreshBills,
-    refreshTransactions,
-    refreshPots,
+    refreshAfterTransaction: () => {
+      refreshOverview();
+      refreshBudgets();
+      refreshBills();
+      refreshTransactions();
+    },
+
+    refreshAfterBudget: () => {
+      refreshOverview();
+      refreshTransactions();
+      refreshBudgets();
+      refreshBills();
+    },
+
+    refreshAfterPot: () => {
+      refreshOverview();
+      refreshPots();
+    },
+
+    refreshAfterBill: () => {
+      refreshOverview();
+      refreshBills();
+    },
   };
 }

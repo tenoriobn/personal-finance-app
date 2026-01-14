@@ -6,13 +6,7 @@ export function useDeletePotModal(pot: Ref<PotData | null>, onSuccess: () => voi
   const isSubmitting = ref(false);
   const { notify } = useToast();
   const { refreshThemes } = useThemes();
-  const { refreshOverview, refreshPots } = useRefreshAll();
-
-  const refreshDataPages = () => {
-    refreshOverview();
-    refreshPots();
-    refreshThemes();
-  };
+  const { refreshAfterPot } = useRefreshAll();
 
   const handleSubmit = async () => {
     if (isSubmitting.value || !pot.value) {
@@ -23,7 +17,10 @@ export function useDeletePotModal(pot: Ref<PotData | null>, onSuccess: () => voi
 
     try {
       await useApiDelete(`pots/${pot.value.id}`);
-      refreshDataPages();
+
+      refreshAfterPot();
+      refreshThemes();
+
       notify('error', 'Poupança deletada com sucesso!');
       onSuccess();
     }

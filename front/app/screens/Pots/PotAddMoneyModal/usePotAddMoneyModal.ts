@@ -8,7 +8,7 @@ export function usePotAddMoneyModal(pot: Ref<PotData | null>, showModal: () => v
   const errors = reactive({ totalAmount: '' });
   const isSubmitting = ref(false);
   const { notify } = useToast();
-  const { refreshOverview, refreshPots } = useRefreshAll();
+  const { refreshAfterPot } = useRefreshAll();
 
   const reset = () => {
     errors.totalAmount = '';
@@ -41,11 +41,6 @@ export function usePotAddMoneyModal(pot: Ref<PotData | null>, showModal: () => v
     return true;
   };
 
-  const refreshDataPages = () => {
-    refreshOverview();
-    refreshPots();
-  };
-
   const handleSubmit = async () => {
     if (!pot.value || isSubmitting.value || !validate()) {
       return;
@@ -58,7 +53,8 @@ export function usePotAddMoneyModal(pot: Ref<PotData | null>, showModal: () => v
         totalAmount: pot.value.totalAmount + amount.value,
       });
 
-      refreshDataPages();
+      refreshAfterPot();
+
       notify('success', 'Poupança atualizada com sucesso!');
       showModal();
     }

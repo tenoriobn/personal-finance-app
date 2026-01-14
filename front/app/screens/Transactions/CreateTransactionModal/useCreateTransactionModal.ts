@@ -9,7 +9,7 @@ import { formatCurrency } from '~/utils';
 export function useCreateTransactionModal(categories: () => CategoryData[], showModal?: () => void) {
   const { notify } = useToast();
   const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
-  const { refreshOverview, refreshBudgets, refreshBills, refreshTransactions } = useRefreshAll();
+  const { refreshAfterTransaction } = useRefreshAll();
 
   const formState = reactive<TransactionForm>({
     name: '',
@@ -129,13 +129,6 @@ export function useCreateTransactionModal(categories: () => CategoryData[], show
     Object.keys(errors).forEach(k => (errors[k] = ''));
   };
 
-  const refreshPages = () => {
-    refreshOverview();
-    refreshBudgets();
-    refreshBills();
-    refreshTransactions();
-  };
-
   const handleSubmit = async () => {
     if (isSubmitting.value || !validateAndSetErrors()) {
       return;
@@ -147,7 +140,7 @@ export function useCreateTransactionModal(categories: () => CategoryData[], show
       const payload = buildPayload();
       await useApiPost('transactions', payload);
       notify('success', 'Transação criada com sucesso!');
-      refreshPages();
+      refreshAfterTransaction();
       resetForm();
       showModal?.();
     }
