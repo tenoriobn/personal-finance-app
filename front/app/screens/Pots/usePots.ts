@@ -1,9 +1,10 @@
 import type { PotData, PotsCache } from './pots.type';
-import { useApiGet } from '~/composables';
+import { useApiGet, useAuth } from '~/composables';
 import { computed } from 'vue';
 
 export function usePots() {
-  const cache = useState<PotsCache | null>('pots-cache', () => null);
+  const { token } = useAuth();
+  const cache = useState<PotsCache | null>(`pots-cache-${token.value ?? 'guest'}`, () => null);
 
   const { data, pending, refresh } = useApiGet<PotData[]>('pots', {
     watch: false,

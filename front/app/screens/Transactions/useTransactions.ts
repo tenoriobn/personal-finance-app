@@ -1,8 +1,9 @@
 import type { TransactionsResponse, TransactionsCache } from '~/screens/Transactions/transactions.type';
-import { useTransactionsFilters, useApiGet } from '~/composables';
+import { useTransactionsFilters, useApiGet, useAuth } from '~/composables';
 
 export function useTransactions() {
-  const cache = useState<TransactionsCache | null>('transactions-cache', () => null);
+  const { token } = useAuth();
+  const cache = useState<TransactionsCache | null>(`transactions-cache-${token.value ?? 'guest'}`, () => null);
 
   const { search, selectedCategory, selectedSort, currentPage, limit } = useTransactionsFilters();
 

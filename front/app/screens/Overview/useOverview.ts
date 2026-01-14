@@ -3,7 +3,8 @@ import { computed } from 'vue';
 import type { OverviewResponse } from './overview.type';
 
 export function useOverview() {
-  const cache = useState<OverviewResponse | null>('overview-cache', () => null);
+  const { token } = useAuth();
+  const cache = useState<OverviewResponse | null>(`overview-cache-${token.value ?? 'guest'}`, () => null);
 
   const { data, pending, error, refresh } = useApiGet<OverviewResponse>(
     'overview',

@@ -1,8 +1,9 @@
 import type { BudgetData } from './budgets.type';
-import { useApiGet } from '~/composables';
+import { useApiGet, useAuth } from '~/composables';
 
 export function useBudgets() {
-  const cache = useState<BudgetData[] | null>('budgets-cache', () => null);
+  const { token } = useAuth();
+  const cache = useState<BudgetData[] | null>(`budgets-cache-${token.value ?? 'guest'}`, () => null);
 
   const { data, pending, refresh } = useApiGet<BudgetData[]>('budgets', {
     watch: false,

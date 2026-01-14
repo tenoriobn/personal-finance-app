@@ -1,11 +1,12 @@
 import type { RecurringBillsCache, RecurringBillsResponse } from './recurringBills.type';
-import { useApiGet } from '~/composables';
+import { useApiGet, useAuth } from '~/composables';
 
 export function useRecurringBills() {
-  const cache = useState<RecurringBillsCache | null>('recurring-bills-cache', () => null);
+  const { token } = useAuth();
+  const cache = useState<RecurringBillsCache | null>(`recurring-bills-cache-${token.value ?? 'guest'}`, () => null);
 
-  const search = useState<string>('recurringBillSearch', () => '');
-  const selectedSort = useState<string>('recurringBillSort', () => 'Mais recente');
+  const search = useState<string>(`recurringBillSearch-${token.value ?? 'guest'}`, () => '');
+  const selectedSort = useState<string>(`recurringBillSort-${token.value ?? 'guest'}`, () => 'Mais recente');
   const currentPage = ref(1);
   const limit = ref(10);
 
