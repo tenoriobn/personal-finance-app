@@ -19,3 +19,11 @@ export interface PotForm {
   totalAmount: number
   themeId: string
 }
+
+export interface PotsCache {
+  result: PotData[]
+}
+
+export interface ThemesCache {
+  result: ThemeData[]
+}
