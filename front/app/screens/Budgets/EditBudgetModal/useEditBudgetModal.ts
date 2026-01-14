@@ -1,5 +1,5 @@
 import { computed, reactive, ref, watch } from 'vue';
-import { useApiPut, useCurrencyMask, useToast } from '~/composables';
+import { useApiPut, useCurrencyMask, useToast, useRefreshAll } from '~/composables';
 import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
 import type { BudgetData, BudgetForm } from '../budgets.type';
 import { baseBudgetSchema } from '../budget.schema';
@@ -9,6 +9,7 @@ export function useEditBudgetModal(budget: () => BudgetData | null, onSuccess?: 
   const { notify } = useToast();
   const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
   const { categories, themes, refreshCategoriesAndThemes } = useCategoriesAndThemes();
+  const { refreshOverview, refreshBudgets, refreshTransactions } = useRefreshAll();
 
   const spent = computed(() => {
     const current = budget();
@@ -131,6 +132,13 @@ export function useEditBudgetModal(budget: () => BudgetData | null, onSuccess?: 
 
   const isSubmitting = ref(false);
 
+  const refreshDataPages = () => {
+    refreshOverview();
+    refreshBudgets();
+    refreshTransactions();
+    refreshCategoriesAndThemes();
+  };
+
   async function handleSubmit() {
     const current = budget();
     if (!current) {
@@ -150,7 +158,7 @@ export function useEditBudgetModal(budget: () => BudgetData | null, onSuccess?: 
       });
 
       notify('success', 'Orçamento atualizado com sucesso!');
-      refreshCategoriesAndThemes();
+      refreshDataPages();
       onSuccess?.();
     }
     finally {

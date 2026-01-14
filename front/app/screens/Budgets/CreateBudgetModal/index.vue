@@ -66,7 +66,7 @@ import { computed } from 'vue';
 import { useCreateBudgetModal } from './useCreateBudgetModal';
 
 const { modelValue } = defineProps<{ modelValue: boolean }>();
-const emit = defineEmits(['update:modelValue', 'refreshBudgets']);
+const emit = defineEmits(['update:modelValue']);
 
 const showModal = computed({
   get: () => modelValue,
@@ -86,8 +86,5 @@ const {
   hasAvailableCategories,
   modalIntro,
   handleSubmit,
-} = useCreateBudgetModal(() => {
-  emit('refreshBudgets');
-  showModal.value = false;
-});
+} = useCreateBudgetModal(() => showModal.value = false);
 </script>
