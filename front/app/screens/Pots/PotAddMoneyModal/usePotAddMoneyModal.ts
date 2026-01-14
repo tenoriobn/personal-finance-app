@@ -1,13 +1,14 @@
-import { useApiPut, useCurrencyMask, useToast } from '~/composables';
+import { useApiPut, useCurrencyMask, useToast, useRefreshAll } from '~/composables';
 import { calculatePercentUsed } from '~/utils/calculations';
 import { formatCurrency } from '~/utils';
 import type { PotData } from '../pots.type';
 
-export function usePotAddMoneyModal(pot: Ref<PotData | null>, onSuccess: () => void) {
+export function usePotAddMoneyModal(pot: Ref<PotData | null>, showModal: () => void) {
   const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
   const errors = reactive({ totalAmount: '' });
   const isSubmitting = ref(false);
   const { notify } = useToast();
+  const { refreshOverview, refreshPots } = useRefreshAll();
 
   const reset = () => {
     errors.totalAmount = '';
@@ -40,6 +41,11 @@ export function usePotAddMoneyModal(pot: Ref<PotData | null>, onSuccess: () => v
     return true;
   };
 
+  const refreshDataPages = () => {
+    refreshOverview();
+    refreshPots();
+  };
+
   const handleSubmit = async () => {
     if (!pot.value || isSubmitting.value || !validate()) {
       return;
@@ -52,8 +58,9 @@ export function usePotAddMoneyModal(pot: Ref<PotData | null>, onSuccess: () => v
         totalAmount: pot.value.totalAmount + amount.value,
       });
 
+      refreshDataPages();
       notify('success', 'Poupança atualizada com sucesso!');
-      onSuccess();
+      showModal();
     }
     finally {
       isSubmitting.value = false;

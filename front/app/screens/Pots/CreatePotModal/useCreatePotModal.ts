@@ -1,12 +1,15 @@
 import { computed, reactive, ref, watch } from 'vue';
-import { useApiPost, useCurrencyMask, useToast } from '~/composables';
+import { useApiPost, useCurrencyMask, useToast, useRefreshAll } from '~/composables';
 import { basePotSchema } from '../pot.schema';
-import type { PotForm, ThemeData } from '../pots.type';
+import type { PotForm } from '../pots.type';
 import { handleApiErrors } from '~/utils';
+import { useThemes } from '../useThemes';
 
-export function useCreatePotModal(themes: () => ThemeData[], onSuccess?: () => void) {
+export function useCreatePotModal(showModal?: () => void) {
   const { notify } = useToast();
   const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
+  const { themes, refreshThemes } = useThemes();
+  const { refreshOverview, refreshPots } = useRefreshAll();
 
   const formState = reactive<PotForm>({
     name: '',
@@ -21,7 +24,7 @@ export function useCreatePotModal(themes: () => ThemeData[], onSuccess?: () => v
     themeId: '',
   });
 
-  const hasAvailableThemes = computed(() => (themes().length ?? 0) > 0);
+  const hasAvailableThemes = computed(() => (themes.value.length ?? 0) > 0);
 
   const modalIntro = computed(() => {
     if (!hasAvailableThemes.value) {
@@ -74,6 +77,12 @@ export function useCreatePotModal(themes: () => ThemeData[], onSuccess?: () => v
     Object.keys(errors).forEach(k => (errors[k] = ''));
   };
 
+  const refreshDataPages = () => {
+    refreshOverview();
+    refreshPots();
+    refreshThemes();
+  };
+
   const handleSubmit = async () => {
     if (isSubmitting.value || !validateAndSetErrors()) {
       return;
@@ -87,9 +96,11 @@ export function useCreatePotModal(themes: () => ThemeData[], onSuccess?: () => v
         targetAmount: amount.value,
       });
 
+      refreshDataPages();
+
       notify('success', 'Poupança criada com sucesso!');
       resetForm();
-      onSuccess?.();
+      showModal?.();
     }
     catch (err: unknown) {
       handleApiErrors(err, errors, notify, {
@@ -103,6 +114,7 @@ export function useCreatePotModal(themes: () => ThemeData[], onSuccess?: () => v
   };
 
   return {
+    themes,
     formState,
     errors,
     isSubmitting,

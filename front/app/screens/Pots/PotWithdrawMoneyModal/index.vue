@@ -64,7 +64,7 @@ import { usePotWithdrawMoneyModal } from './usePotWithdrawMoneyModal';
 import { formatCurrency } from '~/utils';
 
 const { modelValue, pot } = defineProps<{ modelValue: boolean, pot: PotData | null }>();
-const emit = defineEmits(['update:modelValue', 'refresh-pots']);
+const emit = defineEmits(['update:modelValue']);
 
 const showModal = computed({
   get: () => modelValue,
@@ -84,10 +84,7 @@ const {
   handleSubmit,
 } = usePotWithdrawMoneyModal(
   toRef(() => pot),
-  () => {
-    emit('refresh-pots');
-    showModal.value = false;
-  },
+  () => showModal.value = false,
 );
 
 watch(showModal, (visible) => {

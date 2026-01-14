@@ -60,7 +60,6 @@
 
 <script setup lang="ts">
 import { Button, Modal, Dropdown, FormError, Input } from '#components';
-import { useThemes } from '../useThemes';
 import { useCreatePotModal } from './useCreatePotModal';
 
 const { modelValue } = defineProps<{ modelValue: boolean }>();
@@ -75,9 +74,8 @@ const showModal = computed({
   set: (val: boolean) => emit('update:modelValue', val),
 });
 
-const { themes, refreshThemes } = useThemes();
-
 const {
+  themes,
   formState,
   errors,
   isSubmitting,
@@ -89,10 +87,8 @@ const {
   modalIntro,
   handleSubmit,
 } = useCreatePotModal(
-  () => themes.value ?? [],
   () => {
     emit('refreshPots');
-    refreshThemes();
     showModal.value = false;
   },
 );

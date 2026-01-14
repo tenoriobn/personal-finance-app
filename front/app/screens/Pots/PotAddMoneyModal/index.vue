@@ -63,7 +63,7 @@ import { formatCurrency } from '~/utils';
 import { usePotAddMoneyModal } from './usePotAddMoneyModal';
 
 const { modelValue, pot } = defineProps<{ modelValue: boolean, pot: PotData | null }>();
-const emit = defineEmits(['update:modelValue', 'refresh-pots']);
+const emit = defineEmits(['update:modelValue']);
 
 const showModal = computed({
   get: () => modelValue,
@@ -83,10 +83,7 @@ const {
   handleSubmit,
 } = usePotAddMoneyModal(
   toRef(() => pot),
-  () => {
-    emit('refresh-pots');
-    showModal.value = false;
-  },
+  () => showModal.value = false,
 );
 
 watch(showModal, (visible) => {

@@ -17,31 +17,26 @@
 
     <CreatePotModal
       v-model="showCreatePotModal"
-      @refresh-pots="refreshGetPots"
     />
 
     <EditPotModal
       v-model="showEditPotModal"
       :pot="potToEdit"
-      @refresh-pots="refreshGetPots"
     />
 
     <DeletePotModal
       v-model="showDeletePotModal"
       :pot="potToDelete"
-      @refresh-pots="refreshGetPots"
     />
 
     <PotAddMoneyModal
       v-model="showAddMoneyModal"
       :pot="potToAddMoney"
-      @refresh-pots="refreshGetPots"
     />
 
     <PotWithdrawMoneyModal
       v-model="showWithdrawMoneyModal"
       :pot="potToWithdraw"
-      @refresh-pots="refreshGetPots"
     />
   </div>
 </template>
@@ -57,7 +52,7 @@ import PotWithdrawMoneyModal from './PotWithdrawMoneyModal/index.vue';
 import { usePots } from './usePots';
 import type { PotData } from './pots.type';
 
-const { pots, refreshPots } = usePots();
+const { pots } = usePots();
 
 const showCreatePotModal = ref(false);
 
@@ -88,9 +83,5 @@ const potToWithdraw = ref<PotData | null>(null);
 const openWithdrawMoney = (id: string) => {
   potToWithdraw.value = pots.value.find(pot => pot.id === id) || null;
   showWithdrawMoneyModal.value = true;
-};
-
-const refreshGetPots = async () => {
-  await refreshPots();
 };
 </script>

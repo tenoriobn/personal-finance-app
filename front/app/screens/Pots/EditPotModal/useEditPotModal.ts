@@ -1,12 +1,15 @@
 import { computed, reactive, ref, watch } from 'vue';
-import { useApiPut, useCurrencyMask, useToast } from '~/composables';
+import { useApiPut, useCurrencyMask, useToast, useRefreshAll } from '~/composables';
 import { basePotSchema } from '../pot.schema';
-import type { PotData, PotForm, ThemeData } from '../pots.type';
+import type { PotData, PotForm } from '../pots.type';
 import { handleApiErrors } from '~/utils';
+import { useThemes } from '../useThemes';
 
-export function useEditPotModal(pot: () => PotData | null, themes: () => ThemeData[], onSuccess?: () => void) {
+export function useEditPotModal(pot: () => PotData | null, showModal?: () => void) {
   const { notify } = useToast();
   const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
+  const { themes, refreshThemes } = useThemes();
+  const { refreshOverview, refreshPots } = useRefreshAll();
 
   const currentTotal = computed(() => {
     const current = pot();
@@ -47,7 +50,7 @@ export function useEditPotModal(pot: () => PotData | null, themes: () => ThemeDa
   watch(pot, initFormFromPot, { immediate: true });
 
   const themeOptions = computed(() => {
-    const list = themes() ?? [];
+    const list = themes.value ?? [];
 
     const opts = list.map(theme => ({
       id: theme.id,
@@ -111,6 +114,12 @@ export function useEditPotModal(pot: () => PotData | null, themes: () => ThemeDa
 
   const isSubmitting = ref(false);
 
+  const refreshDataPages = () => {
+    refreshOverview();
+    refreshPots();
+    refreshThemes();
+  };
+
   const handleSubmit = async () => {
     const currentPot = pot();
     if (!currentPot || isSubmitting.value || !validateAndSetErrors()) {
@@ -126,8 +135,9 @@ export function useEditPotModal(pot: () => PotData | null, themes: () => ThemeDa
         themeId: formState.themeId,
       });
 
+      refreshDataPages();
       notify('success', 'Poupança atualizada com sucesso!');
-      onSuccess?.();
+      showModal?.();
     }
     catch (err: unknown) {
       handleApiErrors(err, errors, notify, {
