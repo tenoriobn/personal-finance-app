@@ -1,19 +1,17 @@
 import { cors } from "hono/cors";
 
 const allowedOrigins = [
-  "https://app-personal-finance.vercel.app/",
-  /^https:\/\/app-personal-finance-[a-z0-9-]+\.vercel\.app$/
+  "http://localhost:3000",
+  "https://app-personal-finance.vercel.app",
 ];
 
-const vercelPreviewRegex = /^https:\/\/app-personal-finance-[a-z0-9-]+\.vercel\.app$/;
+const vercelPreviewRegex =
+  /^https:\/\/app-personal-finance-[a-z0-9-]+\.vercel\.app$/;
 
 export const corsMiddleware = cors({
   origin: (origin) => {
-    if (!origin) { return null; }
-
-    const isDev = process.env.NODE_ENV === "development";
-    if (isDev) {
-      allowedOrigins.push("http://localhost:3000");
+    if (!origin) {
+      return undefined;
     }
 
     if (allowedOrigins.includes(origin)) {
@@ -24,7 +22,7 @@ export const corsMiddleware = cors({
       return origin;
     }
 
-    return null;
+    return undefined;
   },
   allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowHeaders: ["Content-Type", "Authorization"],
