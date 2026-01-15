@@ -1,6 +1,6 @@
 # 💰 Personal Finance App
 
-Aplicação **full-stack de controle financeiro pessoal**, desenvolvida como projeto de estudo avançado, com foco em **boas práticas**, **arquitetura limpa**, **CI/CD profissional** e **aprendizado de novas tecnologias**, mantendo simplicidade e clareza.
+Aplicação **full-stack de controle financeiro pessoal**, desenvolvida como projeto de estudo avançado, com foco em **boas práticas**, **arquitetura limpa**, **Testes**, **CI/CD profissional** e **aprendizado de novas tecnologias**, mantendo simplicidade e clareza.
 
 O projeto permite gerenciar **transações**, **orçamentos**, **poupanças (pots)**, **contas recorrentes**, **categorias**, **temas** e **usuários**, simulando um sistema real de finanças pessoais.
 
@@ -33,7 +33,7 @@ O projeto permite gerenciar **transações**, **orçamentos**, **poupanças (pot
 
 ## 👀 Visão Geral
 
-O **Personal Finance App** nasceu inicialmente como um projeto **front-end**, mas evoluiu para um **monorepo full-stack**, incluindo:
+O **Personal Finance App** nasceu inicialmente como um projeto **front-end**, mas evoluiu para um **projeto full-stack**, incluindo:
 
 * Front-end moderno com **Nuxt 4**
 * API enxuta e performática com **Hono**
@@ -46,7 +46,7 @@ O objetivo não foi apenas “fazer funcionar”, mas **pensar como um projeto r
 
 ## 🏗 Arquitetura do Projeto
 
-Este repositório segue o padrão **monorepo**, separando claramente responsabilidades:
+Este repositório separa claramente responsabilidades:
 
 ```txt
 .
@@ -66,6 +66,7 @@ Este repositório segue o padrão **monorepo**, separando claramente responsabil
 ### Back-end
 
 * API REST com **Hono**
+* Testes unitários e de integração **Vitest**
 * Prisma como ORM
 * MongoDB como banco de dados
 * Middlewares para autenticação, autorização, logs e tratamento de erros
@@ -92,6 +93,7 @@ Este repositório segue o padrão **monorepo**, separando claramente responsabil
 * **Node.js**
 * **Hono**
 * **Prisma**
+* **Typescript**
 * **MongoDB**
 * **Zod**
 * **JWT**
@@ -102,7 +104,7 @@ Este repositório segue o padrão **monorepo**, separando claramente responsabil
 * **GitHub Actions**
 * **CI/CD com Gatekeeper**
 * **ESLint**
-* **Monorepo com workflows reutilizáveis**
+* **Workflows reutilizáveis**
 
 ---
 
@@ -194,19 +196,6 @@ http://localhost:4000
 
 ---
 
-## 🚧 Status do Projeto
-
-🔹 **98% concluído**
-
-### Próximos passos planejados:
-
-* [ ] Testes unitários no back-end
-* [ ] Testes de integração da API
-* [ ] Expansão dos testes E2E no front-end
-* [ ] Pequenos refinamentos de UX
-
----
-
 ## 💡 Sugestões de Evolução do Projeto
 
 Este projeto foi pensado como **base sólida de estudo** e não como um produto fechado ou superdimensionado.
@@ -220,10 +209,6 @@ Abaixo estão algumas **ideias de evolução** que podem ser implementadas por q
   * Cadastro e login via e-mail
   * Recuperação e redefinição de senha
   * Confirmação de e-mail
-* **Notificações inteligentes**:
-
-  * Alertas de gastos acima do orçamento
-  * Lembretes de contas recorrentes
 
 ### 🧠 Arquitetura e Dev Experience
 
@@ -237,8 +222,6 @@ Abaixo estão algumas **ideias de evolução** que podem ser implementadas por q
 
 ### 🧪 Qualidade e Escalabilidade
 
-* Cobertura completa de **testes unitários e integração** no back-end
-* Testes E2E mais aprofundados no front-end
 * Monitoramento básico (logs, healthcheck)
 
 > 💡 **Observação**: Nem todas essas funcionalidades foram implementadas de propósito.
