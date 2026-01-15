@@ -1,5 +1,6 @@
 describe('Cadastro — Criação de conta', () => {
   const visitPage = () => {
+    cy.setPerformanceWarningAsSeen();
     cy.visit('/cadastro');
     cy.waitForNuxtHydration();
   };

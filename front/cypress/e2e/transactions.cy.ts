@@ -7,6 +7,8 @@ describe('Transações — Página autenticada', () => {
       body: { token: 'fake-jwt-token' },
     }).as('loginRequest');
 
+    cy.setPerformanceWarningAsSeen();
+
     cy.visit('/login');
     cy.waitForNuxtHydration();
 
@@ -59,6 +61,20 @@ describe('Transações — Página autenticada', () => {
           body: budget,
         },
       ).as('getBudgetId');
+    });
+
+    cy.intercept('GET', '**/budgets*', {
+      statusCode: 200,
+      body: [],
+    });
+    cy.intercept('GET', '**/recurring-bills*', {
+      statusCode: 200,
+      body: [],
+    });
+
+    cy.intercept('GET', '**/pots*', {
+      statusCode: 200,
+      body: [],
     });
 
     login();
