@@ -108,14 +108,13 @@ describe('DeletePotModal', () => {
   });
 
   describe('Emits', () => {
-    it('Should emit refreshPots and close modal on success', async () => {
+    it('Should emit close modal on success', async () => {
       const wrapper = mountComponent();
 
       expect(onSuccessCallback).not.toBeNull();
 
       onSuccessCallback?.();
 
-      expect(wrapper.emitted('refreshPots')).toBeTruthy();
       expect(wrapper.emitted('update:modelValue')).toEqual([[false]]);
     });
   });

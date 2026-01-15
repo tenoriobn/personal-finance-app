@@ -1,16 +1,41 @@
-import { useApiGet } from '~/composables';
+import type { PotData, PotsCache } from './pots.type';
+import { useApiGet, useAuth } from '~/composables';
 import { computed } from 'vue';
-import type { PotData } from './pots.type';
 
 export function usePots() {
-  const { data, pending, error, refresh } = useApiGet<PotData[]>('pots');
+  const { token } = useAuth();
+  const cache = useState<PotsCache | null>(`pots-cache-${token.value ?? 'guest'}`, () => null);
 
-  const pots = computed(() => data.value || []);
+  const { data, pending, refresh } = useApiGet<PotData[]>('pots', {
+    watch: false,
+    immediate: false,
+  });
+
+  if (!cache.value) {
+    refresh();
+  }
+
+  watch(
+    () => data.value,
+    (val) => {
+      if (val) {
+        cache.value = {
+          result: val,
+        };
+      }
+    },
+  );
+
+  const pots = computed(() => cache.value?.result ?? []);
+
+  const refreshPots = async () => {
+    cache.value = null;
+    await refresh();
+  };
 
   return {
     pots,
     pending,
-    error,
-    refreshPots: refresh,
+    refreshPots,
   };
 }

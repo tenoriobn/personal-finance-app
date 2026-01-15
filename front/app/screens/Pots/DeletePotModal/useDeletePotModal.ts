@@ -1,4 +1,4 @@
-import { useApiDelete, useToast } from '~/composables';
+import { useApiDelete, useToast, useRefreshAll } from '~/composables';
 import { useThemes } from '../useThemes';
 import type { PotData } from '../pots.type';
 
@@ -6,6 +6,7 @@ export function useDeletePotModal(pot: Ref<PotData | null>, onSuccess: () => voi
   const isSubmitting = ref(false);
   const { notify } = useToast();
   const { refreshThemes } = useThemes();
+  const { refreshAfterPot } = useRefreshAll();
 
   const handleSubmit = async () => {
     if (isSubmitting.value || !pot.value) {
@@ -17,8 +18,10 @@ export function useDeletePotModal(pot: Ref<PotData | null>, onSuccess: () => voi
     try {
       await useApiDelete(`pots/${pot.value.id}`);
 
-      notify('error', 'Poupança deletada com sucesso!');
+      refreshAfterPot();
       refreshThemes();
+
+      notify('error', 'Poupança deletada com sucesso!');
       onSuccess();
     }
     finally {

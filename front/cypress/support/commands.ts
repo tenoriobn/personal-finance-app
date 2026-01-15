@@ -47,3 +47,9 @@ Cypress.Commands.add('waitForNuxtHydration', () => {
     expect(app?.isHydrating).to.eq(false);
   });
 });
+
+Cypress.Commands.add('setPerformanceWarningAsSeen', () => {
+  cy.window().then((win) => {
+    win.localStorage.setItem('performance-warning-seen', 'true');
+  });
+});

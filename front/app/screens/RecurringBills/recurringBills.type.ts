@@ -23,3 +23,12 @@ export interface RecurringBillsResponse {
   totalPages: number
   summary?: RecurringSummary
 }
+
+export interface RecurringBillsCache {
+  filters: {
+    search: string | null
+    sort: string | null
+    page: number
+  }
+  result: RecurringBillsResponse
+}

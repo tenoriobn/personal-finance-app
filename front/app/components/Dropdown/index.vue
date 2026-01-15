@@ -66,8 +66,11 @@
       <motion.div
         v-if="isOpen"
         v-bind="fadeSlideY"
-        class="absolute bg-white border border-grey-200 max-md:right-0 md:mt-3 z-10 rounded-xl shadow-md overflow-hidden"
-        :class="compactOnMobile ? 'max-md:w-max md:w-full max-md:mt-6' : 'w-full max-md:mt-3'"
+        class="absolute bg-white border border-grey-200 max-md:right-0 z-10 rounded-xl shadow-md overflow-hidden"
+        :class="[
+          openDirection === 'down' ? 'top-full mt-3' : 'bottom-full mb-3',
+          compactOnMobile ? 'max-md:w-max md:w-full max-md:mt-6' : 'w-full',
+        ]"
       >
         <ul
           ref="dropdownList"
@@ -94,23 +97,23 @@
 
         <div
           v-if="canScrollUp"
-          class="absolute top-0 inset-x-0 p-2 flex justify-center cursor-pointer
+          class="absolute top-0 inset-x-0 p-2 flex justify-center items-center h-[53px] cursor-pointer
          bg-gradient-to-b from-grey-500 to-transparent backdrop-blur-[.0625rem] select-none"
           @click.stop="scrollByOptions(-2)"
         >
-          <div class="w-4 h-4 flex items-center justify-center rounded-full shadow-md bg-grey-500 animate-bounce">
+          <div class="w-6 h-6 flex items-center justify-center rounded-full shadow-md bg-grey-500 animate-bounce">
             <CaretDownIcon class="rotate-180 fill-white scale-75" />
           </div>
         </div>
 
         <div
           v-if="canScrollDown"
-          class="absolute bottom-0 inset-x-0 p-2 flex justify-center cursor-pointer
+          class="absolute bottom-0 inset-x-0 p-2 flex justify-center items-center h-[53px] cursor-pointer
          bg-gradient-to-t from-grey-500 to-transparent backdrop-blur-[.0625rem] select-none"
           data-testid="scroll-down"
           @click.stop="scrollByOptions(2)"
         >
-          <div class="w-4 h-4 flex items-center justify-center rounded-full shadow-md bg-grey-500 animate-bounce">
+          <div class="w-6 h-6 flex items-center justify-center rounded-full shadow-md bg-grey-500 animate-bounce">
             <CaretDownIcon class="fill-white scale-75" />
           </div>
         </div>
@@ -175,7 +178,8 @@ const {
   canScrollDown,
   handleScroll,
   scrollByOptions,
-} = useDropdownScroll(dropdownList, isOpen, ref(options));
+  openDirection,
+} = useDropdownScroll(dropdownWrapper, dropdownList, isOpen, ref(options));
 
 useClickOutside(dropdownWrapper, closeDropdown);
 </script>

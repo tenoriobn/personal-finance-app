@@ -5,6 +5,8 @@ describe('Navbar', () => {
       body: { token: 'fake-jwt-token' },
     }).as('loginRequest');
 
+    cy.setPerformanceWarningAsSeen();
+
     cy.visit('/login');
     cy.waitForNuxtHydration();
 

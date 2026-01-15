@@ -1,13 +1,14 @@
 import { computed, reactive, ref, watch } from 'vue';
-import { useApiPost, useCurrencyMask, useToast } from '~/composables';
+import { useApiPost, useCurrencyMask, useToast, useRefreshAll } from '~/composables';
 import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
 import type { BudgetForm } from '../budgets.type';
 import { baseBudgetSchema } from '../budget.schema';
 
-export function useCreateBudgetModal(onSuccess?: () => void) {
+export function useCreateBudgetModal(showModal?: () => void) {
   const { notify } = useToast();
   const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
   const { categories, themes, refreshCategoriesAndThemes } = useCategoriesAndThemes();
+  const { refreshAfterBudget } = useRefreshAll();
 
   const hasAvailableCategories = computed(() =>
     (categories.value?.length ?? 0) > 0,
@@ -86,10 +87,12 @@ export function useCreateBudgetModal(onSuccess?: () => void) {
         maximumSpend: amount.value,
       });
 
+      refreshAfterBudget();
       refreshCategoriesAndThemes();
+
       notify('success', 'Orçamento criado com sucesso!');
       resetForm();
-      onSuccess?.();
+      showModal?.();
     }
     finally {
       isSubmitting.value = false;

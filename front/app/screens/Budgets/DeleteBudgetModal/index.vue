@@ -19,7 +19,7 @@ import type { BudgetData } from '../budgets.type';
 import { useDeleteBudgetModal } from './useDeleteBudgetModal';
 
 const { modelValue, budget } = defineProps<{ modelValue: boolean, budget: BudgetData | null }>();
-const emit = defineEmits(['update:modelValue', 'refreshBudgets']);
+const emit = defineEmits(['update:modelValue']);
 
 const showModal = computed({
   get: () => modelValue,
@@ -28,9 +28,6 @@ const showModal = computed({
 
 const { isSubmitting, handleSubmit } = useDeleteBudgetModal(
   toRef(() => budget),
-  () => {
-    emit('refreshBudgets');
-    showModal.value = false;
-  },
+  () => showModal.value = false,
 );
 </script>

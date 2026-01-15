@@ -11,6 +11,7 @@ const themesRef = ref([
 ]);
 
 const createPotModalState = {
+  themes: themesRef,
   formState: {
     name: '',
     themeId: '',

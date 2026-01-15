@@ -14,6 +14,10 @@ declare global {
       getByData(selector: string): Chainable<JQuery<HTMLElement>>
 
       waitForNuxtHydration(): Chainable<void>
+
+      setPerformanceWarningAsSeen(): Chainable<void>
+
+      clearNuxtState(): Chainable<void>
     }
   }
 }

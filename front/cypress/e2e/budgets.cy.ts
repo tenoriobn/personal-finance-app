@@ -7,6 +7,8 @@ describe('Orçamentos — Página autenticada', () => {
       body: { token: 'fake-jwt-token' },
     }).as('loginRequest');
 
+    cy.setPerformanceWarningAsSeen();
+
     cy.visit('/login');
     cy.waitForNuxtHydration();
 
@@ -42,6 +44,21 @@ describe('Orçamentos — Página autenticada', () => {
         statusCode: 200,
         body: themes,
       }).as('getThemesAvailableBudget');
+    });
+
+    cy.intercept('GET', '**/transactions*', {
+      statusCode: 200,
+      body: [],
+    });
+
+    cy.intercept('GET', '**/recurring-bills*', {
+      statusCode: 200,
+      body: [],
+    });
+
+    cy.intercept('GET', '**/pots*', {
+      statusCode: 200,
+      body: [],
     });
 
     login();

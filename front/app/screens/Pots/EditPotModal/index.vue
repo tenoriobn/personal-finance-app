@@ -57,7 +57,6 @@
 
 <script setup lang="ts">
 import { Button, Modal, Dropdown, FormError, Input } from '#components';
-import { useThemes } from '../useThemes';
 import { useEditPotModal } from './useEditPotModal';
 import type { PotData } from '../pots.type';
 
@@ -66,17 +65,12 @@ const { modelValue, pot } = defineProps<{
   pot: PotData | null
 }>();
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
-  (e: 'refreshPots'): void
-}>();
+const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>();
 
 const showModal = computed({
   get: () => modelValue,
   set: (val: boolean) => emit('update:modelValue', val),
 });
-
-const { themes, refreshThemes } = useThemes();
 
 const {
   formState,
@@ -92,12 +86,7 @@ const {
   handleSubmit,
 } = useEditPotModal(
   () => pot,
-  () => themes.value ?? [],
-  () => {
-    emit('refreshPots');
-    refreshThemes();
-    showModal.value = false;
-  },
+  () => showModal.value = false,
 );
 
 watch(showModal, (isOpen) => {

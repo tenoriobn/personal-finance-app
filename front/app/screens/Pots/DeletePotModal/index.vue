@@ -19,7 +19,7 @@ import type { PotData } from '../pots.type';
 import { useDeletePotModal } from './useDeletePotModal';
 
 const { modelValue, pot } = defineProps<{ modelValue: boolean, pot: PotData | null }>();
-const emit = defineEmits(['update:modelValue', 'refreshPots']);
+const emit = defineEmits(['update:modelValue']);
 
 const showModal = computed({
   get: () => modelValue,
@@ -28,9 +28,6 @@ const showModal = computed({
 
 const { isSubmitting, handleSubmit } = useDeletePotModal(
   toRef(() => pot),
-  () => {
-    emit('refreshPots');
-    showModal.value = false;
-  },
+  () => showModal.value = false,
 );
 </script>

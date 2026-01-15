@@ -142,14 +142,4 @@ describe('Budgets', () => {
     expect(modal.props('modelValue')).toBe(true);
     expect(modal.props('budget')).toEqual(budgetsMock.value[0]);
   });
-
-  it('Should call refreshBudgets when refresh-budgets event is emitted from modals', async () => {
-    const wrapper = mountComponent();
-
-    wrapper.findComponent({ name: 'CreateBudgetModal' }).vm.$emit('refresh-budgets');
-    wrapper.findComponent({ name: 'EditBudgetModal' }).vm.$emit('refresh-budgets');
-    wrapper.findComponent({ name: 'DeleteBudgetModal' }).vm.$emit('refresh-budgets');
-
-    expect(refreshBudgetsMock).toHaveBeenCalledTimes(3);
-  });
 });

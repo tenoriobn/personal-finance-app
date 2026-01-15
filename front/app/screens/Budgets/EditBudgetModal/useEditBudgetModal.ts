@@ -1,14 +1,15 @@
 import { computed, reactive, ref, watch } from 'vue';
-import { useApiPut, useCurrencyMask, useToast } from '~/composables';
+import { useApiPut, useCurrencyMask, useToast, useRefreshAll } from '~/composables';
 import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
 import type { BudgetData, BudgetForm } from '../budgets.type';
 import { baseBudgetSchema } from '../budget.schema';
 import { calculateSpent } from '~/utils/calculations';
 
-export function useEditBudgetModal(budget: () => BudgetData | null, onSuccess?: () => void) {
+export function useEditBudgetModal(budget: () => BudgetData | null, showModal?: () => void) {
   const { notify } = useToast();
   const { formattedAmount, amount, onInput, onKeyDown, onPaste } = useCurrencyMask();
   const { categories, themes, refreshCategoriesAndThemes } = useCategoriesAndThemes();
+  const { refreshAfterBudget } = useRefreshAll();
 
   const spent = computed(() => {
     const current = budget();
@@ -149,9 +150,11 @@ export function useEditBudgetModal(budget: () => BudgetData | null, onSuccess?: 
         themeId: formState.themeId,
       });
 
-      notify('success', 'Orçamento atualizado com sucesso!');
+      refreshAfterBudget();
       refreshCategoriesAndThemes();
-      onSuccess?.();
+
+      notify('success', 'Orçamento atualizado com sucesso!');
+      showModal?.();
     }
     finally {
       isSubmitting.value = false;

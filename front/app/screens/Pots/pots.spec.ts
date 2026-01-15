@@ -23,12 +23,9 @@ const potsMock = ref<PotData[]>([
   },
 ]);
 
-const refreshPotsMock = vi.fn();
-
 vi.mock('./usePots', () => ({
   usePots: vi.fn(() => ({
     pots: potsMock,
-    refreshPots: refreshPotsMock,
   })),
 }));
 
@@ -39,11 +36,11 @@ const mountComponent = () =>
         Button: { name: 'Button', template: '<button @click="$emit(\'click\')"><slot /></button>', props: ['label'] },
         TitleSection: { name: 'TitleSection', template: '<div><slot /></div>', props: ['title'] },
         PotCard: { name: 'PotCard', template: '<div />', emits: ['edit-pot', 'delete-pot', 'add-money', 'withdraw-money'] },
-        CreatePotModal: { name: 'CreatePotModal', template: '<div />', props: ['modelValue'], emits: ['update:modelValue', 'refresh-pots'] },
-        EditPotModal: { name: 'EditPotModal', template: '<div />', props: ['modelValue', 'pot'], emits: ['update:modelValue', 'refresh-pots'] },
-        DeletePotModal: { name: 'DeletePotModal', template: '<div />', props: ['modelValue', 'pot'], emits: ['update:modelValue', 'refresh-pots'] },
-        PotAddMoneyModal: { name: 'PotAddMoneyModal', template: '<div />', props: ['modelValue', 'pot'], emits: ['update:modelValue', 'refresh-pots'] },
-        PotWithdrawMoneyModal: { name: 'PotWithdrawMoneyModal', template: '<div />', props: ['modelValue', 'pot'], emits: ['update:modelValue', 'refresh-pots'] },
+        CreatePotModal: { name: 'CreatePotModal', template: '<div />', props: ['modelValue'], emits: ['update:modelValue'] },
+        EditPotModal: { name: 'EditPotModal', template: '<div />', props: ['modelValue', 'pot'], emits: ['update:modelValue'] },
+        DeletePotModal: { name: 'DeletePotModal', template: '<div />', props: ['modelValue', 'pot'], emits: ['update:modelValue'] },
+        PotAddMoneyModal: { name: 'PotAddMoneyModal', template: '<div />', props: ['modelValue', 'pot'], emits: ['update:modelValue'] },
+        PotWithdrawMoneyModal: { name: 'PotWithdrawMoneyModal', template: '<div />', props: ['modelValue', 'pot'], emits: ['update:modelValue'] },
       },
     },
   });
@@ -134,21 +131,6 @@ describe('Pots', () => {
       const withdrawModal = wrapper.findComponent({ name: 'PotWithdrawMoneyModal' });
       expect(withdrawModal.props('modelValue')).toBe(true);
       expect(withdrawModal.props('pot')?.id).toBe('pot-2');
-    });
-  });
-
-  describe('Refresh pots', () => {
-    it('Should call refreshPots when refresh-get-pots is emitted by any modal', async () => {
-      const wrapper = mountComponent();
-
-      const modals = ['CreatePotModal', 'EditPotModal', 'DeletePotModal', 'PotAddMoneyModal', 'PotWithdrawMoneyModal'];
-
-      for (const modalName of modals) {
-        const modal = wrapper.findComponent({ name: modalName });
-        await modal.vm.$emit('refresh-pots');
-        expect(refreshPotsMock).toHaveBeenCalledTimes(1);
-        vi.clearAllMocks();
-      }
     });
   });
 });

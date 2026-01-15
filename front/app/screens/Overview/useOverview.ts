@@ -3,12 +3,39 @@ import { computed } from 'vue';
 import type { OverviewResponse } from './overview.type';
 
 export function useOverview() {
-  const { data, error, pending, refresh } = useApiGet<OverviewResponse>('overview');
+  const { token } = useAuth();
+  const cache = useState<OverviewResponse | null>(`overview-cache-${token.value ?? 'guest'}`, () => null);
 
-  const summaryTransactions = computed(() => data.value?.transactions || null);
-  const summaryPots = computed(() => data.value?.pots || null);
-  const summaryBudgets = computed(() => data.value?.budgets || null);
-  const summaryRecurringBills = computed(() => data.value?.recurringBills || null);
+  const { data, pending, error, refresh } = useApiGet<OverviewResponse>(
+    'overview',
+    {
+      watch: false,
+      immediate: false,
+    },
+  );
+
+  if (!cache.value) {
+    refresh();
+  }
+
+  watch(
+    () => data.value,
+    (val) => {
+      if (val) {
+        cache.value = val;
+      }
+    },
+  );
+
+  const summaryTransactions = computed(() => cache.value?.transactions ?? null);
+  const summaryPots = computed(() => cache.value?.pots ?? null);
+  const summaryBudgets = computed(() => cache.value?.budgets ?? null);
+  const summaryRecurringBills = computed(() => cache.value?.recurringBills ?? null);
+
+  const refreshOverview = async () => {
+    cache.value = null;
+    await refresh();
+  };
 
   return {
     pending,
@@ -19,6 +46,6 @@ export function useOverview() {
     summaryBudgets,
     recurringBills: summaryRecurringBills,
 
-    refreshOverview: refresh,
+    refreshOverview,
   };
 }

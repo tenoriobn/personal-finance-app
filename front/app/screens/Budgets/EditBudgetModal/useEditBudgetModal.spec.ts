@@ -5,7 +5,8 @@ import type { BudgetData } from '../budgets.type';
 
 const putMock = vi.fn();
 const notifyMock = vi.fn();
-const refreshMock = vi.fn();
+const refreshCategoriesAndThemes = vi.fn();
+const refreshAfterBudgetMock = vi.fn();
 
 vi.mock('~/composables', () => ({
   useApiPut: (
@@ -20,6 +21,10 @@ vi.mock('~/composables', () => ({
 
   useToast: () => ({
     notify: notifyMock,
+  }),
+
+  useRefreshAll: () => ({
+    refreshAfterBudget: refreshAfterBudgetMock,
   }),
 
   useCurrencyMask: () => {
@@ -42,7 +47,7 @@ vi.mock('../useCategoriesAndThemes', () => ({
     themes: ref([
       { id: 'theme-1', colorName: 'Red', colorHex: '#ff0000' },
     ]),
-    refreshCategoriesAndThemes: refreshMock,
+    refreshCategoriesAndThemes,
   }),
 }));
 
@@ -116,8 +121,8 @@ describe('useEditBudgetModal', () => {
       },
       undefined,
     );
-
-    expect(refreshMock).toHaveBeenCalled();
+    expect(refreshAfterBudgetMock).toHaveBeenCalledTimes(1);
+    expect(refreshCategoriesAndThemes).toHaveBeenCalled();
     expect(notifyMock).toHaveBeenCalled();
     expect(onSuccess).toHaveBeenCalled();
   });

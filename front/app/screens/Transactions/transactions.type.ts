@@ -16,3 +16,13 @@ export type TransactionsResponse = {
   data: TransactionsData[]
   totalPages: number
 };
+
+export interface TransactionsCache {
+  filters: {
+    search: string | null
+    categoryId: string | null
+    sort: string | null
+    page: number
+  }
+  result: TransactionsResponse
+}

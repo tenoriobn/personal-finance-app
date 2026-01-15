@@ -1,11 +1,12 @@
-import { useApiDelete, useToast } from '~/composables';
+import { useApiDelete, useToast, useRefreshAll } from '~/composables';
 import { useCategoriesAndThemes } from '../useCategoriesAndThemes';
 import type { BudgetData } from '../budgets.type';
 
-export function useDeleteBudgetModal(budget: Ref<BudgetData | null>, onSuccess: () => void) {
+export function useDeleteBudgetModal(budget: Ref<BudgetData | null>, showModal: () => void) {
   const isSubmitting = ref(false);
   const { notify } = useToast();
   const { refreshCategoriesAndThemes } = useCategoriesAndThemes();
+  const { refreshAfterBudget } = useRefreshAll();
 
   const handleSubmit = async () => {
     if (isSubmitting.value || !budget.value) {
@@ -17,9 +18,11 @@ export function useDeleteBudgetModal(budget: Ref<BudgetData | null>, onSuccess: 
     try {
       await useApiDelete(`budgets/${budget.value.id}`);
 
-      notify('error', 'Orçamento deletado com sucesso!');
+      refreshAfterBudget();
       refreshCategoriesAndThemes();
-      onSuccess();
+
+      notify('error', 'Orçamento deletado com sucesso!');
+      showModal();
     }
     finally {
       isSubmitting.value = false;

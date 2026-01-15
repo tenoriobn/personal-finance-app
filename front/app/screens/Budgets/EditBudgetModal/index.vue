@@ -67,7 +67,7 @@ const { modelValue, budget } = defineProps<{
   budget: BudgetData | null
 }>();
 
-const emit = defineEmits(['update:modelValue', 'refreshBudgets']);
+const emit = defineEmits(['update:modelValue']);
 
 const showModal = computed({
   get: () => modelValue,
@@ -89,10 +89,7 @@ const {
   handleSubmit,
 } = useEditBudgetModal(
   () => budget,
-  () => {
-    emit('refreshBudgets');
-    showModal.value = false;
-  },
+  () => showModal.value = false,
 );
 
 watch(showModal, (isOpen) => {

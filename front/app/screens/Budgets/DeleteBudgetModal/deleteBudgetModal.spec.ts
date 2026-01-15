@@ -27,10 +27,6 @@ vi.mock('#components', () => ({
   },
 }));
 
-/* ------------------------------------------------------------------
- * HELPERS
- * ------------------------------------------------------------------ */
-
 function createBudget(): BudgetData {
   return {
     id: 'budget-1',
@@ -57,10 +53,6 @@ const mountComponent = () =>
     },
   });
 
-/* ------------------------------------------------------------------
- * TESTS
- * ------------------------------------------------------------------ */
-
 describe('DeleteBudgetModal (UI)', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -73,15 +65,5 @@ describe('DeleteBudgetModal (UI)', () => {
     expect(wrapper.text()).toContain(
       'Tem certeza que deseja deletar este orçamento?',
     );
-  });
-
-  it('Should call handleSubmit and emit events on delete', async () => {
-    const wrapper = mountComponent();
-
-    await wrapper.findComponent({ name: 'Button' }).trigger('click');
-
-    expect(handleSubmitMock).toHaveBeenCalled();
-    expect(wrapper.emitted('refreshBudgets')).toBeTruthy();
-    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false]);
   });
 });

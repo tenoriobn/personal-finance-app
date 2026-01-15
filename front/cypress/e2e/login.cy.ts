@@ -1,5 +1,6 @@
 describe('Login — Acesso à conta', () => {
   const visitPage = () => {
+    cy.setPerformanceWarningAsSeen();
     cy.visit('/login');
     cy.waitForNuxtHydration();
   };
