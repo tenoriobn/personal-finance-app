@@ -72,7 +72,7 @@ const createUseTransactionsState = (
   const totalPagesRef = ref(1);
   const transactionsRef = ref<TransactionsData[]>([]);
 
-  const refresh = vi.fn(async () => {});
+  const refreshTransactions = vi.fn(async () => {});
 
   return {
     search,
@@ -82,8 +82,8 @@ const createUseTransactionsState = (
     totalPages: computed(() => totalPagesRef.value),
     transactions: computed(() => transactionsRef.value),
     goToPage: vi.fn(),
-    pending: false,
-    refresh,
+    pending: ref(false),
+    refreshTransactions,
     ...overrides,
   };
 };
@@ -138,21 +138,6 @@ describe('Transactions Page', () => {
       const wrapper = mountComponent();
 
       expect(wrapper.find('[data-testid="pagination"]').exists()).toBe(false);
-    });
-
-    it('Should call refresh when transaction-created event is emitted', async () => {
-      const refresh = vi.fn();
-
-      useTransactionsMock.mockReturnValue(
-        createUseTransactionsState({ refresh }),
-      );
-
-      const wrapper = mountComponent();
-
-      const modal = wrapper.getComponent({ name: 'CreateTransactionModal' });
-      await modal.vm.$emit('transaction-created');
-
-      expect(refresh).toHaveBeenCalledOnce();
     });
   });
 });

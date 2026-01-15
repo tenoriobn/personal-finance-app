@@ -5,7 +5,8 @@ import type { BudgetData } from '../budgets.type';
 
 const deleteMock = vi.fn();
 const notifyMock = vi.fn();
-const refreshMock = vi.fn();
+const refreshCategoriesAndThemes = vi.fn();
+const refreshAfterBudgetMock = vi.fn();
 
 vi.mock('~/composables', () => ({
   useApiDelete: (endpoint: string) => deleteMock(endpoint),
@@ -13,11 +14,15 @@ vi.mock('~/composables', () => ({
   useToast: () => ({
     notify: notifyMock,
   }),
+
+  useRefreshAll: () => ({
+    refreshAfterBudget: refreshAfterBudgetMock,
+  }),
 }));
 
 vi.mock('../useCategoriesAndThemes', () => ({
   useCategoriesAndThemes: () => ({
-    refreshCategoriesAndThemes: refreshMock,
+    refreshCategoriesAndThemes,
   }),
 }));
 
@@ -68,11 +73,12 @@ describe('useDeleteBudgetModal', () => {
     await handleSubmit();
 
     expect(deleteMock).toHaveBeenCalledWith('budgets/budget-1');
+    expect(refreshAfterBudgetMock).toHaveBeenCalledTimes(1);
+    expect(refreshCategoriesAndThemes).toHaveBeenCalled();
     expect(notifyMock).toHaveBeenCalledWith(
       'error',
       'Orçamento deletado com sucesso!',
     );
-    expect(refreshMock).toHaveBeenCalled();
     expect(onSuccess).toHaveBeenCalled();
     expect(isSubmitting.value).toBe(false);
   });

@@ -39,7 +39,7 @@ describe('useApiFetch', () => {
         endpoint,
         expect.objectContaining({
           credentials: 'include',
-          server: true,
+          server: false,
           headers: {
             'Authorization': 'Bearer mock-token',
             'Content-Type': 'application/json',

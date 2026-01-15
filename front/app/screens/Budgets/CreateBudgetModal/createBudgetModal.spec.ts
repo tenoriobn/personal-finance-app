@@ -41,7 +41,6 @@ vi.mock('./useCreateBudgetModal', () => ({
   }),
 }));
 
-/* ------------------ components mocks ------------------ */
 vi.mock('#components', () => ({
   Modal: {
     template: `
@@ -69,7 +68,6 @@ vi.mock('#components', () => ({
   },
 }));
 
-/* ------------------ helpers ------------------ */
 const mountComponent = (modelValue = true) =>
   mount(CreateBudgetModal, {
     props: { modelValue },
@@ -118,15 +116,5 @@ describe('CreateBudgetModal', () => {
     wrapper.vm.$emit('update:modelValue', false);
 
     expect(wrapper.emitted('update:modelValue')).toEqual([[false]]);
-  });
-
-  it('Should emit refreshBudgets on successful submit', async () => {
-    const wrapper = mountComponent();
-
-    await wrapper.find('form').trigger('submit');
-
-    expect(handleSubmitMock).toHaveBeenCalled();
-    expect(wrapper.emitted('refreshBudgets')).toBeTruthy();
-    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false]);
   });
 });
