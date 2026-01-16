@@ -5,7 +5,7 @@ Aplicação **full-stack de controle financeiro pessoal**, desenvolvida como pro
 O projeto permite gerenciar **transações**, **orçamentos**, **poupanças (pots)**, **contas recorrentes**, **categorias**, **temas** e **usuários**, simulando um sistema real de finanças pessoais.
 
 🔗 **Front-end (Vercel)**
-[https://personal-finance-app-rosy.vercel.app](https://personal-finance-app-rosy.vercel.app)
+[https://app-personal-finance.vercel.app](https://app-personal-finance.vercel.app)
 
 🔗 **Back-end (Render)**
 [https://personal-finance-app-qsyl.onrender.com](https://personal-finance-app-qsyl.onrender.com)
@@ -46,7 +46,7 @@ O objetivo não foi apenas “fazer funcionar”, mas **pensar como um projeto r
 
 ## 🏗 Arquitetura do Projeto
 
-Este repositório separa claramente responsabilidades:
+Este repositório separa claramente responsabilidades entre front-end e back-end:
 
 ```txt
 .
@@ -66,11 +66,11 @@ Este repositório separa claramente responsabilidades:
 ### Back-end
 
 * API REST com **Hono**
-* Testes unitários e de integração **Vitest**
 * Prisma como ORM
 * MongoDB como banco de dados
 * Middlewares para autenticação, autorização, logs e tratamento de erros
 * Arquitetura modular por domínio (`modules`)
+* Testes unitários e de integração **Vitest**
 * Deploy automatizado no **Render**
 
 ---
@@ -92,8 +92,8 @@ Este repositório separa claramente responsabilidades:
 
 * **Node.js**
 * **Hono**
+* **Vitest**
 * **Prisma**
-* **Typescript**
 * **MongoDB**
 * **Zod**
 * **JWT**
@@ -131,6 +131,19 @@ Essa estrutura evita:
 * Builds desnecessários
 * Falsos bloqueios de PR
 * Complexidade excessiva
+
+---
+
+## 👤 Acesso com Conta DEMO
+
+Para facilitar a avaliação do projeto por recrutadores e usuários, a aplicação oferece uma **conta DEMO**.
+
+### Características da conta DEMO
+
+* Inicia com **dados financeiros simulados**
+* Permite **editar, criar e remover informações** normalmente
+* Ao sair e entrar novamente, os dados são **resetados para o estado inicial**
+* Ideal para explorar o sistema **sem necessidade de cadastro**
 
 ---
 
@@ -192,6 +205,7 @@ http://localhost:4000
 * `npm run dev` — API em modo watch
 * `npm run build` — build com Prisma
 * `npm run prisma:studio` — visualizar dados
+* `npm run test` — testes de integração e unitários
 * `npm run lint` — lint do código
 
 ---
